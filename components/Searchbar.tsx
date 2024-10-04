@@ -1,0 +1,42 @@
+"use client"
+import React, { useState, useCallback } from 'react';
+import { IoSearchOutline } from "react-icons/io5";
+
+interface SearchbarProps {
+  onSearch: (query: string) => void;
+}
+
+import { debounce } from 'lodash';
+
+const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const debouncedSearch = useCallback(
+    debounce((query: string) => {
+      onSearch(query);
+    }, 300),
+    [onSearch]
+  );
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    debouncedSearch(value);
+  };
+
+  return (
+    <div className="relative flex items-center rounded-md border border-gray-500 bg-black">
+      <div className='text-gray-400 text-[17px] pl-4'>
+        <IoSearchOutline />
+      </div>
+      <input
+        type="text"
+        placeholder="Search movies, tv shows, actors and more..."
+        value={searchTerm}
+        onChange={handleInputChange}
+        className="w-full py-3 px-4 text-gray-100 rounded-md bg-black placeholder-gray-400 focus:outline-none focus:border-transparent"
+      />
+    </div>
+  );
+};
+export default Searchbar;
