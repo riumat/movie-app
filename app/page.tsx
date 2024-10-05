@@ -24,11 +24,6 @@ export default async function Home() {
   const movies = await fetchPopularMovies();
 
   return (
-    <div className="font-[family-name:var(--font-geist-mono)] flex relative min-h-screen">
-      <div className="relative z-10 flex w-full">
-        <Sidebar />
-        <Hero movies={movies} />
-      </div>
-    </div>
+    <Hero movies={movies} />
   );
 }

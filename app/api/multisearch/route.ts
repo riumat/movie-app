@@ -20,7 +20,6 @@ export async function GET(request: Request) {
         accept: 'application/json',
       },
     });
-    console.log(response.data.results);
     return Response.json(response.data);
   } catch (error) {
     console.error('Error fetching data:', error);
