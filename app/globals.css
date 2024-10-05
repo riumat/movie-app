@@ -25,3 +25,13 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer base {
+  .scrollbar-thin {
+    @apply [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-thumb]:bg-white overflow-scroll;
+  }
+
+  .neon-shadow {
+    @apply -inset-0.5 bg-gradient-to-r from-teal-300 to-cyan-400 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 blur opacity-30;
+  }
+}

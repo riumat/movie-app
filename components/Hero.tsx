@@ -1,18 +1,52 @@
 "use client"
 import Searchbar from '@/components/Searchbar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { imageUrl } from '@/utils/constants';
+import axios from 'axios';
+import MultiCard from '@/components/MultiCard';
+import { set } from 'lodash';
+import PageSelector from '@/components/PageSelector';
 
 interface Movie {
   poster_path: string;
   title: string;
+}
+interface SearchResult {
+  name?: string;
+  title?: string;
 }
 
 interface HeroProps {
   movies: Movie[];
 }
 const Hero: React.FC<HeroProps> = ({ movies }) => {
+  const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
+  const [page, setPage] = React.useState<number>(1);
+  const [totalPages, setTotalPages] = React.useState<number>(1);
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
+
+  const handleSearch = (query: string, pageNum: number = 1) => {
+    axios.get(`/api/multisearch`, {
+      params: {
+        query: query,
+        page: pageNum,
+      }
+    })
+      .then(response => {
+        setSearchResults(response.data.results);
+        setTotalPages(response.data.total_pages);
+        setPage(pageNum);
+        setSearchQuery(query);
+      })
+      .catch(error => {
+        console.error('Error fetching search results:', error);
+      })
+  }
+
+  useEffect(() => {
+    handleSearch(searchQuery, page);
+  }, [page]);
 
   return (
     <div className="relative flex-1">
@@ -30,19 +64,39 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-black " />
-      </div>
-      <div className="relative h-full z-10 flex items-center justify-center">
-        <div className='w-full max-w-4xl mt-56'>
-          <div className="relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-300 to-cyan-400 rounded-lg blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+      </div >
+
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-black " />
+      {searchResults.length === 0 ? (
+        <div className="relative h-full z-10 flex items-center justify-center">
+          <div className='w-full max-w-4xl mt-56'>
             <div className="relative">
-              <Searchbar onSearch={(query) => { console.log(query) }} />
+              <div className="absolute neon-shadow rounded-lg "></div>
+              <div className="relative">
+                <Searchbar onSearch={(query) => { handleSearch(query) }} />
+              </div>
+            </div >
+          </div >
+        </div >
+      ) : (
+        <div className="relative h-full z-10 flex flex-col items-center">
+          <div className='w-full max-w-4xl mt-8'>
+            <div className="relative">
+              <div className="absolute neon-shadow rounded-lg  "></div>
+              <div className="relative">
+                <Searchbar onSearch={(query) => { handleSearch(query) }} />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+            <div className="mt-8 w-full max-w-5xl flex flex-col space-y-2 overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
+              {searchResults.map((result, index) => (
+                <MultiCard key={index} item={result} />
+              ))}
+            </div>
+            <PageSelector page={page} setPage={(page) => setPage(page)} totalPages={totalPages} />
+          </div>
+      )}
+    </div >
   );
 };
 

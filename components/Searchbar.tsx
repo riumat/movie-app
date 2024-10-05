@@ -25,7 +25,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative flex items-center rounded-md border border-gray-500 bg-black">
+    <div className="relative flex items-center rounded-md border border-teal-200/60 bg-black">
       <div className='text-gray-400 text-[17px] pl-4'>
         <IoSearchOutline />
       </div>
