@@ -88,7 +88,7 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
               </div>
             </div>
           </div>
-            <div className="mt-8 w-full max-w-5xl flex flex-col space-y-2 overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
+            <div className="mt-8 w-full max-w-5xl flex flex-col  overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
               {searchResults.map((result, index) => (
                 <MultiCard key={index} item={result} />
               ))}
