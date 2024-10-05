@@ -9,12 +9,14 @@ interface CardProps {
     poster_path?: string;
     release_date?: string;
     first_air_date?: string;
+    profile_path?: string;
   };
 }
 
 const MultiCard: React.FC<CardProps> = ({ item }) => {
   const title = item.name || item.title || 'Unknown';
-  const imageUrl = item.poster_path ? `https://image.tmdb.org/t/p/w154${item.poster_path}`: 'https://placehold.co/150x150.webp';
+  const imagePath = item.poster_path ?? item.profile_path;
+  const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w154${imagePath}`: 'https://via.placeholder.com/150';
 
   return (
     <div className="w-full m-4 flex gap-2 bg-transparent ">
