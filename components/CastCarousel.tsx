@@ -28,7 +28,7 @@ function CastCarousel({ cast }: { cast: Cast[] }) {
     <div className="relative">
       <div className="flex gap-2 flex-wrap justify-center">
         {cast.slice(currentIndex, currentIndex + 5).map((actor) => (
-          <NameCard key={actor.id} name={actor.name} imagePath={`${imageUrl}/t/p/w154${actor.profile_path}`} character={actor.character} />
+          <NameCard key={actor.id} name={actor.name} imagePath={`${imageUrl}/t/p/w154${actor.profile_path}`} />
         ))}
       </div>
       <button onClick={prevSlide} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-l">

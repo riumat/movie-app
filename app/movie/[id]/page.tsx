@@ -5,6 +5,8 @@ import NameSection from '@/components/NameSection';
 import NameCard from '@/components/NameCard';
 import CastCarousel from '@/components/CastCarousel';
 import ProviderSection from '@/components/ProvidersSection';
+import { formatDate, formatMinutes } from '@/utils/functions';
+import CrewSection from '@/components/CrewSection';
 
 interface MovieData {
   id: number,
@@ -22,7 +24,7 @@ interface MovieData {
   genres: {
     id: number,
     name: string,
-  },
+  }[],
   homepage: string,
   overview: string,
   poster_path: string,
@@ -43,7 +45,12 @@ interface MovieData {
       character: string,
       profile_path: string,
     }[],
-    crew: {}[],
+    crew: {
+      id: number,
+      name: string,
+      job: string,
+      profile_path: string,
+    }[],
   },
   videos: {
     results: {}[],
@@ -99,11 +106,31 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center">
+    <div className="flex-1 flex flex-col items-center gap-5">
       <NameSection images={movieData.images.backdrops} movieData={movieData} logo={movieData.images.logos} />
+      <div className='w-full flex mt-3 justify-center'>
+        <p className='font-bold'>{movieData.tagline}</p>
+      </div>
+
+      <div className='flex justify-evenly w-full'>
+
+        <CrewSection crew={movieData.credits.crew} />
+
+        <div className='flex gap-10'>
+          <p>{formatDate(movieData.release_date)}</p>
+          <p>{formatMinutes(movieData.runtime)}</p>
+          <div>
+            {movieData.genres.map((genre, index, array) => (
+              <span key={genre.id} className="mr-2">
+                {genre.name}{index < array.length - 1 ? ',' : ''}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <ProviderSection providers={movieData.providers.results.IT?.flatrate} />
       <div className="flex flex-col pt-6">
-        <p className="w-full justify-center">{movieData.tagline}</p>
         <h2 className="text-2xl font-semibold mb-2">Cast</h2>
         <CastCarousel cast={movieData.credits.cast} />
       </div>
