@@ -27,8 +27,6 @@ interface MovieComponentProps {
   }[],
 }
 
-//fix lingua titolo film
-
 const NameSection: React.FC<MovieComponentProps> = ({ images, movieData, logo }) => {
   return (
     <div className="relative min-h-[300px] ">
@@ -53,13 +51,12 @@ const NameSection: React.FC<MovieComponentProps> = ({ images, movieData, logo })
       
 
       <div className="absolute inset-0 flex flex-col gap-5 justify-end items-center  text-white p-5 bg-gradient-to-b from-transparent via-black/85 to-black ">
-        {/* <h2 className="text-3xl font-bold mb-2 ">{movieData.title}</h2> */}
         <Image
-          src={`${imageUrl}/w780${logo.filter((l) => l.iso_639_1 === "en")[0].file_path}`}
+          src={`${imageUrl}/w780${logo.filter((l) => l.iso_639_1 === "en")[1].file_path}`}
           width={200}
           height={200}
           alt={"logo"}
-          style={{ width: 'auto', height: 'auto', maxWidth: '300px', maxHeight: '150px', filter: 'grayscale(100%) contrast(0%) brightness(100%) ' }}
+          style={{ width: 'auto', height: 'auto', maxWidth: '300px', maxHeight: '150px', filter: 'grayscale(0%) contrast(100%) brightness(100%) ' }}
           priority
         />
         <div className='w-[50%] flex justify-center items-center'>
