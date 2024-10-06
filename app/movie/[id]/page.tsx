@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { baseUrl } from '@/utils/constants';
+import { baseUrl, imageUrl } from '@/utils/constants';
 import NameSection from '@/components/NameSection';
+import NameCard from '@/components/NameCard';
+import CastCarousel from '@/components/CastCarousel';
+import ProviderSection from '@/components/ProvidersSection';
 
 interface MovieData {
   id: number,
@@ -31,11 +34,14 @@ interface MovieData {
   release_date: string,
   revenue: number,
   runtime: number,
+  tagline: string,
   status: string,
   credits: {
     cast: {
       id: number,
       name: string,
+      character: string,
+      profile_path: string,
     }[],
     crew: {}[],
   },
@@ -48,13 +54,26 @@ interface MovieData {
     total_results: number,
     results: {}[],
   },
-
+  providers: {
+    results: {
+      IT: {
+        link: string,
+        flatrate: {
+          provider_id: number,
+          provider_name: string,
+          logo_path: string,
+          display_priority: number,
+        }[],
+      },
+    },
+  }
 }
 
 async function getMovieData(movieId: string) {
-  const [movieRes, imagesRes] = await Promise.all([
+  const [movieRes, imagesRes, providersRes] = await Promise.all([
     fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recomendations,similar`),
-    fetch(`${baseUrl}/movie/${movieId}/images?api_key=${process.env.TMDB_API_KEY}`)
+    fetch(`${baseUrl}/movie/${movieId}/images?api_key=${process.env.TMDB_API_KEY}`),
+    fetch(`${baseUrl}/movie/${movieId}/watch/providers?api_key=${process.env.TMDB_API_KEY}`),
   ]);
 
   if (!movieRes.ok || !imagesRes.ok) {
@@ -63,8 +82,9 @@ async function getMovieData(movieId: string) {
 
   const movieData = await movieRes.json();
   const imagesData = await imagesRes.json();
+  const providersData = await providersRes.json();
 
-  return { ...movieData, images: imagesData };
+  return { ...movieData, images: imagesData, providers: providersData };
 }
 
 export default async function MoviePage({ params }: { params: { id: string } }) {
@@ -79,17 +99,16 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="flex-1 flex flex-col items-center">
       <NameSection images={movieData.images.backdrops} movieData={movieData} logo={movieData.images.logos} />
-      <div className="md:w-2/3 md:pl-8">
-        <p className="text-lg mb-4">{movieData.overview}</p>
+      <ProviderSection providers={movieData.providers.results.IT?.flatrate} />
+      <div className="flex flex-col pt-6">
+        <p className="w-full justify-center">{movieData.tagline}</p>
         <h2 className="text-2xl font-semibold mb-2">Cast</h2>
-        <ul className="list-disc list-inside">
-          {movieData.credits.cast.slice(0, 5).map((actor: { id: number; name: string }) => (
-            <li key={actor.id}>{actor.name}</li>
-          ))}
-        </ul>
+        <CastCarousel cast={movieData.credits.cast} />
       </div>
     </div>
   );
 }
+
+
