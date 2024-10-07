@@ -26,7 +26,7 @@ const ProviderSection: React.FC<WatchProviderProps> = ({ providers }) => {
         {providers.slice(0, 3).filter((p) => (p.display_priority < 20)).map((provider) => (
           <div key={provider.provider_id} className="flex items-center space-x-2 mb-2 rounded-md">
             <Image
-              src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+              src={`https://image.tmdb.org/t/p/w154${provider.logo_path}`}
               alt={provider.provider_name}
               width={40}
               height={40}

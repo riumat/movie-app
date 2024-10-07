@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { baseUrl, imageUrl } from '@/utils/constants';
+import { baseUrl, imageUrl, imgWidth } from '@/utils/constants';
 import NameSection from '@/components/NameSection';
 import NameCard from '@/components/NameCard';
 import CastCarousel from '@/components/CastCarousel';
@@ -12,6 +12,9 @@ interface MovieData {
   id: number,
   title: string,
   images: {
+    posters: {
+      file_path: string,
+    }[],
     backdrops: {
       file_path: string,
     }[],
@@ -78,7 +81,7 @@ interface MovieData {
 
 async function getMovieData(movieId: string) {
   const [movieRes, imagesRes, providersRes] = await Promise.all([
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recomendations,similar`),
+    fetch(`${baseUrl}/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recomendations,similar`),
     fetch(`${baseUrl}/movie/${movieId}/images?api_key=${process.env.TMDB_API_KEY}`),
     fetch(`${baseUrl}/movie/${movieId}/watch/providers?api_key=${process.env.TMDB_API_KEY}`),
   ]);
@@ -106,15 +109,12 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center gap-5">
+    <div className="flex-1 flex flex-col items-center gap-12">
       <NameSection images={movieData.images.backdrops} movieData={movieData} logo={movieData.images.logos} />
-      <div className='w-full flex mt-3 justify-center'>
-        <p className='font-bold'>{movieData.tagline}</p>
-      </div>
-
-      <div className='flex justify-evenly w-full'>
-
-        <CrewSection crew={movieData.credits.crew} />
+      <div className='flex flex-col gap-5'>
+        <div className='w-full flex justify-center'>
+          <p className='font-bold'>{movieData.tagline}</p>
+        </div>
 
         <div className='flex gap-10'>
           <p>{formatDate(movieData.release_date)}</p>
@@ -129,10 +129,16 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
         </div>
       </div>
 
-      <ProviderSection providers={movieData.providers.results.IT?.flatrate} />
-      <div className="flex flex-col pt-6">
-        <h2 className="text-2xl font-semibold mb-2">Cast</h2>
+      <div className='flex flex-col gap-5 mt-5'>
+        <CrewSection crew={movieData.credits.crew} />
+      </div>
+
+      <div className="flex flex-col pt-6 relative">
+        <h2 className="text-center font-semibold mb-2">Cast</h2>
         <CastCarousel cast={movieData.credits.cast} />
+      </div>
+      <div className='flex-1'>
+        <ProviderSection providers={movieData.providers.results.IT?.flatrate} />
       </div>
     </div>
   );

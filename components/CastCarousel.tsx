@@ -10,7 +10,6 @@ interface Cast {
   id: number,
   name: string,
   profile_path: string,
-  character: string,
 }
 
 function CastCarousel({ cast }: { cast: Cast[] }) {
@@ -25,18 +24,25 @@ function CastCarousel({ cast }: { cast: Cast[] }) {
   };
 
   return (
-    <div className="relative">
-      <div className="flex gap-2 flex-wrap justify-center">
+    <div className="">
+      <div className="flex gap-2 justify-center items-center">
+        {cast.length > 1 && (
+          <button onClick={prevSlide} className="h-8 w-8 bg-gray-300 text-gray-900 p-2 rounded-l">
+            <GrFormPrevious />
+          </button>
+
+        )}
         {cast.slice(currentIndex, currentIndex + 5).map((actor) => (
           <NameCard key={actor.id} name={actor.name} imagePath={`${imageUrl}/t/p/w154${actor.profile_path}`} />
         ))}
+        {cast.length > 1 && (
+
+          <button onClick={nextSlide} className="h-8 w-8 bg-gray-300 text-gray-900 p-2 rounded-r">
+            <GrFormNext />
+          </button>
+        )}
       </div>
-      <button onClick={prevSlide} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-l">
-        <GrFormPrevious />
-      </button>
-      <button onClick={nextSlide} className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-r">
-        <GrFormNext />
-      </button>
+
     </div>
   );
 }

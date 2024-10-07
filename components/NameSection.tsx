@@ -1,4 +1,4 @@
-import { imageUrl } from '@/utils/constants';
+import { imageUrl, imgWidth } from '@/utils/constants';
 import Image from 'next/image';
 import React from 'react';
 
@@ -27,20 +27,20 @@ interface MovieComponentProps {
   }[],
 }
 
-const NameSection: React.FC<MovieComponentProps> = ({ images, movieData, logo }) => {
+const NameSection: React.FC<MovieComponentProps> = ({ images, movieData }) => {
   return (
     <div className="relative min-h-[300px] w-full ">
 
       <div className="absolute inset-0 z-0 ">
         <div className="flex h-full">
-          {images.slice(0, 2).map((path, index) => (
+          {images.slice(0, 1).map((path, index) => (
             <div key={index} className="flex-1 relative">
               <Image
-                src={`${imageUrl}/w780${path.file_path}`}
+                src={`${imageUrl}${imgWidth.backdrop.original}${path.file_path}`}
                 alt={index.toString()}
                 layout="fill"
                 objectFit="cover"
-                className="filter grayscale-[80%] brightness-90"
+                className="filter grayscale-[60%] brightness-90"
                 priority
               />
             </div>
@@ -48,29 +48,14 @@ const NameSection: React.FC<MovieComponentProps> = ({ images, movieData, logo })
         </div>
       </div >
 
-
-
-      <div className="absolute inset-0 flex flex-col gap-5 justify-end items-center  text-white p-5 bg-gradient-to-b from-transparent via-black/85 to-black ">
-        {logo.filter((l) => l.iso_639_1 === "en")[0] ? (
-          <Image
-            src={`${imageUrl}/w780${logo.filter((l) => l.iso_639_1 === "en")[1].file_path}`}
-            width={200}
-            height={200}
-            alt={"logo"}
-            style={{ width: 'auto', height: 'auto', maxWidth: '300px', maxHeight: '150px', filter: 'grayscale(0%) contrast(100%) brightness(100%) ' }}
-            priority
-          />
-        ) : (
-          <h2 className="text-3xl font-bold mb-2 ">{movieData.title}</h2>
-
-        )}
-
+      <div className="absolute inset-0 flex flex-col gap-5 justify-end items-center  text-white p-5 bg-gradient-to-b from-transparent via-60% via-black/80 to-black ">
+        <h2 className="text-4xl font-bold mb-2 ">{movieData.title}</h2>
         <div className='w-[50%] flex justify-center items-center'>
           {movieData.production_companies.map((company, index) => (
             company.logo_path && (
               <div key={index} className={`flex-1 flex justify-center`}>
                 <Image
-                  src={`${imageUrl}/w780${company.logo_path}`}
+                  src={`${imageUrl}${imgWidth.logo[154]}${company.logo_path}`}
                   width={100}
                   height={100}
                   alt={company.name}
@@ -82,6 +67,7 @@ const NameSection: React.FC<MovieComponentProps> = ({ images, movieData, logo })
           ))}
         </div>
       </div>
+
     </div>
   );
 };

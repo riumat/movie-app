@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistMono.variable} antialiased`}
+        className={`${geistMono.variable} ${geistSans.variable} antialiased`}
       >
-        <div className="font-[family-name:var(--font-geist-mono)] flex relative min-h-screen">
+        <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen">
           <div className="relative z-10 flex w-full">
             <Sidebar />
             {children}
