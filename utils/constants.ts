@@ -34,7 +34,7 @@ export const imgWidth = {
   }
 }
 
-//Poster: w92, w154, w185, w342, w500, w780, original
-//Backdrop: w300, w780, w1280, original
-//Profilo: w45, w185, h632, original
-//Logo: w45, w92, w154, w185, w300, w500, original
+export const placeholders = {
+  profile: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+  multi: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/PlaceholderRoss.png/640px-PlaceholderRoss.png",
+}

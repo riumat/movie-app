@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import Sidebar from "@/components/Sidebar";
 import { baseUrl } from "@/utils/constants";
 import axios from "axios";
+import { Suspense } from "react";
+import { BeatLoader } from "react-spinners";
 
 export default async function Home() {
   const bearerToken = process.env.TMDB_BEARER;

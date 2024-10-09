@@ -1,83 +1,13 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import { baseUrl, imageUrl, imgWidth } from '@/utils/constants';
+import { baseUrl } from '@/utils/constants';
 import NameSection from '@/components/NameSection';
-import NameCard from '@/components/NameCard';
 import CastCarousel from '@/components/CastCarousel';
 import ProviderSection from '@/components/ProvidersSection';
 import { formatDate, formatMinutes } from '@/utils/functions';
 import CrewSection from '@/components/CrewSection';
+import MediaHero from '@/components/MediaHero';
+import { MovieData } from '@/utils/types';
 
-interface MovieData {
-  id: number,
-  title: string,
-  images: {
-    posters: {
-      file_path: string,
-    }[],
-    backdrops: {
-      file_path: string,
-    }[],
-    logos: {
-      iso_639_1: string,
-      file_path: string,
-    }[]
-  },
-  budget: number,
-  genres: {
-    id: number,
-    name: string,
-  }[],
-  homepage: string,
-  overview: string,
-  poster_path: string,
-  production_companies: {
-    id: number,
-    logo_path: string,
-    name: string,
-  }[],
-  release_date: string,
-  revenue: number,
-  runtime: number,
-  tagline: string,
-  status: string,
-  credits: {
-    cast: {
-      id: number,
-      name: string,
-      character: string,
-      profile_path: string,
-    }[],
-    crew: {
-      id: number,
-      name: string,
-      job: string,
-      profile_path: string,
-    }[],
-  },
-  videos: {
-    results: {}[],
-  },
-  similar: {
-    page: number,
-    total_pages: number,
-    total_results: number,
-    results: {}[],
-  },
-  providers: {
-    results: {
-      IT: {
-        link: string,
-        flatrate: {
-          provider_id: number,
-          provider_name: string,
-          logo_path: string,
-          display_priority: number,
-        }[],
-      },
-    },
-  }
-}
 
 async function getMovieData(movieId: string) {
   const [movieRes, imagesRes, providersRes] = await Promise.all([
@@ -103,43 +33,38 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
 
   try {
     movieData = await getMovieData(movieId);
-    console.log(movieData)
+    //console.log(movieData)
   } catch (error) {
     notFound();
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center gap-12">
+    <div className="flex-1 flex flex-col items-center gap-20 w-full">
       <NameSection images={movieData.images.backdrops} movieData={movieData} logo={movieData.images.logos} />
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col gap-5 w-full'>
         <div className='w-full flex justify-center'>
           <p className='font-bold'>{movieData.tagline}</p>
         </div>
-
-        <div className='flex gap-10'>
-          <p>{formatDate(movieData.release_date)}</p>
-          <p>{formatMinutes(movieData.runtime)}</p>
-          <div>
-            {movieData.genres.map((genre, index, array) => (
-              <span key={genre.id} className="mr-2">
-                {genre.name}{index < array.length - 1 ? ',' : ''}
-              </span>
-            ))}
+        <div className='flex justify-evenly items-center '>
+          <div className='flex gap-10'>
+            <p>{formatDate(movieData.release_date)}</p>
+            <p>{formatMinutes(movieData.runtime)}</p>
+            <div>
+              {movieData.genres.map((genre, index, array) => (
+                <span key={genre.id} className="mr-2">
+                  {genre.name}{index < array.length - 1 ? ',' : ''}
+                </span>
+              ))}
+            </div>
           </div>
+
+
         </div>
-      </div>
 
-      <div className='flex flex-col gap-5 mt-5'>
-        <CrewSection crew={movieData.credits.crew} />
       </div>
+      <MediaHero movieData={movieData} />
 
-      <div className="flex flex-col pt-6 relative">
-        <h2 className="text-center font-semibold mb-2">Cast</h2>
-        <CastCarousel cast={movieData.credits.cast} />
-      </div>
-      <div className='flex-1'>
-        <ProviderSection providers={movieData.providers.results.IT?.flatrate} />
-      </div>
+
     </div>
   );
 }

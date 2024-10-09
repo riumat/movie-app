@@ -1,44 +1,63 @@
 "use client"
 import NameCard from "@/components/NameCard";
-import { imageUrl } from "@/utils/constants";
+import { imageUrl, imgWidth, placeholders } from "@/utils/constants";
+import { CrewFormatted, CrewMember } from "@/utils/types";
 import { useState } from "react";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
 
-interface Cast {
-  id: number,
-  name: string,
-  profile_path: string,
-}
 
-function CastCarousel({ cast }: { cast: Cast[] }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+
+function CastCarousel({ personList }: { personList: CrewMember[] }) {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 5) % cast.length);
+
+    setCurrentIndex((prevIndex) => (prevIndex + 5) % personList.length);
+    console.log(currentIndex)
+    console.log(personList.length)
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 5 + cast.length) % cast.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 5 + personList.length) % personList.length);
   };
 
   return (
     <div className="">
-      <div className="flex gap-2 justify-center items-center">
-        {cast.length > 1 && (
-          <button onClick={prevSlide} className="h-8 w-8 bg-gray-300 text-gray-900 p-2 rounded-l">
-            <GrFormPrevious />
+      <div className="flex justify-center items-center">
+        {personList.length > 5 && (
+          <button
+            onClick={prevSlide}
+            className=" bg-gray-300/20 text-gray-100 p-1 rounded-full enabled:active:scale-95 enabled:hover:bg-gray-100/25 disabled:opacity-40"
+            disabled={currentIndex === 0}
+          >
+            <div className="text-[28px]">
+              <GrFormPrevious />
+            </div>
           </button>
 
         )}
-        {cast.slice(currentIndex, currentIndex + 5).map((actor) => (
-          <NameCard key={actor.id} name={actor.name} imagePath={`${imageUrl}/t/p/w154${actor.profile_path}`} />
-        ))}
-        {cast.length > 1 && (
+        <div className="flex gap-10 flex-1 justify-center">
+          {personList.slice(currentIndex, currentIndex + 5).map((person) => (
+            <NameCard
+              key={person.id}
+              name={person.name}
+              imagePath={person.profile_path ? `${imageUrl}${imgWidth.profile[185]}${person.profile_path}` : `${placeholders.profile}`}
+              desc={(person.character ?? person.job) as string}
+            />
+          ))}
+        </div>
+        {personList.length > 5 && (
 
-          <button onClick={nextSlide} className="h-8 w-8 bg-gray-300 text-gray-900 p-2 rounded-r">
-            <GrFormNext />
+          <button
+            onClick={nextSlide}
+            className=" bg-gray-300/20 text-gray-100 p-1 rounded-full enabled:active:scale-95 enabled:hover:bg-gray-100/25 disabled:opacity-40"
+            disabled={currentIndex + 5 > personList.length}
+          >
+            <div className="text-[28px]">
+              <GrFormNext />
+            </div>
           </button>
         )}
       </div>
