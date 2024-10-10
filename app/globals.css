@@ -32,6 +32,6 @@ body {
   }
 
   .neon-shadow {
-    @apply -inset-0.5 bg-gradient-to-r from-teal-300 to-cyan-400 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 blur opacity-30;
+    @apply -inset-0.5 bg-teal-50 group-hover:opacity-100  group-hover:duration-200 blur opacity-30;
   }
 }

@@ -11,7 +11,7 @@ import { MovieData } from '@/utils/types';
 
 async function getMovieData(movieId: string) {
   const [movieRes, imagesRes, providersRes] = await Promise.all([
-    fetch(`${baseUrl}/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recomendations,similar`),
+    fetch(`${baseUrl}/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recommendations,similar`),
     fetch(`${baseUrl}/movie/${movieId}/images?api_key=${process.env.TMDB_API_KEY}`),
     fetch(`${baseUrl}/movie/${movieId}/watch/providers?api_key=${process.env.TMDB_API_KEY}`),
   ]);
@@ -33,7 +33,7 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
 
   try {
     movieData = await getMovieData(movieId);
-    //console.log(movieData)
+    console.log(movieData)
   } catch (error) {
     notFound();
   }

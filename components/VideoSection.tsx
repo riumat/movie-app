@@ -15,14 +15,14 @@ interface VideoSectionProps {
 const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo }) => {
   const opts = {
     height: '180',
-    width: '250',
+    width: '300',
     playerVars: {
       autoplay: 0 as any,
     },
   };
 
   return (
-    <div className='flex flex-col gap-2 justify-start items-center flex-1'>
+    <div className='flex gap-2 justify-evenly items-center flex-1'>
       {videoInfo && videoInfo.length > 0 ? (
         videoInfo.map((video) => (
           <div key={video.key} className="video-section">

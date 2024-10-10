@@ -13,7 +13,7 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
   }
   return (
     <div className="flex flex-col items-center  text-slate-50 rounded w-36 h-64 ">
-      <div className='w-36 h-36 overflow-hidden relative -z-10'>
+      <div className='w-36 h-36 overflow-hidden relative '>
         <Image
           src={imagePath}
           alt={`${name}'s profile picture`}

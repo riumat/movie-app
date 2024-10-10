@@ -33,7 +33,8 @@ export const formattedCrewList = (crew: CrewMember[]): CrewMember[] => {
     "Screenplay",
     "Director of Photography",
     "Editor",
-    "Music Composer",
+    "Original Music Composer",
+    
   ];
 
   return crew
@@ -53,8 +54,10 @@ export const formattedCrewList = (crew: CrewMember[]): CrewMember[] => {
       return acc;
     }, [] as Array<{ id: number; name: string; profile_path: string; job: string }>)
     .sort((a, b) => {
-      const jobA = a.job.split(', ')[0];
-      const jobB = b.job.split(', ')[0];
+      const jobA = a.job.split(', ')[2];
+      const jobB = b.job.split(', ')[2];
+      if (jobA === "Director") return -1;
+      if (jobB === "Director") return 1;
       return relevantJobs.indexOf(jobA) - relevantJobs.indexOf(jobB);
     });
 }

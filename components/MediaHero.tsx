@@ -2,8 +2,11 @@
 import CastCarousel from '@/components/CastCarousel';
 import ProviderSection from '@/components/ProvidersSection';
 import VideoSection from '@/components/VideoSection';
+import SimilarMovies from '@/components/SimilarMovies';
+import { imageUrl, imgWidth } from '@/utils/constants';
 import { formattedCrewList } from '@/utils/functions';
 import { MovieData } from '@/utils/types';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 
@@ -37,10 +40,18 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           Similar
         </button>
       </div>
-      <div className='rounded z-0 h-[650px] w-[80%]'>
+      <div className='rounded-xl  z-0 h-[650px] w-[80%] overflow-hidden px-2 relative'>
+        <Image
+          src={`${imageUrl}${imgWidth.backdrop.original}${movieData.images.backdrops[1].file_path}`}
+          alt={`${movieData.title} backdrop`}
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          className="absolute inset-0 z-[-1] opacity-10 filter grayscale-[80%] brightness-100 rounded-xl"
+        />
         {selection === "crew" && (
-          <div className='flex flex-col justify-center'>
-            <div className='flex flex-col gap-5 mt-5'>
+          <div className='flex flex-col justify-center mt-10 z-1'>
+            <div className='flex flex-col gap-5 '>
               <CastCarousel personList={formattedCrewList(movieData.credits.crew)} />
             </div>
 
@@ -51,7 +62,7 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           </div>
         )}
         {selection === "watch" && (
-          <div className='flex gap-5 h-full justify-between'>
+          <div className='flex flex-col gap-5 h-full justify-between mt-10'>
 
             <ProviderSection providers={movieData.providers.results.IT} />
             <VideoSection videoInfo={movieData.videos.results.filter((video) => video.official && video.type === "Trailer").slice(0, 3)} />
@@ -59,11 +70,11 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           </div>
         )}
         {selection === "similar" && (
-          <div className='flex flex-col gap-5'>
-            <div className='flex flex-col gap-5'>
-
-
-            </div>
+          <div className='flex flex-col gap-5 mt-10 w-full h-full'>
+            <SimilarMovies 
+              similar={movieData.similar.results} 
+              recommendations={movieData.recommendations.results}
+            />
           </div>
         )}
       </div>

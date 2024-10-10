@@ -57,8 +57,28 @@ export interface MovieData {
     page: number,
     total_pages: number,
     total_results: number,
-    results: {}[],
+    results: {
+      id: number,
+      title: string,
+      poster_path: string,
+      release_date: string,
+      vote_average: number,
+      media_type: string,
+    }[],
   },
+  recommendations: {
+    page: number,
+    total_pages: number,
+    total_results: number,
+    results: {
+      id: number,
+      title: string,
+      poster_path: string,
+      release_date: string,
+      vote_average: number,
+      media_type: string,
+    }[],
+  }
   providers: {
     results: {
       IT: ProviderData,

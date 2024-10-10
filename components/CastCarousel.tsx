@@ -25,7 +25,7 @@ function CastCarousel({ personList }: { personList: CrewMember[] }) {
 
   return (
     <div className="">
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mx-16">
         {personList.length > 5 && (
           <button
             onClick={prevSlide}
