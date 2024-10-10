@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
+import { Suspense } from "react";
+import { BeatLoader } from "react-spinners";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +29,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistMono.variable} antialiased`}
+        className={`${geistMono.variable} ${geistSans.variable} antialiased`}
       >
-        {children}
+        <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen">
+          <div className="relative z-10 flex w-full h-screen">
+            <Sidebar />
+            <Suspense fallback={
+              <div className="w-full h-full flex justify-center items-center z-50">
+                <BeatLoader color='#ffffff' size={10} />
+              </div>
+            }>
+              <main className="flex flex-1 overflow-auto scrollbar-thin">
+                {children}
+              </main>
+            </Suspense>
+          </div>
+        </div>
       </body>
     </html>
   );

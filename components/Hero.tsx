@@ -7,6 +7,7 @@ import axios from 'axios';
 import MultiCard from '@/components/MultiCard';
 import { set } from 'lodash';
 import PageSelector from '@/components/PageSelector';
+import { BeatLoader } from 'react-spinners';
 
 interface Movie {
   poster_path: string;
@@ -25,6 +26,8 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+
 
   const handleSearch = (query: string, pageNum: number = 1) => {
     axios.get(`/api/multisearch`, {
@@ -48,18 +51,34 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
     handleSearch(searchQuery, page);
   }, [page]);
 
+  const onLoadCallback = () => {
+    setIsImageLoaded(true);
+  };
+  const onErrorCallback = () => {
+    console.log("error loading image")
+    setIsImageLoaded(false);
+  };
+
   return (
     <div className="relative flex-1">
       <div className="absolute inset-0 z-0">
         <div className="flex h-full">
           {movies.map((movie, index) => (
             <div key={index} className="flex-1 relative">
+              {!isImageLoaded && (
+                <div className='z-40 '>
+                  <BeatLoader color='#ffffff' size={10} />
+                </div>
+              )}
               <Image
                 src={`${imageUrl}/w780${movie.poster_path}`}
                 alt={movie.title}
-                layout="fill"
-                objectFit="cover"
-                className="filter grayscale-[80%] brightness-90"
+                fill
+                priority
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                className="filter grayscale-[80%] brightness-90 object-cover"
+                onLoad={onLoadCallback}
+                onError={onErrorCallback}
               />
             </div>
           ))}
@@ -88,13 +107,13 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
               </div>
             </div>
           </div>
-            <div className="mt-8 w-full max-w-5xl flex flex-col  overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
-              {searchResults.map((result, index) => (
-                <MultiCard key={index} item={result} />
-              ))}
-            </div>
-            <PageSelector page={page} setPage={(page) => setPage(page)} totalPages={totalPages} />
+          <div className="mt-8 w-full max-w-5xl flex flex-col  overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
+            {searchResults.map((result, index) => (
+              <MultiCard key={index} item={result} />
+            ))}
           </div>
+          <PageSelector page={page} setPage={(page) => setPage(page)} totalPages={totalPages} />
+        </div>
       )}
     </div >
   );

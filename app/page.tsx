@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import Sidebar from "@/components/Sidebar";
 import { baseUrl } from "@/utils/constants";
 import axios from "axios";
+import { Suspense } from "react";
+import { BeatLoader } from "react-spinners";
 
 export default async function Home() {
   const bearerToken = process.env.TMDB_BEARER;
@@ -24,11 +26,6 @@ export default async function Home() {
   const movies = await fetchPopularMovies();
 
   return (
-    <div className="font-[family-name:var(--font-geist-mono)] flex relative min-h-screen">
-      <div className="relative z-10 flex w-full">
-        <Sidebar />
-        <Hero movies={movies} />
-      </div>
-    </div>
+    <Hero movies={movies} />
   );
 }

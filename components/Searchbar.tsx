@@ -1,12 +1,12 @@
 "use client"
 import React, { useState, useCallback } from 'react';
 import { IoSearchOutline } from "react-icons/io5";
+import { debounce } from 'lodash';
 
 interface SearchbarProps {
   onSearch: (query: string) => void;
 }
 
-import { debounce } from 'lodash';
 
 const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,7 +14,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       onSearch(query);
-    }, 300),
+    }, 400),
     [onSearch]
   );
 

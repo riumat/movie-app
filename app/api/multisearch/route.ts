@@ -11,7 +11,6 @@ export async function GET(request: Request) {
     const response = await axios.get(`${url}/search/multi`, {
       params: {
         query: query,
-        include_adult: false,
         language: 'en-US',
         page: page,
         api_key: process.env.TMDB_API_KEY,
@@ -20,10 +19,9 @@ export async function GET(request: Request) {
         accept: 'application/json',
       },
     });
-    console.log(response.data.results);
     return Response.json(response.data);
-  } catch (error) {
-    console.error('Error fetching data:', error);
+  } catch (error: any) {
+    console.log('Error fetching data:', error.code);
     return Response.json({ error: 'An error occurred while fetching data' }, { status: 500 });
   }
 }

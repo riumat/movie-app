@@ -1,8 +1,13 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { BeatLoader } from 'react-spinners';
+import { placeholders } from '@/utils/constants';
 
 interface CardProps {
   item: {
+    id?: number;
     name?: string;
     title?: string;
     media_type?: string;
@@ -16,17 +21,44 @@ interface CardProps {
 const MultiCard: React.FC<CardProps> = ({ item }) => {
   const title = item.name || item.title || 'Unknown';
   const imagePath = item.poster_path ?? item.profile_path;
-  const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w154${imagePath}`: 'https://via.placeholder.com/150';
+  const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w154${imagePath}` : placeholders.multi;
+  const router = useRouter();
+  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+
+  const handleClick = () => {
+    switch (item.media_type) {
+      case 'movie':
+        router.push(`/movie/${item.id}`);
+        break;
+      case 'tv':
+        router.push(`/tv/${item.id}`);
+        break;
+      case 'person':
+        router.push(`/person/${item.id}`);
+        break;
+    }
+  };
+
+  const onLoadCallback = () => {
+    setIsImageLoaded(true);
+  };
+  const onErrorCallback = () => {
+    setIsImageLoaded(false);
+  };
 
   return (
-    <div className="w-full m-4 flex gap-2 bg-transparent ">
+    <div className="w-full m-4 flex gap-2 bg-transparent cursor-pointer" onClick={handleClick}>
       <div className="relative rounded-lg w-24 h-24 overflow-hidden flex items-center">
+        {!isImageLoaded && (
+          <BeatLoader  color='#ffffff' size={10} />
+        )}
         <Image
           src={imageUrl}
           alt={title}
           width={150}
           height={150}
-         
+          onLoad={onLoadCallback}
+          onError={onErrorCallback}
         />
       </div>
       <div className="flex-1 px-6 py-4 grid grid-cols-3 justify-items-center items-center">
