@@ -28,7 +28,7 @@ body {
 
 @layer base {
   .scrollbar-thin {
-    @apply [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-thumb]:bg-white overflow-scroll;
+    @apply [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-thumb]:bg-white;
   }
 
   .neon-shadow {

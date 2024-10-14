@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 interface DropdownMenuProps {
   title: string;
@@ -8,48 +8,41 @@ interface DropdownMenuProps {
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ title, items }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-  const filteredItems = useMemo(() => {
-    if (!searchTerm) return items;
-    return items.filter(item =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [items, searchTerm]);
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const handleItemClick = (itemName: string) => {
+    setSelectedItem(itemName);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-gray-200 text-black p-2 rounded-md flex justify-between items-center"
-      >
-        <span>{title}</span>
-        <svg
-          className={`w-5 h-5 transition-transform ${isOpen ? "transform rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      <div>
+        <button
+          type="button"
+          className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-black text-white text-sm font-medium hover:bg-gray-200/20  "
+          onClick={toggleDropdown}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+          {selectedItem || title}
+        </button>
+      </div>
+
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 border-b border-gray-300 text-black"
-          />
-          <ul className="max-h-60 overflow-auto">
-            {filteredItems.map((item) => (
-              <li key={item.id} className="p-2 hover:bg-gray-100 text-black cursor-pointer">
+        <div className="absolute right-0 mt-2 w-56 h-56 overflow-y-auto rounded-md bg-black text-white text-[14px]">
+          <div className="flex flex-col " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="px-4 py-2 text-sm hover:bg-gray-100/20"
+                role="menuitem"
+                onClick={() => handleItemClick(item.name)}
+              >
                 {item.name}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

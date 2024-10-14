@@ -1,32 +1,20 @@
 "use client"
 import Searchbar from '@/components/Searchbar';
 import React, { useEffect } from 'react';
-import Image from 'next/image';
-import { imageUrl } from '@/utils/constants';
 import axios from 'axios';
 import MultiCard from '@/components/MultiCard';
-import { set } from 'lodash';
 import PageSelector from '@/components/PageSelector';
-import { BeatLoader } from 'react-spinners';
 
-interface Movie {
-  poster_path: string;
-  title: string;
-}
 interface SearchResult {
   name?: string;
   title?: string;
 }
 
-interface HeroProps {
-  movies: Movie[];
-}
-const Hero: React.FC<HeroProps> = ({ movies }) => {
+const Hero = () => {
   const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
   const [page, setPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
-  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
 
   const handleSearch = (query: string, pageNum: number = 1) => {
@@ -48,66 +36,25 @@ const Hero: React.FC<HeroProps> = ({ movies }) => {
   }
 
   useEffect(() => {
-    handleSearch(searchQuery, page);
+    if (searchQuery !== "") {
+      handleSearch(searchQuery, page);
+    }
   }, [page]);
-
-  const onLoadCallback = () => {
-    setIsImageLoaded(true);
-  };
-  const onErrorCallback = () => {
-    console.log("error loading image")
-    setIsImageLoaded(false);
-  };
 
   return (
     <div className="relative flex-1">
-      <div className="absolute inset-0 z-0">
-        <div className="flex h-full">
-          {movies.map((movie, index) => (
-            <div key={index} className="flex-1 relative">
-              {!isImageLoaded && (
-                <div className='z-40 '>
-                  <BeatLoader color='#ffffff' size={10} />
-                </div>
-              )}
-              <Image
-                src={`${imageUrl}/w780${movie.poster_path}`}
-                alt={movie.title}
-                fill
-                priority
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                className="filter grayscale-[80%] brightness-90 object-cover"
-                onLoad={onLoadCallback}
-                onError={onErrorCallback}
-              />
-            </div>
-          ))}
-        </div>
-      </div >
-
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-black " />
       {searchResults.length === 0 ? (
         <div className="relative h-full z-10 flex items-center justify-center">
           <div className='w-full max-w-4xl mt-56'>
-            <div className="relative">
-              <div className="absolute neon-shadow rounded-lg "></div>
-              <div className="relative">
-                <Searchbar onSearch={(query) => { handleSearch(query) }} />
-              </div>
-            </div >
+            <Searchbar onSearch={(query) => { handleSearch(query) }} />
           </div >
         </div >
       ) : (
         <div className="relative h-full z-10 flex flex-col items-center">
           <div className='w-full max-w-4xl mt-8'>
-            <div className="relative">
-              <div className="absolute neon-shadow rounded-lg  "></div>
-              <div className="relative">
-                <Searchbar onSearch={(query) => { handleSearch(query) }} />
-              </div>
-            </div>
+            <Searchbar onSearch={(query) => { handleSearch(query) }} />
           </div>
-          <div className="mt-8 w-full max-w-5xl flex flex-col  overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
+          <div className="mt-8 w-full max-w-5xl flex flex-col overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
             {searchResults.map((result, index) => (
               <MultiCard key={index} item={result} />
             ))}

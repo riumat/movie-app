@@ -38,3 +38,11 @@ export const placeholders = {
   profile: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
   multi: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/PlaceholderRoss.png/640px-PlaceholderRoss.png",
 }
+
+export const sidebarItems = [
+  { label: 'Home', path: '/' },
+  { label: 'Movies', path: '/movie' },
+  { label: 'Tv Shows', path: '/show' },
+  { label: 'Genres', path: '/genres' },
+  { label: 'Popular', path: '/popular' },
+];

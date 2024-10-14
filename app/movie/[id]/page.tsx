@@ -1,39 +1,15 @@
 import { notFound } from 'next/navigation';
-import { baseUrl } from '@/utils/constants';
 import NameSection from '@/components/NameSection';
-import CastCarousel from '@/components/CastCarousel';
-import ProviderSection from '@/components/ProvidersSection';
 import { formatDate, formatMinutes } from '@/utils/functions';
-import CrewSection from '@/components/CrewSection';
 import MediaHero from '@/components/MediaHero';
 import { MovieData } from '@/utils/types';
-
-
-async function getMovieData(movieId: string) {
-  const [movieRes, imagesRes, providersRes] = await Promise.all([
-    fetch(`${baseUrl}/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=credits,videos,recommendations,similar`),
-    fetch(`${baseUrl}/movie/${movieId}/images?api_key=${process.env.TMDB_API_KEY}`),
-    fetch(`${baseUrl}/movie/${movieId}/watch/providers?api_key=${process.env.TMDB_API_KEY}`),
-  ]);
-
-  if (!movieRes.ok || !imagesRes.ok) {
-    throw new Error('Failed to fetch movie data');
-  }
-
-  const movieData = await movieRes.json();
-  const imagesData = await imagesRes.json();
-  const providersData = await providersRes.json();
-
-  return { ...movieData, images: imagesData, providers: providersData };
-}
+import { getMovieData } from '@/utils/fetchers';
 
 export default async function MoviePage({ params }: { params: { id: string } }) {
   const movieId = params.id;
   let movieData: MovieData;
-
   try {
     movieData = await getMovieData(movieId);
-    console.log(movieData)
   } catch (error) {
     notFound();
   }
@@ -57,14 +33,9 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
               ))}
             </div>
           </div>
-
-
         </div>
-
       </div>
       <MediaHero movieData={movieData} />
-
-
     </div>
   );
 }

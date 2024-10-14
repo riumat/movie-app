@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { BeatLoader } from 'react-spinners';
-import { imgWidth, placeholders } from '@/utils/constants';
+import { imageUrl, imgWidth, placeholders } from '@/utils/constants';
 
 interface MovieCardProps {
   movie: {
@@ -14,7 +14,7 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-  const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p${imgWidth.poster[92]}${movie.poster_path}` : placeholders.multi;
+  const imgSrc = movie.poster_path ? `${imageUrl}${imgWidth.poster[342]}${movie.poster_path}` : placeholders.multi;
   const router = useRouter();
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
@@ -31,25 +31,26 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   };
 
   return (
-    <div className="w-full m-4 flex gap-10 bg-transparent cursor-pointer items-center " onClick={handleClick}>
-      <div className="relative rounded-lg w-16 h-16 flex items-center overflow-hidden">
+    <div className="flex flex-col bg-transparent cursor-pointer w-full max-w-[200px] mx-auto" onClick={handleClick}>
+      <div className="relative w-full max-h-64 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <BeatLoader color='#ffffff' size={10} />
           </div>
         )}
         <Image
-          src={imageUrl}
+          src={imgSrc}
           alt={movie.title}
-          width={92}
-          height={92}
-          className='object-contain rounded-lg z-30'
+          fill
+          className='rounded-lg z-30 object-contain'
           onLoad={onLoadCallback}
           onError={onErrorCallback}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          
         />
       </div>
-      <div className="mt-2 text-center">
-        <h3 className="font-semibold text-sm">{movie.title}</h3>
+      <div className="mt-2">
+        <h3 className="font-semibold text-sm text-center line-clamp-2">{movie.title}</h3>
       </div>
     </div>
   );

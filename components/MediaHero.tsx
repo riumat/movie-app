@@ -40,14 +40,13 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           Similar
         </button>
       </div>
-      <div className='rounded-xl  z-0 h-[650px] w-[80%] overflow-hidden px-2 relative'>
+      <div className='rounded-xl z-0 h-[650px] w-[80%] overflow-hidden px-2 mb-10 relative'>
         <Image
           src={`${imageUrl}${imgWidth.backdrop.original}${movieData.images.backdrops[1].file_path}`}
           alt={`${movieData.title} backdrop`}
           layout="fill"
-          objectFit="cover"
           quality={100}
-          className="absolute inset-0 z-[-1] opacity-10 filter grayscale-[80%] brightness-100 rounded-xl"
+          className="absolute inset-0 z-[-1] opacity-10 filter grayscale-[80%] brightness-100 rounded-xl object-cover"
         />
         {selection === "crew" && (
           <div className='flex flex-col justify-center mt-10 z-1'>
@@ -70,9 +69,8 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           </div>
         )}
         {selection === "similar" && (
-          <div className='flex flex-col gap-5 mt-10 w-full h-full'>
+          <div className='flex flex-col gap-5 my-10 w-full h-full pb-20'>
             <SimilarMovies 
-              similar={movieData.similar.results} 
               recommendations={movieData.recommendations.results}
             />
           </div>

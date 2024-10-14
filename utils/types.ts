@@ -49,7 +49,7 @@ export interface MovieData {
     results: {
       key: string,
       name: string,
-      type:string,
+      type: string,
       official: boolean,
     }[],
   },
@@ -114,5 +114,8 @@ export interface ProviderData {
   link: string,
   flatrate: Provider[],
   rent: Provider[],
-  buy: Provider[]
+  buy: Provider[],
+  ads: Provider[],
+  free: Provider[],
+  tvod: Provider[],
 }
