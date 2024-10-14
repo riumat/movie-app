@@ -3,17 +3,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaChevronCircleRight, FaChevronCircleLeft } from "react-icons/fa";
+import { sidebarItems } from '@/utils/constants';
 
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
-  const menuItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Discover', path: '/discover' },
-    { label: 'Genres', path: '/genres' },
-    { label: 'Popular', path: '/popular' },
-  ];
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -24,7 +18,7 @@ const Sidebar: React.FC = () => {
       <nav className={`text-white w-48 min-h-[98vh] p-4 bg-black rounded m-2 absolute inset-0 top-0  z-50 border border-teal-50/60 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="text-2xl font-bold mb-8 text-center">moviedb</div>
         <ul>
-          {menuItems.map((item) => (
+          {sidebarItems.map((item) => (
             <li key={item.path} className="mb-4">
               <Link href={item.path}>
                 <span

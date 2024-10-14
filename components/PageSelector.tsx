@@ -17,14 +17,14 @@ const PageSelector: React.FC<HeroProps> = ({ page, setPage, totalPages }) => {
       <button
         onClick={() => setPage(1)}
         disabled={page === 1}
-        className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+        className="px-4 py-2 bg-gray-800 text-white rounded disabled:opacity-50 active:scale-90 duration-150"
       >
         <MdFirstPage />
       </button>
       <button
         onClick={() => setPage(page - 1)}
         disabled={page === 1}
-        className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+        className="px-4 py-2 bg-gray-800 text-white rounded disabled:opacity-50 active:scale-90 duration-150"
       >
         <GrFormPrevious />
       </button>
@@ -32,14 +32,14 @@ const PageSelector: React.FC<HeroProps> = ({ page, setPage, totalPages }) => {
       <button
         onClick={() => setPage(page + 1)}
         disabled={page === totalPages}
-        className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+        className="px-4 py-2 bg-gray-800 text-white rounded disabled:opacity-50 active:scale-90 duration-150"
       >
         <GrFormNext />
       </button>
       <button
         onClick={() => setPage(totalPages)}
         disabled={page === totalPages}
-        className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
+        className="px-4 py-2 bg-gray-800 text-white rounded disabled:opacity-50 active:scale-90 duration-150"
       >
         <MdLastPage />
       </button>
