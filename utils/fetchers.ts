@@ -15,19 +15,20 @@ export async function getWatchProviders() {
   return data.results;
 }
 
-export const fetchLists = async () => {
-  const [resGenres, resWatchProviders, resDiscoverMovies] = await Promise.all([
-    fetch(`${baseUrl}/genre/movie/list?api_key=${apiKey}`),
-    fetch(`${baseUrl}/watch/providers/movie?api_key=${apiKey}&watch_region=IT`),
-    fetch(`${baseUrl}/discover/movie?api_key=${apiKey}&page=1&sort_by=popularity.desc`)
+export const fetchContentData = async (media: string) => {
+  const [resGenres, resWatchProviders, resContent] = await Promise.all([
+    fetch(`${baseUrl}/genre/${media}/list?api_key=${apiKey}`),
+    fetch(`${baseUrl}/watch/providers/${media}?api_key=${apiKey}&watch_region=IT`),
+    fetch(`${baseUrl}/discover/${media}?api_key=${apiKey}&page=1&sort_by=popularity.desc`)
   ]);
-  const [genres, watchProviders, discoverMovies] = await Promise.all([
+  const [genres, watchProviders, content] = await Promise.all([
     resGenres.json(),
     resWatchProviders.json(),
-    resDiscoverMovies.json()
+    resContent.json()
   ]);
-  return { genres: genres.genres, watchProviders: watchProviders.results, discoverMovies: discoverMovies.results };
+  return { genres: genres.genres, providers: watchProviders.results, content: content.results };
 }
+
 
 export async function getDiscoverMovies() {
   const res = await fetch(`${baseUrl}/discover/movie?api_key=${apiKey}&page=1&sort_by=popularity.desc`);
@@ -35,13 +36,13 @@ export async function getDiscoverMovies() {
   return data.results;
 }
 
-export const fetchPopularMovies = async (index1: number, index2: number) => {
+export const fetchPopularContent = async (index1: number, index2: number, media: string) => {
   try {
-    const response = await fetch(`${baseUrl}/movie/popular?api_key=${apiKey}`);
+    const response = await fetch(`${baseUrl}/${media}/popular?api_key=${apiKey}`);
     const data = await response.json();
     return data.results.slice(index1, index2);
   } catch (error) {
-    console.error('Error fetching popular movies:', error);
+    console.error('Error fetching popular content:', error);
     return [];
   }
 };

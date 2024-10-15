@@ -6,19 +6,17 @@ import YearInput from "@/components/YearInput"
 import MovieCard from "@/components/MovieCard"
 import axios from 'axios'
 import PageSelector from '@/components/PageSelector'
-import { BeatLoader } from 'react-spinners'
 import { SortInput } from '@/components/SortInput'
 import MovieCardSkeleton from '@/components/SkeletonMovieCard'
-/* import { fetchDiscoverMovies } from "@/utils/fetchers"
- */
 interface FilterableMovieListProps {
-  initialMovies: any[]
+  initialContents: any[]
   genres: { id: number; name: string }[]
-  watchProviders: { provider_id: number; provider_name: string }[]
+  watchProviders: { provider_id: number; provider_name: string }[],
+  media: string
 }
 
-export default function FilterableMovieList({ initialMovies, genres, watchProviders }: FilterableMovieListProps) {
-  const [movies, setMovies] = useState(initialMovies)
+export default function FilterableDataList({ initialContents, genres, watchProviders, media }: FilterableMovieListProps) {
+  const [movies, setMovies] = useState(initialContents)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [selectedGenres, setSelectedGenres] = useState<number[]>([])
@@ -38,7 +36,8 @@ export default function FilterableMovieList({ initialMovies, genres, watchProvid
         page: page,
         startDate: yearRange.start,
         endDate: yearRange.end,
-        sortType: sortType
+        sortType: sortType,
+        media: media
       }
     })
       .then(response => {
@@ -104,10 +103,10 @@ export default function FilterableMovieList({ initialMovies, genres, watchProvid
 
         {isLoading ? (
           <div className="mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full ">
-          {Array.from({ length: 20 }).map((movie: any, index: number) => (
-            <MovieCardSkeleton key={index}  />
-          ))}
-        </div>
+            {Array.from({ length: 20 }).map((movie: any, index: number) => (
+              <MovieCardSkeleton key={index} />
+            ))}
+          </div>
         ) : (
           <div className="mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full ">
             {movies.map((movie: any, index: number) => (

@@ -42,7 +42,7 @@ export const placeholders = {
 export const sidebarItems = [
   { label: 'Home', path: '/' },
   { label: 'Movies', path: '/movie' },
-  { label: 'Tv Shows', path: '/show' },
+  { label: 'Tv Shows', path: '/tv' },
   { label: 'Genres', path: '/genres' },
   { label: 'Popular', path: '/popular' },
 ];
