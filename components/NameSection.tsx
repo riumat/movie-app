@@ -49,17 +49,16 @@ const NameSection: React.FC<MovieComponentProps> = ({ images, movieData }) => {
 
       <div className="absolute inset-0 flex flex-col gap-5 justify-end items-center  text-white p-5 bg-gradient-to-b from-transparent via-60% via-black/80 to-black ">
         <h2 className="text-4xl font-bold mb-2 ">{movieData.title}</h2>
-        <div className='w-[50%] flex justify-center items-center'>
+        <div className='w-[60%] flex  gap-5 xl:gap-10 justify-center items-center relative'>
           {movieData.production_companies.map((company, index) => (
             company.logo_path && (
-              <div key={index} className={`flex-1 flex justify-center w-[100px] h-[50px]`}>
+              <div key={index} className={`relative flex justify-center w-[100px] h-[50px]`}>
                 <Image
                   src={`${imageUrl}${imgWidth.logo[154]}${company.logo_path}`}
-                  width={154}
-                  height={154}
+                  fill
                   alt={company.name}
-                  style={{ width: 'auto', height: 'auto', maxWidth: '120px', maxHeight: '50px', filter: 'grayscale(100%) contrast(90%) brightness(100%) invert(1)' }}
-                  className='object-contain'
+                  style={{ maxWidth: '120px', maxHeight: '50px' }}
+                  className='object-contain filter grayscale-[100%] contrast-[90%] brightness-[100%] invert-[1]'
                   priority
                 />
               </div>

@@ -46,7 +46,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           onLoad={onLoadCallback}
           onError={onErrorCallback}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-          
         />
       </div>
       <div className="mt-2">

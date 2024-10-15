@@ -11,58 +11,59 @@ interface SearchResult {
 }
 
 const Hero = () => {
-  const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
-  const [page, setPage] = React.useState<number>(1);
-  const [totalPages, setTotalPages] = React.useState<number>(1);
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [totalPages, setTotalPages] = React.useState<number>(1);
 
-
-  const handleSearch = (query: string, pageNum: number = 1) => {
-    axios.get(`/api/multisearch`, {
-      params: {
-        query: query,
-        page: pageNum,
-      }
-    })
-      .then(response => {
+  const handleSearch = (query: string, page: number = 1) => {
+    axios
+      .get('/api/multisearch', {
+        params: { query, page },
+      })
+      .then((response) => {
         setSearchResults(response.data.results);
         setTotalPages(response.data.total_pages);
-        setPage(pageNum);
+        setCurrentPage(page);
         setSearchQuery(query);
       })
-      .catch(error => {
-        console.error('Error fetching search results:', error);
-      })
-  }
+      .catch((error) => console.error('Error fetching search results:', error));
+  };
 
   useEffect(() => {
-    if (searchQuery !== "") {
-      handleSearch(searchQuery, page);
+    if (searchQuery) {
+      handleSearch(searchQuery, currentPage);
     }
-  }, [page]);
+  }, [currentPage, searchQuery]);
 
   return (
     <div className="relative flex-1">
-      {searchResults.length === 0 ? (
+      {!searchQuery ? (
         <div className="relative h-full z-10 flex items-center justify-center">
-          <div className='w-full max-w-4xl mt-56'>
-            <Searchbar onSearch={(query) => { handleSearch(query) }} />
-          </div >
-        </div >
+          <div className="w-full max-w-4xl mt-56">
+            <Searchbar onSearch={handleSearch} />
+          </div>
+        </div>
       ) : (
         <div className="relative h-full z-10 flex flex-col items-center">
-          <div className='w-full max-w-4xl mt-8'>
-            <Searchbar onSearch={(query) => { handleSearch(query) }} />
+          <div className="w-full max-w-4xl mt-8">
+            <Searchbar onSearch={handleSearch} />
           </div>
-          <div className="mt-8 w-full max-w-5xl flex flex-col overflow-y-auto overflow-x-hidden max-h-[70vh] bg-black/90 rounded-lg scrollbar-thin">
-            {searchResults.map((result, index) => (
-              <MultiCard key={index} item={result} />
-            ))}
+          <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">
+            <div className="px-2 grid grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">
+              {searchResults.map((result, index) => (
+                <MultiCard key={index} item={result} />
+              ))}
+            </div>
+            <PageSelector
+              page={currentPage}
+              setPage={setCurrentPage}
+              totalPages={totalPages}
+            />
           </div>
-          <PageSelector page={page} setPage={(page) => setPage(page)} totalPages={totalPages} />
         </div>
       )}
-    </div >
+    </div>
   );
 };
 

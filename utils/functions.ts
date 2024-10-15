@@ -26,7 +26,7 @@ export function formatMinutes(minutes: number): string {
   }
 }
 
-export const formattedCrewList = (crew: CrewMember[]): CrewMember[] => {
+export const formatCrewList = (crew: { id: number, name: string, profile_path: string, job: string }[]): CrewMember[] => {
   const relevantJobs = [
     "Director",
     "Writer",
@@ -34,7 +34,10 @@ export const formattedCrewList = (crew: CrewMember[]): CrewMember[] => {
     "Director of Photography",
     "Editor",
     "Original Music Composer",
-    
+    "Story",
+    "Producer",
+    "Visual Effects Supervisor",
+    "Art Direction"
   ];
 
   return crew
@@ -54,10 +57,10 @@ export const formattedCrewList = (crew: CrewMember[]): CrewMember[] => {
       return acc;
     }, [] as Array<{ id: number; name: string; profile_path: string; job: string }>)
     .sort((a, b) => {
-      const jobA = a.job.split(', ')[2];
-      const jobB = b.job.split(', ')[2];
-      if (jobA === "Director") return -1;
-      if (jobB === "Director") return 1;
-      return relevantJobs.indexOf(jobA) - relevantJobs.indexOf(jobB);
+      const jobA = a.job.toLowerCase().includes("director");
+      const jobB = b.job.toLowerCase().includes("director");
+      if (jobA && !jobB) return -1;
+      if (!jobA && jobB) return 1;
+      return relevantJobs.indexOf(a.job) - relevantJobs.indexOf(b.job);
     });
 }

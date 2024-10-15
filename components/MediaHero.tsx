@@ -4,10 +4,10 @@ import ProviderSection from '@/components/ProvidersSection';
 import VideoSection from '@/components/VideoSection';
 import SimilarMovies from '@/components/SimilarMovies';
 import { imageUrl, imgWidth } from '@/utils/constants';
-import { formattedCrewList } from '@/utils/functions';
 import { MovieData } from '@/utils/types';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { formatCrewList } from '@/utils/functions';
 
 
 interface MediaHeroProps {
@@ -50,13 +50,15 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
         />
         {selection === "crew" && (
           <div className='flex flex-col justify-center mt-10 z-1'>
-            <div className='flex flex-col gap-5 '>
-              <CastCarousel personList={formattedCrewList(movieData.credits.crew)} />
+            <div className='flex justify-center '>
+              <CastCarousel personList={formatCrewList(movieData.credits.crew)} />
             </div>
 
-            <div className="flex flex-col pt-6 relative">
+            <div className="flex flex-col gap-5 pt-6 relative">
               <h2 className="text-center font-semibold mb-2">Cast</h2>
-              <CastCarousel personList={movieData.credits.cast} />
+              <div className='flex justify-center'>
+                <CastCarousel personList={movieData.credits.cast} />
+              </div>
             </div>
           </div>
         )}
@@ -70,7 +72,7 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
         )}
         {selection === "similar" && (
           <div className='flex flex-col gap-5 my-10 w-full h-full pb-20'>
-            <SimilarMovies 
+            <SimilarMovies
               recommendations={movieData.recommendations.results}
             />
           </div>
