@@ -42,7 +42,7 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
       </div>
       <div className='rounded-xl z-0 h-[650px] w-[80%] overflow-hidden px-2 mb-10 relative'>
         <Image
-          src={`${imageUrl}${imgWidth.backdrop.original}${movieData.images.backdrops[1].file_path}`}
+          src={`${imageUrl}${imgWidth.backdrop.original}${movieData.images.backdrops[1]?.file_path ?? movieData.images.backdrops[0]?.file_path}`}
           alt={`${movieData.title} backdrop`}
           layout="fill"
           quality={100}
