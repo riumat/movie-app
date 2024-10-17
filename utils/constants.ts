@@ -43,6 +43,28 @@ export const sidebarItems = [
   { label: 'Home', path: '/' },
   { label: 'Movies', path: '/movie' },
   { label: 'Tv Shows', path: '/tv' },
+  { label: 'People', path: '/person' },
   { label: 'Genres', path: '/genres' },
-  { label: 'Popular', path: '/popular' },
+];
+
+
+export const relevantMovieJobs = [
+  "Director",
+  "Writer",
+  "Screenplay",
+  "Director of Photography",
+  "Editor",
+  "Original Music Composer",
+  "Story",
+  "Producer",
+  "Visual Effects Supervisor",
+  "Art Direction"
+];
+
+export const relevantTvJobs = [
+  "Writer",
+  "Tvplay",
+  "Director of Photography",
+  "Original Music Composer",
+  "Story"
 ];

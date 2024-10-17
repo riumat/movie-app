@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaChevronCircleRight, FaChevronCircleLeft } from "react-icons/fa";
+import { FaChevronCircleRight } from "react-icons/fa";
 import { sidebarItems } from '@/utils/constants';
 
 const Sidebar: React.FC = () => {
@@ -34,9 +34,9 @@ const Sidebar: React.FC = () => {
       </nav>
       <button
         onClick={toggleSidebar}
-        className={`absolute top-1/2 left-[182px] transform -translate-y-1/2 text-black hover:text-teal-950  border-black border rounded-full shadow-[0_0_5px_#dbfffb] bg-teal-50 text-[34px] z-50 transition-all duration-300 ${isOpen ? '' : 'translate-x-[-180px] '}`}
+        className={`absolute top-1/2 left-[182px] transform -translate-y-1/2 text-black hover:text-neutral-800  border-black border rounded-full shadow-[0_0_5px_#dbfffb] bg-neutral-50 text-[34px] z-50 transition-all duration-300 ${isOpen ? '' : 'translate-x-[-180px] rotate-180 duration-300 '}`}
       >
-        {isOpen ? <FaChevronCircleLeft /> : <FaChevronCircleRight />}
+        <FaChevronCircleRight />
       </button>
     </div>
   );

@@ -3,20 +3,20 @@ import NameSection from '@/components/NameSection';
 import { formatDate, formatMinutes } from '@/utils/functions';
 import MediaHero from '@/components/MediaHero';
 import { MovieData } from '@/utils/types';
-import { getMovieData } from '@/utils/fetchers';
+import { fetchContentData } from '@/utils/fetchers';
 
 export default async function MoviePage({ params }: { params: { id: string } }) {
   const movieId = params.id;
   let movieData: MovieData;
   try {
-    movieData = await getMovieData(movieId);
+    movieData = await fetchContentData(movieId, "movie");
   } catch (error) {
     notFound();
   }
 
   return (
     <div className="flex-1 flex flex-col items-center gap-20 w-full">
-      <NameSection images={movieData.images.backdrops} movieData={movieData} logo={movieData.images.logos} />
+      <NameSection images={movieData.images.backdrops} contentData={movieData} />
       <div className='flex flex-col gap-5 w-full'>
         <div className='w-full flex justify-center'>
           <p className='font-bold'>{movieData.tagline}</p>

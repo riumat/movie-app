@@ -15,7 +15,7 @@ export async function getWatchProviders() {
   return data.results;
 }
 
-export const fetchContentData = async (media: string) => {
+export const fetchContentDataWithFilters = async (media: string) => {
   const [resGenres, resWatchProviders, resContent] = await Promise.all([
     fetch(`${baseUrl}/genre/${media}/list?api_key=${apiKey}`),
     fetch(`${baseUrl}/watch/providers/${media}?api_key=${apiKey}&watch_region=IT`),
@@ -47,20 +47,22 @@ export const fetchPopularContent = async (index1: number, index2: number, media:
   }
 };
 
-export const getMovieData = async (movieId: string) => {
-  const [movieRes, imagesRes, providersRes] = await Promise.all([
-    fetch(`${baseUrl}/movie/${movieId}?api_key=${apiKey}&language=en-US&append_to_response=credits,videos,recommendations,similar`),
-    fetch(`${baseUrl}/movie/${movieId}/images?api_key=${apiKey}`),
-    fetch(`${baseUrl}/movie/${movieId}/watch/providers?api_key=${apiKey}`),
+
+export const fetchContentData = async (contentId: string, media: string) => {
+  const creditsUrl = media === "movie" ? "credits" : "aggregate_credits";
+  const [contentRes, imagesRes, providersRes] = await Promise.all([
+    fetch(`${baseUrl}/${media}/${contentId}?api_key=${apiKey}&language=en-US&append_to_response=${creditsUrl},videos,recommendations,similar`),
+    fetch(`${baseUrl}/${media}/${contentId}/images?api_key=${apiKey}`),
+    fetch(`${baseUrl}/${media}/${contentId}/watch/providers?api_key=${apiKey}`),
   ]);
 
-  if (!movieRes.ok || !imagesRes.ok) {
+  if (!contentRes.ok || !imagesRes.ok) {
     throw new Error('Failed to fetch movie data');
   }
 
-  const movieData = await movieRes.json();
+  const contentData = await contentRes.json();
   const imagesData = await imagesRes.json();
   const providersData = await providersRes.json();
 
-  return { ...movieData, images: imagesData, providers: providersData };
+  return { ...contentData, images: imagesData, providers: providersData };
 }

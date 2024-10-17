@@ -4,22 +4,19 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/utils/constants';
+import { ContentItem } from '@/utils/types';
 
 interface MovieCardProps {
-  movie: {
-    id: number;
-    title: string;
-    poster_path: string;
-  };
+  item: ContentItem;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-  const imgSrc = movie.poster_path ? `${imageUrl}${imgWidth.poster[342]}${movie.poster_path}` : placeholders.multi;
+const MovieCard: React.FC<MovieCardProps> = ({ item }) => {
+  const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
   const router = useRouter();
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   const handleClick = () => {
-    router.push(`/movie/${movie.id}`);
+    router.push(`/${item.media_type}/${item.id}`);
   };
 
   const onLoadCallback = () => {
@@ -40,16 +37,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         )}
         <Image
           src={imgSrc}
-          alt={movie.title}
+          alt={"alt item"}
           fill
           className='rounded-lg z-30 object-contain'
           onLoad={onLoadCallback}
           onError={onErrorCallback}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         />
-      </div>
-      <div className="mt-2">
-        <h3 className="font-semibold text-sm text-center line-clamp-2">{movie.title}</h3>
       </div>
     </div>
   );

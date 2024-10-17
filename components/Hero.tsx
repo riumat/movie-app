@@ -16,7 +16,7 @@ const Hero = () => {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
 
-  const handleSearch = (query: string, page: number = 1) => {
+  const handleSearch = (query: string, page: number) => {
     axios
       .get('/api/multisearch', {
         params: { query, page },
@@ -31,23 +31,28 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (searchQuery) {
-      handleSearch(searchQuery, currentPage);
-    }
+    handleSearch(searchQuery, currentPage);
   }, [currentPage, searchQuery]);
+
+  const handleQuery = (query: string) => {
+    if (query !== '') {
+      setCurrentPage(1);
+      setSearchQuery(query);
+    }
+  }
 
   return (
     <div className="relative flex-1">
       {!searchQuery ? (
         <div className="relative h-full z-10 flex items-center justify-center">
           <div className="w-full max-w-4xl mt-56">
-            <Searchbar onSearch={handleSearch} />
+            <Searchbar onSearch={handleQuery} />
           </div>
         </div>
       ) : (
         <div className="relative h-full z-10 flex flex-col items-center">
           <div className="w-full max-w-4xl mt-8">
-            <Searchbar onSearch={handleSearch} />
+            <Searchbar onSearch={handleQuery} />
           </div>
           <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">
             <div className="px-2 grid grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">

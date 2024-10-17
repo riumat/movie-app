@@ -1,10 +1,10 @@
-import { fetchContentData, fetchPopularContent } from "@/utils/fetchers";
+import { fetchContentDataWithFilters, fetchPopularContent } from "@/utils/fetchers";
 import BackgroundDisplay from "@/components/BackgroundDisplay";
 import FilterableDataList from "@/components/FilterableMovieList";
 
 export default async function DiscoverPage() {
   const movies = await fetchPopularContent(5, 10, "movie");
-  const { genres, providers, content } = await fetchContentData("movie");
+  const { genres, providers, content } = await fetchContentDataWithFilters("movie");
 
   return (
     <div className="flex-1 relative min-h-screen">

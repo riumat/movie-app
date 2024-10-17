@@ -1,33 +1,17 @@
 import { imageUrl, imgWidth } from '@/utils/constants';
+import { MovieData, TvData } from '@/utils/types';
 import Image from 'next/image';
 import React from 'react';
 
-interface Image {
-  file_path: string;
-}
-
-interface MovieData {
-  title: string;
-  release_date: string;
-  production_companies: {
-    id: number,
-    logo_path: string,
-    name: string,
-  }[],
-}
 
 interface MovieComponentProps {
   images: {
     file_path: string,
   }[];
-  movieData: MovieData;
-  logo: {
-    iso_639_1: string,
-    file_path: string,
-  }[],
+  contentData: MovieData | TvData;
 }
 
-const NameSection: React.FC<MovieComponentProps> = ({ images, movieData }) => {
+const NameSection: React.FC<MovieComponentProps> = ({ images, contentData }) => {
   return (
     <div className="relative min-h-[300px] w-full ">
 
@@ -48,9 +32,9 @@ const NameSection: React.FC<MovieComponentProps> = ({ images, movieData }) => {
       </div >
 
       <div className="absolute inset-0 flex flex-col gap-5 justify-end items-center  text-white p-5 bg-gradient-to-b from-transparent via-60% via-black/80 to-black ">
-        <h2 className="text-4xl font-bold mb-2 ">{movieData.title}</h2>
+        <h2 className="text-4xl font-bold mb-2 ">{contentData.type === "movie" ? contentData.title : contentData.name}</h2>
         <div className='w-[60%] flex  gap-5 xl:gap-10 justify-center items-center relative'>
-          {movieData.production_companies.map((company, index) => (
+          {contentData.production_companies.map((company, index) => (
             company.logo_path && (
               <div key={index} className={`relative flex justify-center w-[100px] h-[50px]`}>
                 <Image

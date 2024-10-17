@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import CheckboxGroup from "@/components/CheckboxGroup"
 import YearInput from "@/components/YearInput"
@@ -8,26 +7,26 @@ import axios from 'axios'
 import PageSelector from '@/components/PageSelector'
 import { SortInput } from '@/components/SortInput'
 import MovieCardSkeleton from '@/components/SkeletonMovieCard'
+import { MovieData, TvData } from '@/utils/types'
+
 interface FilterableMovieListProps {
-  initialContents: any[]
+  initialContents: MovieData[] | TvData[],
   genres: { id: number; name: string }[]
   watchProviders: { provider_id: number; provider_name: string }[],
   media: string
 }
 
 export default function FilterableDataList({ initialContents, genres, watchProviders, media }: FilterableMovieListProps) {
-  const [movies, setMovies] = useState(initialContents)
+  const [items, setItems] = useState(initialContents)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [selectedGenres, setSelectedGenres] = useState<number[]>([])
   const [selectedProviders, setSelectedProviders] = useState<number[]>([])
   const [yearRange, setYearRange] = useState({ start: '', end: '' })
   const [sortType, setSortType] = useState('popularity.desc')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-
-
-  const fetchFilteredMovies = () => {
+  const fetchFilteredContent = () => {
     setIsLoading(true)
     axios.get(`/api/filtered`, {
       params: {
@@ -41,7 +40,7 @@ export default function FilterableDataList({ initialContents, genres, watchProvi
       }
     })
       .then(response => {
-        setMovies(response.data.results);
+        setItems(response.data.results);
         setTotalPages(response.data.total_pages);
         setPage(response.data.page);
       })
@@ -52,23 +51,26 @@ export default function FilterableDataList({ initialContents, genres, watchProvi
   }
 
   useEffect(() => {
-    fetchFilteredMovies()
+    fetchFilteredContent()
   }, [selectedGenres, selectedProviders, yearRange, page, sortType])
 
   const handleGenreChange = (items: { id: number; name: string }[]) => {
+    setPage(1)
     setSelectedGenres(items.map(item => item.id))
   }
 
   const handleProviderChange = (items: { provider_id: number; provider_name: string }[]) => {
+    setPage(1)
     setSelectedProviders(items.map(item => item.provider_id))
   }
 
   const handleYearChange = (start: string, end: string) => {
+    setPage(1)
     setYearRange({ start, end })
   }
 
   const handleSortChange = (sortType: string) => {
-    console.log("sort")
+    setPage(1)
     setSortType(sortType)
   }
 
@@ -109,8 +111,11 @@ export default function FilterableDataList({ initialContents, genres, watchProvi
           </div>
         ) : (
           <div className="mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full ">
-            {movies.map((movie: any, index: number) => (
-              <MovieCard key={index} movie={movie} />
+            {items.map((item: MovieData | TvData, index: number) => (
+              <MovieCard
+                key={index}
+                item={{ id: item.id, poster_path: item.poster_path, media_type: media }}
+              />
             ))}
           </div>
         )}

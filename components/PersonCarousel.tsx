@@ -1,11 +1,22 @@
 "use client"
 import NameCard from "@/components/NameCard";
-import { CrewMember } from "@/utils/types";
 import { useState } from "react";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
-function CastCarousel({ personList }: { personList: CrewMember[] }) {
+interface PersonCarouselProps {
+  personList: {
+    id: number;
+    name: string;
+    profile_path: string;
+    character?: string;
+    job?: string;
+  }[];
+
+  type: string;
+}
+
+function PersonCarousel({ personList, type }: PersonCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const nextSlide = () => {
@@ -31,12 +42,12 @@ function CastCarousel({ personList }: { personList: CrewMember[] }) {
 
       )}
       <div className="flex sm:gap-5 md:gap-12 lg:gap-14 xl:gap-16 justify-center w-[270px] sm:w-[380px] md:w-[500px] lg:w-[700px] xl:w-[800px] 2xl:w-[900px]">
-        {personList.slice(currentIndex, currentIndex + 4).map((person) => (
+        {personList.slice(currentIndex, currentIndex + 4).map((person) => (   //bug - to reproduce go to greys anatomy page and scroll on crew
           <NameCard
             key={person.id}
             name={person.name}
             imagePath={person.profile_path}
-            desc={(person.character ?? person.job) as string}
+            desc={((person.character ?? person.job) ?? "Creator")}
           />
         ))}
       </div>
@@ -45,7 +56,7 @@ function CastCarousel({ personList }: { personList: CrewMember[] }) {
         <button
           onClick={nextSlide}
           className=" bg-black border-2 border-white/50 flex justify-center items-center text-gray-100 p-1 rounded-full enabled:active:scale-95 enabled:hover:bg-neutral-900 disabled:opacity-40"
-          disabled={currentIndex + 4 > personList.length}
+          disabled={currentIndex + 4 >= personList.length}
         >
           <div className="text-2xl xl:text-3xl">
             <GrFormNext />
@@ -56,4 +67,4 @@ function CastCarousel({ personList }: { personList: CrewMember[] }) {
   );
 }
 
-export default CastCarousel;
+export default PersonCarousel;

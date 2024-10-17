@@ -22,7 +22,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo }) => {
   };
 
   return (
-    <div className='flex gap-2 justify-evenly items-center flex-1'>
+    <div className='flex gap-2 justify-evenly items-center '>
       {videoInfo && videoInfo.length > 0 ? (
         videoInfo.map((video) => (
           <div key={video.key} className="video-section">
