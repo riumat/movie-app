@@ -75,7 +75,7 @@ export default function FilterableDataList({ initialContents, genres, watchProvi
   }
 
   return (
-    <div className="flex flex-col md:flex-row w-[90%] gap-5 min-h-screen bg-black/85 p-3 rounded-xl">
+    <div className="flex flex-col md:flex-row w-[90%] gap-5 min-h-screen bg-neutral-950/90 p-3 rounded-xl">
       <div className="md:w-[300px] flex-1 md:flex-none flex flex-col items-center gap-10 px-2 z-30 h-full  mt-8">
         <div className="">
           <h2 className="text-sm font-semibold mb-3 text-center">Genres</h2>

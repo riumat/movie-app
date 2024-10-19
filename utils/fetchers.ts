@@ -66,3 +66,9 @@ export const fetchContentData = async (contentId: string, media: string) => {
 
   return { ...contentData, images: imagesData, providers: providersData };
 }
+
+export const fetchSeasonData = async (contentId: string, seasonNumber: string) => {
+  const res = await fetch(`${baseUrl}/tv/${contentId}/season/${seasonNumber}?api_key=${apiKey}&append_to_response=credits`);
+  const data = await res.json();
+  return data;
+}

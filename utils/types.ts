@@ -57,7 +57,7 @@ export interface TvItem {
   media_type: string,
 }
 
-export interface ContentItem{
+export interface ContentItem {
   id: number,
   poster_path: string,
   media_type: string,
@@ -189,42 +189,40 @@ export interface TvData {
   images: ImagesItem
 }
 
-/* export interface GenericData {
+export interface PersonData {
+  biography: string,
+  birthday: string,
+  deathday: string,
   id: number,
-  title: string,
-  poster_path: string,
-  release_date: string,
-  vote_average: number,
-  media_type: string,
-} */
+  imdb_id: string,
+  name: string,
+  place_of_birth: string,
+  profile_path: string,
+  known_for_department: string,
+}
 
-/* export interface CrewMember {
-  job?: string;
-  character?: string;
-  name: string;
+export interface SeasonData {
   id: number;
-  profile_path: string;
-} */
-/* export interface WorkMember {
-  job: string;
+  air_date: string;
   name: string;
+  season_number: number;
+  poster_path: string;
+  overview: string;
+  episodes: EpisodeData[]
+}
+export interface EpisodeData {
+  air_date: string;
+  episode_number: number;
   id: number;
-  profile_path: string;
-} */
+  name: string;
+  overview: string;
+  season_number: number;
+  still_path: string;
+}
 
-/* export interface CastMember {
-  id: number;
-  name: string;
-  character: string;
-  profile_path: string;
-} */
+export type Selection = "crew" | "seasons" | "watch" | "similar";
 
-/* export interface CrewFormatted {
-  job?: string[];
-  character?: string;
-  name: string;
-  id: number;
-  profile_path: string;
-} */
+
+
 
 

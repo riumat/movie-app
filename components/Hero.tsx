@@ -55,7 +55,7 @@ const Hero = () => {
             <Searchbar onSearch={handleQuery} />
           </div>
           <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">
-            <div className="px-2 grid grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">
+            <div className="px-2 grid grid-cols-2 lg:grid-cols-5 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">
               {searchResults.map((result, index) => (
                 <MultiCard key={index} item={result} />
               ))}

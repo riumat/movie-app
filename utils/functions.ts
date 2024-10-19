@@ -1,5 +1,5 @@
 import { relevantMovieJobs, relevantTvJobs } from "@/utils/constants";
-import { CastMember, WorkMember } from "@/utils/types";
+import { CastItem, CrewItem } from "@/utils/types";
 
 export function formatDate(inputDate: string): string {
   const [year, month, day] = inputDate.split('-');
@@ -20,6 +20,7 @@ export function formatNumber(number: number): string {
 export const formatTvDuration = (start: string, end: string): string => {
   const [year] = start.split('-');
   const [endYear] = end.split('-');
+  if (year === endYear) return year
   return `${year} - ${endYear}`;
 
 }
@@ -35,7 +36,7 @@ export function formatMinutes(minutes: number): string {
 }
 
 
-export const formatCrewList = (crew: { id: number, name: string, profile_path: string, job: string }[]): WorkMember[] => {
+export const formatCrewList = (crew: { id: number, name: string, profile_path: string, job: string }[]): CrewItem[] => {
   return crew
     .filter(member => relevantMovieJobs.includes(member.job))
     .reduce((acc, member) => {
@@ -51,7 +52,7 @@ export const formatCrewList = (crew: { id: number, name: string, profile_path: s
         });
       }
       return acc;
-    }, [] as Array<WorkMember>)
+    }, [] as Array<CrewItem>)
     .sort((a, b) => {
       const jobA = a.job.toLowerCase().includes("director");
       const jobB = b.job.toLowerCase().includes("director");
@@ -61,7 +62,7 @@ export const formatCrewList = (crew: { id: number, name: string, profile_path: s
     })
 }
 
-export const formatTvAggregate = (crew: { id: number, name: string, profile_path: string, jobs: { job: string }[] }[]): WorkMember[] => {
+export const formatTvAggregate = (crew: { id: number, name: string, profile_path: string, jobs: { job: string }[] }[]): CrewItem[] => {
   return crew
     .filter(member => member.jobs.some(job => relevantTvJobs.includes(job.job)))
     .map(member => ({
@@ -72,12 +73,12 @@ export const formatTvAggregate = (crew: { id: number, name: string, profile_path
     }))
 }
 
-export const formatTvCastList = (cast: { id: number, name: string, profile_path: string, roles: { character: string }[] }[]): CastMember[] => {
+export const formatTvCastList = (cast: { id: number, name: string, profile_path: string, roles: { character: string }[] }[]): CastItem[] => {
   return cast.map(member => ({
     id: member.id,
     name: member.name,
     profile_path: member.profile_path,
-    character: member.roles.map(role => role.character).join(', '),    
+    character: member.roles.map(role => role.character).join(', '),
   }))
 }
 

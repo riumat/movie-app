@@ -20,11 +20,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.slick-slide{
+  display: flex !important;
+  justify-content: center !important;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
 
 @layer base {
   .scrollbar-thin {
@@ -32,6 +38,6 @@ body {
   }
 
   .neon-shadow {
-    @apply -inset-0.5 bg-teal-50 group-hover:opacity-100  group-hover:duration-200 blur opacity-30;
+    @apply -inset-0.5 bg-teal-50 group-hover:opacity-100 group-hover:duration-200 blur opacity-30;
   }
 }

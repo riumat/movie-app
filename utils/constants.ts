@@ -68,3 +68,39 @@ export const relevantTvJobs = [
   "Original Music Composer",
   "Story"
 ];
+
+
+export const selectorTvList = [
+  {
+    name: "Crew & Cast",
+    value: "crew",
+  },
+  {
+    name: "Seasons",
+    value: "seasons",
+  },
+  {
+    name: "Watch",
+    value: "watch",
+  },
+  {
+    name: "Similar",
+    value: "similar",
+  },
+];
+
+export const selectorMovieList = [
+
+  {
+    name: "Crew & Cast",
+    value: "crew",
+  },
+  {
+    name: "Watch",
+    value: "watch",
+  },
+  {
+    name: "Similar",
+    value: "similar",
+  },
+]
