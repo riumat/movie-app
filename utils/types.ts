@@ -68,7 +68,16 @@ export interface ProviderItem {
   provider_name: string,
   provider_id: number,
   display_priority: number,
+  category: string
 }
+
+export interface VideoItem {
+  key: string,
+  name: string,
+  type: string,
+  official: boolean,
+}
+
 
 export interface ProviderData {
   link: string,
@@ -108,12 +117,9 @@ export interface MovieData {
     crew: CrewItem[],
   }
   videos: {
-    results: {
-      key: string,
-      name: string,
-      type: string,
-      official: boolean,
-    }[],
+    trailers: VideoItem[],
+    clips: VideoItem[],
+    feat: VideoItem[],
   },
   recommendations: {
     page: number,
@@ -121,11 +127,7 @@ export interface MovieData {
     total_results: number,
     results: MovieItem[],
   }
-  providers: {
-    results: {
-      IT: ProviderData,
-    },
-  },
+  providers: ProviderItem[],
 }
 
 export interface TvData {
@@ -163,17 +165,14 @@ export interface TvData {
   }[];
   status: string;
   tagline: string;
-  aggregate_credits: {
+  credits: {
     cast: TvCastItem[],
     crew: TvCrewItem[],
   },
   videos: {
-    results: {
-      key: string,
-      name: string,
-      type: string,
-      official: boolean,
-    }[],
+    trailers: VideoItem[],
+    clips: VideoItem[],
+    feat: VideoItem[],
   },
   recommendations: {
     page: number,
@@ -181,11 +180,7 @@ export interface TvData {
     total_results: number,
     results: TvItem[],
   }
-  providers: {
-    results: {
-      IT: ProviderData,
-    },
-  },
+  providers: ProviderItem[],
   images: ImagesItem
 }
 
@@ -199,6 +194,26 @@ export interface PersonData {
   place_of_birth: string,
   profile_path: string,
   known_for_department: string,
+  images: {
+    profiles: {
+      file_path: string
+    }[]
+  }
+  combined_credits: {
+    backdrop_path: string,
+    id: number,
+    title: string,
+    release_date: string,
+    media_type: string,
+    poster_path: string,
+    popularity: number,
+    genre_ids: number[],
+    character: string,
+    episode_count: number,
+    vote_average: number,
+    vote_count: number,
+    order: number
+  }[]
 }
 
 export interface SeasonData {
@@ -220,7 +235,7 @@ export interface EpisodeData {
   still_path: string;
 }
 
-export type Selection = "crew" | "seasons" | "watch" | "similar";
+export type Selection = "crew" | "cast" | "overview" | "seasons" | "watch" | "videos" | "similar";
 
 
 

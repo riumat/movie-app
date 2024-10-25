@@ -14,7 +14,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       onSearch(query);
-    }, 400),
+    }, 500),
     [onSearch]
   );
 
@@ -25,7 +25,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative flex items-center rounded-xl border border-white/30 bg-black">
+    <div className="relative flex items-center rounded-xl border border-white/30 bg-gradient-to-r from-neutral-950 to-95% to-neutral-900/50 h-full">
       <div className='text-gray-400 text-[17px] pl-4'>
         <IoSearchOutline />
       </div>
@@ -34,7 +34,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
         placeholder="Search movies, tv shows, actors and more..."
         value={searchTerm}
         onChange={handleInputChange}
-        className="w-full py-3 px-4 mr-2 text-gray-100 rounded-md bg-black placeholder-gray-400 focus:outline-none focus:border-transparent"
+        className="w-full py-3 px-4 mr-2 text-gray-100 rounded-md bg-transparent placeholder-gray-400 focus:outline-none focus:border-transparent"
       />
     </div>
   );

@@ -1,26 +1,27 @@
 "use client"
 import React from "react";
 import Slider from "react-slick";
-import NameCard from "@/components/NameCard";
 import Link from "next/link";
+import MultiCard from "@/components/MultiCard";
 
 interface PersonCarouselProps {
-  personList: {
-    id: number;
-    name: string;
-    profile_path: string;
-    character?: string;
-    job?: string;
+  contentList: {
+    id?: number;
+    name?: string;
+    title?: string;
+    media_type?: string;
+    poster_path?: string;
+    release_date?: string;
+    first_air_date?: string;
+    profile_path?: string;
   }[];
-
-  type: string;
 }
 
 const settings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 6,
   slidesToScroll: 1,
   initialSlide: 0,
   responsive: [
@@ -48,26 +49,23 @@ const settings = {
   ]
 };
 
-function SliderComponent({ personList, type }: PersonCarouselProps) {
+function SliderComponent({ contentList }: PersonCarouselProps) {
   return (
-    <div className="slider-container z-50 relative !w-[90%]">
+    <div className="slider-container z-50 relative w-full">
       <Slider
         {...settings}
       >
-        {personList.slice(0, 30).map((person) => (
+        {contentList.map((content) => (
+
           <Link
-            key={person.id}
-            href={`/person/${person.id}`}
+            key={content.id}
+            href={`/${content.media_type}/${content.id}`}
           >
-            <NameCard
-              name={person.name}
-              imagePath={person.profile_path}
-              desc={((person.character ?? person.job) ?? "Creator")}
-            />
+            <MultiCard key={content.id} item={content} />
           </Link>
         ))}
       </Slider>
-    </div>
+    </div >
   );
 }
 

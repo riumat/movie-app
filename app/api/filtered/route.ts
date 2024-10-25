@@ -29,7 +29,6 @@ export async function GET(request: Request) {
         accept: 'application/json',
       },
     });
-    console.log(response)
     return Response.json(response.data);
   } catch (error: any) {
     console.log('Error fetching data:', error.code);

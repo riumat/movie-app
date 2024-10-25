@@ -51,7 +51,7 @@ const Hero = () => {
         </div>
       ) : (
         <div className="relative h-full z-10 flex flex-col items-center">
-          <div className="w-full max-w-4xl mt-8">
+          <div className="w-full max-w-4xl mt-8 h-10 text-sm">
             <Searchbar onSearch={handleQuery} />
           </div>
           <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">

@@ -26,17 +26,7 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   const handleClick = () => {
-    switch (item.media_type) {
-      case 'movie':
-        router.push(`/movie/${item.id}`);
-        break;
-      case 'tv':
-        router.push(`/tv/${item.id}`);
-        break;
-      case 'person':
-        router.push(`/person/${item.id}`);
-        break;
-    }
+    router.push(`/${item.media_type}/${item.id}`);
   };
 
   const onLoadCallback = () => {
@@ -47,7 +37,10 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
   };
 
   return (
-    <div className="py-5 flex flex-col gap-5 bg-transparent cursor-pointer items-center  hover:bg-gray-500/15 w-64  rounded-lg" onClick={handleClick}>
+    <button
+      className="py-5 flex flex-col gap-5 bg-transparent cursor-pointer items-center hover:bg-neutral-800/80 w-56  rounded-lg"
+      onClick={handleClick}
+    >
       <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
         {!isImageLoaded && (
           <BeatLoader color='#ffffff' size={10} />
@@ -72,7 +65,7 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

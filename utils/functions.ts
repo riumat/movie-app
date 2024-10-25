@@ -1,17 +1,17 @@
 import { relevantMovieJobs, relevantTvJobs } from "@/utils/constants";
 import { CastItem, CrewItem } from "@/utils/types";
 
-export function formatDate(inputDate: string): string {
-  const [year, month, day] = inputDate.split('-');
+export function formatDate(date: string): string {
+  const [year, month, day] = date.split('-');
   return `${day}/${month}/${year}`;
 }
 
 
 export function formatNumber(number: number): string {
   if (number >= 1000000) {
-    return (number / 1000000).toFixed(1) + 'M';
+    return `${(number / 1000000).toFixed(1)}M`;
   } else if (number >= 1000) {
-    return (number / 1000).toFixed(1) + 'K';
+    return `${(number / 1000).toFixed(1)}K`;
   } else {
     return number.toString();
   }
@@ -82,7 +82,12 @@ export const formatTvCastList = (cast: { id: number, name: string, profile_path:
   }))
 }
 
-export const mergeProviders = (rent: any, buy: any, flatrate: any, ads: any, free: any) => {
+export const formatProviders = (providers: any) => {
+  const flatrate = providers?.flatrate ?? [];
+  const rent = providers?.rent ?? [];
+  const buy = providers?.buy ?? [];
+  const ads = providers?.ads ?? [];
+  const free = providers?.free ?? [];
   const mergedProviders = [...rent, ...buy, ...flatrate, ...ads, ...free];
   return mergedProviders
     .filter(provider => provider.display_priority < 40)
@@ -98,5 +103,37 @@ export const mergeProviders = (rent: any, buy: any, flatrate: any, ads: any, fre
     )
     .sort((a, b) => (a.display_priority < b.display_priority ? -1 : b.display_priority < a.display_priority ? 1 : 0))
     .sort((a, b) => (a.category === 'Streaming' ? -1 : b.category === 'Streaming' ? 1 : 0))
-    .slice(0, 5)
+    
 };
+
+export const formatCombinedCredits = (cast: { id: number, title: string, media_type: string, release_date: string, poster_path: string, vote_average: number, vote_count: number, genre_ids: number[], character: string, episode_count: number, popularity: number, order: number }[]) => {
+  const excludedGenres = [99, 10767, 10764, 10763, 10762, 10768];
+  const filteredCredits = cast.filter((credit) => {
+    if (credit.media_type !== 'movie' && credit.media_type !== 'tv') {
+      return false;
+    }
+    if (credit.genre_ids.some((genre) => excludedGenres.includes(genre))) {
+      return false;
+    }
+    if (credit.media_type === 'tv' && credit.episode_count < 2) {
+      return false
+    }
+    if (credit.character && credit.character?.toLowerCase().includes('self')) {
+      return false;
+    }
+    if (credit.media_type === "movie" && credit.order > 10) {
+      return false;
+    }
+    if (credit.vote_count > 100 && credit.vote_average < 6) {
+      return false
+    }
+    return true;
+  });
+
+  const sortedCredits = filteredCredits.sort((a, b) => b.vote_count - a.vote_count).slice(0, 20);
+  return sortedCredits.sort((a, b) => b.vote_average - a.vote_average)
+    .filter((credit, index, self) => self.findIndex((c) => c.id === credit.id) === index)
+    .slice(0, 10);
+
+}
+

@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import NameSection from '@/components/NameSection';
-import { formatTvDuration } from '@/utils/functions';
 import { TvData } from '@/utils/types';
 import { fetchContentData } from '@/utils/fetchers';
 import MediaTvHero from '@/components/MediaTvHero';
@@ -12,6 +11,7 @@ export default async function TvPage({ params }: { params: { id: string } }) {
     tvData = await fetchContentData(tvId, "tv");
     tvData.type = "tv";
   } catch (error) {
+    console.log(error)
     notFound();
   }
 

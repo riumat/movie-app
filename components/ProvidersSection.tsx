@@ -1,27 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
 import { imageUrl, imgWidth } from '@/utils/constants';
-import { ProviderData } from '@/utils/types';
-import { mergeProviders } from '@/utils/functions';
+import { ProviderItem } from '@/utils/types';
 
 interface WatchProviderProps {
-  providers: ProviderData;
+  providers: ProviderItem[];
 }
 
-const ProviderSection: React.FC<WatchProviderProps> = ({ providers }: { providers: ProviderData }) => {
-  const flatrate = providers?.flatrate ?? [];
-  const rent = providers?.rent ?? [];
-  const buy = providers?.buy ?? [];
-  const ads = providers?.ads ?? [];
-  const free = providers?.free ?? [];
-  const allProviders = mergeProviders(rent, buy, flatrate, ads, free);
+const ProviderSection: React.FC<WatchProviderProps> = ({ providers }) => {
 
   return (
     <div className=" text-gray-100 flex justify-center items-start">
 
-      {allProviders.length > 0 ? (
-        <div className='flex gap-10 items-center '>
-          {allProviders.map((provider) => (
+      {providers.length > 0 ? (
+        <div className='grid grid-cols-5 gap-3 justify-items-center '>
+          {providers.map((provider) => (
             <div key={provider.provider_id} className='flex flex-col items-center gap-2'>
               <div className="flex items-center w-[100px] h-[100px] rounded-md">
                 <Image

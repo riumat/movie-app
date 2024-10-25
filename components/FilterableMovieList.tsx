@@ -8,6 +8,7 @@ import PageSelector from '@/components/PageSelector'
 import { SortInput } from '@/components/SortInput'
 import MovieCardSkeleton from '@/components/SkeletonMovieCard'
 import { MovieData, TvData } from '@/utils/types'
+import Link from 'next/link'
 
 interface FilterableMovieListProps {
   initialContents: MovieData[] | TvData[],
@@ -112,10 +113,12 @@ export default function FilterableDataList({ initialContents, genres, watchProvi
         ) : (
           <div className="mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full ">
             {items.map((item: MovieData | TvData, index: number) => (
-              <MovieCard
-                key={index}
-                item={{ id: item.id, poster_path: item.poster_path, media_type: media }}
-              />
+              <Link key={index} href={`/${media}/${item.id}`}>
+                <MovieCard
+                  key={index}
+                  item={{ id: item.id, poster_path: item.poster_path, media_type: media }}
+                />
+              </Link>
             ))}
           </div>
         )}

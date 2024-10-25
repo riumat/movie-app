@@ -5,12 +5,10 @@ import React from 'react'
 import { BeatLoader } from 'react-spinners';
 
 interface BackgroundDisplayProps {
-  movies: {
-    poster_path: string;
-  }[];
+  posters: string[];
 }
 
-const BackgroundDisplay: React.FC<BackgroundDisplayProps> = ({ movies }) => {
+const BackgroundDisplay: React.FC<BackgroundDisplayProps> = ({ posters }) => {
   const [imageLoaded, setImageLoaded] = React.useState(false);
 
   const handleImageLoad = () => {
@@ -22,10 +20,10 @@ const BackgroundDisplay: React.FC<BackgroundDisplayProps> = ({ movies }) => {
   };
 
   return (
-    <div className="fixed inset-0 -z-10">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-black -z-10" />
-      <div className="flex h-full">
-        {movies.map((movie, index) => (
+    <div className="fixed inset-0 -z-10 ">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-black -z-10 " />
+      <div className="flex h-full ">
+        {posters.map((path, index) => (
           <div key={index} className="flex-1 relative -z-20">
             {!imageLoaded && (
               <div className="z-40 flex justify-center items-center h-full">
@@ -33,7 +31,7 @@ const BackgroundDisplay: React.FC<BackgroundDisplayProps> = ({ movies }) => {
               </div>
             )}
             <Image
-              src={`${imageUrl}${imgWidth.poster.original}${movie.poster_path}`}
+              src={`${imageUrl}${imgWidth.poster.original}${path}`}
               alt={"movie poster"}
               fill
               priority

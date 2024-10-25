@@ -23,8 +23,8 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
     return null;
   }
   return (
-    <div className="flex flex-col items-center  text-slate-50 rounded-lg w-20 h-56 lg:w-28 lg:h-56 xl:w-40 xl:h-64 ">
-      <div className='w-20 h-20 lg:w-28 lg:h-28 xl:w-40 xl:h-40 overflow-hidden relative '>
+    <div className="flex flex-col bg-transparent w-full max-w-[150px] mx-auto">
+      <div className='relative w-full max-h-48 pb-[150%] rounded-lg overflow-hidden'>
         {!imageLoaded && (
           <div className="z-40 flex justify-center items-center h-full">
             <BeatLoader color="#ffffff" size={10} />
@@ -34,10 +34,11 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
           src={imagePath ? `${imageUrl}${imgWidth.profile[185]}${imagePath}` : `${placeholders.profile}`}
           alt={`${name}'s profile picture`}
           fill
-          className={`rounded-lg object-cover ${imagePath ? "" : "grayscale filter invert  "}`}
+          className={`rounded-lg z-30 object-contain ${imagePath ? "" : "grayscale filter invert  "}`}
           sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
           onLoad={handleImageLoad}
           onError={handleImageError}
+          loading='lazy'
         />
       </div>
       <div className='flex flex-col items-center gap-2 mt-2  justify-center'>

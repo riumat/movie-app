@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { sidebarItems } from '@/utils/constants';
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { SiThemoviedatabase } from "react-icons/si";
+
 
 
 const Sidebar: React.FC = () => {
@@ -19,7 +21,9 @@ const Sidebar: React.FC = () => {
     <div className={`relative flex duration-300`}>
       <nav className={`text-white flex items-center relative h-screen duration-300 ${isOpen ? 'translate-x-0 w-48' : '-translate-x-full w-0 '}`}>
         <div className={`h-[100vh] p-4 bg-gradient-to-r from-neutral-950 to-neutral-900  z-50 border-r border-neutral-50/30 transition-transform duration-300 ${isOpen ? 'translate-x-0 w-48' : '-translate-x-full '} `}>
-          <div className="text-xl font-bold mb-8 text-center">moviedb</div>
+          <div className='w-full flex justify-center'>
+            <SiThemoviedatabase size={40} className="text-white mb-4" />
+          </div>
           <ul>
             {sidebarItems.map((item) => (
               <li key={item.path} className="mb-4">
@@ -40,7 +44,7 @@ const Sidebar: React.FC = () => {
         onClick={toggleSidebar}
         className={`absolute top-1/2 left-[177px]  transform -translate-y-1/2 text-neutral-950 hover:text-neutral-800  border-black border rounded-full shadow-[0_0_5px_#dbfffb] bg-neutral-50 text-[34px] z-50 transition-all duration-300 ${isOpen ? '' : 'translate-x-[-177px] rotate-180 duration-300 '}`}
       >
-        <MdOutlineKeyboardArrowLeft size={30}  />
+        <MdOutlineKeyboardArrowLeft size={30} />
       </button>
     </div>
   );

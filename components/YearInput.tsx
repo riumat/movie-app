@@ -26,8 +26,6 @@ const YearRangeInput: React.FC<YearInputProps> = ({ onChange }) => {
       } else {
         setHasError(false);
         onChange(`${startYear}-01-01`, `${endYear}-${now.getMonth() < 10 ? "0" + now.getMonth() : now.getMonth()}-${now.getDate() < 10 ? "0" + now.getDate() : now.getDate()}`);
-        console.log(startYear)
-        console.log(endYear)
       }
     }
   }, [startYear, endYear])

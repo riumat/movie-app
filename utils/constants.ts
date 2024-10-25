@@ -72,8 +72,16 @@ export const relevantTvJobs = [
 
 export const selectorTvList = [
   {
-    name: "Crew & Cast",
+    name: "Cast",
+    value: "cast"
+  },
+  {
+    name: "Crew ",
     value: "crew",
+  },
+  {
+    name: "Overview",
+    value: "overview",
   },
   {
     name: "Seasons",
@@ -84,23 +92,47 @@ export const selectorTvList = [
     value: "watch",
   },
   {
+    name: "Videos",
+    value: "videos",
+  },
+  {
     name: "Similar",
     value: "similar",
   },
 ];
 
 export const selectorMovieList = [
-
   {
-    name: "Crew & Cast",
+    name: "Cast",
+    value: "cast"
+  },
+  {
+    name: "Crew ",
     value: "crew",
+  },
+  {
+    name: "Overview",
+    value: "overview",
   },
   {
     name: "Watch",
     value: "watch",
   },
   {
+    name: "Videos",
+    value: "videos",
+  },
+  {
     name: "Similar",
     value: "similar",
   },
 ]
+
+export const genreIdsToExclude = new Set([
+  99, // Documentary
+  10767, // Talk show
+  10764, // Reality
+  10763, // News
+  10762, // Game show
+  10768, // Short
+]);

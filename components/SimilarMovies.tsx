@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieCard from '@/components/MovieCard';
 import { ContentItem } from '@/utils/types';
+import Link from 'next/link';
 
 
 interface SimilarContentProps {
@@ -16,10 +17,14 @@ const SimilarContent: React.FC<SimilarContentProps> = ({ recommendations, media 
         <div className='flex flex-col gap-4 items-center h-full overflow-y-auto scrollbar-thin flex-1'>
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
             {recommendations.map((item) => (
-              <MovieCard
+              <Link
                 key={item.id}
-                item={{ id: item.id, poster_path: item.poster_path, media_type: media }}
-              />
+                href={`/${item.media_type}/${item.id}`}>
+                <MovieCard
+                  key={item.id}
+                  item={{ id: item.id, poster_path: item.poster_path, media_type: media }}
+                />
+              </Link>
             ))}
           </div>
         </div>
