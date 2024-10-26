@@ -22,8 +22,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ item }) => {
   };
 
   return (
-    <div className="flex flex-col bg-transparent w-full max-w-[200px] mx-auto">
-      <div className="relative w-full max-h-64 pb-[150%] rounded-lg overflow-hidden">
+    <div className="flex flex-col bg-transparent w-full max-w-[170px] mx-auto">
+      <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <BeatLoader color='#ffffff' size={10} />

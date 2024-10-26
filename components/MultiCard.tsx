@@ -1,16 +1,15 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/utils/constants';
 
 interface CardProps {
   item: {
-    id?: number;
+    id: number;
     name?: string;
     title?: string;
-    media_type?: string;
+    media_type: string;
     poster_path?: string;
     release_date?: string;
     first_air_date?: string;
@@ -22,12 +21,7 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
   const title = item.name || item.title || 'Unknown';
   const imagePath = item.poster_path ?? item.profile_path;
   const imageSrc = imagePath ? `${imageUrl}${imgWidth.backdrop[300]}${imagePath}` : placeholders.multi;
-  const router = useRouter();
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
-
-  const handleClick = () => {
-    router.push(`/${item.media_type}/${item.id}`);
-  };
 
   const onLoadCallback = () => {
     setIsImageLoaded(true);
@@ -37,9 +31,8 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
   };
 
   return (
-    <button
+    <div
       className="py-5 flex flex-col gap-5 bg-transparent cursor-pointer items-center hover:bg-neutral-800/80 w-56  rounded-lg"
-      onClick={handleClick}
     >
       <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
         {!isImageLoaded && (
@@ -65,7 +58,7 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
           )}
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 

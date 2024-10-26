@@ -42,7 +42,7 @@ export default function RootLayout({
                 <BeatLoader color='#ffffff' size={10} />
               </div>
             }>
-              <main className="flex flex-col flex-1 overflow-auto scrollbar-thin duration-300">
+              <main className="flex flex-col flex-1 overflow-auto scrollbar-thin duration-300 relative">
                 {children}
               </main>
             </Suspense>

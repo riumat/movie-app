@@ -23,7 +23,7 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
     return null;
   }
   return (
-    <div className="flex flex-col bg-transparent w-full max-w-[150px] mx-auto">
+    <div className="flex flex-col bg-transparent w-full max-w-[140px] mx-auto">
       <div className='relative w-full max-h-48 pb-[150%] rounded-lg overflow-hidden'>
         {!imageLoaded && (
           <div className="z-40 flex justify-center items-center h-full">

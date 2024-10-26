@@ -2,6 +2,7 @@ import { relevantMovieJobs, relevantTvJobs } from "@/utils/constants";
 import { CastItem, CrewItem } from "@/utils/types";
 
 export function formatDate(date: string): string {
+  if (!date) return '';
   const [year, month, day] = date.split('-');
   return `${day}/${month}/${year}`;
 }
@@ -18,6 +19,7 @@ export function formatNumber(number: number): string {
 }
 
 export const formatTvDuration = (start: string, end: string): string => {
+  if (!start || !end) return '';
   const [year] = start.split('-');
   const [endYear] = end.split('-');
   if (year === endYear) return year
@@ -29,6 +31,7 @@ export function formatMinutes(minutes: number): string {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = Math.ceil(minutes % 60);
   if (hours > 0) {
+    if (remainingMinutes === 0) return `${hours}h`;
     return `${hours}h ${remainingMinutes}m`;
   } else {
     return `${remainingMinutes}m`;
@@ -103,7 +106,7 @@ export const formatProviders = (providers: any) => {
     )
     .sort((a, b) => (a.display_priority < b.display_priority ? -1 : b.display_priority < a.display_priority ? 1 : 0))
     .sort((a, b) => (a.category === 'Streaming' ? -1 : b.category === 'Streaming' ? 1 : 0))
-    
+
 };
 
 export const formatCombinedCredits = (cast: { id: number, title: string, media_type: string, release_date: string, poster_path: string, vote_average: number, vote_count: number, genre_ids: number[], character: string, episode_count: number, popularity: number, order: number }[]) => {

@@ -36,7 +36,7 @@ export const getDiscoverMovies = async () => {
   return data.results;
 }
 
-export const fetchBackgrundPosters = async (index1: number, index2: number, media: string): Promise<string[]> => {
+export const fetchTrendingPosters = async (index1: number, index2: number, media: string): Promise<string[]> => {
   try {
     const response = await fetch(`${baseUrl}/${media}/popular?api_key=${apiKey}`);
     const data = await response.json();

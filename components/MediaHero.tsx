@@ -15,7 +15,7 @@ interface MediaHeroProps {
 const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
   const [selection, setSelection] = useState<Selection>("cast")
   return (
-    <section className=" bg-gradient-to-r from-transparent to-neutral-100/10 rounded-xl container">
+    <section className=" bg-neutral-950 w-full">
       <div className='flex m-10 '>
         <MainSectionSelector
           setSelection={setSelection}
@@ -31,6 +31,11 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
           {selection === "cast" && (
             <div className='flex flex-col gap-5 my-10 w-full h-full pb-20'>
               <CreditsList personList={movieData.credits.cast} />
+            </div>
+          )}
+          {selection === "overview" && (
+            <div className='flex flex-col gap-5 my-10 w-full h-full pb-20'>
+              <p className='text-justify'>{movieData.overview}</p>
             </div>
           )}
           {selection === "watch" && (

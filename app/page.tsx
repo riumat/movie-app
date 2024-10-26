@@ -1,14 +1,16 @@
 import BackgroundDisplay from "@/components/BackgroundDisplay";
 import Hero from "@/components/Hero";
-import { fetchBackgrundPosters } from "@/utils/fetchers";
+import { fetchTrendingPosters } from "@/utils/fetchers";
 
 
 export default async function Home() {
-  const posters = await fetchBackgrundPosters(0, 5, "movie");
+  const posters = await fetchTrendingPosters(0, 5, "movie");
 
   return (
     <>
-      <BackgroundDisplay posters={posters} />
+      <BackgroundDisplay
+        page="home"
+        posters={posters} />
       <Hero />
     </>
 

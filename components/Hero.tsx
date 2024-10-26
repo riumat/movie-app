@@ -4,10 +4,13 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import MultiCard from '@/components/MultiCard';
 import PageSelector from '@/components/PageSelector';
+import Link from 'next/link';
 
 interface SearchResult {
   name?: string;
   title?: string;
+  id: number,
+  media_type: string,
 }
 
 const Hero = () => {
@@ -15,8 +18,10 @@ const Hero = () => {
   const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleSearch = (query: string, page: number) => {
+    setIsLoading(true);
     axios
       .get('/api/multisearch', {
         params: { query, page },
@@ -27,12 +32,9 @@ const Hero = () => {
         setCurrentPage(page);
         setSearchQuery(query);
       })
+      .then(() => setIsLoading(false))
       .catch((error) => console.error('Error fetching search results:', error));
   };
-
-  useEffect(() => {
-    handleSearch(searchQuery, currentPage);
-  }, [currentPage, searchQuery]);
 
   const handleQuery = (query: string) => {
     if (query !== '') {
@@ -40,6 +42,10 @@ const Hero = () => {
       setSearchQuery(query);
     }
   }
+
+  useEffect(() => {
+    handleSearch(searchQuery, currentPage);
+  }, [currentPage, searchQuery]);
 
   return (
     <div className="relative flex-1">
@@ -57,7 +63,12 @@ const Hero = () => {
           <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">
             <div className="px-2 grid grid-cols-2 lg:grid-cols-5 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">
               {searchResults.map((result, index) => (
-                <MultiCard key={index} item={result} />
+                <Link
+                  key={index}
+                  href={`/${result.media_type}/${result.id}`}
+                >
+                  <MultiCard key={index} item={result} />
+                </Link>
               ))}
             </div>
             <PageSelector

@@ -9,15 +9,15 @@ interface MainSectionSelectorProps {
 
 const MainSectionSelector = ({ setSelection, selection, media }: MainSectionSelectorProps) => {
   return (
-    <div className=' flex flex-col justify-evenly text-sm border-r pr-10 border-neutral-50/20'>
+    <div className=' flex flex-col justify-start items-start gap-5 text-sm border-r pr-10 border-neutral-50/20'>
       {media === "movie" ? (
         selectorMovieList.map((item) => (
           <button
             key={item.value}
             onClick={() => setSelection(item.value as Selection)}
             className={`
-              ${selection === item.value ? "bg-neutral-50 text-neutral-950" : "bg-transparent text-gray-200 border border-neutral-50/30"}
-               py-1 px-10 font-semibold rounded-xl active:scale-95 duration-50
+              ${selection === item.value ? "underline font-bold text-white" : "font-light text-neutral-300"}
+               py-1 px-10 hover:underline
                `}
           >
             {item.name}
@@ -29,9 +29,9 @@ const MainSectionSelector = ({ setSelection, selection, media }: MainSectionSele
             key={item.value}
             onClick={() => setSelection(item.value as Selection)}
             className={`
-              ${selection === item.value ? "bg-neutral-50 text-neutral-950" : "bg-transparent text-gray-200 border border-neutral-50/30"} 
-              py-1 px-10 font-semibold rounded-xl active:scale-95 duration-50
-              `}
+              ${selection === item.value ? "underline font-bold text-white" : "font-light text-neutral-300"}
+               py-1 px-10 hover:underline
+               `}
           >
             {item.name}
           </button>

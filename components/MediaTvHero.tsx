@@ -16,7 +16,7 @@ interface MediaHeroProps {
 const MediaTvHero: React.FC<MediaHeroProps> = ({ tvData }) => {
   const [selection, setSelection] = useState<Selection>("cast")
   return (
-    <section className=" bg-gradient-to-r from-transparent to-neutral-100/10 rounded-xl container">
+    <section className=" bg-gradient-to-r from-neutral-950 to-neutral-900 w-full">
       <div className='flex m-10 gap-5'>
         <MainSectionSelector
           setSelection={setSelection}
