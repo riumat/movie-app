@@ -42,7 +42,97 @@ export const placeholders = {
 export const sidebarItems = [
   { label: 'Home', path: '/' },
   { label: 'Movies', path: '/movie' },
-  { label: 'Tv Shows', path: '/show' },
+  { label: 'Tv Shows', path: '/tv' },
+  { label: 'People', path: '/person' },
   { label: 'Genres', path: '/genres' },
-  { label: 'Popular', path: '/popular' },
 ];
+
+
+export const relevantMovieJobs = [
+  "Director",
+  "Writer",
+  "Screenplay",
+  "Director of Photography",
+  "Editor",
+  "Original Music Composer",
+  "Story",
+  "Producer",
+  "Visual Effects Supervisor",
+  "Art Direction"
+];
+
+export const relevantTvJobs = [
+  "Writer",
+  "Tvplay",
+  "Director of Photography",
+  "Original Music Composer",
+  "Story"
+];
+
+
+export const selectorTvList = [
+  {
+    name: "Cast",
+    value: "cast"
+  },
+  {
+    name: "Crew ",
+    value: "crew",
+  },
+  {
+    name: "Overview",
+    value: "overview",
+  },
+  {
+    name: "Seasons",
+    value: "seasons",
+  },
+  {
+    name: "Watch",
+    value: "watch",
+  },
+  {
+    name: "Videos",
+    value: "videos",
+  },
+  {
+    name: "Similar",
+    value: "similar",
+  },
+];
+
+export const selectorMovieList = [
+  {
+    name: "Cast",
+    value: "cast"
+  },
+  {
+    name: "Crew ",
+    value: "crew",
+  },
+  {
+    name: "Overview",
+    value: "overview",
+  },
+  {
+    name: "Watch",
+    value: "watch",
+  },
+  {
+    name: "Videos",
+    value: "videos",
+  },
+  {
+    name: "Similar",
+    value: "similar",
+  },
+]
+
+export const genreIdsToExclude = new Set([
+  99, // Documentary
+  10767, // Talk show
+  10764, // Reality
+  10763, // News
+  10762, // Game show
+  10768, // Short
+]);

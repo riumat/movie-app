@@ -9,9 +9,10 @@ export async function GET(request: Request) {
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
   const sort = searchParams.get('sortType');
+  const media = searchParams.get('media');
 
   try {
-    const response = await axios.get(`${baseUrl}/discover/movie`, {
+    const response = await axios.get(`${baseUrl}/discover/${media}`, {
       params: {
         language: 'en-US',
         page: page,
@@ -28,7 +29,6 @@ export async function GET(request: Request) {
         accept: 'application/json',
       },
     });
-    console.log(response)
     return Response.json(response.data);
   } catch (error: any) {
     console.log('Error fetching data:', error.code);

@@ -5,6 +5,9 @@ import Sidebar from "@/components/Sidebar";
 import { Suspense } from "react";
 import { BeatLoader } from "react-spinners";
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -32,14 +35,14 @@ export default function RootLayout({
         className={`${geistMono.variable} ${geistSans.variable} antialiased`}
       >
         <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen">
-          <div className="relative z-10 flex w-full h-screen">
+          <div className="relative flex w-full h-screen">
             <Sidebar />
             <Suspense fallback={
               <div className="w-full h-full flex justify-center items-center z-50">
                 <BeatLoader color='#ffffff' size={10} />
               </div>
             }>
-              <main className="flex flex-1 overflow-auto scrollbar-thin">
+              <main className="flex flex-col flex-1 overflow-auto scrollbar-thin relative">
                 {children}
               </main>
             </Suspense>

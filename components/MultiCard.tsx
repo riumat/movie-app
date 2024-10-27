@@ -1,16 +1,15 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { BeatLoader } from 'react-spinners';
-import { placeholders } from '@/utils/constants';
+import { imageUrl, imgWidth, placeholders } from '@/utils/constants';
 
 interface CardProps {
   item: {
-    id?: number;
+    id: number;
     name?: string;
     title?: string;
-    media_type?: string;
+    media_type: string;
     poster_path?: string;
     release_date?: string;
     first_air_date?: string;
@@ -21,23 +20,8 @@ interface CardProps {
 const MultiCard: React.FC<CardProps> = ({ item }) => {
   const title = item.name || item.title || 'Unknown';
   const imagePath = item.poster_path ?? item.profile_path;
-  const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w154${imagePath}` : placeholders.multi;
-  const router = useRouter();
+  const imageSrc = imagePath ? `${imageUrl}${imgWidth.backdrop[300]}${imagePath}` : placeholders.multi;
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
-
-  const handleClick = () => {
-    switch (item.media_type) {
-      case 'movie':
-        router.push(`/movie/${item.id}`);
-        break;
-      case 'tv':
-        router.push(`/tv/${item.id}`);
-        break;
-      case 'person':
-        router.push(`/person/${item.id}`);
-        break;
-    }
-  };
 
   const onLoadCallback = () => {
     setIsImageLoaded(true);
@@ -47,26 +31,32 @@ const MultiCard: React.FC<CardProps> = ({ item }) => {
   };
 
   return (
-    <div className="w-full m-4 flex gap-2 bg-transparent cursor-pointer" onClick={handleClick}>
-      <div className="relative rounded-lg w-24 h-24 overflow-hidden flex items-center">
+    <div
+      className="py-5 flex flex-col gap-5 bg-transparent items-center hover:bg-neutral-800/80 w-56 rounded-lg"
+    >
+      <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
         {!isImageLoaded && (
-          <BeatLoader  color='#ffffff' size={10} />
+          <BeatLoader color='#ffffff' size={10} />
         )}
         <Image
-          src={imageUrl}
+          src={imageSrc}
           alt={title}
-          width={150}
-          height={150}
+          fill
           onLoad={onLoadCallback}
           onError={onErrorCallback}
+          className={`object-contain ${imagePath ? '' : 'grayscale brightness-125 contrast-0'}`}
         />
       </div>
-      <div className="flex-1 px-6 py-4 grid grid-cols-3 justify-items-center items-center">
-        <div className="font-bold  mb-2">{title}</div>
-        {item.media_type && (
-          <p className="text-gray-400 text-base">{item.media_type} </p>
-        )}
-        <div className='text-gray-400'>{item.release_date?.slice(0, 4) ?? item.first_air_date?.slice(0, 4)}</div>
+      <div className=" flex flex-col items-center text-sm">
+        <div className="font-semibold text-center text-neutral-100 mb-2">{title}</div>
+        <div className='flex gap-2 justify-center'>
+          {item.media_type && (
+            <p className="text-neutral-200 font-light px-3 py-1 border border-white/30 rounded-xl  text-sm">{item.media_type ? item.media_type[0].toUpperCase() + item.media_type.slice(1) : ''} </p>
+          )}
+          {(item.release_date || item.first_air_date) && (
+            <p className='text-neutral-200 font-light px-3 py-1 border border-white/30 rounded-xl text-sm'>{item.release_date?.slice(0, 4) ?? item.first_air_date?.slice(0, 4)}</p>
+          )}
+        </div>
       </div>
     </div>
   );

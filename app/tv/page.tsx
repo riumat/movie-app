@@ -3,11 +3,11 @@ import BackgroundDisplay from "@/components/BackgroundDisplay";
 import FilterableDataList from "@/components/FilterableMovieList";
 
 export default async function DiscoverPage() {
-  const posters = await fetchTrendingPosters(5, 10, "movie");
-  const { genres, providers, content } = await fetchContentDataWithFilters("movie");
+  const posters = await fetchTrendingPosters(5, 10, "tv");
+  const { genres, providers, content } = await fetchContentDataWithFilters("tv");
 
   return (
-    <div className="flex-1  min-h-screen">
+    <div className="flex-1 min-h-screen">
       <BackgroundDisplay
         page="home"
         posters={posters} />
@@ -16,7 +16,7 @@ export default async function DiscoverPage() {
           initialContents={content}
           genres={genres}
           watchProviders={providers}
-          media={"movie"}
+          media="tv"
         />
       </div>
     </div>
