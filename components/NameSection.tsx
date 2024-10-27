@@ -12,7 +12,7 @@ const NameSection: React.FC<MovieComponentProps> = ({ contentData }) => {
   return (
     <div className="relative min-h-[400px] w-full ">
 
-      <div className="absolute inset-0 flex flex-col gap-10 justify-end  items-center  text-white p-5 bg-gradient-to-b from-neutral-950/10 via-60% via-neutral-950/90 to-neutral-950 ">
+      <div className="absolute inset-0 flex flex-col gap-10 justify-end  items-center  text-neutral-100 p-5 bg-gradient-to-b from-neutral-950/10 via-60% via-neutral-950/90 to-neutral-950 ">
         <h2 className="text-3xl font-bold  ">{contentData.type === "movie" ? contentData.title : contentData.name}</h2>
         <div className='w-[60%] flex  gap-5 xl:gap-10 justify-center items-center relative '>
           {contentData.production_companies.slice(0, 4).map((company, index) => (

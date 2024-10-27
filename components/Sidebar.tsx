@@ -2,12 +2,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaChevronCircleLeft } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { sidebarItems } from '@/utils/constants';
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { SiThemoviedatabase } from "react-icons/si";
-
 
 
 const Sidebar: React.FC = () => {
@@ -19,19 +16,26 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className={`relative flex duration-100 `}>
-      <nav className={`text-white flex items-center relative h-screen duration-300 ${isOpen ? 'translate-x-0 w-36' : '-translate-x-full w-0 '}`}>
-        <div className={`h-[100vh] p-4 bg-gradient-to-r from-neutral-900 to-neutral-950  z-50 border-r border-neutral-50/30 transition-transform duration-300 ${isOpen ? 'translate-x-0 w-48' : '-translate-x-full '} `}>
-          <div className='w-full flex justify-center'>
-            <SiThemoviedatabase size={40} className="text-white mb-4" />
+    <div className={` flex z-20 duration-50 ${isOpen ? 'w-40' : 'w-0'}`}>
+      <nav className={`text-white flex items-center relative z-20 h-screen duration-50 w-40
+      ${isOpen ? 'translate-x-0 left-0' : '-translate-x-full'}
+        `}
+      >
+        <div className={`h-[100vh] p-4 bg-neutral-950 flex flex-col gap-5 z-20 w-full relative border-r border-neutral-700
+           `}>
+          <div className='w-full flex justify-center relative left-4'>
+            <SiThemoviedatabase
+              size={27}
+              className="text-white mb-4"
+            />
           </div>
-          <ul>
+          <ul className='relative text-sm flex flex-col gap-1'>
             {sidebarItems.map((item) => (
               <li key={item.path} className="mb-4">
                 <Link href={item.path}>
                   <span
-                    className={`block px-5 py-2 rounded-xl hover:bg-gradient-to-r from-neutral-50 to-neutral-50/80 hover:text-neutral-950 duration-300 text-sm ${pathname === item.path ? 'bg-gradient-to-r from-neutral-50 to-neutral-50/80 text-neutral-950' : ''
-                      }`}
+                    className={`px-3 py-1 rounded-xl hover:underline font-normal
+                      ${pathname === item.path ? 'underline font-bold' : ''}`}
                   >
                     {item.label}
                   </span>
@@ -43,9 +47,9 @@ const Sidebar: React.FC = () => {
       </nav>
       <button
         onClick={toggleSidebar}
-        className={`absolute top-2 left-3 cursor-pointer z-20  ${isOpen ? '' : ' '}`}
+        className={`fixed top-[14px] left-5 cursor-pointer z-20 bg-neutral-950/15 rounded-md p-1 outline-none ${isOpen ? '' : ' '}`}
       >
-        <IoMenu size={27} />
+        <IoMenu size={23} className='text-neutral-200' />
       </button>
     </div>
   );

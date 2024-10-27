@@ -16,7 +16,7 @@ const MediaHero: React.FC<MediaHeroProps> = ({ movieData }) => {
   const [selection, setSelection] = useState<Selection>("cast")
   return (
     <section className=" bg-neutral-950 w-full">
-      <div className='flex m-10 '>
+      <div className='flex my-10 mx-5 '>
         <MainSectionSelector
           setSelection={setSelection}
           selection={selection}

@@ -60,8 +60,8 @@ const Hero = () => {
           <div className="w-full max-w-4xl mt-8 h-10 text-sm">
             <Searchbar onSearch={handleQuery} />
           </div>
-          <div className="mt-8 w-[90%] max-h-[70vh] bg-black/85 rounded-lg pt-5">
-            <div className="px-2 grid grid-cols-2 lg:grid-cols-5 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full h-full scrollbar-thin">
+          <div className="mt-8 w-[90%] max-h-[80vh] bg-neutral-950/95 rounded-lg pt-5 flex flex-col">
+            <div className="px-2 grid grid-cols-2 lg:grid-cols-5 gap-5 justify-items-center overflow-y-auto overflow-x-hidden w-full flex-1 scrollbar-thin">
               {searchResults.map((result, index) => (
                 <Link
                   key={index}

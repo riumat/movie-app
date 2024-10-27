@@ -13,7 +13,7 @@ interface HeroProps {
 
 const PageSelector: React.FC<HeroProps> = ({ page, setPage, totalPages }) => {
   return (
-    <div className="mt-8 flex justify-center items-center space-x-4">
+    <div className="mt-8 flex justify-center items-center space-x-4 bg-neutral-950">
       <button
         onClick={() => setPage(1)}
         disabled={page === 1}

@@ -9,7 +9,7 @@ interface MainSectionSelectorProps {
 
 const MainSectionSelector = ({ setSelection, selection, media }: MainSectionSelectorProps) => {
   return (
-    <div className=' flex flex-col justify-start items-start gap-5 text-sm border-r pr-10 border-neutral-50/20'>
+    <div className=' flex flex-col justify-start items-start gap-5 text-sm  pl-5 pr-16 border-r border-neutral-700'>
       {media === "movie" ? (
         selectorMovieList.map((item) => (
           <button
@@ -17,7 +17,7 @@ const MainSectionSelector = ({ setSelection, selection, media }: MainSectionSele
             onClick={() => setSelection(item.value as Selection)}
             className={`
               ${selection === item.value ? "underline font-bold text-white" : "font-light text-neutral-300"}
-               py-1 px-10 hover:underline
+               py-1  hover:underline
                `}
           >
             {item.name}

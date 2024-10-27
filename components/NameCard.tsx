@@ -23,7 +23,7 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
     return null;
   }
   return (
-    <div className="flex flex-col bg-transparent w-full max-w-[140px] mx-auto">
+    <div className="flex flex-col gap-1 bg-transparent w-full max-w-[140px] mx-auto text-neutral-100">
       <div className='relative w-full max-h-48 pb-[150%] rounded-lg overflow-hidden'>
         {!imageLoaded && (
           <div className="z-40 flex justify-center items-center h-full">
@@ -41,9 +41,9 @@ const NameCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) => {
           loading='lazy'
         />
       </div>
-      <div className='flex flex-col items-center gap-2 mt-2  justify-center'>
-        <p className="text-center font-bold text-wrap text-xs xl:text-sm">{name}</p>
-        <p className="text-center text-wrap text-xs xl:text-sm opacity-75">{desc}</p>
+      <div className='flex flex-col items-center  mt-2  justify-center'>
+        <p className="text-center font-semibold text-wrap text-xs xl:text-sm">{name}</p>
+        <p className="text-center text-wrap text-xs xl:text-sm font-extralight">{desc}</p>
       </div>
     </div>
   );
