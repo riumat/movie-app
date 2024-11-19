@@ -1,6 +1,6 @@
+import { fetchSeasonData } from '@/lib/fetchers';
+import { SeasonData } from '@/lib/types';
 import { notFound } from 'next/navigation';
-import { SeasonData } from '@/utils/types';
-import { fetchSeasonData } from '@/utils/fetchers';
 
 export default async function SeasonPage({ params }: { params: { id: string, number: string } }) {
   const tvId = params.id;

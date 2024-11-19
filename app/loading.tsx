@@ -1,10 +1,13 @@
-import { FC } from 'react'
+"use client"
+import { useTheme } from 'next-themes'
 import { BeatLoader } from 'react-spinners'
 
-const Loading: FC = () => {
+const Loading = () => {
+  const { theme } = useTheme();
+  const color = theme === "dark" ? "#ffffff" : "#000000"
   return (
-    <div className="fixed top-0 left-0 w-full h-screen bg-black z-50 flex items-center justify-center">
-      <BeatLoader color="#ffffff" size={10} />
+    <div className="relative top-0 left-0 w-full h-screen bg-background z-50 flex items-center justify-center">
+      <BeatLoader color={color} size={10} />
     </div>
   )
 }

@@ -1,18 +1,18 @@
-import BackgroundDisplay from "@/components/BackgroundDisplay";
-import Hero from "@/components/Hero";
-import { fetchTrendingPosters } from "@/utils/fetchers";
+import Background from "@/components/layout/background";
+import Body from "@/components/search-section/body";
+import { fetchTrendingPosters } from "@/lib/fetchers";
 
-
-export default async function Home() {
+const Home = async () => {
   const posters = await fetchTrendingPosters(0, 5, "movie");
 
   return (
     <>
-      <BackgroundDisplay
-        page="home"
+      <Background
         posters={posters} />
-      <Hero />
+      <Body />
     </>
 
   );
 }
+
+export default Home;
