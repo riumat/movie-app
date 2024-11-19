@@ -1,37 +1,29 @@
 import { notFound } from 'next/navigation';
-import NameSection from '@/components/NameSection';
-import MediaHero from '@/components/MediaHero';
-import { MovieData } from '@/utils/types';
-import { fetchContentData } from '@/utils/fetchers';
-import BackgroundDisplay from '@/components/BackgroundDisplay';
+import { MovieData } from '@/lib/types';
+import { fetchContentData } from '@/lib/fetchers';
+import ContentBackground from '@/components/layout/content-background';
+import Body from '@/components/movie/body';
+import ContentHeader from '@/components/content/content-header';
 
-export default async function MoviePage({ params }: { params: { id: string } }) {
-  const movieId = params.id;
-  let movieData: MovieData;
-  try {
-    movieData = await fetchContentData(movieId, "movie");
-    movieData.type = "movie";
-  } catch (error) {
-    notFound();
-  }
+const MoviePage = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+  const movieData: MovieData = await fetchContentData(id, "movie")
+    .catch(() => { notFound() })
 
   return (
     <div className="flex-1 flex flex-col items-center w-full ">
-      <div className='bg-gradient-to-b from-neutral-950/10 to-neutral-950/90 h-screen w-full -z-20 absolute' />
-      <BackgroundDisplay
-        page="content"
-        posters={movieData.images.backdrops
-          .slice(0, 1)
-          .map((image) => image.file_path)}
+      <ContentBackground
+        poster={movieData.images.backdrops[0].file_path}
       />
-      <NameSection
+      <ContentHeader
         contentData={movieData}
       />
-      <MediaHero
+      <Body
         movieData={movieData}
       />
     </div>
   );
 }
 
+export default MoviePage
 

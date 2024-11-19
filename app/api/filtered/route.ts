@@ -1,4 +1,4 @@
-import { baseUrl } from '@/utils/constants';
+import { baseUrl } from '@/lib/constants';
 import axios from 'axios';
 
 export async function GET(request: Request) {

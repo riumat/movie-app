@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentType {
+  movie
+  tv
+}
+
+enum RequestStatus {
+  pending
+  accepted
+  rejected
+}
+
+model User {
+  user_id    Int                 @id @default(autoincrement())
+  username   String              @db.VarChar(50)
+  email      String              @db.VarChar(100)
+  password   String              @db.VarChar(255)
+  created_at DateTime            @default(now()) @db.Timestamp(0)
+  Content    Content[]
+  Person     Person[]
+  requester  UserRelationships[] @relation("requesterRelation")
+  receiver   UserRelationships[] @relation("receiverRelation")
+}
+
+model Content {
+  user_id      Int
+  content_id   Int
+  content_type ContentType
+  is_watched   Boolean?    @default(false)
+  rating       Int?
+  review       String?
+  created_at   DateTime    @default(now())
+
+  user User @relation(fields: [user_id], references: [user_id])
+
+  @@id([user_id, content_id, content_type])
+}
+
+model Person {
+  person_id Int @id
+  user_id   Int
+
+  user User @relation(fields: [user_id], references: [user_id])
+}
+
+model UserRelationships {
+  relationship_id Int           @id @default(autoincrement())
+  requester_id    Int
+  receiver_id     Int
+  status          RequestStatus
+  requested_at    DateTime      @default(now())
+  responded_at    DateTime?
+
+  requester User @relation("requesterRelation", fields: [requester_id], references: [user_id])
+  receiver  User @relation("receiverRelation", fields: [receiver_id], references: [user_id])
+
+  @@map("user_relationships")
+}

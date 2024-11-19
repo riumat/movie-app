@@ -1,0 +1,82 @@
+import { CastItem } from "@/lib/types/cast";
+import { CrewItem } from "@/lib/types/crew";
+import { ImagesItem } from "@/lib/types/image";
+import { ProviderItem } from "@/lib/types/provider";
+import { VideoItem } from "@/lib/types/video";
+
+export type TvData = {
+  type: "tv";
+  created_by: {
+    id: number;
+    name: string;
+    profile_path: string;
+  }[];
+  first_air_date: string;
+  last_air_date: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  id: number;
+  in_production: boolean;
+  name: string;
+  production_companies: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  number_of_episodes: number;
+  poster_path: string;
+  seasons: {
+    air_date: string,
+    episode_count: number,
+    id: number,
+    name: string,
+    overview: string,
+    poster_path: string,
+    season_number: number
+  }[];
+  status: string;
+  tagline: string;
+  credits: {
+    cast: CastItem[],
+    crew: CrewItem[],
+  },
+  videos: {
+    trailers: VideoItem[],
+    clips: VideoItem[],
+    feat: VideoItem[],
+  },
+  recommendations: {
+    page: number,
+    total_pages: number,
+    total_results: number,
+    results: TvItem[],
+  }
+  providers: ProviderItem[],
+  images: ImagesItem
+}
+
+export interface TvItem {
+  id: number,
+  name: string,
+  poster_path: string,
+  first_air_date: string,
+  vote_average: number,
+  media_type: string,
+}
+
+export interface TvResult {
+  backdrop_path: string,
+  id: number,
+  media_type: string,
+  overview: string,
+  poster_path: string,
+  name: string
+  first_air_date: string
+  vote_average: number,
+  vote_count: number,
+  genre_ids: number[],
+  original_name: string
+}

@@ -1,0 +1,52 @@
+"use client"
+import { useState } from 'react';
+import Image from 'next/image';
+import { BeatLoader } from 'react-spinners';
+import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
+import { MovieResult } from '@/lib/types/movie';
+
+
+const MovieCard = ({ item }: { item: MovieResult }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  const onLoadCallback = () => {
+    setIsImageLoaded(true);
+  };
+  const onErrorCallback = () => {
+    setIsImageLoaded(false);
+  };
+
+  return (
+    <div
+      className="py-5 flex flex-col gap-2 bg-transparent items-center hover:bg-border/80 text-foreground w-56 rounded-lg"
+    >
+      <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
+        {!isImageLoaded && (
+          <BeatLoader color='#ffffff' size={10} />
+        )}
+        <Image
+          src={item.poster_path ? `${imageUrl}${imgWidth.backdrop[300]}${item.poster_path}` : placeholders.multi}
+          alt={"poster movie"}
+          fill
+          onLoad={onLoadCallback}
+          onError={onErrorCallback}
+          className={`object-contain ${item.poster_path ? '' : 'grayscale brightness-125 contrast-0'}`}
+          sizes='300w 300h'
+        />
+      </div>
+      <div className=" flex flex-col items-center text-sm">
+        <div className="font-semibold text-center mb-2">{item.title}</div>
+        <div className='flex gap-2 justify-center'>
+          {item.media_type && (
+            <p className=" font-light px-3 py-1 border border-foreground/30 rounded-xl  text-sm">{item.media_type[0].toUpperCase() + item.media_type.slice(1)} </p>
+          )}
+          {(item.release_date) && (
+            <p className=' font-light px-3 py-1 border border-foreground/30 rounded-xl text-sm'>{item.release_date?.slice(0, 4)}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MovieCard;

@@ -1,14 +1,13 @@
-import { baseUrl } from '@/utils/constants';
+import { baseUrl } from '@/lib/constants';
 import axios from 'axios';
 
 export async function GET(request: Request) {
   const searchParams = new URL(request.url).searchParams;
   const query = searchParams.get('query');
   const page = searchParams.get('page') ?? 1;
-  const url = baseUrl;
 
   try {
-    const response = await axios.get(`${url}/search/multi`, {
+    const response = await axios.get(`${baseUrl}/search/multi`, {
       params: {
         query: query,
         language: 'en-US',

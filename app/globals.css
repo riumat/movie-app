@@ -6,7 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.slick-slide{
+.slick-slide {
   display: flex !important;
   justify-content: center !important;
 }
@@ -20,13 +20,15 @@ body {
 
 @layer base {
   .scrollbar-thin {
-    @apply [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-thumb]:bg-white;
+    @apply [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-foreground/80;
   }
 
   .neon-shadow {
     @apply -inset-0.5 bg-teal-50 group-hover:opacity-100 group-hover:duration-200 blur opacity-30;
   }
+
   :root {
+    --background: 240 10% 3.9%;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -53,6 +55,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -86,6 +89,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

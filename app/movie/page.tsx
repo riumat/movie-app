@@ -1,24 +1,27 @@
-import { fetchContentDataWithFilters, fetchTrendingPosters } from "@/utils/fetchers";
-import BackgroundDisplay from "@/components/BackgroundDisplay";
-import FilterableDataList from "@/components/FilterableMovieList";
+import { fetchContentDataWithFilters, fetchTrendingPosters } from "@/lib/fetchers";
+import Background from "@/components/layout/background";
+import Body from "@/components/content/body";
 
-export default async function DiscoverPage() {
+const DiscoverPage = async () => {
   const posters = await fetchTrendingPosters(5, 10, "movie");
-  const { genres, providers, content } = await fetchContentDataWithFilters("movie");
+  const { genres, providers, content, yearRange, sortType } = await fetchContentDataWithFilters("movie");
 
   return (
     <div className="flex-1  min-h-screen">
-      <BackgroundDisplay
-        page="home"
+      <Background
         posters={posters} />
       <div className="flex flex-col min-h-screen items-center mt-10">
-        <FilterableDataList
+        <Body
           initialContents={content}
           genres={genres}
           watchProviders={providers}
+          yearRange={yearRange}
+          sortType={sortType}
           media={"movie"}
         />
       </div>
     </div>
   );
 }
+
+export default DiscoverPage

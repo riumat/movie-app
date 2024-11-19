@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/layout/sidebar";
 import { Suspense } from "react";
 import { BeatLoader } from "react-spinners";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,24 +31,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistMono.variable} ${geistSans.variable} antialiased`}
       >
-        <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen">
-          <div className="relative flex w-full h-screen">
-            <Sidebar />
-            <Suspense fallback={
-              <div className="w-full h-full flex justify-center items-center z-50">
-                <BeatLoader color='#ffffff' size={10} />
-              </div>
-            }>
-              <main className="flex flex-col flex-1 overflow-auto scrollbar-thin relative">
-                {children}
-              </main>
-            </Suspense>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen overflow-x-hidden">
+            <div className="relative flex w-full h-screen">
+              <Sidebar />
+              <Suspense fallback={
+                <div className="w-full h-full flex justify-center items-center z-50">
+                  <BeatLoader color='#ffffff' size={10} />
+                </div>
+              }>
+                <main className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin relative">
+                  {children}
+                </main>
+              </Suspense>
+            </div>
           </div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );
