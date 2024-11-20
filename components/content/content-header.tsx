@@ -1,6 +1,7 @@
 import ContentInfos from '@/components/content/content-infos';
 import ContentProdLogos from '@/components/content/content-prod-logos';
-import { MovieData, TvData } from '@/lib/types';
+import { MovieData } from '@/lib/types/movie';
+import { TvData } from '@/lib/types/tv';
 import React from 'react';
 
 const ContentHeader = ({ contentData }: { contentData: MovieData | TvData }) => {

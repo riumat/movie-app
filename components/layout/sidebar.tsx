@@ -6,6 +6,7 @@ import { IoMenu } from "react-icons/io5";
 import { sidebarItems } from '@/lib/constants';
 import { ModeToggle } from '@/components/theme/toggle-theme';
 import { Button } from '@/components/ui/button';
+import AuthModal from '@/components/auth/auth-modal';
 
 
 const Sidebar = () => {
@@ -40,6 +41,9 @@ const Sidebar = () => {
                 </Link>
               </li>
             ))}
+            <li className="mb-4">
+              <AuthModal />
+            </li>
           </ul>
         </div>
       </nav>
