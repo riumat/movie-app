@@ -29,8 +29,8 @@ interface FiltersSidebarProps {
 
 export const FiltersSidebar = ({
   filters,
-  range,
-  sortType,
+  range={start: "", end: ""},
+  sortType="popularity.desc",
   genres,
   watchProviders,
   onGenreChange,

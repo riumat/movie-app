@@ -23,32 +23,25 @@ export const useFilterState = () => {
   const [yearRange, setYearRange] = useState({ start: '', end: '' })
   const [sortType, setSortType] = useState('popularity.desc')
   const [page, setPage] = useState(1)
-  const [initialRender, setInitialRender] = useState(true)
-
-
 
   const handleGenreChange = (genre: number) => {
     setPage(1)
     setSelectedGenres(toggleItemInSelectedItems(genre))
-    setInitialRender(false)
   }
 
   const handleProviderChange = (provider: number) => {
     setPage(1)
     setSelectedProviders(toggleItemInSelectedItems(provider))
-    setInitialRender(false)
   }
 
   const handleYearChange = (start: string, end: string) => {
     setPage(1)
     setYearRange({ start, end })
-    setInitialRender(false)
   }
 
   const handleSortChange = (sortType: string) => {
     setPage(1)
     setSortType(sortType)
-    setInitialRender(false)
   }
 
 
@@ -67,6 +60,5 @@ export const useFilterState = () => {
       handleSortChange,
       setPage
     },
-    initialRender
   }
 }

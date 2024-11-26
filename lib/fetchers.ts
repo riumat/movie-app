@@ -4,24 +4,29 @@ import { getSession } from "@/lib/session";
 import { PrismaClient } from "@prisma/client";
 const apiKey = process.env.TMDB_API_KEY
 
-export const fetchContentDataWithFilters = async (media: string) => {
-  const [resGenres, resWatchProviders, resContent] = await Promise.all([
-    fetch(`${baseUrl}/genre/${media}/list?api_key=${apiKey}`),
-    fetch(`${baseUrl}/watch/providers/${media}?api_key=${apiKey}&watch_region=IT`),
-    fetch(`${baseUrl}/discover/${media}?api_key=${apiKey}&page=1&sort_by=popularity.desc`)
-  ]);
-  const [genres, watchProviders, content] = await Promise.all([
-    resGenres.json(),
-    resWatchProviders.json(),
-    resContent.json()
-  ]);
-  const providers = formatFilterProviders(watchProviders.results);
+export const fetchGenres = async (media: string) => {
+  const res = await fetch(`${baseUrl}/genre/${media}/list?api_key=${apiKey}`);
+  const data = await res.json();
+  return data.genres;
+};
+
+export const fetchProviders = async (media: string) => {
+  const res = await fetch(`${baseUrl}/watch/providers/${media}?api_key=${apiKey}&watch_region=IT`);
+  const data = await res.json();
+  return formatFilterProviders(data.results);
+};
+
+export const fetchContentDataWithFilters = async (params: any, media: string) => {
+  const { genres, providers, page = "1", startDate, endDate, sort } = params;
+  const res = await fetch(
+    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${sort}`
+  )
+  const data = await res.json();
   const yearRange = {
     start: "1900",
     end: new Date().getFullYear().toString()
   }
-  const sortType = "popularity.desc";
-  return { genres: genres.genres, providers: providers, content: content.results, yearRange, sortType };
+  return { content: data.results, yearRange, sort };
 }
 
 

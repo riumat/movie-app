@@ -19,16 +19,15 @@ type Props = {
     end: string
   },
   sortType: string,
-  watchProviders: FilterItem[],
+  providers: FilterItem[],
   media: string
 }
 
-const Body = ({ initialContents, genres, yearRange, sortType, watchProviders, media }: Props) => {
+const Body = ({ initialContents, genres, yearRange, sortType, providers, media }: Props) => {
   const { items, totalPages, isLoading, fetchContent } = useContentFetch(initialContents)
-  const { filters, handlers, initialRender } = useFilterState()
+  const { filters, handlers } = useFilterState()
 
   useEffect(() => {
-    if (initialRender) return;
     fetchContent({
       genres: filters.selectedGenres.join(','),
       providers: filters.selectedProviders.join(','),
@@ -45,7 +44,6 @@ const Body = ({ initialContents, genres, yearRange, sortType, watchProviders, me
     filters.yearRange.start,
     filters.yearRange.end,
     filters.sortType,
-    initialRender
   ])
 
   return (
@@ -55,7 +53,7 @@ const Body = ({ initialContents, genres, yearRange, sortType, watchProviders, me
         sortType={sortType}
         genres={genres}
         filters={filters}
-        watchProviders={watchProviders}
+        watchProviders={providers}
         onGenreChange={handlers.handleGenreChange}
         onProviderChange={handlers.handleProviderChange}
         onYearChange={handlers.handleYearChange}
@@ -81,11 +79,11 @@ const Body = ({ initialContents, genres, yearRange, sortType, watchProviders, me
             ))}
           </div>
         )}
-        <Pagination
+       {/*  <Pagination
           page={filters.page}
           setPage={handlers.setPage}
           totalPages={totalPages}
-        />
+        /> */}
       </div>
     </div>
   )
