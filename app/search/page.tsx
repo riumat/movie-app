@@ -13,7 +13,7 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ [key: string]: s
       <Background
         posters={posters} />
       <div className="relative flex-1">
-        <div className="relative h-full z-10 flex flex-col items-center mt-10">
+        <div className="relative h-full z-10 flex flex-col items-center mt-[4rem]">
 
           <MultiGrid
             searchResults={results}

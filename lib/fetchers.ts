@@ -19,14 +19,14 @@ export const fetchProviders = async (media: string) => {
 export const fetchContentDataWithFilters = async (params: any, media: string) => {
   const { genres, providers, page = "1", startDate, endDate, sort } = params;
   const res = await fetch(
-    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${sort}`
+    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${sort}&watch_region=IT`
   )
   const data = await res.json();
   const yearRange = {
     start: "1900",
     end: new Date().getFullYear().toString()
   }
-  return { content: data.results, yearRange, sort };
+  return { content: data.results, yearRange, sort ,totalPages: data.total_pages };
 }
 
 
@@ -38,7 +38,7 @@ export const getDiscoverMovies = async () => {
 
 export const fetchTrendingPosters = async (index1: number, index2: number, media: string) => {
   try {
-    const response = await fetch(`${baseUrl}/${media}/popular?api_key=${apiKey}`);
+    const response = await fetch(`${baseUrl}/${media}/popular?api_key=${apiKey}`, { next: { revalidate: 3600 } });
     const data = await response.json();
     return data.results
       .slice(index1, index2)

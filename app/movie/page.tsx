@@ -13,13 +13,11 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: st
     <div className="flex-1 min-h-screen">
       <Background
         posters={posters} />
-      <div className="flex flex-col min-h-screen items-center mt-10">
+      <div className="flex flex-col min-h-screen items-center mt-[4rem]">
         <Body
-          initialContents={contentData.content}
+          contentData={contentData}
           genres={genres}
           providers={providers}
-          yearRange={contentData.yearRange}
-          sortType={contentData.sort}
           media={"movie"}
         />
       </div>

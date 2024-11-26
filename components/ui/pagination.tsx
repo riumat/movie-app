@@ -1,5 +1,5 @@
 "use client"
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
@@ -9,16 +9,17 @@ import { MdLastPage } from "react-icons/md";
 interface PaginationProps {
   page: number;
   totalPages: number;
-  query: string
 }
 
 
 
-const Pagination = ({ page, totalPages, query }: PaginationProps) => {
+const Pagination = ({ page, totalPages }: PaginationProps) => {
   const router = useRouter();
+  const searchParams = new URLSearchParams(useSearchParams().toString());
 
   const setPage = (page: number) => {
-    router.push(`?query=${query}&page=${page}`)
+    searchParams.set('page', page.toString());
+    router.push(`?${searchParams.toString()}`);
   }
 
   return (

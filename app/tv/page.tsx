@@ -1,21 +1,24 @@
-import BackgroundDisplay from "@/components/layout/background";
-import FilterableDataList from "@/components/content/body";
-import { fetchContentDataWithFilters, fetchTrendingPosters } from "@/lib/fetchers";
+import { fetchContentDataWithFilters, fetchGenres, fetchProviders, fetchTrendingPosters } from "@/lib/fetchers";
+import Background from "@/components/layout/background";
+import Body from "@/components/content/body";
 
-const DiscoverPage = async () => {
+const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
+  const params: { [key: string]: string, } = await searchParams;
   const posters = await fetchTrendingPosters(5, 10, "tv");
-  const { genres, providers, content } = await fetchContentDataWithFilters("tv");
+  const genres = await fetchGenres("tv");
+  const providers = await fetchProviders("tv");
+  const contentData = await fetchContentDataWithFilters(params, "tv");
 
   return (
     <div className="flex-1 min-h-screen">
-      <BackgroundDisplay
+      <Background
         posters={posters} />
-      <div className="flex flex-col min-h-screen items-center mt-10">
-        <FilterableDataList
-          initialContents={content}
+      <div className="flex flex-col min-h-screen items-center mt-[4rem]">
+        <Body
+          contentData={contentData}
           genres={genres}
-          watchProviders={providers}
-          media="tv"
+          providers={providers}
+          media={"movie"}
         />
       </div>
     </div>
