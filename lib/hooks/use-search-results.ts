@@ -1,7 +1,8 @@
-// hooks/useSearchResults.ts
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MovieResult, PeopleResult, TvResult } from '@/lib/types';
+import { MovieResult } from '@/lib/types/movie';
+import { TvResult } from '@/lib/types/tv';
+import { PeopleResult } from '@/lib/types/people';
 
 type SearchResult = MovieResult | TvResult | PeopleResult;
 

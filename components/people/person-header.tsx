@@ -1,46 +1,58 @@
+import AuthModal from '@/components/auth/auth-modal';
 import ExternalLinksList from '@/components/people/ext-links-list';
-import KnownForSection from '@/components/people/known-section';
+import ToggleFollow from '@/components/people/toggle-follow';
 import { imageUrl, imgWidth } from '@/lib/constants';
-import { formatDate } from '@/lib/functions';
-import { PersonData } from '@/lib/types';
+import { formatDate, getAge } from '@/lib/functions';
+import { PersonData } from '@/lib/types/people';
 import Image from 'next/image';
 import React from 'react';
 
-const PersonHeader = ({ personData }: { personData: PersonData }) => {
+const PersonHeader = ({ personData, userData }: { personData: PersonData, userData: any }) => {
   return (
-      <div className="relative min-h-[500px] w-full flex-1 flex flex-col gap-10 justify-center items-center text-foreground p-5  ">
-        <div className='flex w-full gap-5 '>
-          <div className='flex flex-col gap-2'>
-            {personData.profile_path !== null && personData.profile_path !== '' && (
-              <Image
-                src={`${imageUrl}${imgWidth.profile[632]}${personData.profile_path}`}
-                alt={personData.name}
-                width={330}
-                height={300}
-                className="rounded-xl"
-              />
+    <div className="relative w-full text-foreground px-5">
+      <div className='flex justify-start items-start gap-10 ml-28'>
+        <div className='flex flex-col gap-5'>
+          {personData.profile_path !== null && personData.profile_path !== '' && (
+            <Image
+              src={`${imageUrl}${imgWidth.profile[632]}${personData.profile_path}`}
+              alt={personData.name}
+              width={220}
+              height={160}
+              className="rounded-md"
+            />
+          )}
+        </div>
+        <div className='flex flex-col gap-7 '>
+          <div className='flex flex-col gap-1'>
+            {personData.name !== null && personData.name !== '' && (
+              <h1 className="text-4xl font-bold">{personData.name}</h1>
             )}
             <ExternalLinksList externalIds={personData.external_ids} />
           </div>
-          <div className='flex flex-col gap-5 flex-1'>
-            {personData.name !== null && personData.name !== '' && (
-              <h1 className="text-5xl font-bold">{personData.name}</h1>
-            )}
-
+          <div className='flex flex-col gap-1  text-sm'>
             {personData.birthday !== null && personData.birthday !== '' && (
-              <p>{formatDate(personData.birthday)} {personData.deathday && `(${formatDate(personData.deathday)})`}</p>
+              <p className='font-light'>{formatDate(personData.birthday)}
+                {personData.deathday && ` - ${formatDate(personData.deathday)}`}
+                {` (${getAge(personData.birthday, personData.deathday)} years old)`}</p>
             )}
             {personData.place_of_birth !== null && personData.place_of_birth !== '' && (
-              <p>{personData.place_of_birth}</p>
+              <p className='font-light'>{personData.place_of_birth}</p>
             )}
-
-            <p><span className="font-thin">Known for:</span> {personData.known_for_department}</p>
-            <KnownForSection contents={personData.combined_credits} />
-
           </div>
+
+          <p><span className="font-thin">Known for:</span> {personData.known_for_department}</p>
+
+          {userData ? (
+            <ToggleFollow userData={userData} personId={personData.id} />
+          ) : (
+            <AuthModal
+              isOpen={false}
+              label="Login to follow"
+            />
+          )}
+
         </div>
-
-
+      </div>
     </div>
   );
 };

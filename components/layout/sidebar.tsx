@@ -1,20 +1,26 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoMenu } from "react-icons/io5";
 import { sidebarItems } from '@/lib/constants';
 import { ModeToggle } from '@/components/theme/toggle-theme';
 import { Button } from '@/components/ui/button';
+import AuthModal from '@/components/auth/auth-modal';
+import LogoutModal from '@/components/auth/logout-modal';
 
-
-const Sidebar = () => {
+const Sidebar = ({ session }: { session: any }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    setIsLogged(!!session);
+  }, [session])
 
   return (
     <div className={` flex z-50 duration-50 ${isOpen ? 'w-40' : 'w-0'}`}>
@@ -40,6 +46,14 @@ const Sidebar = () => {
                 </Link>
               </li>
             ))}
+            <li className="mb-4">
+              {isLogged ? (
+                <LogoutModal />
+              ) : (
+                <AuthModal isOpen={false} label='Login' />
+              )}
+
+            </li>
           </ul>
         </div>
       </nav>

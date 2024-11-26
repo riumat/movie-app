@@ -6,4 +6,5 @@ export type EpisodeData = {
   overview: string;
   season_number: number;
   still_path: string;
+  runtime: number;
 }

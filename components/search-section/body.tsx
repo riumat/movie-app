@@ -1,27 +1,16 @@
 "use client"
 import Searchbar from '@/components/ui/searchbar';
-import usePagination from '@/lib/hooks/usePagination';
-import useSearchResults from '@/lib/hooks/useSearchResults';
+import usePagination from '@/lib/hooks/use-pagination';
+import useSearchResults from '@/lib/hooks/use-search-results';
 import { useState } from 'react';
 import MultiSkeletonGrid from '@/components/search-section/multi-skeleton-grid';
 import MultiGrid from '@/components/search-section/multi-grid';
-import { MovieResult } from '@/lib/types/movie';
-import { TvResult } from '@/lib/types/tv';
-import { PeopleResult } from '@/lib/types/people';
 
 type ViewProps = {
   searchQuery: string;
   handleSearch: (query: string) => void;
 }
 
-type ResultViewProps = {
-  searchQuery: string;
-  handleSearch: (query: string) => void;
-  searchResults: (MovieResult | TvResult | PeopleResult)[];
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
-  totalPages: number;
-}
 
 const InitialView = ({ handleSearch, searchQuery }: ViewProps) => (
   <div className="relative flex-1">

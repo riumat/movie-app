@@ -1,5 +1,8 @@
 import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
+import { getSession } from "@/lib/session";
+import { PrismaClient } from "@prisma/client";
+import { release } from "os";
 const apiKey = process.env.TMDB_API_KEY
 
 export const fetchContentDataWithFilters = async (media: string) => {
@@ -41,6 +44,68 @@ export const fetchTrendingPosters = async (index1: number, index2: number, media
     return [];
   }
 };
+
+export const fetchUserPersonData = async (personId: string) => {
+  "use server"
+  const session = await getSession();
+  if (!session) return;
+
+  const prisma = new PrismaClient()
+  const person = await prisma.person.findFirst({
+    where: {
+      person_id: Number(personId),
+      user_id: Number(session.user.id)
+    }
+  })
+  //relationship
+  return {
+    isFollowed: person ? true : false,
+    userId: session.user.id,
+  }
+
+
+}
+
+export const fetchUserContentData = async (contentId: string, contentType: "movie" | "tv") => {
+  "use server"
+  const session = await getSession();
+  if (!session) return;
+
+  const prisma = new PrismaClient()
+  const content = await prisma.content.findFirst({
+    where: {
+      content_id: Number(contentId),
+      user_id: Number(session.user.id),
+      content_type: contentType
+    }
+  })
+
+  const watchlisted = await prisma.watchlist.findFirst({
+    where: {
+      content_id: Number(contentId),
+      user_id: Number(session.user.id),
+      content_type: contentType
+    }
+  })
+
+  const contentData = content ? {
+    watched: true,
+    rating: content.rating,
+    review: content.review,
+  } : {
+    watched: false,
+    rating: null,
+    review: null,
+  }
+
+  const isWatchListed = watchlisted ? true : false;
+
+  return {
+    ...contentData,
+    isWatchListed,
+    userId: session.user.id
+  }
+}
 
 
 export const fetchContentData = async (contentId: string, media: string) => {
@@ -108,6 +173,48 @@ export const fetchPersonData = async (id: string) => {
   const combinedCredits = personData.known_for_department === "Acting" ?
     formatCombinedCredits(creditsData.cast) :
     formatCombinedCredits(creditsData.crew)
-  return { ...personData, combined_credits: combinedCredits, images: imagesData, external_ids: externalData };
 
+
+  const formattedCastCredit = creditsData.cast.map((credit: any) => {
+    if (credit.media_type === "tv") {
+      return {
+        ...credit,
+        release_date: credit.first_air_date,
+      }
+    }
+    return {
+      ...credit,
+    }
+  })
+    .filter((credit: any) => credit.release_date !== "")
+    .sort((a: any, b: any) =>
+      new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
+    );
+
+  const formattedCrewCredits = creditsData.crew.map((credit: any) => {
+    if (credit.media_type === "tv") {
+      return {
+        ...credit,
+        release_date: credit.first_air_date,
+      }
+    }
+    return {
+      ...credit,
+    }
+  })
+    .filter((credit: any) => credit.release_date !== "")
+    .sort((a: any, b: any) =>
+      new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
+    );
+
+
+
+  return {
+    ...personData,
+    combined_credits: combinedCredits,
+    images: imagesData,
+    external_ids: externalData,
+    cast_credits: formattedCastCredit,
+    crew_credits: formattedCrewCredits
+  };
 }

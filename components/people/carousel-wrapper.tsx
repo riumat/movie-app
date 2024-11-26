@@ -1,9 +1,8 @@
 "use client"
-import Slider from "react-slick";
 import Link from "next/link";
-import { ContentItem } from "@/lib/types";
 import ContentCard from "@/components/cards/content-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ContentItem } from "@/lib/types/content";
 
 
 
