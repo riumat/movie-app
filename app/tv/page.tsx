@@ -3,11 +3,12 @@ import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
 
 const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
+  const media="tv"
   const params: { [key: string]: string, } = await searchParams;
-  const posters = await fetchTrendingPosters(5, 10, "tv");
-  const genres = await fetchGenres("tv");
-  const providers = await fetchProviders("tv");
-  const contentData = await fetchContentDataWithFilters(params, "tv");
+  const posters = await fetchTrendingPosters(5, 10, media);
+  const genres = await fetchGenres(media);
+  const providers = await fetchProviders(media);
+  const contentData = await fetchContentDataWithFilters(params, media);
 
   return (
     <div className="flex-1 min-h-screen">
@@ -18,7 +19,7 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: st
           contentData={contentData}
           genres={genres}
           providers={providers}
-          media={"movie"}
+          media={media}
         />
       </div>
     </div>
