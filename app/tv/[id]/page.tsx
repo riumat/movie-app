@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
-import { TvData } from '@/lib/types';
 import { fetchContentData } from '@/lib/fetchers';
 import ContentBackground from '@/components/layout/content-background';
 import ContentHeader from '@/components/content/content-header';
 import Body from '@/components/tv/body';
+import { TvData } from '@/lib/types/tv';
 
 export default async function TvPage({ params }: { params: { id: string } }) {
   const id = params.id;

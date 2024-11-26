@@ -31,6 +31,12 @@ export const loginAction = async (prevState: any, formData: FormData) => {
   })
     .then(user => {
       if (user.password === formData.get("password")) {
+        const data = {
+          id: user.user_id,
+          name: user.username,
+        }
+        setSession(data)
+
         return {
           success: true,
           userId: user.user_id
@@ -84,7 +90,6 @@ export const registerAction = async (prevState: any, formData: FormData) => {
   })
 
   if (!validateFields.success) {
-    console.log(validateFields.error.flatten().fieldErrors)
     const returnState: AuthState = {
       errors: validateFields.error.flatten().fieldErrors,
       success: false,
@@ -102,7 +107,7 @@ export const registerAction = async (prevState: any, formData: FormData) => {
   })
     .then(async (res) => {
       const user = {
-        userId: res.user_id,
+        id: res.user_id,
         name: res.username,
       }
 
@@ -129,22 +134,28 @@ export const registerAction = async (prevState: any, formData: FormData) => {
     })
 
   return returnState;
+}
 
-  /* try {
-    const returnState: AuthState = {
-      success: true,
+export const getUserData = async (id: string) => {
+  const prisma = new PrismaClient();
+  const contents = await prisma.content.findMany({
+    where: {
+      user_id: Number(id)
     }
-    return returnState;
-
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      errorCode = await getErrorCode(error);
-    } else {
-      errorCode = "internal";
+  });
+  //relationship?
+  const people = await prisma.person.findMany({
+    where: {
+      user_id: Number(id)
     }
-  } */
-  //return await handleError(errorCode);
+  })
 
+  const watchlist = await prisma.watchlist.findMany({
+    where: {
+      user_id: Number(id)
+    }
+  })
+  return { contents, people, watchlist }
 }
 
 

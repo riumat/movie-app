@@ -2,19 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerAction } from "@/lib/actions/auth";
 import { AuthState } from "@/lib/types/auth";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
 const RegisterForm = ({ setOpen }: { setOpen: (flag: boolean) => void }) => {
   const initialState: AuthState = { errors: {}, success: null };
   const [state, formAction] = useFormState(registerAction, initialState);
-  const router = useRouter()
 
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
-      router.push(`/user/${state.userId}`)
     }
   }, [state])
   return (

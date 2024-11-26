@@ -14,23 +14,31 @@ import { useState } from "react"
 import { Separator } from "@/components/ui/separator"
 import RegisterForm from "@/components/auth/register-form"
 import LoginForm from "@/components/auth/login-form"
+import { FaUser } from "react-icons/fa6";
 
-const AuthModal = () => {
-  const [open, setOpen] = useState(false);
+
+const AuthModal = ({ isOpen, label }: { isOpen: boolean, label: string }) => {
+  const [open, setOpen] = useState(isOpen);
   const [isToRegister, setIsToRegister] = useState(false);
 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Register</Button>
+        <Button variant="outline" className="px-3">
+          {label}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Register</DialogTitle>
+          {isToRegister ? (
+            <DialogTitle>Register</DialogTitle>
+          ) : (
+            <DialogTitle>Login</DialogTitle>
+          )}
           <DialogDescription />
         </DialogHeader>
-        
+
         {isToRegister ? (
           <RegisterForm setOpen={setOpen} />
         ) : (

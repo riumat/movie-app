@@ -1,5 +1,6 @@
 import { formatDate, formatMinutes, formatTvDuration } from "@/lib/functions"
-import { MovieData, TvData } from "@/lib/types"
+import { MovieData } from "@/lib/types/movie"
+import { TvData } from "@/lib/types/tv"
 
 const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
 

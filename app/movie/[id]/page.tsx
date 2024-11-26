@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
-import { MovieData } from '@/lib/types';
-import { fetchContentData } from '@/lib/fetchers';
+import { fetchContentData, fetchUserContentData } from '@/lib/fetchers';
 import ContentBackground from '@/components/layout/content-background';
 import Body from '@/components/movie/body';
 import ContentHeader from '@/components/content/content-header';
+import { MovieData } from '@/lib/types/movie';
 
 const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const id = params.id;
-  const movieData: MovieData = await fetchContentData(id, "movie")
+  const userData = await fetchUserContentData(params.id, "movie")
+  const movieData: MovieData = await fetchContentData(params.id, "movie")
     .catch(() => { notFound() })
 
   return (
@@ -17,6 +17,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
       />
       <ContentHeader
         contentData={movieData}
+        userData={userData}
       />
       <Body
         movieData={movieData}

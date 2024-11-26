@@ -1,5 +1,6 @@
 import { relevantMovieJobs, relevantTvJobs } from "@/lib/constants";
-import { CastItem, CrewItem } from "@/lib/types";
+import { CastItem } from "@/lib/types/cast";
+import { CrewItem } from "@/lib/types/crew";
 
 export function formatDate(date: string): string {
   if (!date) return '';
@@ -146,7 +147,23 @@ export const formatCombinedCredits = (cast: { id: number, title: string, media_t
   const sortedCredits = filteredCredits.sort((a, b) => b.vote_count - a.vote_count).slice(0, 20);
   return sortedCredits.sort((a, b) => b.vote_average - a.vote_average)
     .filter((credit, index, self) => self.findIndex((c) => c.id === credit.id) === index)
-    .slice(0, 10);
+    .slice(0, 20);
 
 }
 
+export const tvTotalDuration = () => {
+
+}
+
+export const getAge = (birthdate: string, deathdate: string) => {
+  const endDate = deathdate ? new Date(deathdate) : new Date()
+  const birthDate = new Date(birthdate)
+  let age = endDate.getFullYear() - birthDate.getFullYear()
+  const month = endDate.getMonth() - birthDate.getMonth()
+
+  if (month < 0 || (month === 0 && endDate.getDate() < birthDate.getDate())) {
+    age--
+  }
+
+  return age
+}

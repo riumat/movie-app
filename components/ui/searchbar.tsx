@@ -8,7 +8,7 @@ interface SearchbarProps {
   initialValue: string,
 }
 
-const Searchbar: React.FC<SearchbarProps> = ({ onSearch, initialValue }) => {
+const Searchbar = ({ onSearch, initialValue }: SearchbarProps) => {
   const [searchTerm, setSearchTerm] = useState(initialValue);
 
   const debouncedSearch = useCallback(

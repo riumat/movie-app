@@ -38,6 +38,26 @@ export type PersonData = {
     youtube_id?: string,
     imdb_id?: string,
   }
+  cast_credits: {
+    id: number,
+    title: string,
+    name: string,
+    release_date: string,
+    media_type: string,
+    character: string,
+    episode_count: number,
+    vote_average: number,
+    vote_count: number,
+    order: number
+  }[],
+  crew_credits: {
+    id: number,
+    title: string,
+    name: string,
+    release_date: string,
+    media_type: string,
+    job: string
+  }[]
 }
 
 export type PeopleResult = {
