@@ -8,6 +8,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import SidebarWrapper from "@/components/layout/sidebar-wrapper";
 import { Toaster } from "@/components/ui/toaster";
+import Searchbar from "@/components/ui/searchbar";
+import SearchbarWrapper from "@/components/layout/searchbar-wrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -44,16 +46,19 @@ export default function RootLayout({
           <div className="font-[family-name:var(--font-geist-sans)] flex relative min-h-screen overflow-x-hidden">
             <div className="relative flex w-full h-screen">
               <SidebarWrapper />
-              <Suspense fallback={
-                <div className="w-full h-full flex justify-center items-center z-50">
-                  <BeatLoader color='#ffffff' size={10} />
-                </div>
-              }>
-                <main className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin relative">
-                  {children}
-                  <Toaster />
-                </main>
-              </Suspense>
+              <div className="flex flex-col flex-1 ">
+                <SearchbarWrapper />
+                <Suspense fallback={
+                  <div className="w-full h-full flex justify-center items-center z-50">
+                    <BeatLoader className="text-foreground" size={10} />
+                  </div>
+                }>
+                  <main className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin relative">
+                    {children}
+                    <Toaster />
+                  </main>
+                </Suspense>
+              </div>
             </div>
           </div>
         </ThemeProvider>

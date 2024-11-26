@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { PeopleResult } from '@/lib/types';
+import { PeopleResult } from '@/lib/types/people';
 
 
 const PeopleCard = ({ item }: { item: PeopleResult }) => {
@@ -18,9 +18,9 @@ const PeopleCard = ({ item }: { item: PeopleResult }) => {
 
   return (
     <div
-      className="py-5 flex flex-col gap-5 bg-transparent items-center hover:bg-border/70 text-foreground w-56 rounded-lg"
+      className="py-5 flex flex-col gap-3  bg-transparent items-center hover:bg-border/40 duration-200 text-foreground w-56 rounded-lg"
     >
-      <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
+      <div className="relative rounded-lg w-[174px] h-64 overflow-hidden flex items-center">
         {!isImageLoaded && (
           <BeatLoader color='#ffffff' size={10} />
         )}

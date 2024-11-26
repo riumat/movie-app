@@ -16,7 +16,7 @@ const InitialView = ({ handleSearch, searchQuery }: ViewProps) => (
   <div className="relative flex-1">
     <div className="relative h-full z-10 flex items-center justify-center">
       <div className="w-full max-w-4xl mt-56">
-        <Searchbar onSearch={handleSearch} initialValue={searchQuery} />
+        {/* <Searchbar onSearch={handleSearch} initialValue={searchQuery} /> */}
       </div>
     </div>
   </div>
@@ -45,9 +45,9 @@ const Body = () => {
     <div className="relative flex-1">
       <div className="relative h-full z-10 flex flex-col items-center">
         <div className="w-full max-w-4xl mt-5 h-10 text-sm">
-          <Searchbar onSearch={handleSearch} initialValue={searchQuery} />
+          {/* <Searchbar onSearch={handleSearch} initialValue={searchQuery} /> */}
         </div>
-        {isLoading ?
+       {/*  {isLoading ?
           <MultiSkeletonGrid />
           :
           <MultiGrid
@@ -56,7 +56,7 @@ const Body = () => {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-        }
+        } */}
       </div>
     </div >
   );

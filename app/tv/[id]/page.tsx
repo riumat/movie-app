@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
-import { fetchContentData } from '@/lib/fetchers';
+import { fetchContentData, fetchUserContentData } from '@/lib/fetchers';
 import ContentBackground from '@/components/layout/content-background';
 import ContentHeader from '@/components/content/content-header';
 import Body from '@/components/tv/body';
 import { TvData } from '@/lib/types/tv';
 
 export default async function TvPage({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const tvData: TvData = await fetchContentData(id, "tv")
+  const userData = await fetchUserContentData(params.id, "tv")
+  const tvData: TvData = await fetchContentData(params.id, "tv")
     .catch(() => notFound())
 
   return (
@@ -17,6 +17,7 @@ export default async function TvPage({ params }: { params: { id: string } }) {
       />
       <ContentHeader
         contentData={tvData}
+        userData={userData}
       />
       <Body
         tvData={tvData}

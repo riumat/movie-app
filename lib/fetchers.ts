@@ -2,7 +2,6 @@ import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
 import { getSession } from "@/lib/session";
 import { PrismaClient } from "@prisma/client";
-import { release } from "os";
 const apiKey = process.env.TMDB_API_KEY
 
 export const fetchContentDataWithFilters = async (media: string) => {
@@ -217,4 +216,22 @@ export const fetchPersonData = async (id: string) => {
     cast_credits: formattedCastCredit,
     crew_credits: formattedCrewCredits
   };
+}
+
+export const fetchQueryData = async (query: string, page: string) => {
+  const params = new URLSearchParams({
+    query: query,
+    language: 'en-US',
+    page: page,
+    api_key: apiKey as string
+  });
+
+
+  const response = await fetch(`${baseUrl}/search/multi?${params}`, {
+    headers: {
+      accept: 'application/json',
+    },
+  });
+
+  return response.json();
 }
