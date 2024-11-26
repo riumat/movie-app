@@ -3,9 +3,10 @@ import ProviderSection from '@/components/content/provider-section';
 import VideoSection from '@/components/content/video-section';
 import React, { useState } from 'react';
 import CreditsList from '@/components/people/credits-list';
-import { MovieData, Selection } from '@/lib/types';
 import ContentNavbar from '@/components/content/content-navbar';
 import SimilarContentSection from '@/components/content/similar-content-section';
+import { MovieData } from '@/lib/types/movie';
+import { Selection } from '@/lib/types/content';
 
 
 const sectionComponents = {

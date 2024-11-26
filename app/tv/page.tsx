@@ -2,7 +2,7 @@ import BackgroundDisplay from "@/components/layout/background";
 import FilterableDataList from "@/components/content/body";
 import { fetchContentDataWithFilters, fetchTrendingPosters } from "@/lib/fetchers";
 
-export default async function DiscoverPage() {
+const DiscoverPage = async () => {
   const posters = await fetchTrendingPosters(5, 10, "tv");
   const { genres, providers, content } = await fetchContentDataWithFilters("tv");
 
@@ -21,3 +21,5 @@ export default async function DiscoverPage() {
     </div>
   );
 }
+
+export default DiscoverPage

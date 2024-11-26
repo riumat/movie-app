@@ -1,17 +1,26 @@
 "use client"
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { MdFirstPage } from "react-icons/md";
 import { MdLastPage } from "react-icons/md";
 
-interface HeroProps {
+interface PaginationProps {
   page: number;
-  setPage: (page: number) => void;
   totalPages: number;
+  query: string
 }
 
-const Pagination: React.FC<HeroProps> = ({ page, setPage, totalPages }) => {
+
+
+const Pagination = ({ page, totalPages, query }: PaginationProps) => {
+  const router = useRouter();
+
+  const setPage = (page: number) => {
+    router.push(`?query=${query}&page=${page}`)
+  }
+
   return (
     <div className="my-5 flex justify-center items-center space-x-4 bg-background text-foreground rounded-b-lg">
       <button

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { TvResult } from '@/lib/types';
+import { TvResult } from '@/lib/types/tv';
 
 
 const TvCard = ({ item }: { item: TvResult }) => {
@@ -18,9 +18,9 @@ const TvCard = ({ item }: { item: TvResult }) => {
 
   return (
     <div
-      className="py-5 flex flex-col gap-5 bg-transparent items-center hover:bg-border/80 text-foreground w-56 rounded-lg"
+      className="py-5 flex flex-col gap-3 bg-transparent items-center hover:bg-border/40 duration-200 text-foreground w-56 rounded-lg"
     >
-      <div className="relative rounded-lg w-44 h-64 overflow-hidden flex items-center">
+      <div className="relative rounded-lg w-[174px] h-64 overflow-hidden flex items-center">
         {!isImageLoaded && (
           <BeatLoader color='#ffffff' size={10} />
         )}
