@@ -25,7 +25,7 @@ export const updateSession = async (request: NextRequest) => {
   if (!session) return;
 
   const parsed = await decrypt(session);
-  parsed.expires = new Date(Date.now() + 1000 * 60 * 60 * 3);
+  parsed.expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
   const res = NextResponse.next();
   res.cookies.set({
     name: "session",
@@ -43,7 +43,7 @@ export const getSession = async () => {
 }
 
 export const setSession = async (user: { id: number, name: string }) => {
-  const expires = new Date(Date.now() + 1000 * 60 * 60 * 3);
+  const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
   const session = await encrypt({ user, expires })
   cookies().set("session", session, { expires, httpOnly: true })
 }

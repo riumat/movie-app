@@ -13,7 +13,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="flex-1 flex flex-col items-center w-full ">
       <ContentBackground
-        poster={movieData.images.backdrops[0].file_path}
+        poster={movieData.images.backdrops[0]?.file_path}
       />
       <ContentHeader
         contentData={movieData}
@@ -27,4 +27,5 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
 }
 
 export default MoviePage
+
 

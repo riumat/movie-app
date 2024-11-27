@@ -9,15 +9,17 @@ import { MdLastPage } from "react-icons/md";
 interface PaginationProps {
   page: number;
   totalPages: number;
+  onChange: (page: number) => void;
 }
 
 
 
-const Pagination = ({ page, totalPages }: PaginationProps) => {
+const Pagination = ({ page, totalPages, onChange }: PaginationProps) => {
   const router = useRouter();
   const searchParams = new URLSearchParams(useSearchParams().toString());
 
   const setPage = (page: number) => {
+    onChange(page);
     searchParams.set('page', page.toString());
     router.push(`?${searchParams.toString()}`);
   }

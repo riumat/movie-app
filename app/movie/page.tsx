@@ -11,10 +11,10 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: st
   const contentData = await fetchContentDataWithFilters(params, media);
 
   return (
-    <div className="flex-1 min-h-screen">
+    <div className="flex-1 ">
       <Background
         posters={posters} />
-      <div className="flex flex-col min-h-screen items-center mt-[4rem]">
+      <div className="flex flex-col h-[90vh] items-center mt-[3.5rem]">
         <Body
           contentData={contentData}
           genres={genres}

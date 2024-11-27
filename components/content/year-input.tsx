@@ -4,16 +4,16 @@ import React, { useEffect, useState } from 'react';
 
 interface YearInputProps {
   range: {
-    start: string;
-    end: string;
+    from: string;
+    to: string;
   }
-  onChange: (startYear: string, endYear: string) => void;
+  onChange: (range: { from: string; to: string }) => void 
 }
 
 const YearRangeInput: React.FC<YearInputProps> = ({ range, onChange }) => {
   const currentYear = new Date().getFullYear().toString();
-  const [startYear, setStartYear] = useState<string>(range.start);
-  const [endYear, setEndYear] = useState<string>(range.end);
+  const [startYear, setStartYear] = useState<string>(range.from);
+  const [endYear, setEndYear] = useState<string>(range.to);
   const [hasError, setHasError] = useState<boolean>(false);
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>, setYear: React.Dispatch<React.SetStateAction<string>>) => {
@@ -23,7 +23,7 @@ const YearRangeInput: React.FC<YearInputProps> = ({ range, onChange }) => {
     }
   };
 
-  useEffect(() => {
+ /*  useEffect(() => {
     const now = new Date();
     if (startYear.length === 4 && endYear.length === 4) {
       if (Number(startYear) > Number(endYear)) {
@@ -33,7 +33,7 @@ const YearRangeInput: React.FC<YearInputProps> = ({ range, onChange }) => {
         onChange(`${startYear}-01-01`, `${endYear}-${now.getMonth() + 1 < 10 ? "0" + now.getMonth() + 1 : now.getMonth() + 1}-${now.getDate() < 10 ? "0" + now.getDate() : now.getDate()}`);
       }
     }
-  }, [startYear, endYear])
+  }, [startYear, endYear]) */
 
   return (
     <div className="flex space-x-4">
@@ -63,7 +63,7 @@ const YearRangeInput: React.FC<YearInputProps> = ({ range, onChange }) => {
         />
       </div> */}
 
-      <DatePickerWithRange />
+      <DatePickerWithRange onChange={onChange} />
     </div>
   );
 };

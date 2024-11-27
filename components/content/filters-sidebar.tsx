@@ -2,6 +2,8 @@ import YearInput from "./year-input"
 import { SortInput } from "./sort-input"
 import Filters from "./filters"
 import { FilterItem } from "@/lib/types/filter"
+import ComboboxFilter from "@/components/content/combobox-filters"
+import DatePickerWithYearRange from "@/components/content/range-date-picker"
 
 interface FiltersSidebarProps {
   filters: {
@@ -9,28 +11,28 @@ interface FiltersSidebarProps {
     selectedProviders: number[]
     page: number
     yearRange: {
-      start: string
-      end: string
+      from: string
+      to: string
     }
     sortType: string
   }
-  range: {
-    start: string
-    end: string
+  /* range: {
+    from: string
+    to: string
   },
-  sortType: string,
+  sortType: string */,
   genres: FilterItem[]
   watchProviders: FilterItem[]
   onGenreChange: (item: number) => void
   onProviderChange: (item: number) => void
-  onYearChange: (start: string, end: string) => void
+  onYearChange: (range: { from: string; to: string }) => void
   onSortChange: (sortType: string) => void
 }
 
 export const FiltersSidebar = ({
   filters,
-  range={start: "", end: ""},
-  sortType="popularity.desc",
+  /* range = { from: "", to: "" },
+  sortType = "popularity.desc", */
   genres,
   watchProviders,
   onGenreChange,
@@ -39,25 +41,36 @@ export const FiltersSidebar = ({
   onSortChange
 }: FiltersSidebarProps) => {
   return (
-    <div className="md:w-[300px] flex-1 md:flex-none flex flex-col items-center gap-10 px-2 z-30 h-full mt-8">
+    <div className="md:w-[300px] md:flex-none h-[80vh] flex flex-col items-center justify-start gap-16 px-2 z-30 mt-8 ">
       <div>
-        <h2 className="text-sm font-semibold mb-3 text-center">Genres</h2>
-        <Filters selectedItems={filters.selectedGenres} items={genres} onChange={onGenreChange} />
+        <h2 className="text-sm font-normal mb-3 text-start">Genres</h2>
+        <ComboboxFilter
+          label="genres"
+          selectedItems={filters.selectedGenres}
+          items={genres}
+          onChange={onGenreChange}
+        />
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold mb-3 text-center">Watch Providers</h2>
-        <Filters selectedItems={filters.selectedProviders} items={watchProviders} onChange={onProviderChange} />
+        <h2 className="text-sm font-normal mb-3 text-start">Watch Providers</h2>
+        <ComboboxFilter
+          label="providers"
+          selectedItems={filters.selectedProviders}
+          items={watchProviders}
+          onChange={onProviderChange}
+        />
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold mb-3 text-center">Year Range</h2>
-        <YearInput range={range} onChange={onYearChange} />
+        <h2 className="text-sm font-normal mb-3 text-start">Year Range</h2>
+        <DatePickerWithYearRange onChange={onYearChange} />
+
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold mb-3 text-center">Sort by</h2>
-        <SortInput sortType={sortType} onChange={onSortChange} />
+        <h2 className="text-sm font-normal mb-3 text-start">Sort by</h2>
+        <SortInput sortType={filters.sortType} onChange={onSortChange} />
       </div>
     </div>
   )

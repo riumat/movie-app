@@ -79,24 +79,17 @@ export async function DELETE(request: Request) {
       },
     });
 
-    if (!existingRow) {
-      return new Response(JSON.stringify({ error: "Row dont exists" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
+    if (existingRow) {
+      await prisma.watchlist.delete({
+        where: {
+          user_id_content_id_content_type: {
+            user_id: Number(userId),
+            content_id: Number(contentId),
+            content_type: contentType,
+          },
+        },
       });
     }
-
-
-    await prisma.watchlist.delete({
-      where: {
-        user_id_content_id_content_type: {
-          user_id: Number(userId),
-          content_id: Number(contentId),
-          content_type: contentType,
-        },
-      },
-    });
-
 
     return new Response(JSON.stringify({ message: "Row created successfully" }), {
       status: 200,

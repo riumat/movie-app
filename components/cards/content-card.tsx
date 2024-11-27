@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { ContentItem } from '@/lib/types';
+import { ContentItem } from '@/lib/types/content';
 
 
 const ContentCard = ({ item }: { item: ContentItem }) => {
@@ -19,7 +19,7 @@ const ContentCard = ({ item }: { item: ContentItem }) => {
   };
 
   return (
-    <div className="flex flex-col bg-transparent w-full max-w-[170px] mx-auto">
+    <div className="flex flex-col bg-transparent w-full max-w-[140px] mx-auto">
       <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">

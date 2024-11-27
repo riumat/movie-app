@@ -17,16 +17,17 @@ export const fetchProviders = async (media: string) => {
 };
 
 export const fetchContentDataWithFilters = async (params: any, media: string) => {
-  const { genres, providers, page = "1", startDate, endDate, sort } = params;
+  const { genres = "", providers = "", page = "1", from = "1920", to = new Date().getFullYear().toString(), sort = "popularity.desc" } = params;
+  console.log(`${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&sort_by=${sort}&watch_region=IT`)
   const res = await fetch(
-    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&sort_by=popularity.desc&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${sort}&watch_region=IT`
+    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&sort_by=${sort}&watch_region=IT`
   )
   const data = await res.json();
-  const yearRange = {
-    start: "1900",
-    end: new Date().getFullYear().toString()
-  }
-  return { content: data.results, yearRange, sort ,totalPages: data.total_pages };
+  return {
+    content: data.results,
+    sort,
+    totalPages: data.total_pages
+  };
 }
 
 

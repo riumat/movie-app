@@ -1,56 +1,100 @@
 "use client"
 import React, { useState } from 'react';
 import { RiArrowDropDownLine } from "react-icons/ri";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from '@/components/ui/button';
+import { GrAscend } from "react-icons/gr";
 
 interface SortInputProps {
   sortType: string;
   onChange: (sortType: string) => void;
 }
+
+const sortTypes = [
+  {
+    name: "Popularity",
+    value: "popularity",
+  },
+  {
+    name: "Release Date",
+    value: "primary_release_date",
+  },
+  {
+    name: "Revenue",
+    value: "revenue",
+  },
+  {
+    name: "Vote Average",
+    value: "vote_average",
+  },
+];
+
 export const SortInput: React.FC<SortInputProps> = ({ sortType, onChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSort, setSelectedSort] = useState<string>(sortType);
+  const initialSortType = sortTypes.find((s) => s.value === sortType.split(".")[0]);
+  const [selectedSort, setSelectedSort] = useState<string>(
+    initialSortType?.value || "popularity"
+  );
+  const [selectedName, setSelectedName] = useState<string>(
+    initialSortType?.name || "Popularity"
+  );
+  const [order, setOrder] = useState<string>("desc");
 
   const handleSortChange = (newSort: string, name: string) => {
-    onChange(newSort);
-    setIsOpen(false);
-    setSelectedSort(name);
+    setSelectedSort(newSort);
+    setSelectedName(name);
+    onChange(`${newSort}.${order}`);
   };
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const handleOrderChange = (newOrder: string) => {
+    setOrder(newOrder);
+    onChange(`${selectedSort}.${newOrder}`);
+  };
 
   return (
-    <div className="relative inline-block w-full">
-      <button
-        className="w-full px-4 py-2 rounded-xl border border-foreground/30 bg-background text-foreground text-sm focus:outline-none"
-        type="button"
-        aria-haspopup="true"
-        aria-expanded={isOpen}
-        onClick={toggleDropdown}
+    <div className="relative w-[220px] flex gap-2">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            className="w-full px-4 py-2 flex justify-between items-center font-light"
+            type="button"
+            variant="outline"
+          >
+            {selectedName}
+            <RiArrowDropDownLine className="ml-2 scale-150" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-full mt-2 py-1 z-50 text-foreground bg-background rounded-md">
+          <ul className="flex flex-col gap-1 ">
+            {sortTypes.map(({ name, value }) => (
+              <li
+                key={value}
+                className="block px-4 py-2 text-sm cursor-pointer hover:bg-foreground/10 duration-200 rounded font-light"
+                onClick={() => handleSortChange(value, name)}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </PopoverContent>
+      </Popover>
+      <Button
+        variant={`${order === "asc" ? "outline" : "default"}`}
+        className="px-2"
+        onClick={() => handleOrderChange("desc")}
       >
-        {selectedSort.charAt(0).toUpperCase() + selectedSort.slice(1)}
-        {isOpen ? <RiArrowDropDownLine className="inline-block ml-2 rotate-180 duration-200 scale-150" /> : <RiArrowDropDownLine className="inline-block ml-2 duration-200 scale-150" />}
-      </button>
-      <ul className={`${isOpen ? 'visible opacity-100 duration-150 ' : 'invisible opacity-0 delay-50 transition-opacity duration-100  '} absolute right-0 w-full mt-2 py-1 z-20 text-foreground bg-background rounded-xl border border-foreground/30 transition-opacity duration-300`}>
-        <li
-          className="block px-4 py-2 text-sm cursor-pointer  hover:bg-foreground/10 duration-300"
-          onClick={() => handleSortChange('popularity.desc', 'Trending')}
-        >
-          Trending
-        </li>
-        <li
-          className="block px-4 py-2 text-sm cursor-pointer hover:bg-foreground/10 duration-300"
-          onClick={() => handleSortChange('vote_average.desc', 'Vote')}
-        >
-          Vote
-        </li>
-        <li
-          className="block px-4 py-2 text-sm cursor-pointer hover:bg-foreground/10 duration-300"
-          onClick={() => handleSortChange('release_date.desc', 'Date')}
-        >
-          Date
-        </li>
-      </ul>
+        <GrAscend className="rotate-180" />
+      </Button>
+      <Button
+        variant={`${order === "asc" ? "default" : "outline"}`}
+        className="px-2"
+        onClick={() => handleOrderChange("asc")}
+      >
+        <GrAscend />
+      </Button>
     </div>
   );
 };
-

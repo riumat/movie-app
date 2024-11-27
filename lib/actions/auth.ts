@@ -155,7 +155,45 @@ export const getUserData = async (id: string) => {
       user_id: Number(id)
     }
   })
-  return { contents, people, watchlist }
+
+  const genreList = await Promise.all(contents.reduce((acc: any, content) => {
+    const genres = content.genres.split(',')
+    genres.forEach(genreId => {
+      const existingGenre = acc.find((g: any) => g.id === genreId)
+      if (existingGenre) {
+        existingGenre.count++
+      } else {
+        acc.push({ id: genreId, count: 1 })
+      }
+    })
+    return acc
+  }, [])
+    .sort((a: any, b: any) => b.count - a.count)
+    .map(async (genre: any) => {
+      const genreName = await prisma.contentGenre.findUnique({
+        where: {
+          id: Number(genre.id)
+        }
+      })
+      if (!genreName) return {
+        id:  genre.id,
+        name: "Unknown",
+        count: genre.count
+      }
+
+      return {
+        id: genre.id,
+        name: genreName.name,
+        count: genre.count
+      }
+    }))
+
+  return {
+    watched: contents,
+    following: people,
+    watchlist: watchlist,
+    genreList: genreList
+  }
 }
 
 

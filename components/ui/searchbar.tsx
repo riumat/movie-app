@@ -43,7 +43,7 @@ const Searchbar = () => {
   };
 
   return (
-    <div className={`relative flex items-center rounded-2xl border opacity-50 hover:opacity-100 border-foreground/30 bg-background/20 hover:bg-background/70 duration-200 h-full z-50 text-sm w-[30%] ${scrollY > 10 ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`relative flex items-center rounded-2xl border opacity-50 hover:opacity-100 border-foreground/30 bg-background/20 hover:bg-background/70 duration-200 h-full text-sm w-[30%] ${scrollY > 10 ? 'opacity-100' : 'opacity-0'}`}>
       <div className='text-foreground pl-4 '>
         <IoSearchOutline size={15} />
       </div>
