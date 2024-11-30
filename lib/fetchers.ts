@@ -2,6 +2,8 @@ import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
 import { getSession } from "@/lib/session";
 import { ContentItem } from "@/lib/types/content";
+import { MovieData } from "@/lib/types/movie";
+import { TvData } from "@/lib/types/tv";
 import { PrismaClient } from "@prisma/client";
 const apiKey = process.env.TMDB_API_KEY
 
@@ -125,6 +127,7 @@ export const fetchContentData = async (contentId: string, media: string) => {
   ]);
 
   if (!contentRes.ok || !imagesRes.ok || !providersRes.ok || !creditsRes.ok) {
+    console.log("not ok")
     throw new Error('Failed to fetch content data');
   }
   const [contentData, imagesData, providersData, creditsData] = await Promise.all([
@@ -145,6 +148,7 @@ export const fetchContentData = async (contentId: string, media: string) => {
 
   return {
     ...contentData,
+    recommendations: contentData.recommendations.results.map((result: any) => ({ ...result, type: media })),
     images: imagesData,
     providers: providers,
     credits: credits,
@@ -244,7 +248,7 @@ export const fetchQueryData = async (query: string, page: string) => {
   return response.json();
 }
 
-export const checkUserContent = async (session: any, content: ContentItem[], media: "movie" | "tv") => {
+export const checkUserContent = async (session: any, content: MovieData[] | TvData[], media: "movie" | "tv") => {
   const prisma = new PrismaClient();
   const userId = session.user.id;
   if (!userId) {

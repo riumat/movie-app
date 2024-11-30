@@ -4,9 +4,9 @@ import React from 'react'
 
 const Background = ({ posters }: { posters: string[] }) => {
   return (
-    <div className={`absolute inset-0 top-0 left-0 -z-30 `}>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background" />
-      <div className="flex h-full ">
+    <div className={`absolute top-0 left-0  h-full w-full`}>
+      <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-b from-transparent via-background/70 to-background -z-10" />
+      <div className="flex absolute top-0 left-0 w-full h-full -z-20">
         {posters.map((path, index) => (
           <div key={index} className="flex-1 relative w-full ">
             <Image

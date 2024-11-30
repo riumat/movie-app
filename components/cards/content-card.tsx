@@ -10,15 +10,12 @@ import { FaEye, FaRegEye } from "react-icons/fa6";
 import useIsWatched from '@/lib/hooks/use-watched';
 import useWatchlist from '@/lib/hooks/use-watchlist';
 
-//bug: quando vado nella pagina di un fllm e clicco indietro (pagina) il watchlist button non funziona, non prende più lo stato, si sistema con un refresh
-
 
 const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
   { item: MovieData | TvData, isWatchedServer: boolean, isBookmarkedServer: boolean }
 ) => {
   const { isWatched, handleIsWatched } = useIsWatched(isWatchedServer, item);
   const { isListed, handleWatchlist } = useWatchlist(isBookmarkedServer, item);
-  console.log(isBookmarkedServer)
 
 
   const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
@@ -37,7 +34,6 @@ const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
     e.preventDefault();
     handler();
   }
-
 
   return (
     <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group ${isWatched ? 'border-b-4 border-destructive' : ''}`}>
@@ -64,7 +60,7 @@ const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
           {item.type === "tv" && (
             <p className="text-foreground text-sm font-bold z-50 mt-3 text-center">{item.name}</p>
           )}
-          <div className='flex justify-evenly items-center mb-3'>
+          <div className='flex justify-evenly items-center mb-3 w-full'>
             <div className="flex justify-between items-center">
               {isWatched ? (
                 <div className="flex gap-2 items-center active:scale-90 duration-100" onClick={(e) => handleClick(e, handleIsWatched)}>

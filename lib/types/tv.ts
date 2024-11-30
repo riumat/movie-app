@@ -6,6 +6,8 @@ import { VideoItem } from "@/lib/types/video";
 
 export type TvData = {
   type: "tv";
+  media_type: string,
+  overview: string;
   created_by: {
     id: number;
     name: string;
@@ -52,7 +54,7 @@ export type TvData = {
     page: number,
     total_pages: number,
     total_results: number,
-    results: TvItem[],
+    results: TvData[],
   }
   providers: ProviderItem[],
   images: ImagesItem

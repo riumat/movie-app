@@ -4,6 +4,7 @@ export type ContentItem = {
   media_type: string,
   title: string,
   name: string,
+  type: string
 }
 
-export type Selection = "crew" | "cast" | "overview" | "seasons" | "watch" | "videos" | "similar";
+export type Selection = "crew" | "cast" | "seasons" | "videos" | "similar";

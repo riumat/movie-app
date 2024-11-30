@@ -16,24 +16,18 @@ const sectionComponents = {
   cast: (data: MovieData) => (
     <CreditsList personList={data.credits.cast} />
   ),
-  overview: (data: MovieData) => (
-    <p className='text-justify'>{data.overview}</p>
-  ),
-  watch: (data: MovieData) => (
-    <ProviderSection providers={data.providers} />
-  ),
   videos: (data: MovieData) => (
     <VideoSection videoInfo={data.videos} />
   ),
-  similar: (data: MovieData) => (
+  similar: (data: MovieData, similarData: any) => (
     <SimilarContentSection
-      recommendations={data.recommendations.results}
-      media={data.type}
+      recommendations={data.recommendations}
+      similarData={similarData}
     />
   )
 };
 
-const Body = ({ movieData }: { movieData: MovieData }) => {
+const Body = ({ movieData, similarData }: { movieData: MovieData, similarData: any }) => {
   const [selection, setSelection] = useState<Selection>("cast");
 
   const SelectedSection = () => {
@@ -41,9 +35,9 @@ const Body = ({ movieData }: { movieData: MovieData }) => {
     return (
       <div className={`
         flex flex-col gap-5 
-        ${selection === 'watch' || selection === 'videos' ? 'h-full mt-10 justify-around' : 'my-10 w-full h-full pb-20'}
+        ${selection === 'videos' ? 'h-full mt-10 justify-around' : 'my-10 w-full h-full pb-20'}
       `}>
-        {SectionComponent && SectionComponent(movieData)}
+        {SectionComponent && SectionComponent(movieData, similarData)}
       </div>
     );
   };
@@ -56,7 +50,7 @@ const Body = ({ movieData }: { movieData: MovieData }) => {
           selection={selection}
           media={movieData.type}
         />
-        <div className='rounded-xl z-0 flex-1 overflow-hidden relative h-[650px]'>
+        <div className='rounded-xl z-0 flex-1 overflow-hidden relative min-h-[650px] '>
           <SelectedSection />
         </div>
       </div>

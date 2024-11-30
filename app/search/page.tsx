@@ -6,15 +6,12 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ [key: string]: s
   const { page = "1", query = "" }: { [key: string]: string, } = await searchParams
   const { results, total_pages } = await fetchQueryData(query.toString(), page.toString())
   const posters = await fetchTrendingPosters(0, 5, "movie");
-  console.log(results)
-
   return (
     <>
       <Background
         posters={posters} />
       <div className="relative flex-1">
-        <div className="relative h-full z-10 flex flex-col items-center mt-[4rem]">
-
+        <div className=" flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
           <MultiGrid
             searchResults={results}
             totalPages={total_pages}

@@ -81,16 +81,8 @@ export const selectorTvList = [
     value: "crew",
   },
   {
-    name: "Overview",
-    value: "overview",
-  },
-  {
     name: "Seasons",
     value: "seasons",
-  },
-  {
-    name: "Watch",
-    value: "watch",
   },
   {
     name: "Videos",
@@ -110,14 +102,6 @@ export const selectorMovieList = [
   {
     name: "Crew ",
     value: "crew",
-  },
-  {
-    name: "Overview",
-    value: "overview",
-  },
-  {
-    name: "Watch",
-    value: "watch",
   },
   {
     name: "Videos",

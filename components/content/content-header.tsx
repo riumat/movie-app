@@ -11,7 +11,7 @@ const ContentHeader = ({ contentData, userData }: { contentData: MovieData | TvD
 
       <div className="absolute inset-0 flex flex-col gap-5 justify-end pb-16 items-start  text-foreground p-5 bg-gradient-to-b from-transparent  to-background ">
         <ContentProdLogos contentData={contentData} />
-        <h2 className="text-6xl font-bold">{contentData.type === "movie" ? contentData.title : contentData.name}</h2>
+        <h2 className="text-5xl font-bold ">{contentData.type === "movie" ? contentData.title : contentData.name}</h2>
         <ContentInfos contentData={contentData} />
         <UserSection userData={userData} contentData={contentData} />
       </div>

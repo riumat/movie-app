@@ -6,6 +6,7 @@ import { VideoItem } from "@/lib/types/video"
 
 export type MovieData = {
   type: "movie",
+  media_type: string,
   id: number,
   title: string,
   images: ImagesItem,
@@ -36,12 +37,7 @@ export type MovieData = {
     clips: VideoItem[],
     feat: VideoItem[],
   },
-  recommendations: {
-    page: number,
-    total_pages: number,
-    total_results: number,
-    results: MovieItem[],
-  }
+  recommendations: MovieData[],
   providers: ProviderItem[],
 }
 

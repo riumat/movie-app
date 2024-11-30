@@ -8,7 +8,6 @@ import { useFilterState } from '@/lib/hooks/use-filter-state'
 import { MovieData } from '@/lib/types/movie'
 import { TvData } from '@/lib/types/tv'
 import { FilterItem } from '@/lib/types/filter'
-import { Separator } from '@/components/ui/separator'
 
 type Props = {
   contentData: {
@@ -38,7 +37,6 @@ const Body = ({ contentData, genres, providers, media, userData }: Props) => {
         media={media}
       />
 
-      <Separator orientation="vertical" className="hidden md:block" />
 
       <div className="flex-1 z-10 relative flex flex-col gap-2 items-center overflow-y-auto overflow-x-hidden ">
         {!contentData.content ? (
