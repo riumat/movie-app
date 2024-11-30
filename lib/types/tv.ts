@@ -50,12 +50,7 @@ export type TvData = {
     clips: VideoItem[],
     feat: VideoItem[],
   },
-  recommendations: {
-    page: number,
-    total_pages: number,
-    total_results: number,
-    results: TvData[],
-  }
+  recommendations: TvData[],
   providers: ProviderItem[],
   images: ImagesItem
 }

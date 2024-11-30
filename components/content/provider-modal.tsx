@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog"
 import { imageUrl, imgWidth } from "@/lib/constants"
 import Image from "next/image"
-import { IoReaderOutline } from "react-icons/io5"
 import { LuTv } from "react-icons/lu";
 
 
@@ -26,7 +25,7 @@ const ProviderModal = ({ providers }: { providers: any[] }) => {
         </DialogHeader>
         <div className="h-full overflow-y-auto scrollbar-thin">
           {providers.length > 0 ? (
-            <div className='grid grid-cols-5 gap-3 justify-items-center '>
+            <div className='flex justify-center gap-10 flex-wrap '>
               {providers.map((provider) => (
                 <div key={provider.provider_id} className='flex flex-col items-center gap-2'>
                   <div className="flex items-center w-[80px] h-[100px] rounded-md">

@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { CastItem, CrewItem } from '@/lib/types';
 import WorkingPersonCard from '@/components/cards/working-person-card';
+import { CastItem } from '@/lib/types/cast';
+import { CrewItem } from '@/lib/types/crew';
 
 type PersonListProps = {
   personList: (CastItem | CrewItem)[];

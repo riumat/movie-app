@@ -1,14 +1,19 @@
 import { notFound } from 'next/navigation';
-import { fetchContentData, fetchUserContentData } from '@/lib/fetchers';
+import { checkUserContent, fetchContentData, fetchUserContentData } from '@/lib/fetchers';
 import ContentBackground from '@/components/layout/content-background';
 import ContentHeader from '@/components/content/content-header';
 import Body from '@/components/tv/body';
 import { TvData } from '@/lib/types/tv';
+import { getSession } from '@/lib/session';
 
 export default async function TvPage({ params }: { params: { id: string } }) {
-  const userData = await fetchUserContentData(params.id, "tv")
-  const tvData: TvData = await fetchContentData(params.id, "tv")
+  const media = "tv"
+  const session = await getSession();
+  const userData = await fetchUserContentData(params.id, media)
+  const tvData: TvData = await fetchContentData(params.id, media)
     .catch(() => notFound())
+  const similarData: any = await checkUserContent(session, tvData.recommendations, media);
+
 
   return (
     <div className="flex-1 flex flex-col items-center w-full ">
@@ -21,6 +26,7 @@ export default async function TvPage({ params }: { params: { id: string } }) {
       />
       <Body
         tvData={tvData}
+        similarData={similarData}
       />
     </div>
   );

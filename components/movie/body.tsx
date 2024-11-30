@@ -1,5 +1,4 @@
 "use client"
-import ProviderSection from '@/components/content/provider-section';
 import VideoSection from '@/components/content/video-section';
 import React, { useState } from 'react';
 import CreditsList from '@/components/people/credits-list';
