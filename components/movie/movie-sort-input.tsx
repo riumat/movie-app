@@ -16,7 +16,7 @@ interface SortInputProps {
 
 const sortTypes = [
   {
-    name: "Popularity",
+    name: "Trending",
     value: "popularity",
   },
   {
@@ -33,7 +33,7 @@ const sortTypes = [
   },
 ];
 
-export const SortInput: React.FC<SortInputProps> = ({ sortType, onChange }) => {
+const MovieSortInput = ({ sortType, onChange }: SortInputProps) => {
   const initialSortType = sortTypes.find((s) => s.value === sortType.split(".")[0]);
   const [selectedSort, setSelectedSort] = useState<string>(
     initialSortType?.value || "popularity"
@@ -98,3 +98,5 @@ export const SortInput: React.FC<SortInputProps> = ({ sortType, onChange }) => {
     </div>
   );
 };
+
+export default MovieSortInput

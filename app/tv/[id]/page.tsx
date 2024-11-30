@@ -13,7 +13,7 @@ export default async function TvPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex-1 flex flex-col items-center w-full ">
       <ContentBackground
-        poster={tvData.images.backdrops[0].file_path}
+        poster={tvData.images.backdrops[0]?.file_path}
       />
       <ContentHeader
         contentData={tvData}

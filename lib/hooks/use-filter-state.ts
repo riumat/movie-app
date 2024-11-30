@@ -1,6 +1,6 @@
 import { FilterItem } from '@/lib/types/filter'
-import { useRouter } from 'next/navigation';
-import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react'
 
 type Props = {
   genres: FilterItem[],
@@ -19,18 +19,24 @@ const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
 
 
 export const useFilterState = () => {
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([])
-  const [selectedProviders, setSelectedProviders] = useState<number[]>([])
-  const [range, setRange] = useState({ from: '1924', to: new Date().getFullYear().toString() })
-  const [sortType, setSortType] = useState('popularity.desc')
-  const [page, setPage] = useState(1)
+  const searchParams = new URLSearchParams(useSearchParams().toString());
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(searchParams.get("genres")?.split(",").map(Number) ?? [])
+  const [selectedProviders, setSelectedProviders] = useState<number[]>(searchParams.get("providers")?.split(",").map(Number) ?? [])
+  const [range, setRange] = useState({ from: searchParams.get("from") || "1924", to: searchParams.get("to") || new Date().getFullYear().toString() })
+  const [sortType, setSortType] = useState(searchParams.get("sort") || "popularity.desc")
+  const [page, setPage] = useState(searchParams.get("page") ? Number(searchParams.get("page")) : 1)
   const router = useRouter();
+
+  const handleChangePage = (page: number) => {
+    setPage(page);
+    searchParams.set('page', page.toString());
+    router.push(`?${searchParams.toString()}`);
+  }
 
   const handleGenreChange = (genre: number) => {
     const updated = toggleItemInSelectedItems(genre, selectedGenres)
     setPage(1)
     setSelectedGenres(updated)
-    //genres, providers, page = "1", startDate, endDate, sort
     router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
   }
 
@@ -70,7 +76,7 @@ export const useFilterState = () => {
       handleProviderChange,
       handleYearChange,
       handleSortChange,
-      setPage
+      handleChangePage
     },
   }
 }

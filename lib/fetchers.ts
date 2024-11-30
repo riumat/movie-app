@@ -1,6 +1,7 @@
 import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
 import { getSession } from "@/lib/session";
+import { ContentItem } from "@/lib/types/content";
 import { PrismaClient } from "@prisma/client";
 const apiKey = process.env.TMDB_API_KEY
 
@@ -18,13 +19,14 @@ export const fetchProviders = async (media: string) => {
 
 export const fetchContentDataWithFilters = async (params: any, media: string) => {
   const { genres = "", providers = "", page = "1", from = "1920", to = new Date().getFullYear().toString(), sort = "popularity.desc" } = params;
-  console.log(`${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&sort_by=${sort}&watch_region=IT`)
+  const release = media === "movie" ? "primary_release_date" : "first_air_date";
   const res = await fetch(
-    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&primary_release_date.gte=${from}-01-01&primary_release_date.lte=${to}-12-31&sort_by=${sort}&watch_region=IT`
+    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&${release}.gte=${from}-01-01&${release}.lte=${to}-12-31&sort_by=${sort}&watch_region=IT&without_genres=10763,10764,10767`
   )
   const data = await res.json();
+
   return {
-    content: data.results,
+    content: data.results.map((item: any) => ({ ...item, type: media })),
     sort,
     totalPages: data.total_pages
   };
@@ -240,4 +242,45 @@ export const fetchQueryData = async (query: string, page: string) => {
   });
 
   return response.json();
+}
+
+export const checkUserContent = async (session: any, content: ContentItem[], media: "movie" | "tv") => {
+  const prisma = new PrismaClient();
+  const userId = session.user.id;
+  if (!userId) {
+    return [];
+  }
+
+  const contentIds = content.map(item => item.id);
+
+  const watchedContent = await prisma.content.findMany({
+    where: {
+      user_id: userId,
+      content_type: media,
+      content_id: {
+        in: contentIds
+      }
+    },
+    select: {
+      content_id: true
+    }
+  });
+
+  const watchlistedContent = await prisma.watchlist.findMany({
+    where: {
+      user_id: userId,
+      content_type: media,
+      content_id: {
+        in: contentIds
+      }
+    },
+    select: {
+      content_id: true
+    }
+  });
+
+  return {
+    watched: watchedContent.map(item => item.content_id),
+    bookmarked: watchlistedContent.map(item => item.content_id)
+  };
 }

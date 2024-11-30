@@ -1,5 +1,5 @@
 import { selectorMovieList, selectorTvList } from "@/lib/constants";
-import { Selection } from "@/lib/types";
+import { Selection } from "@/lib/types/content";
 
 interface MainSectionSelectorProps {
   setSelection: (selection: Selection) => void;
@@ -9,7 +9,7 @@ interface MainSectionSelectorProps {
 
 const ContentNavbar = ({ setSelection, selection, media }: MainSectionSelectorProps) => {
   return (
-    <div className=' flex  justify-center items-start gap-5 text-sm py-3 border-b border-neutral-700 sticky top-0 z-20 bg-background text-foreground'>
+    <div className=' flex  justify-center items-start gap-5 text-sm py-3 border-b border-neutral-700 sticky top-0 z-50 bg-background text-foreground'>
       {media === "movie" ? (
         selectorMovieList.map((item) => (
           <button

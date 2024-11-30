@@ -1,3 +1,4 @@
+import { getSession } from "@/lib/session";
 import { PrismaClient } from "@prisma/client";
 
 export async function POST(request: Request) {
@@ -5,9 +6,17 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { contentId, userId, contentType } = body;
+    const session = await getSession();
+    const { contentId, contentType } = body;
 
-    if (!contentId || !userId || !contentType) {
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (!contentId || !contentType) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -17,7 +26,7 @@ export async function POST(request: Request) {
     const existingRow = await prisma.watchlist.findUnique({
       where: {
         user_id_content_id_content_type: {
-          user_id: Number(userId),
+          user_id: Number(session.user.id),
           content_id: Number(contentId),
           content_type: contentType,
         },
@@ -32,7 +41,7 @@ export async function POST(request: Request) {
     }
     await prisma.watchlist.create({
       data: {
-        user_id: Number(userId),
+        user_id: Number(session.user.id),
         content_id: Number(contentId),
         content_type: contentType,
       },
@@ -59,10 +68,18 @@ export async function DELETE(request: Request) {
   const prisma = new PrismaClient();
 
   try {
+    const session = await getSession();
     const body = await request.json();
-    const { contentId, userId, contentType } = body;
+    const { contentId, contentType } = body;
 
-    if (!contentId || !userId || !contentType) {
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (!contentId || !contentType) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -72,7 +89,7 @@ export async function DELETE(request: Request) {
     const existingRow = await prisma.watchlist.findUnique({
       where: {
         user_id_content_id_content_type: {
-          user_id: Number(userId),
+          user_id: Number(session.user.id),
           content_id: Number(contentId),
           content_type: contentType,
         },
@@ -83,7 +100,7 @@ export async function DELETE(request: Request) {
       await prisma.watchlist.delete({
         where: {
           user_id_content_id_content_type: {
-            user_id: Number(userId),
+            user_id: Number(session.user.id),
             content_id: Number(contentId),
             content_type: contentType,
           },

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
-const useWatchlist = (userData: any, contentData: any) => {
-  const [isListed, setIsListed] = useState<boolean>(userData.isWatchListed);
+const useWatchlist = (isListedInitial: boolean, contentData: any) => {
+  const [isListed, setIsListed] = useState<boolean>(isListedInitial);
 
 
   const handleWatchlist = () => {
@@ -11,7 +11,6 @@ const useWatchlist = (userData: any, contentData: any) => {
       axios.delete('/api/user/watchlist', {
         data: {
           contentId: contentData.id,
-          userId: userData.userId,
           contentType: contentData.type,
         }
       })
@@ -20,7 +19,6 @@ const useWatchlist = (userData: any, contentData: any) => {
     } else {
       axios.post('/api/user/watchlist', {
         contentId: contentData.id,
-        userId: userData.userId,
         contentType: contentData.type,
       })
         .then(res => setIsListed(newListed))
