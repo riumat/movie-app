@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
-const useWatchlist = (isListedInitial: boolean, contentData: any) => {
-  const [isListed, setIsListed] = useState<boolean>(isListedInitial);
+const useWatchlist = (userData: any, contentData: any) => {
+  const [isListed, setIsListed] = useState<boolean>(userData.isWatchlisted);
 
 
   const handleWatchlist = () => {

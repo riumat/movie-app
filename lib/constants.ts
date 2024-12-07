@@ -1,3 +1,12 @@
+import { IoHomeOutline } from "react-icons/io5";
+
+import { FaFilm } from "react-icons/fa";
+import { FaTv } from "react-icons/fa";
+import { BiCameraMovie } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa6";
+
+
+
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
 
@@ -40,11 +49,11 @@ export const placeholders = {
 }
 
 export const sidebarItems = [
-  { label: 'Home', path: '/' },
-  { label: 'Movies', path: '/movie' },
-  { label: 'Tv Shows', path: '/tv' },
-  { label: 'People', path: '/person' },
-  { label: 'Genres', path: '/genres' },
+  { label: 'Home', path: '/', icon: IoHomeOutline },
+  { label: 'Movies', path: '/movie', icon: FaFilm },
+  { label: 'Tv Shows', path: '/tv', icon: FaTv },
+  { label: 'Genres', path: '/genres', icon: BiCameraMovie },
+  { label: 'Profile', path: '/user', icon: FaRegUser },
 ];
 
 

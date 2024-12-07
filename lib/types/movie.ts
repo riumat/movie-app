@@ -11,6 +11,7 @@ export type MovieData = {
   title: string,
   images: ImagesItem,
   budget: number,
+  genre_ids: number[],
   genres: {
     id: number,
     name: string,
@@ -18,6 +19,7 @@ export type MovieData = {
   homepage: string,
   overview: string,
   poster_path: string,
+  backdrop_path: string,
   production_companies: {
     id: number,
     logo_path: string,

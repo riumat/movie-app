@@ -1,10 +1,9 @@
 import ContentCard from "@/components/cards/content-card";
 import { Button } from "@/components/ui/button";
 import Chart from "@/components/ui/donut";
-import Donut from "@/components/ui/donut";
 import { Separator } from "@/components/ui/separator";
 import { getUserData } from "@/lib/actions/auth";
-import { formatDateSince, getUserDuration, movieCount, tvCount } from "@/lib/functions";
+import { formatDateSince, formatMinutes, getUserDuration, movieCount, tvCount } from "@/lib/functions";
 import { getSession } from "@/lib/session"
 import { notFound, redirect } from "next/navigation";
 
@@ -32,7 +31,7 @@ const userPage = async ({ params }: { params: { id: string } }) => {
         <div className=" p-2 flex-1 flex items- justify-end gap-10">
           <div className="flex flex-col items-center gap-1">
             <span className="font-light text-sm">Total watchtime</span>
-            <p className="font-bold text-3xl">{`${userData.watchtime}`}</p>
+            <p className="font-bold text-3xl">{`${formatMinutes(userData.watchtime)}`}</p>
           </div>
           <Separator orientation="vertical" className="h-16" />
           <div className="flex items-center gap-10">
@@ -75,8 +74,8 @@ const userPage = async ({ params }: { params: { id: string } }) => {
                 <ContentCard
                   key={index}
                   item={content}
-                  isWatchedServer={userData.watched.includes(content.id)} //todo
-                  isBookmarkedServer={userData.watchlist.includes(content.id)} //todo
+                  isWatchedServer={userData.watched.includes(content.id)}
+                  isBookmarkedServer={userData.watchlist.includes(content.id)}
                 />
               ))}
 

@@ -15,6 +15,7 @@ export type TvData = {
   }[];
   first_air_date: string;
   last_air_date: string;
+  genre_ids: number[],
   genres: {
     id: number;
     name: string;
@@ -30,6 +31,7 @@ export type TvData = {
   }[];
   number_of_episodes: number;
   poster_path: string;
+  backdrop_path: string;
   seasons: {
     air_date: string,
     episode_count: number,

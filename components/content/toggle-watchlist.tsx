@@ -4,9 +4,10 @@ import { Minus, Plus } from "lucide-react";
 
 const ToggleWatchlist = ({ isWatched, userData, contentData }: { isWatched: boolean, userData: any, contentData: any }) => {
   const { isListed, handleWatchlist } = useWatchlist(userData, contentData)
+  
   console.log(userData)
   return (
-    <Button variant={"outline"} className={`w-full px-3 group`} onClick={handleWatchlist} disabled={isWatched} >
+    <Button variant={"outline"} className={`w-full px-3 group`} onClick={handleWatchlist} >
       {isListed ? (
         <div className="flex gap-2 items-center">
           <Minus size={30} />

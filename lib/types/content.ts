@@ -1,6 +1,7 @@
 export type ContentItem = {
   id: number,
   poster_path: string,
+  backdrop_path: string,
   media_type: string,
   title: string,
   name: string,

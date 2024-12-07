@@ -8,6 +8,7 @@ type Props = {
 }
 
 const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
+  console.log(id)
   const isItemSelected = prevItems.some(selectedItem => selectedItem === id);
 
   if (isItemSelected) {
@@ -62,6 +63,15 @@ export const useFilterState = () => {
 
   }
 
+  const handleReset = () => {
+    setSelectedGenres([])
+    setSelectedProviders([])
+    setRange({ from: "1924", to: new Date().getFullYear().toString() })
+    setSortType("popularity.desc")
+    setPage(1)
+    router.push("?")
+  }
+
 
   return {
     filters: {
@@ -76,7 +86,8 @@ export const useFilterState = () => {
       handleProviderChange,
       handleYearChange,
       handleSortChange,
-      handleChangePage
+      handleChangePage,
+      handleReset
     },
   }
 }

@@ -28,15 +28,14 @@ const Sidebar = ({ session }: { session: any }) => {
       ${isOpen ? 'translate-x-0 left-0' : '-translate-x-full'}
         `}
       >
-        <div className={`h-[100vh] px-4 py-3 bg-background flex flex-col gap-5 z-20 w-full relative border-r border-neutral-700
+        <div className={`h-[100vh] px-4 py-3 bg-background flex flex-col justify-between gap-5 z-20 w-full relative border-r border-neutral-700
            `}>
-          <div className='w-full flex justify-center relative left-8'>
-            <ModeToggle />
-          </div>
-          <ul className='relative text-sm flex flex-col gap-1'>
-            {sidebarItems.map((item) => (
+
+          <ul className='relative text-sm flex flex-col gap-1 mt-16'>
+            {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
               <li key={item.path} className="mb-4">
-                <Link href={item.path}>
+                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 ml-3'>
+                  <item.icon size={17}/>
                   <span
                     className={`px-3 py-1 rounded-xl hover:underline font-normal
                       ${pathname === item.path ? 'underline font-bold' : ''}`}
@@ -46,15 +45,18 @@ const Sidebar = ({ session }: { session: any }) => {
                 </Link>
               </li>
             ))}
-            <li className="mb-4">
-              {isLogged ? (
-                <LogoutModal />
-              ) : (
-                <AuthModal isOpen={false} label='Login' />
-              )}
 
-            </li>
           </ul>
+          <div className="mb-4 flex justify-evenly items-center">
+            {isLogged ? (
+              <LogoutModal />
+            ) : (
+              <AuthModal isOpen={false} label='Login' />
+            )}
+            <div className='w-full flex justify-center relative '>
+              <ModeToggle />
+            </div>
+          </div>
         </div>
       </nav>
       <Button

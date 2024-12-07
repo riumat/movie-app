@@ -3,6 +3,7 @@ import ComboboxFilter from "@/components/content/combobox-filters"
 import DatePickerWithYearRange from "@/components/content/range-date-picker"
 import MovieSortInput from "@/components/movie/movie-sort-input"
 import TvSortInput from "@/components/tv/tv-sort-input"
+import { Button } from "@/components/ui/button"
 
 interface FiltersSidebarProps {
   filters: {
@@ -21,6 +22,7 @@ interface FiltersSidebarProps {
   onProviderChange: (item: number) => void
   onYearChange: (range: { from: string; to: string }) => void
   onSortChange: (sortType: string) => void
+  onReset: () => void
   media: string
 }
 
@@ -32,6 +34,7 @@ export const FiltersSidebar = ({
   onProviderChange,
   onYearChange,
   onSortChange,
+  onReset,
   media
 }: FiltersSidebarProps) => {
   return (
@@ -70,6 +73,7 @@ export const FiltersSidebar = ({
           <TvSortInput sortType={filters.sortType} onChange={onSortChange} />
         }
       </div>
+      <Button variant="secondary" className="w-full" onClick={onReset}>Reset Filters</Button>
     </div>
   )
 }

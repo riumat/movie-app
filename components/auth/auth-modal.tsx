@@ -25,7 +25,7 @@ const AuthModal = ({ isOpen, label }: { isOpen: boolean, label: string }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="px-3">
+        <Button variant="secondary" className="px-3">
           {label}
         </Button>
       </DialogTrigger>

@@ -44,7 +44,7 @@ const Chart = ({ genres }: { genres: any }) => {
           <PieChart className="flex gap-10">
             <Pie
               data={chartData}
-              dataKey="percentage"
+              dataKey="count"
               nameKey="name"
               innerRadius={50}
               stroke="hsl(var(--background))"

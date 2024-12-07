@@ -23,7 +23,7 @@ export const fetchContentDataWithFilters = async (params: any, media: string) =>
   const { genres = "", providers = "", page = "1", from = "1920", to = new Date().getFullYear().toString(), sort = "popularity.desc" } = params;
   const release = media === "movie" ? "primary_release_date" : "first_air_date";
   const res = await fetch(
-    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&${release}.gte=${from}-01-01&${release}.lte=${to}-12-31&sort_by=${sort}&watch_region=IT&without_genres=10763,10764,10767`
+    `${baseUrl}/discover/${media}?api_key=${apiKey}&page=${page}&with_watch_providers=${providers}&with_genres=${genres}&${release}.gte=${from}-01-01&${release}.lte=${to}-12-31&sort_by=${sort}&without_genres=10763,10764,10767&vote_count.gte=200`
   )
   const data = await res.json();
 
@@ -249,11 +249,10 @@ export const fetchQueryData = async (query: string, page: string) => {
 }
 
 export const checkUserContent = async (session: any, content: MovieData[] | TvData[], media: "movie" | "tv") => {
+  if (!session) return [];
+
   const prisma = new PrismaClient();
   const userId = session.user.id;
-  if (!userId) {
-    return [];
-  }
 
   const contentIds = content.map(item => item.id);
 
@@ -288,3 +287,30 @@ export const checkUserContent = async (session: any, content: MovieData[] | TvDa
     bookmarked: watchlistedContent.map(item => item.content_id)
   };
 }
+
+export const fetchTrending = async () => {
+  const revalidateTime = 432000; //5gg
+  const [trendingMovies, trendingTv] = await Promise.all([
+    fetch(`${baseUrl}/trending/movie/week?api_key=${apiKey}`, { next: { revalidate: revalidateTime } }),
+    fetch(`${baseUrl}/trending/tv/week?api_key=${apiKey}`, { next: { revalidate: revalidateTime } })
+  ]);
+
+  const [movies, tv] = await Promise.all([trendingMovies.json(), trendingTv.json()]);
+
+  const id = movies.results[0].id;
+  const urlRes = await fetch(`${baseUrl}/movie/${id}/videos?api_key=${apiKey}`, { next: { revalidate: revalidateTime } });
+  const urlData = await urlRes.json();
+  const url = urlData.results.find((video: any) => video.type === "Trailer" && video.site === "YouTube");
+  return {
+    movies: movies.results.map((item: any) => ({ ...item, type: "movie" })),
+    tv: tv.results.map((item: any) => ({ ...item, type: "tv" })),
+    video: {
+      url: url ? url.key : null,
+      title: movies.results[0].title,
+      id: movies.results[0].id,
+      poster: movies.results[0].backdrop_path,
+      type: "movie"
+    }
+  }
+}
+

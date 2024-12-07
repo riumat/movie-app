@@ -25,7 +25,7 @@ const Body = ({ contentData, genres, providers, media, userData }: Props) => {
   const { filters, handlers } = useFilterState()
 
   return (
-    <div className="flex flex-col md:flex-row w-[95%] h-full bg-background/95 text-foreground px-3 pt-3 pb-0  rounded-md overflow-hidden  ">
+    <div className="flex flex-col md:flex-row w-[95%] h-full bg-background/95 text-foreground px-3 pt-3 pb-0  rounded-lg overflow-hidden  ">
       <FiltersSidebar
         genres={genres}
         filters={filters}
@@ -34,6 +34,7 @@ const Body = ({ contentData, genres, providers, media, userData }: Props) => {
         onProviderChange={handlers.handleProviderChange}
         onYearChange={handlers.handleYearChange}
         onSortChange={handlers.handleSortChange}
+        onReset={handlers.handleReset}
         media={media}
       />
 

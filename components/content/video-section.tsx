@@ -1,7 +1,7 @@
 "use client";
-import { VideoItem } from '@/lib/types';
+import { VideoItem } from '@/lib/types/video';
 import React from 'react';
-import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player/youtube';
 
 interface VideoSectionProps {
   videoInfo: {
@@ -36,8 +36,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
           {trailers.slice(0, 2).map((video) => (
             <div key={video.key} className="video-section">
               <p className='text-center text-sm'>{video.name}</p>
-              <YouTube
-                videoId={video.key}
+              <ReactPlayer
+                url={video.key}
                 opts={opts}
                 loading='lazy'
               />
@@ -51,8 +51,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
           {clips.slice(0, 2).map((video) => (
             <div key={video.key} className="video-section">
               <p className='text-center text-sm'>{video.name}</p>
-              <YouTube
-                videoId={video.key}
+              <ReactPlayer
+                url={video.key}
                 opts={opts}
                 loading='lazy'
               />
@@ -66,8 +66,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
           {feat.slice(0, 2).map((video) => (
             <div key={video.key} className="video-section">
               <p className='text-center text-sm'>{video.name}</p>
-              <YouTube
-                videoId={video.key}
+              <ReactPlayer
+                url={video.key}
                 opts={opts}
                 loading='lazy'
               />

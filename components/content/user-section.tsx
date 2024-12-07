@@ -18,7 +18,7 @@ const UserSection = ({ userData, contentData }:
     />
   );
 
-  const { isWatched, handleIsWatched } = useIsWatched(userData, contentData);
+  const { isWatched, handleIsWatched } = useIsWatched(userData.watched, contentData);
 
   return (
     <div className="flex gap-5 ">

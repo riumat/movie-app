@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { IoSearchOutline } from "react-icons/io5";
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
@@ -8,24 +8,13 @@ const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    console.log(window.scrollY)
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
 
   const onSearch = (query: string) => {
-    router.push(`/search?query=${query}&page=1`);
+    if (query === "") {
+      router.push('/')
+    } else {
+      router.push(`/search?query=${query}&page=1`);
+    }
   };
 
   const debouncedSearch = useCallback(
@@ -43,9 +32,14 @@ const Searchbar = () => {
   };
 
   return (
-    <div className={`relative flex items-center rounded-2xl border opacity-50 hover:opacity-100 border-foreground/30 bg-background/20 hover:bg-background/70 duration-200 h-full text-sm w-[30%] ${scrollY > 10 ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`relative flex items-center rounded-2xl border 
+    opacity-80 hover:opacity-100 
+    border-foreground/50  bg-background/95 
+    duration-200 h-full text-sm w-[30%] 
+    `}
+    >
       <div className='text-foreground pl-4 '>
-        <IoSearchOutline size={15} />
+        <IoSearchOutline size={18} />
       </div>
       <input
         autoFocus

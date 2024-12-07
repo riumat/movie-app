@@ -7,6 +7,8 @@ import { useState } from "react";
 const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData) => {
   const [isWatched, setIsWatched] = useState<boolean>(isWatchedServer);
   const router = useRouter();
+  const genres = contentData.genres ? contentData.genres.map(genre => genre.id) : contentData.genre_ids;
+  const duration = (contentData.type === 'movie' ? contentData.runtime : undefined) ?? undefined;
 
   const handleIsWatched = () => {
     const newIsWatched = !isWatched;
@@ -15,6 +17,8 @@ const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData)
         .post('/api/user/watch', {
           contentId: contentData.id,
           contentType: contentData.type,
+          duration: duration,
+          genres: genres,
 
         })
         .then(res => {
@@ -34,6 +38,7 @@ const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData)
           data: {
             contentId: contentData.id,
             contentType: contentData.type,
+            duration: contentData.type === 'movie' ? contentData.runtime : 2,
           },
         })
         .then(res => {

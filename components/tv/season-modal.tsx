@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { baseUrl, imageUrl, imgWidth, placeholders } from "@/lib/constants";
+import { imageUrl, imgWidth, placeholders } from "@/lib/constants";
 import { formatDate } from "@/lib/functions";
 import axios from "axios";
 import Image from "next/image";
@@ -100,21 +100,21 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
           ) : (
             <div>
               {episodes.length > 0 && (
-                episodes.map((episode,index) => (
+                episodes.map((episode, index) => (
                   <div key={episode.id} className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                       <div className="relative w-10 h-10">
-                       
+
                       </div>
                       <div className="flex items-center gap-3">
-                        <p>{index+1}</p>
+                        <p>{index + 1}</p>
                         <p className="font-bold text-lg">{episode.name}</p>
                         <p className="text-sm text-neutral-500">
                           {formatDate(episode.air_date)}
                         </p>
                       </div>
                     </div>
-                  
+
                   </div>
                 ))
               )}

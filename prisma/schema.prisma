@@ -19,18 +19,37 @@ enum RequestStatus {
 }
 
 model User {
-  user_id    Int            @id @default(autoincrement())
-  username   String         @db.VarChar(50)
-  email      String         @unique @db.VarChar(100)
-  password   String         @db.VarChar(255)
-  created_at DateTime       @default(now()) @db.Timestamp(0)
-  Content    Content[]
-  Person     Person[]
-  requester  Relationship[] @relation("requesterRelation")
-  receiver   Relationship[] @relation("receiverRelation")
-  Watchlist  Watchlist[]
+  user_id        Int              @id @default(autoincrement())
+  username       String           @db.VarChar(50)
+  email          String           @unique @db.VarChar(100)
+  password       String           @db.VarChar(255)
+  created_at     DateTime         @default(now()) @db.Timestamp(0)
+  watchtime      Int              @default(0)
+  Content        Content[]
+  Person         Person[]
+  requester      Relationship[]   @relation("requesterRelation")
+  receiver       Relationship[]   @relation("receiverRelation")
+  Watchlist      Watchlist[]
+  ContentToGenre ContentToGenre[]
 
   @@map("user")
+}
+
+model ContentToGenre {
+  id           Int         @id @default(autoincrement())
+  user_id      Int
+  content_id   Int
+  content_type ContentType
+  genre_id     Int
+  created_at   DateTime    @default(now())
+
+  user         User         @relation(fields: [user_id], references: [user_id])
+  contentGenre ContentGenre @relation(fields: [genre_id], references: [id])
+  content      Content      @relation(fields: [user_id, content_id, content_type], references: [user_id, content_id, content_type])
+
+  @@index([user_id, genre_id])
+  @@index([content_id, content_type])
+  @@map("content_to_genre")
 }
 
 model Content {
@@ -39,17 +58,19 @@ model Content {
   content_type ContentType
   rating       Int?
   review       String?     @db.VarChar(400)
-  created_at   DateTime    @default(now()) 
+  created_at   DateTime    @default(now())
 
-  user User @relation(fields: [user_id], references: [user_id])
+  user           User             @relation(fields: [user_id], references: [user_id])
+  ContentToGenre ContentToGenre[]
 
   @@id([user_id, content_id, content_type])
   @@map("content")
 }
 
 model ContentGenre {
-  id   Int    @id
-  name String
+  id             Int              @id
+  name           String
+  ContentToGenre ContentToGenre[]
 
   @@map("content_genre")
 }
