@@ -14,7 +14,6 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users, session }) => {
-  console.log(session)
   const userList = users.filter(user => user.user_id !== session?.user.id).sort((a, b) => (b.watchtime - a.watchtime));
   return (
     <div className="h-[90vh] w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">

@@ -1,5 +1,6 @@
 "use client"
 import ContentUserCard from "@/components/cards/content-user-card";
+import Loader from "@/components/layout/loader";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,12 +10,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
-import { formatDate, movieCount, tvCount } from "@/lib/functions";
+import { movieCount, tvCount } from "@/lib/functions";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 
 const modalType = (modal: string) => {
@@ -23,12 +23,6 @@ const modalType = (modal: string) => {
       return "/api/user/movie"
     case "tv":
       return "/api/user/tv"
-    case "review":
-      return "/api/user/review"
-    case "rated":
-      return "/api/user/rating"
-    default:
-      return "/api/user/movie"
   }
 }
 
@@ -36,37 +30,16 @@ const TriggerType = (modal: string, userData: ProfileData) => {
   switch (modal) {
     case "movie":
       return (
-        <Button className="flex flex-col gap-1 items-center relative  h-full px-7 py-3" variant={"outline"} >
-          <p className="font-light text-xl">Movies</p>
+        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"} >
+          <p className="font-light text-lg">Movies</p>
           <p className="font-bold text-5xl">{movieCount(userData.watched)}</p>
         </Button >
       )
     case "tv":
       return (
-        <Button className="flex flex-col gap-1 items-center relative h-full px-7 py-3" variant={"outline"}>
-          <p className="font-light text-xl">Tv Shows</p>
+        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"}>
+          <p className="font-light text-lg">Tv Shows</p>
           <p className="font-bold text-5xl">{tvCount(userData.watched)}</p>
-        </Button>
-      )
-    case "review":
-      return (
-        <Button className="flex flex-col gap-1 items-center relative h-full px-7 py-3" variant={"outline"}>
-          <p className="font-light text-xl">Reviewed</p>
-          <p className="font-bold text-5xl">{userData.reviewed}</p>
-        </Button>
-      )
-    case "rated":
-      return (
-        <Button className="flex flex-col gap-1 items-center relative h-full px-7 py-3" variant={"outline"}>
-          <p className="font-light text-xl">Rated</p>
-          <p className="font-bold text-5xl">{userData.rated}</p>
-        </Button>
-      )
-    default:
-      return (
-        <Button className="flex flex-col gap-1 items-center relative h-full px-7 py-3" variant={"outline"}>
-          <p className="font-light text-xl">Movies</p>
-          <p className="font-bold text-5xl">{movieCount(userData.watched)}</p>
         </Button>
       )
   }
@@ -83,7 +56,7 @@ const titleModal = (modal: string) => {
 
 
 
-const Modal = ({ userData, modal }: { userData: ProfileData, modal: string }) => {
+const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, modal: string }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [list, setList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -91,9 +64,8 @@ const Modal = ({ userData, modal }: { userData: ProfileData, modal: string }) =>
 
   const handleList = async (page: number) => {
     setIsLoading(true);
-    await axios.get(`${modalType(modal)}?page=${page}`)
+    await axios.get(`${modalType(modal)}?page=${page}&id=${id}`)
       .then((res) => {
-        console.log(res.data)
         setList(res.data.list)
         setTotalPages(res.data.totalPages)
       })
@@ -121,7 +93,7 @@ const Modal = ({ userData, modal }: { userData: ProfileData, modal: string }) =>
           <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
             {isLoading ? (
               <div className="flex items-center justify-center h-full">
-                <BeatLoader color='#ffffff' size={10} />
+                <Loader />
               </div>
             ) : (
               <>

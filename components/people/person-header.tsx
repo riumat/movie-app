@@ -40,7 +40,7 @@ const PersonHeader = ({ personData, userData }: { personData: PersonData, userDa
             )}
           </div>
 
-          <p><span className="font-thin">Known for:</span> {personData.known_for_department}</p>
+          <p><span className="font-thin">Department:</span> {personData.known_for_department}</p>
 
           {userData ? (
             <ToggleFollow userData={userData} personId={personData.id} />

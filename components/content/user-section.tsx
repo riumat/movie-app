@@ -11,7 +11,7 @@ import { TvData } from "@/lib/types/tv";
 import { ContentUserData } from "@/lib/types/content";
 
 const UserSection = ({ userData, contentData }:
-  { userData: ContentUserData, contentData: MovieData | TvData }) => {
+  { userData: ContentUserData | undefined, contentData: MovieData | TvData }) => {
   if (!userData) return (
     <AuthModal
       isOpen={false}

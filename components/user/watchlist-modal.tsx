@@ -1,5 +1,6 @@
 "use client"
-import PeopleCard from "@/components/cards/people-card";
+import RatingCard from "@/components/cards/rating-card";
+import SimpleContentCard from "@/components/cards/simple-content-card";
 import Loader from "@/components/layout/loader";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,22 +11,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
-import { PeopleFollowed } from "@/lib/types/people";
+import { ContentRated } from "@/lib/types/content";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
 
-const PeopleModal = ({ id, userData }: { id: string, userData: ProfileData }) => {
+const WatchlistModal = ({ id, userData }: { id: string, userData: ProfileData }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [list, setList] = useState<PeopleFollowed[]>([]);
+  const [list, setList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const handleList = async (page: number) => {
     setIsLoading(true);
-    await axios.get(`/api/user/people?page=${page}&id=${id}`)
+    await axios.get(`/api/user/watchlist?page=${page}&id=${id}`)
       .then((res) => {
         setList(res.data.list)
         setTotalPages(res.data.totalPages)
@@ -44,14 +45,14 @@ const PeopleModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
   return (
     <Dialog>
       <DialogTrigger asChild onClick={() => handleList(page)} >
-        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"}>
-          <p className="font-light text-lg">Following</p>
-          <p className="font-bold text-5xl">{userData.following.length}</p>
+        <Button className="flex flex-col gap-1 items-center relative  px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"}>
+          <p className="font-light text-lg">Watchlist</p>
+          <p className="font-bold text-5xl">{userData.watchlist.length}</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl">People You Follow</DialogTitle>
+          <DialogTitle className="text-2xl">Your Watchlist</DialogTitle>
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
           <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
@@ -62,9 +63,9 @@ const PeopleModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
             ) : (
               <>
                 {list.length > 0 && (
-                  list.map((item) => (
+                  list.sort((a, b) => b.rating - a.rating).map((item) => (
                     <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
-                      <PeopleCard item={item} />
+                      <SimpleContentCard item={item} />
                     </Link>
                   ))
                 )}
@@ -82,4 +83,4 @@ const PeopleModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
   )
 }
 
-export default PeopleModal
+export default WatchlistModal

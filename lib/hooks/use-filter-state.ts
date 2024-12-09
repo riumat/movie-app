@@ -1,11 +1,5 @@
-import { FilterItem } from '@/lib/types/filter'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react'
-
-type Props = {
-  genres: FilterItem[],
-  watchProviders: FilterItem[]
-}
+import { useState } from 'react'
 
 const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
   const isItemSelected = prevItems.some(selectedItem => selectedItem === id);
@@ -17,8 +11,7 @@ const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
   }
 };
 
-const formatParams = (key: string) => {
-  const searchParams = new URLSearchParams(useSearchParams().toString());
+const formatParams = (key: string, searchParams: URLSearchParams) => {
   const param = searchParams.get(key);
   const array = param ? param.split(",").map(Number) : [];
   return array;
@@ -27,8 +20,8 @@ const formatParams = (key: string) => {
 
 export const useFilterState = () => {
   const searchParams = new URLSearchParams(useSearchParams().toString());
-  const [selectedGenres, setSelectedGenres] = useState<number[]>(formatParams("genres"))
-  const [selectedProviders, setSelectedProviders] = useState<number[]>(formatParams("providers"))
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(formatParams("genres", searchParams))
+  const [selectedProviders, setSelectedProviders] = useState<number[]>(formatParams("providers", searchParams))
   const [range, setRange] = useState({ from: searchParams.get("from") || "1924", to: searchParams.get("to") || new Date().getFullYear().toString() })
   const [sortType, setSortType] = useState(searchParams.get("sort") || "popularity.desc")
   const [page, setPage] = useState(searchParams.get("page") ? Number(searchParams.get("page")) : 1)

@@ -23,5 +23,6 @@ export type ProfileData = {
   watchtime: number,
   rated: number,
   reviewed: number,
-
+  friends: any[],
+  friendStatus: string
 }

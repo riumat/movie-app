@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
@@ -9,6 +8,7 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 import { FaEye, FaRegEye } from "react-icons/fa6";
 import useIsWatched from '@/lib/hooks/use-watched';
 import useWatchlist from '@/lib/hooks/use-watchlist';
+import Loader from '@/components/layout/loader';
 
 
 const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
@@ -41,7 +41,7 @@ const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
       <div className="relative w-full max-h-44 h-40 rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <BeatLoader color='#ffffff' size={10} />
+            <Loader />
           </div>
         )}
         <Image

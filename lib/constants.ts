@@ -9,6 +9,7 @@ import { FaRegUser } from "react-icons/fa6";
 
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
+export const youtubeUrl = "https://www.youtube.com/watch?v=";
 
 export const imgWidth = {
   poster: {
@@ -141,3 +142,12 @@ export const externalUrls = {
   tiktok: "https://www.tiktok.com/",
   tmdb: "https://www.themoviedb.org/person/"
 }
+
+export const twGenresStyle=[
+  "font-bold text-4xl ",
+  "font-base text-lg ",
+  "font-base text-lg ",
+  "font-light text-base ",
+  "font-light text-base ",
+]
+

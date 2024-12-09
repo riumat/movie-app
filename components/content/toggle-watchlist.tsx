@@ -6,7 +6,7 @@ import { TvData } from "@/lib/types/tv";
 import { Minus, Plus } from "lucide-react";
 
 const ToggleWatchlist = ({ userData, contentData }: { userData: ContentUserData, contentData: MovieData | TvData }) => {
-  const { isListed, handleWatchlist } = useWatchlist(userData, contentData)
+  const { isListed, handleWatchlist } = useWatchlist(userData.watchlisted, contentData)
 
   return (
     <Button variant={"outline"} className={`w-full px-3 group`} onClick={handleWatchlist} >

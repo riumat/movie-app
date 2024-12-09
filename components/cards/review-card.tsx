@@ -1,8 +1,7 @@
-import { Separator } from '@/components/ui/separator'
+import Loader from '@/components/layout/loader'
 import { imageUrl, imgWidth } from '@/lib/constants'
 import Image from 'next/image'
 import React from 'react'
-import { BeatLoader } from 'react-spinners'
 
 
 const ReviewCard = ({ item }: { item: any }) => {
@@ -22,7 +21,7 @@ const ReviewCard = ({ item }: { item: any }) => {
       <div className='flex justify-start relative w-20 h-32'>
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <BeatLoader color='#ffffff' size={10} />
+            <Loader />
           </div>
         )}
         <Image

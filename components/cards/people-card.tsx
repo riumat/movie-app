@@ -1,12 +1,12 @@
 "use client"
 import { useState } from 'react';
 import Image from 'next/image';
-import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { PeopleResult } from '@/lib/types/people';
+import { PeopleFollowed } from '@/lib/types/people';
+import Loader from '@/components/layout/loader';
 
 
-const PeopleCard = ({ item }: { item: PeopleResult }) => {
+const PeopleCard = ({ item }: { item: PeopleFollowed }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const onLoadCallback = () => {
@@ -17,11 +17,11 @@ const PeopleCard = ({ item }: { item: PeopleResult }) => {
   };
 
   return (
-    <div className=" flex flex-col w-full max-w-[190px] rounded-lg mx-auto bg-transparent text-foreground gap-3 ">
-      <div className="relative w-full max-h-92 pb-[150%] rounded-lg overflow-hidden">
+    <div className=" flex items-center gap-3  relative justify-start ">
+      <div className="flex justify-start relative w-40 h-40">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <BeatLoader color='#ffffff' size={10} />
+            <Loader />
           </div>
         )}
         <Image
@@ -37,12 +37,8 @@ const PeopleCard = ({ item }: { item: PeopleResult }) => {
         />
       </div>
       <div className=" flex flex-col items-center text-sm">
-        <div className="font-semibold text-center mb-2 text-base">{item.name}</div>
-        <div className='flex gap-2 justify-center'>
-          {item.media_type && (
-            <p className=" font-light px-3 py-1 border border-foreground/30 rounded-xl text-sm">{item.media_type[0].toUpperCase() + item.media_type.slice(1)} </p>
-          )}
-        </div>
+        <div className="font-semibold text-center mb-2 text-lg">{item.name}</div>
+       
       </div>
     </div>
   );

@@ -11,17 +11,19 @@ const userPage = async ({ params }: { params: { id: string } }) => {
     redirect("/");
   };
   const userData = await getUserData(params.id)
-  if (!userData) {
+  if (userData === 404 || userData === 401) {
     notFound();
   }
 
+  console.log(userData)
+
   return (
     <div className="flex-1 ">
-    <Background />
-    <div className="flex flex-col  items-center mt-[3.3rem]">
-     <Body id={params.id} userData={userData} session={session} />
+      <Background />
+      <div className="flex flex-col  items-center mt-[3.3rem]">
+        <Body id={params.id} userData={userData} session={session} />
+      </div>
     </div>
-  </div>
   )
 
 }

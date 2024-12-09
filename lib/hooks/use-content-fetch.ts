@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/* import { useState } from 'react'
 import axios from 'axios'
 import { MovieData } from '@/lib/types/movie'
 import { TvData } from '@/lib/types/tv'
@@ -8,7 +8,7 @@ export const useContentFetch = (initialContents: MovieData[] | TvData[]) => {
   const [totalPages, setTotalPages] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
 
-  const fetchContent = async (params: any) => {
+  const fetchContent = async (params:any) => {
     setIsLoading(true)
     try {
       const res = await axios.get('/api/filtered', { params })
@@ -24,3 +24,4 @@ export const useContentFetch = (initialContents: MovieData[] | TvData[]) => {
 
   return { items, totalPages, isLoading, fetchContent }
 }
+ */

@@ -1,6 +1,6 @@
 "use client"
-import RatingCard from "@/components/cards/rating-card";
 import ReviewCard from "@/components/cards/review-card";
+import Loader from "@/components/layout/loader";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,24 +10,23 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
+import { ContentReview } from "@/lib/types/content";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 
-const ReviewModal = ({ userData }: { userData: ProfileData }) => {
+const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [list, setList] = useState<any[]>([]);
+  const [list, setList] = useState<ContentReview[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const handleList = async (page: number) => {
     setIsLoading(true);
-    await axios.get(`/api/user/review?page=${page}`)
+    await axios.get(`/api/user/review?page=${page}&id=${id}`)
       .then((res) => {
-        console.log(res.data)
         setList(res.data.list)
         setTotalPages(res.data.totalPages)
       })
@@ -45,8 +44,8 @@ const ReviewModal = ({ userData }: { userData: ProfileData }) => {
   return (
     <Dialog>
       <DialogTrigger asChild onClick={() => handleList(page)} >
-        <Button className="flex flex-col gap-1 items-center relative h-full px-7 py-3" variant={"outline"}>
-          <p className="font-light text-xl">Rated</p>
+        <Button className="flex flex-col gap-1 items-center relative h-full border-b border-t-0 border-x-0 px-7 py-3 w-36" variant={"outline"}>
+          <p className="font-light text-lg">Reviewed</p>
           <p className="font-bold text-5xl">{userData.reviewed}</p>
         </Button>
       </DialogTrigger>
@@ -58,7 +57,7 @@ const ReviewModal = ({ userData }: { userData: ProfileData }) => {
           <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
             {isLoading ? (
               <div className="flex items-center justify-center h-full">
-                <BeatLoader color='#ffffff' size={10} />
+                <Loader />
               </div>
             ) : (
               <>

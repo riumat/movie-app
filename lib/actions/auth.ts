@@ -3,7 +3,7 @@
 import { baseUrl } from "@/lib/constants";
 import { formatMinutes } from "@/lib/functions";
 import { getAuthSchema } from "@/lib/schemas";
-import { setSession } from "@/lib/session";
+import { getSession, setSession } from "@/lib/session";
 import { AuthState } from "@/lib/types/auth";
 import { Prisma, PrismaClient } from '@prisma/client'
 import axios from "axios";
@@ -144,13 +144,15 @@ export const registerAction = async (prevState: any, formData: FormData) => {
 
 export const getUserData = async (id: string) => {
   const prisma = new PrismaClient();
+  const session = await getSession();
 
   const user = await prisma.user.findUnique({
     where: { user_id: Number(id) }
   });
-  if (!user) return;
+  if (!user) return 404;
+  if (!session) return 401;
 
-  const [contents, people, contentGenres, watchlist] = await Promise.all([
+  const [contents, people, contentGenres, watchlist, friends, requests] = await Promise.all([
     prisma.content.findMany({ where: { user_id: Number(id) } }),
     prisma.person.findMany({ where: { user_id: Number(id) } }),
     prisma.contentToGenre.groupBy({
@@ -159,6 +161,23 @@ export const getUserData = async (id: string) => {
       _count: { genre_id: true }
     }),
     prisma.watchlist.findMany({ where: { user_id: Number(id) } }),
+    prisma.relationship.findMany({
+      where: {
+        OR: [
+          { receiver_id: Number(id) },
+          { requester_id: Number(id) }
+        ],
+        status: 'accepted'
+      }
+    }),
+    prisma.relationship.findMany({
+      where: {
+        OR: [
+          { receiver_id: Number(id) },
+          { requester_id: Number(id) }
+        ],
+      }
+    })
   ]);
 
   const genreNames = await prisma.contentGenre.findMany({
@@ -170,15 +189,13 @@ export const getUserData = async (id: string) => {
     return { id: item.genre_id, name: genreName, count: item._count.genre_id };
   });
 
-  /* const watchlistDetails = await Promise.all(
-    watchlist.map(async item => {
-      const contentData = await axios.get(`${baseUrl}/${item.content_type}/${item.content_id}?api_key=${apiKey}&language=en-US`);
-      return contentData.data;
-    })
-  ); */
-
   const rated = contents.filter(content => content.rating !== null).length;
   const reviewed = contents.filter(content => content.review !== null).length;
+
+  const friendStatus = requests.find(friend =>
+    (friend.requester_id === Number(session.user.id) && friend.receiver_id === Number(id)) ||
+    (friend.receiver_id === Number(session.user.id) && friend.requester_id === Number(id))
+  )?.status || "notFriends";
 
   return {
     id: user.user_id,
@@ -191,6 +208,8 @@ export const getUserData = async (id: string) => {
     watchtime: user.watchtime,
     rated: rated,
     reviewed: reviewed,
+    friends: friends,
+    friendStatus: friendStatus
   };
 
 }

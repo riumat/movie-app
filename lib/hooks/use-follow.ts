@@ -3,11 +3,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const useIsFollowing = (userData: ProfileData, personId: number) => {
-  const [isFollowing, setIsFollowing] = useState<boolean>(userData.following.some(follow => follow.person_id === personId));
+const useIsFollowing = (userData: any, personId: number) => {
+  const [isFollowing, setIsFollowing] = useState<boolean>(userData.isFollowed);
   const router = useRouter();
 
-  console.log(userData)
 
   const handleIsFollowing = () => {
     const newIsFollowing = !isFollowing;
@@ -15,7 +14,7 @@ const useIsFollowing = (userData: ProfileData, personId: number) => {
       axios
         .post('/api/user/follow', {
           personId: personId,
-          userId: userData.id,
+          userId: userData.userId,
         })
         .then(() => {
           setIsFollowing(newIsFollowing)

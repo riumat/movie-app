@@ -1,11 +1,11 @@
 "use client"
 import { useState } from 'react';
 import Image from 'next/image';
-import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieResult } from '@/lib/types/movie';
 import { TvResult } from '@/lib/types/tv';
 import { PeopleResult } from '@/lib/types/people';
+import Loader from '@/components/layout/loader';
 
 //
 const MultiCard = ({ item }: { item: MovieResult | TvResult | PeopleResult }) => {
@@ -24,7 +24,7 @@ const MultiCard = ({ item }: { item: MovieResult | TvResult | PeopleResult }) =>
       <div className="relative w-full max-h-92 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <BeatLoader color='#ffffff' size={10} />
+            <Loader />
           </div>
         )}
         <Image

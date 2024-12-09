@@ -6,7 +6,7 @@ import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
 import React from 'react';
 
-const ContentHeader = ({ contentData, userData }: { contentData: MovieData | TvData, userData: ContentUserData }) => {
+const ContentHeader = ({ contentData, userData }: { contentData: MovieData | TvData, userData: ContentUserData|undefined }) => {
   return (
     <div className="relative min-h-[350px] w-full ml-32">
 

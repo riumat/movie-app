@@ -17,3 +17,23 @@ export type ContentUserData = {
   review: string | null,
   userId: number,
 }
+
+export type ContentReview = {
+  id: number,
+  title: string,
+  name: string,
+  release_date: string,
+  first_air_date: string,
+  review: string,
+  type:"movie" | "tv",
+}
+
+export type ContentRated={
+  id: number,
+  title: string,
+  name: string,
+  release_date: string,
+  first_air_date: string,
+  rating: number,
+  type: "movie" | "tv",
+}

@@ -15,12 +15,13 @@ async function getShowDetails(movieId: number) {
 
 function getPaginationParams(url: URL) {
   const page = parseInt(url.searchParams.get('page') || '1', 10);
-  return { page };
+  const id = parseInt(url.searchParams.get('id') || '1');
+  return { page, id };
 }
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const { page } = getPaginationParams(url);
+  const { page, id } = getPaginationParams(url);
   const pageSize = 10;
 
   try {
@@ -31,10 +32,28 @@ export async function GET(request: Request) {
         headers: { "Content-Type": "application/json" }
       });
     }
+
+    const relationship = await prisma.relationship.findFirst({
+      where: {
+        OR: [
+          { requester_id: session.user.id, receiver_id: Number(id) },
+          { requester_id: Number(id), receiver_id: session.user.id }
+        ],
+        status: 'accepted'
+      }
+    });
+
+    if (!relationship) {
+      return new Response(JSON.stringify({ error: "Not authorized to view this content" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    
     const totalShows = await prisma.content.count({
       where: {
         content_type: ContentType.tv,
-        user_id: Number(session.user.id),
+        user_id: Number(id),
       },
     });
 
@@ -43,7 +62,7 @@ export async function GET(request: Request) {
     const tvContents = await prisma.content.findMany({
       where: {
         content_type: ContentType.tv,
-        user_id: Number(session.user.id),
+        user_id: Number(id),
       },
       select: {
         content_id: true,

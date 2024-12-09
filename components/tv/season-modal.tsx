@@ -1,4 +1,5 @@
 "use client"
+import Loader from "@/components/layout/loader";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +12,6 @@ import { formatDate } from "@/lib/functions";
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 type SeasonsSectionProps = {
   season: {
@@ -60,7 +60,7 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
           <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden ">
             {!isImageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <BeatLoader color='#ffffff' size={10} />
+                <Loader />
               </div>
             )}
             <Image
@@ -95,7 +95,7 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
         <div className="h-full overflow-y-auto scrollbar-thin">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
-              <BeatLoader color='#ffffff' size={10} />
+              <Loader />
             </div>
           ) : (
             <div>

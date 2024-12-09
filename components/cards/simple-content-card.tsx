@@ -1,12 +1,19 @@
-import Loader from '@/components/layout/loader'
-import { Separator } from '@/components/ui/separator'
-import { imageUrl, imgWidth } from '@/lib/constants'
-import Image from 'next/image'
-import React from 'react'
+"use client"
+import React from 'react';
+import Image from 'next/image';
+import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
+import { MovieData } from '@/lib/types/movie';
+import { TvData } from '@/lib/types/tv';
+import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
+import { FaEye, FaRegEye } from "react-icons/fa6";
+import Loader from '@/components/layout/loader';
 
 
-const ContentUserCard = ({ item }: { item: any }) => {
+const SimpleContentCard = ({ item, }:
+  { item: any }
+) => {
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+  const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
   const onLoadCallback = () => {
     setIsImageLoaded(true);
@@ -16,11 +23,15 @@ const ContentUserCard = ({ item }: { item: any }) => {
     setIsImageLoaded(false);
   };
 
-  //togliere review dal modal del rating e viceversa
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>, handler: () => void) => {
+    e.stopPropagation();
+    e.preventDefault();
+    handler();
+  }
 
   return (
     <div className="flex items-center gap-3  relative justify-start">
-      <div className='flex justify-start relative w-20 h-20'>
+      <div className='flex justify-start relative w-32 h-32'>
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <Loader />
@@ -37,18 +48,13 @@ const ContentUserCard = ({ item }: { item: any }) => {
           loading='lazy'
         />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 items-start">
         <p className="font-bold text-xl">{item.type === "movie" ? item.title : item.name}</p>
-        <div className="flex items-center gap-2 italic ">
-          <p className="font-light text-sm">{item.rating ? `Rating ${item.rating}/5` : `Not Rated`}</p>
-          <Separator orientation="vertical" className="h-4" />
-          <p className="font-light text-sm">{item.review ? `Reviewed` : `Not Reviewed`}</p>
-
-        </div>
+        <p className='px-3 py-1 rounded-xl border'>{item.type}</p>
       </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default ContentUserCard
+export default SimpleContentCard;

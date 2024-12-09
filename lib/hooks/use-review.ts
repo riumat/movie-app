@@ -5,7 +5,7 @@ import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useReview = (userData: ContentUserData, contentData: MovieData | TvData, open: boolean) => {
+const useReview = (userData: ContentUserData, contentData: MovieData | TvData) => {
   const [review, setReview] = useState<string>(userData.review ?? "");
 
   const handleReview = (newReview: string) => {
