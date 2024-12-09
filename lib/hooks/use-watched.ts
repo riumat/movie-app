@@ -21,7 +21,7 @@ const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData)
           genres: genres,
 
         })
-        .then(res => {
+        .then(() => {
           axios.delete('/api/user/watchlist', {
             data: {
               contentId: contentData.id,
@@ -41,7 +41,7 @@ const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData)
             duration: contentData.type === 'movie' ? contentData.runtime : 2,
           },
         })
-        .then(res => {
+        .then(() => {
           setIsWatched(newIsWatched)
           router.refresh();
         })

@@ -9,3 +9,11 @@ export type ContentItem = {
 }
 
 export type Selection = "crew" | "cast" | "seasons" | "videos" | "similar";
+
+export type ContentUserData = {
+  watched: boolean,
+  watchlisted: boolean,
+  rating: number | null,
+  review: string | null,
+  userId: number,
+}

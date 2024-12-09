@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { TvResult } from '@/lib/types/tv';
-
+//
 
 const TvCard = ({ item }: { item: TvResult }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);

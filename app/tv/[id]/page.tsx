@@ -11,10 +11,9 @@ export default async function TvPage({ params }: { params: { id: string } }) {
   const session = await getSession();
   const userData = await fetchUserContentData(params.id, media)
   const tvData: TvData = await fetchContentData(params.id, media)
-    .catch(() => notFound())
   const similarData: any = await checkUserContent(session, tvData.recommendations, media);
 
-
+  if (!tvData || !userData) return notFound();
   return (
     <div className="flex-1 flex flex-col items-center w-full ">
       <ContentBackground

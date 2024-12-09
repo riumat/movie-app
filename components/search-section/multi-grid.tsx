@@ -24,14 +24,14 @@ const MultiGrid = ({ searchResults, currentPage, totalPages, query }: MultiGridP
     router.push(`/search?query=${query}&page=${page}`);
   }
   return (
-    <div className="w-[93%] max-h-[90vh] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col ">
-      <div className="mt-2 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
+    <div className="flex-1 h-[90vh] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col ">
+      <div className="mt-2 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
         {searchResults.map((result, index) => (
           <Link
             key={index}
             href={`/${result.media_type}/${result.id}`}
           >
-            <MultiCard key={index} result={result} />
+            <MultiCard key={index} item={result} />
           </Link>
         ))}
       </div>

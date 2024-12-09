@@ -31,7 +31,7 @@ export const updateSession = async (request: NextRequest) => {
     name: "session",
     value: await encrypt(parsed),
     httpOnly: true,
-    expires: parsed.expires,
+    expires: parsed.expires as Date,
   });
   return res;
 }

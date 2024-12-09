@@ -46,7 +46,7 @@ export type MovieData = {
 export type MovieResult = {
   backdrop_path: string,
   id: number,
-  media_type: string,
+  media_type: "movie",
   overview: string,
   poster_path: string,
   title: string

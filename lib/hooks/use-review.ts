@@ -1,8 +1,11 @@
 "use client"
+import { ContentUserData } from "@/lib/types/content";
+import { MovieData } from "@/lib/types/movie";
+import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useReview = (userData: any, contentData: any, open: boolean) => {
+const useReview = (userData: ContentUserData, contentData: MovieData | TvData, open: boolean) => {
   const [review, setReview] = useState<string>(userData.review ?? "");
 
   const handleReview = (newReview: string) => {
@@ -13,7 +16,7 @@ const useReview = (userData: any, contentData: any, open: boolean) => {
         contentType: contentData.type,
         review: newReview,
       })
-      .then(res => {
+      .then(() => {
         setReview(newReview)
       })
       .catch(err => {

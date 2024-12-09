@@ -20,7 +20,6 @@ const DatePickerWithYearRange = ({ onChange }: { onChange: (range: { from: strin
   })
 
   const handleYearChange = (year: string, type: "from" | "to") => {
-    console.log({...range, [type]: year})
     setRange((prev) => ({ ...prev, [type]: year }))
     onChange({ ...range, [type]: year })
   }

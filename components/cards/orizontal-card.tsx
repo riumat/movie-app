@@ -17,7 +17,6 @@ const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
   const { isWatched, handleIsWatched } = useIsWatched(isWatchedServer, item);
   const { isListed, handleWatchlist } = useWatchlist(isBookmarkedServer, item);
 
-  console.log(item)
 
 
   const imgSrc = item.backdrop_path ? `${imageUrl}${imgWidth.backdrop[780]}${item.backdrop_path}` : placeholders.multi;

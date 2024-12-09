@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import useWatchlist from "@/lib/hooks/use-watchlist";
+import { ContentUserData } from "@/lib/types/content";
+import { MovieData } from "@/lib/types/movie";
+import { TvData } from "@/lib/types/tv";
 import { Minus, Plus } from "lucide-react";
 
-const ToggleWatchlist = ({ isWatched, userData, contentData }: { isWatched: boolean, userData: any, contentData: any }) => {
+const ToggleWatchlist = ({ userData, contentData }: { userData: ContentUserData, contentData: MovieData | TvData }) => {
   const { isListed, handleWatchlist } = useWatchlist(userData, contentData)
-  
-  console.log(userData)
+
   return (
     <Button variant={"outline"} className={`w-full px-3 group`} onClick={handleWatchlist} >
       {isListed ? (

@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const session = await getSession();
-    const { contentId, contentType } = body;
+    const { contentId, contentType, contentName } = body;
 
     if (!session) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       });
     }
 
-    if (!contentId || !contentType) {
+    if (!contentId || !contentType || !contentName) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -44,6 +44,7 @@ export async function POST(request: Request) {
         user_id: Number(session.user.id),
         content_id: Number(contentId),
         content_type: contentType,
+        content_name: contentName,
       },
     });
 

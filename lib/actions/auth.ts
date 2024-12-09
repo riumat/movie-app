@@ -158,7 +158,7 @@ export const getUserData = async (id: string) => {
       where: { user_id: Number(id) },
       _count: { genre_id: true }
     }),
-    prisma.watchlist.findMany({ where: { user_id: Number(id) } })
+    prisma.watchlist.findMany({ where: { user_id: Number(id) } }),
   ]);
 
   const genreNames = await prisma.contentGenre.findMany({
@@ -170,27 +170,27 @@ export const getUserData = async (id: string) => {
     return { id: item.genre_id, name: genreName, count: item._count.genre_id };
   });
 
-  const watchlistDetails = await Promise.all(
+  /* const watchlistDetails = await Promise.all(
     watchlist.map(async item => {
       const contentData = await axios.get(`${baseUrl}/${item.content_type}/${item.content_id}?api_key=${apiKey}&language=en-US`);
       return contentData.data;
     })
-  );
+  ); */
 
   const rated = contents.filter(content => content.rating !== null).length;
   const reviewed = contents.filter(content => content.review !== null).length;
 
   return {
+    id: user.user_id,
     name: user.username,
     since: user.created_at,
     watched: contents,
     following: people,
-    watchlist: watchlistDetails,
+    watchlist: watchlist,
     genres: genreCounts,
     watchtime: user.watchtime,
     rated: rated,
-    reviewed: reviewed
+    reviewed: reviewed,
   };
-};
 
-
+}

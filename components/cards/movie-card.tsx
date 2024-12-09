@@ -5,7 +5,7 @@ import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieResult } from '@/lib/types/movie';
 
-
+//
 const MovieCard = ({ item }: { item: MovieResult }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 

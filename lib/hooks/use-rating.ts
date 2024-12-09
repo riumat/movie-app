@@ -1,8 +1,11 @@
+import { ContentUserData } from "@/lib/types/content";
+import { MovieData } from "@/lib/types/movie";
+import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useRating = (userData: any, contentData: any) => {
-  const [rating, setRating] = useState<string>(userData.rating ?? "");
+const useRating = (userData: ContentUserData, contentData: MovieData | TvData) => {
+  const [rating, setRating] = useState<string>(userData.rating?.toString() ?? "");
 
   const handleStarClick = (value: number) => {
     const newValue = value.toString();
@@ -12,7 +15,7 @@ const useRating = (userData: any, contentData: any) => {
       contentType: contentData.type,
       rating: newValue,
     })
-      .then(res => setRating(newValue))
+      .then(() => setRating(newValue))
       .catch(err => {
         console.error(err);
       });

@@ -6,7 +6,6 @@ import { fetchTrending, fetchTrendingPosters } from "@/lib/fetchers";
 const Home = async () => {
   const posters = await fetchTrendingPosters(0, 5, "movie");
   const { movies, tv, video } = await fetchTrending();
-  console.log(video)
   return (
     <>
 

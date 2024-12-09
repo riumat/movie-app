@@ -16,10 +16,8 @@ const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
 ) => {
   const { isWatched, handleIsWatched } = useIsWatched(isWatchedServer, item);
   const { isListed, handleWatchlist } = useWatchlist(isBookmarkedServer, item);
-
-
-  const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
+  const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
   const onLoadCallback = () => {
     setIsImageLoaded(true);
@@ -36,7 +34,12 @@ const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
   }
 
   return (
-    <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group ${isWatched ? 'border-b-4 border-destructive' : ''}`}>
+    <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group ${isWatched ? '' : ''}`}>
+      {isWatched && (
+        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-xs font-bold  rounded-t-lg z-40">
+          <p className='text-center py-1'> Watched</p>
+        </div>
+      )}
       <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">

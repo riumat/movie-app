@@ -1,11 +1,12 @@
 import ContentInfos from '@/components/content/content-infos';
 import ContentProdLogos from '@/components/content/content-prod-logos';
 import UserSection from '@/components/content/user-section';
+import { ContentUserData } from '@/lib/types/content';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
 import React from 'react';
 
-const ContentHeader = ({ contentData, userData }: { contentData: MovieData | TvData, userData: any }) => {
+const ContentHeader = ({ contentData, userData }: { contentData: MovieData | TvData, userData: ContentUserData }) => {
   return (
     <div className="relative min-h-[350px] w-full ml-32">
 

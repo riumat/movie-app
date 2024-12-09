@@ -3,6 +3,7 @@ import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatPro
 import { getSession } from "@/lib/session";
 import { ContentItem } from "@/lib/types/content";
 import { MovieData } from "@/lib/types/movie";
+import { SessionData } from "@/lib/types/session";
 import { TvData } from "@/lib/types/tv";
 import { PrismaClient } from "@prisma/client";
 const apiKey = process.env.TMDB_API_KEY
@@ -77,7 +78,7 @@ export const fetchUserPersonData = async (personId: string) => {
 
 export const fetchUserContentData = async (contentId: string, contentType: "movie" | "tv") => {
   "use server"
-  const session = await getSession();
+  const session: SessionData = await getSession();
   if (!session) return;
 
   const prisma = new PrismaClient()
@@ -89,7 +90,7 @@ export const fetchUserContentData = async (contentId: string, contentType: "movi
     }
   })
 
-  const watchlisted = await prisma.watchlist.findFirst({
+  const isWatchListed = await prisma.watchlist.findFirst({
     where: {
       content_id: Number(contentId),
       user_id: Number(session.user.id),
@@ -107,11 +108,11 @@ export const fetchUserContentData = async (contentId: string, contentType: "movi
     review: null,
   }
 
-  const isWatchListed = watchlisted ? true : false;
+  const watchlisted = isWatchListed ? true : false;
 
   return {
     ...contentData,
-    isWatchListed,
+    watchlisted,
     userId: session.user.id
   }
 }
@@ -127,7 +128,6 @@ export const fetchContentData = async (contentId: string, media: string) => {
   ]);
 
   if (!contentRes.ok || !imagesRes.ok || !providersRes.ok || !creditsRes.ok) {
-    console.log("not ok")
     throw new Error('Failed to fetch content data');
   }
   const [contentData, imagesData, providersData, creditsData] = await Promise.all([
@@ -146,8 +146,10 @@ export const fetchContentData = async (contentId: string, media: string) => {
   const clips = contentData.videos.results.filter((video: any) => video.official && video.type === "Clip");
   const feat = contentData.videos.results.filter((video: any) => video.type === "Featurette");
 
+
   return {
     ...contentData,
+    production_companies: contentData.production_companies.filter((company: any, index: number, self: any[]) => index === self.findIndex((c) => c.name === company.name)),
     recommendations: contentData.recommendations.results.map((result: any) => ({ ...result, type: media })),
     images: imagesData,
     providers: providers,
@@ -231,11 +233,26 @@ export const fetchPersonData = async (id: string) => {
 }
 
 export const fetchQueryData = async (query: string, page: string) => {
+  const prisma = new PrismaClient();
+
   const params = new URLSearchParams({
     query: query,
     language: 'en-US',
     page: page,
     api_key: apiKey as string
+  });
+
+  const users = await prisma.user.findMany({
+    where: {
+      username: {
+        contains: query
+      }
+    },
+    select: {
+      user_id: true,
+      username: true,
+      watchtime: true
+    }
   });
 
 
@@ -245,8 +262,12 @@ export const fetchQueryData = async (query: string, page: string) => {
     },
   });
 
-  return response.json();
+  return {
+    ...await response.json(),
+    users: users
+  };
 }
+
 
 export const checkUserContent = async (session: any, content: MovieData[] | TvData[], media: "movie" | "tv") => {
   if (!session) return [];

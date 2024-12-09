@@ -69,7 +69,7 @@ export interface TvItem {
 export interface TvResult {
   backdrop_path: string,
   id: number,
-  media_type: string,
+  media_type: "tv",
   overview: string,
   poster_path: string,
   name: string

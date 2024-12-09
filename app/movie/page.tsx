@@ -7,7 +7,6 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: st
   const media = "movie";
   const session = await getSession();
   const params: { [key: string]: string, } = await searchParams;
-  const posters = await fetchTrendingPosters(5, 10, media);
   const genres = await fetchGenres(media);
   const providers = await fetchProviders(media);
   const contentData = await fetchContentDataWithFilters(params, media);
@@ -15,8 +14,7 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: st
 
   return (
     <div className="flex-1 ">
-      <Background
-        posters={posters} />
+      <Background />
       <div className="flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
         <Body
           contentData={contentData}

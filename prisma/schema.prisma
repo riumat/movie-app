@@ -79,6 +79,7 @@ model Watchlist {
   user_id      Int
   content_id   Int
   content_type ContentType
+  content_name String
   created_at   DateTime    @default(now())
 
   user User @relation(fields: [user_id], references: [user_id])

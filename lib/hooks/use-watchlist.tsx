@@ -1,8 +1,11 @@
+import { ContentUserData } from "@/lib/types/content";
+import { MovieData } from "@/lib/types/movie";
+import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useWatchlist = (userData: any, contentData: any) => {
-  const [isListed, setIsListed] = useState<boolean>(userData.isWatchlisted);
+const useWatchlist = (userData: ContentUserData, contentData: MovieData | TvData) => {
+  const [isListed, setIsListed] = useState<boolean>(userData.watchlisted);
 
 
   const handleWatchlist = () => {
@@ -14,14 +17,15 @@ const useWatchlist = (userData: any, contentData: any) => {
           contentType: contentData.type,
         }
       })
-        .then(res => setIsListed(newListed))
+        .then(() => setIsListed(newListed))
         .catch(err => console.log(err));
     } else {
       axios.post('/api/user/watchlist', {
         contentId: contentData.id,
         contentType: contentData.type,
+        contentName: contentData.type === 'movie' ? (contentData as MovieData).title : (contentData as TvData).name
       })
-        .then(res => setIsListed(newListed))
+        .then(() => setIsListed(newListed))
         .catch(err => console.log(err));
     }
 

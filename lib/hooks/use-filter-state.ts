@@ -8,7 +8,6 @@ type Props = {
 }
 
 const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
-  console.log(id)
   const isItemSelected = prevItems.some(selectedItem => selectedItem === id);
 
   if (isItemSelected) {
@@ -18,11 +17,18 @@ const toggleItemInSelectedItems = (id: number, prevItems: number[]) => {
   }
 };
 
+const formatParams = (key: string) => {
+  const searchParams = new URLSearchParams(useSearchParams().toString());
+  const param = searchParams.get(key);
+  const array = param ? param.split(",").map(Number) : [];
+  return array;
+}
+
 
 export const useFilterState = () => {
   const searchParams = new URLSearchParams(useSearchParams().toString());
-  const [selectedGenres, setSelectedGenres] = useState<number[]>(searchParams.get("genres")?.split(",").map(Number) ?? [])
-  const [selectedProviders, setSelectedProviders] = useState<number[]>(searchParams.get("providers")?.split(",").map(Number) ?? [])
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(formatParams("genres"))
+  const [selectedProviders, setSelectedProviders] = useState<number[]>(formatParams("providers"))
   const [range, setRange] = useState({ from: searchParams.get("from") || "1924", to: searchParams.get("to") || new Date().getFullYear().toString() })
   const [sortType, setSortType] = useState(searchParams.get("sort") || "popularity.desc")
   const [page, setPage] = useState(searchParams.get("page") ? Number(searchParams.get("page")) : 1)
