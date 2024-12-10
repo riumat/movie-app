@@ -15,6 +15,7 @@ import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import { CgDanger } from "react-icons/cg";
 
 
 const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) => {
@@ -22,6 +23,7 @@ const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
   const [list, setList] = useState<ContentReview[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isError, setIsError] = useState(false);
 
   const handleList = async (page: number) => {
     setIsLoading(true);
@@ -32,7 +34,11 @@ const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
       })
       .finally(() => setIsLoading(false))
       .catch(err => {
-        console.error(err);
+        if (err.response.status === 403) {
+          setIsError(true)
+        } else {
+          console.error(err);
+        }
       });
 
   }
@@ -54,28 +60,37 @@ const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
           <DialogTitle className="text-2xl">Your Reviews</DialogTitle>
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
-          <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
-            {isLoading ? (
-              <div className="flex items-center justify-center h-full">
-                <Loader />
-              </div>
-            ) : (
-              <>
-                {list.length > 0 && (
-                  list.map((item) => (
-                    <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
-                      <ReviewCard item={item} />
-                    </Link>
-                  ))
+          {isError ? (
+            <div className="flex flex-col items-center justify-center gap-5 h-full">
+              <CgDanger size={35} />
+              <p className="text-xl">You need to be friends with this user to view their informations!</p>
+            </div>
+          ) : (
+            <>
+              <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
+                {isLoading ? (
+                  <div className="flex items-center justify-center h-full">
+                    <Loader />
+                  </div>
+                ) : (
+                  <>
+                    {list.length > 0 && (
+                      list.map((item) => (
+                        <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
+                          <ReviewCard item={item} />
+                        </Link>
+                      ))
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </div>
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            handleChangePage={handleChangePage}
-          />
+              </div>
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                handleChangePage={handleChangePage}
+              />
+            </>
+          )}
         </div>
       </DialogContent>
     </Dialog>

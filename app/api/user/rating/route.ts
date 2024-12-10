@@ -102,23 +102,27 @@ export async function GET(request: Request) {
       });
     }
 
-    const relationship = await prisma.relationship.findFirst({
-      where: {
-        OR: [
-          { requester_id: session.user.id, receiver_id: Number(id) },
-          { requester_id: Number(id), receiver_id: session.user.id }
-        ],
-        status: 'accepted'
-      }
-    });
-
-    if (!relationship) {
-      return new Response(JSON.stringify({ error: "Not authorized to view this content" }), {
-        status: 403,
-        headers: { "Content-Type": "application/json" }
+    if (session.user.id !== Number(id)) {
+      const relationship = await prisma.relationship.findFirst({
+        where: {
+          OR: [
+            { requester_id: session.user.id, receiver_id: Number(id) },
+            { requester_id: Number(id), receiver_id: session.user.id }
+          ],
+          status: 'accepted'
+        }
       });
+
+      if (!relationship) {
+        return new Response(JSON.stringify({ error: "Not authorized to view this content" }), {
+          status: 403,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
     }
-    
+
+
+
     const totalShows = await prisma.content.count({
       where: {
         user_id: Number(id),

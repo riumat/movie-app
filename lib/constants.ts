@@ -53,7 +53,6 @@ export const sidebarItems = [
   { label: 'Home', path: '/', icon: IoHomeOutline },
   { label: 'Movies', path: '/movie', icon: FaFilm },
   { label: 'Tv Shows', path: '/tv', icon: FaTv },
-  { label: 'Genres', path: '/genres', icon: BiCameraMovie },
   { label: 'Profile', path: '/user', icon: FaRegUser },
 ];
 

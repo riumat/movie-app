@@ -33,7 +33,7 @@ const Sidebar = ({ session }: { session: any }) => {
 
           <ul className='relative text-sm flex flex-col gap-1 mt-16'>
             {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
-              <li key={item.path} className="mb-4">
+              <li key={item.path} className="mb-7">
                 <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 ml-3'>
                   <item.icon size={17}/>
                   <span

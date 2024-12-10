@@ -25,4 +25,11 @@ export type ProfileData = {
   reviewed: number,
   friends: any[],
   friendStatus: string
+  requests: {
+    requester_id: number,
+    requester_name:string,
+    receiver_id: number,
+    receiver_name: string,
+    status: string
+  }[]
 }

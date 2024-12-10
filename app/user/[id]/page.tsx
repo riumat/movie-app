@@ -15,12 +15,11 @@ const userPage = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
-  console.log(userData)
 
   return (
     <div className="flex-1 ">
       <Background />
-      <div className="flex flex-col  items-center mt-[3.3rem]">
+      <div className="flex flex-col h-[93.5vh]  items-center mt-[3.3rem]">
         <Body id={params.id} userData={userData} session={session} />
       </div>
     </div>

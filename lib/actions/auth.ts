@@ -152,7 +152,7 @@ export const getUserData = async (id: string) => {
   if (!user) return 404;
   if (!session) return 401;
 
-  const [contents, people, contentGenres, watchlist, friends, requests] = await Promise.all([
+  const [contents, people, contentGenres, watchlist, relationships] = await Promise.all([
     prisma.content.findMany({ where: { user_id: Number(id) } }),
     prisma.person.findMany({ where: { user_id: Number(id) } }),
     prisma.contentToGenre.groupBy({
@@ -167,15 +167,22 @@ export const getUserData = async (id: string) => {
           { receiver_id: Number(id) },
           { requester_id: Number(id) }
         ],
-        status: 'accepted'
-      }
-    }),
-    prisma.relationship.findMany({
-      where: {
-        OR: [
-          { receiver_id: Number(id) },
-          { requester_id: Number(id) }
-        ],
+      },
+      include: {
+        requester: {
+          select: {
+            user_id: true,
+            username: true,
+            watchtime: true
+          }
+        },
+        receiver: {
+          select: {
+            user_id: true,
+            username: true,
+            watchtime: true
+          }
+        }
       }
     })
   ]);
@@ -192,10 +199,18 @@ export const getUserData = async (id: string) => {
   const rated = contents.filter(content => content.rating !== null).length;
   const reviewed = contents.filter(content => content.review !== null).length;
 
-  const friendStatus = requests.find(friend =>
-    (friend.requester_id === Number(session.user.id) && friend.receiver_id === Number(id)) ||
-    (friend.receiver_id === Number(session.user.id) && friend.requester_id === Number(id))
+  const friends = relationships.filter(r => r.status === 'accepted').map(r => {
+    return { friend: { ...r.requester_id === Number(id) ? r.receiver : r.requester }, status: r.status }
+  });
+
+  const friendStatus = relationships.find(r =>
+    (r.requester_id === Number(session.user.id) && r.receiver_id === Number(id)) ||
+    (r.receiver_id === Number(session.user.id) && r.requester_id === Number(id))
   )?.status || "notFriends";
+
+  const friendRequests = relationships.filter(r =>
+    r.receiver_id === Number(id) && r.status === "pending"
+  );
 
   return {
     id: user.user_id,
@@ -209,7 +224,11 @@ export const getUserData = async (id: string) => {
     rated: rated,
     reviewed: reviewed,
     friends: friends,
-    friendStatus: friendStatus
+    friendStatus: friendStatus,
+    requests: friendRequests.map(r => ({
+      ...r,
+      requester_name: r.requester.username,
+      receiver_name: r.receiver.username
+    }))
   };
-
 }

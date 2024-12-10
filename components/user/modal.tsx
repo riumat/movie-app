@@ -12,9 +12,13 @@ import {
 import Pagination from "@/components/ui/pagination";
 import { movieCount, tvCount } from "@/lib/functions";
 import { ProfileData } from "@/lib/types/user";
+import { StopIcon } from "@radix-ui/react-icons";
 import axios from "axios";
+import { StopCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { CgDanger } from "react-icons/cg";
+
 
 
 const modalType = (modal: string) => {
@@ -61,6 +65,7 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
   const [list, setList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isError, setIsError] = useState(false);
 
   const handleList = async (page: number) => {
     setIsLoading(true);
@@ -71,7 +76,11 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
       })
       .finally(() => setIsLoading(false))
       .catch(err => {
-        console.error(err);
+        if (err.response.status === 403) {
+          setIsError(true)
+        } else {
+          console.error(err);
+        }
       });
 
   }
@@ -90,28 +99,39 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
           <DialogTitle className="text-2xl">{titleModal(modal)}</DialogTitle>
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
-          <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
-            {isLoading ? (
-              <div className="flex items-center justify-center h-full">
-                <Loader />
-              </div>
-            ) : (
-              <>
-                {list.length > 0 && (
-                  list.map((item) => (
-                    <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
-                      <ContentUserCard item={item} />
-                    </Link>
-                  ))
+          {isError ? (
+            <div className="flex flex-col items-center justify-center gap-5 h-full">
+              <CgDanger size={35} />
+              <p className="text-xl">You need to be friends with this user to view their informations!</p>
+            </div>
+          ) : (
+            <>
+              <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
+                {isLoading ? (
+                  <div className="flex items-center justify-center h-full">
+                    <Loader />
+                  </div>
+                ) : (
+                  <>
+                    {list.length > 0 && (
+                      list.map((item) => (
+                        <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
+                          <ContentUserCard item={item} />
+                        </Link>
+                      ))
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </div>
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            handleChangePage={handleChangePage}
-          />
+              </div>
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                handleChangePage={handleChangePage}
+              />
+            </>
+          )}
+
+
         </div>
       </DialogContent>
     </Dialog>
