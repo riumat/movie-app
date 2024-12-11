@@ -52,7 +52,7 @@ const RatingModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
       <DialogTrigger asChild onClick={() => handleList(page)} >
         <Button className="flex flex-col gap-1 items-center relative  px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
           <p className="font-light text-lg">Rated</p>
-          <p className="font-bold text-5xl">{userData.rated}</p>
+          <p className="font-bold text-4xl">{userData.rated}</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">

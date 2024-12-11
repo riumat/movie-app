@@ -52,7 +52,7 @@ const ReviewModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
       <DialogTrigger asChild onClick={() => handleList(page)} >
         <Button className="flex flex-col gap-1 items-center relative h-full border-b border-t-0 border-x-0 px-7 py-3 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
           <p className="font-light text-lg">Reviewed</p>
-          <p className="font-bold text-5xl">{userData.reviewed}</p>
+          <p className="font-bold text-4xl">{userData.reviewed}</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">

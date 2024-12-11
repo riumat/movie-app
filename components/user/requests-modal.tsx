@@ -18,7 +18,7 @@ const RequestModal = ({ userData }: { userData: ProfileData }) => {
 
   const handleAccept = (requesterId: number) => {
     axios.post("/api/user/friend/respond", {
-      requesterId: requesterId,
+      id: requesterId,
       status: "accepted"
     })
       .then(() => router.refresh())
@@ -39,8 +39,8 @@ const RequestModal = ({ userData }: { userData: ProfileData }) => {
       <DialogTrigger asChild >
         <div className=" p-2  overflow-hidden flex justify-center">
           <Button className="flex flex-col gap-1 items-center relative  px-7 py-1 rounded-2xl transform transition duration-300 hover:scale-105" variant={"default"}>
-            <div className="absolute inset-0 top-0 left-0 w-full h-full bg-foreground -z-10 rounded-2xl animate-ping duration-1000 opacity-15"></div>
-            <p className="text-base font-bold">You have new requests!</p>
+            <div className="absolute inset-0 top-0 left-0 w-full h-full bg-foreground -z-10 rounded-2xl animate-ping duration-1000 opacity-10" />
+            <p className="text-sm font-bold">You have new requests!</p>
           </Button>
         </div>
       </DialogTrigger>

@@ -13,7 +13,7 @@ interface PaginationProps {
 
 const Pagination = ({ page, totalPages, handleChangePage }: PaginationProps) => {
   return (
-    <div className="my-5 flex justify-center items-center space-x-4 bg-background text-foreground rounded-b-lg">
+    <div className=" flex justify-center items-center space-x-4 text-foreground rounded-b-lg">
       <button
         onClick={() => handleChangePage(1)}
         disabled={page === 1}

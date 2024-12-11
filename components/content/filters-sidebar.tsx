@@ -38,7 +38,7 @@ export const FiltersSidebar = ({
   media
 }: FiltersSidebarProps) => {
   return (
-    <div className="md:w-[275px] md:flex-none h-[80vh] flex flex-col items-center justify-start gap-16 px-2 z-30 mt-8 ">
+    <div className="flex-1 md:w-[275px] md:flex-none  w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
       <div>
         <h2 className="text-sm font-normal mb-3 text-start">Genres</h2>
         <ComboboxFilter
