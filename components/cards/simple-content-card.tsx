@@ -30,7 +30,7 @@ const SimpleContentCard = ({ item, }:
   }
 
   return (
-    <div className="flex items-center gap-3  relative justify-start">
+    <div className="flex items-center gap-3 w-32 h-32 relative justify-start border">
       <div className='flex justify-start relative w-32 h-32'>
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">

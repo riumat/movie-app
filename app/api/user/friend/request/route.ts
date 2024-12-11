@@ -16,12 +16,18 @@ export async function POST(request: Request) {
     const requesterId = session.user.id;
 
     // Check if relationship already exists
-    const existingRelationship = await prisma.relationship.findUnique({
+    const existingRelationship = await prisma.relationship.findFirst({
       where: {
-        requester_id_receiver_id: {
-          requester_id: requesterId,
-          receiver_id: receiverId,
-        },
+        OR: [
+          {
+            requester_id: requesterId,
+            receiver_id: receiverId,
+          },
+          {
+            requester_id: receiverId,
+            receiver_id: requesterId,
+          }
+        ]
       },
     });
 

@@ -182,7 +182,9 @@ export const getUserData = async (id: string) => {
             username: true,
             watchtime: true
           }
-        }
+        },
+
+
       }
     })
   ]);
@@ -200,7 +202,7 @@ export const getUserData = async (id: string) => {
   const reviewed = contents.filter(content => content.review !== null).length;
 
   const friends = relationships.filter(r => r.status === 'accepted').map(r => {
-    return { friend: { ...r.requester_id === Number(id) ? r.receiver : r.requester }, status: r.status }
+    return { id: r.id, status: r.status, friend: { ...r.requester_id === Number(id) ? r.receiver : r.requester } }
   });
 
   const friendStatus = relationships.find(r =>

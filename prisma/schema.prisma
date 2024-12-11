@@ -99,6 +99,7 @@ model Person {
 }
 
 model Relationship {
+  id           Int           @id @default(autoincrement())
   requester_id Int
   receiver_id  Int
   status       RequestStatus
@@ -108,6 +109,5 @@ model Relationship {
   requester User @relation("requesterRelation", fields: [requester_id], references: [user_id])
   receiver  User @relation("receiverRelation", fields: [receiver_id], references: [user_id])
 
-  @@id([requester_id, receiver_id])
   @@map("relationships")
 }

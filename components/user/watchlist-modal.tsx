@@ -51,7 +51,7 @@ const WatchlistModal = ({ id, userData }: { id: string, userData: ProfileData })
   return (
     <Dialog>
       <DialogTrigger asChild onClick={() => handleList(page)} >
-        <Button className="flex flex-col gap-1 items-center relative  px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"}>
+        <Button className="flex flex-col gap-1 items-center relative  px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
           <p className="font-light text-lg">Watchlist</p>
           <p className="font-bold text-5xl">{userData.watchlist.length}</p>
         </Button>

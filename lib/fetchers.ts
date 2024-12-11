@@ -1,7 +1,6 @@
 import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
 import { getSession } from "@/lib/session";
-import { ContentItem } from "@/lib/types/content";
 import { MovieData } from "@/lib/types/movie";
 import { SessionData } from "@/lib/types/session";
 import { TvData } from "@/lib/types/tv";
@@ -67,13 +66,11 @@ export const fetchUserPersonData = async (personId: string) => {
       user_id: Number(session.user.id)
     }
   })
-  //relationship
+
   return {
     isFollowed: person ? true : false,
     userId: session.user.id,
   }
-
-
 }
 
 export const fetchUserContentData = async (contentId: string, contentType: "movie" | "tv") => {

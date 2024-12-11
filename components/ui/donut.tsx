@@ -1,66 +1,65 @@
-"use client";
+"use client"
 
-import { TrendingUp } from "lucide-react";
-import { Pie, PieChart } from "recharts";
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/ui/chart"
 
 
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig
 
-const Chart = ({ genres }: { genres: any }) => {
-  const chartData = genres.slice(0, 5).map((genre: any, index: number) => ({
-    name: genre.name,
-    count: genre.count,
-    percentage: Number(genre.percentage),
-    fill: `hsl(var(--chart-${index + 1}))`,
-  }));
-
-  const chartConfig = {
-
-  } satisfies ChartConfig;
+const Chart = ({ genres }: { genres: any[] }) => {
+  const chartData = genres.slice(0, 5)
+    .sort((a, b) => b.count - a.count)
+    .map((genre: any) => ({ name: genre.name, contents: genre.count }))
 
   return (
-    <Card className="flex border-0">
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto w-full max-h-[260px]"
-        >
-          <PieChart className="flex gap-10">
-            <Pie
-              data={chartData}
-              dataKey="count"
-              nameKey="name"
-              innerRadius={50}
-              stroke="hsl(var(--background))"
-              className="z-20"
+    <Card className="flex-1 border-0 shadow-none flex items-center w-full h-full">
+
+      <CardContent className="w-full ">
+        <ChartContainer config={chartConfig}>
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            layout="vertical"
+            margin={{
+              left: 40
+            }}
+            className="w-full h-full"
+          >
+            <XAxis type="number" dataKey="contents" hide />
+            <YAxis
+              dataKey="name"
+              type="category"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              style={{ fontSize: "0.8rem" }}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel={false} className="w-40" />}
+              content={<ChartTooltipContent className="text-sm" hideLabel />}
             />
-
-          </PieChart>
+            <Bar dataKey="contents" fill="hsl(var(--chart-1))" radius={10} />
+          </BarChart>
         </ChartContainer>
-
       </CardContent>
-    </Card>
-  );
-};
 
-export default Chart;
+    </Card>
+  )
+}
+
+export default Chart

@@ -7,7 +7,6 @@ const useFriend = (userData: ProfileData, personId: string) => {
   const [friendStatus, setFriendStatus] = useState<string>(userData.friendStatus);
   const router = useRouter();
 
-
   const handleFriend = () => {
     const newIsFriend = friendStatus;
     if (newIsFriend === "notFriends" || newIsFriend === "rejected") {
@@ -24,7 +23,7 @@ const useFriend = (userData: ProfileData, personId: string) => {
       axios
         .delete('/api/user/friend/remove', {
           data: {
-            receiverId: Number(personId),
+            id: Number(userData.friends.find(friend => friend.id !== userData.id).id),
           },
         })
         .then(() => {

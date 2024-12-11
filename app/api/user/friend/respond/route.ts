@@ -13,16 +13,12 @@ export async function POST(request: Request) {
       });
     }
 
-    const { requesterId, status } = await request.json();
+    const { id, status } = await request.json();
     const receiverId = session.user.id;
 
-    // Check if relationship exists and is pending
     const existingRelationship = await prisma.relationship.findUnique({
       where: {
-        requester_id_receiver_id: {
-          requester_id: requesterId,
-          receiver_id: receiverId,
-        },
+        id: id
       },
     });
 
@@ -40,13 +36,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Update the relationship status
     const updatedRelationship = await prisma.relationship.update({
       where: {
-        requester_id_receiver_id: {
-          requester_id: requesterId,
-          receiver_id: receiverId,
-        },
+        id: id,
       },
       data: {
         status: status,

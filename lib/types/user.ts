@@ -26,6 +26,7 @@ export type ProfileData = {
   friends: any[],
   friendStatus: string
   requests: {
+    id:number,
     requester_id: number,
     requester_name:string,
     receiver_id: number,

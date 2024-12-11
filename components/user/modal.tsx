@@ -34,14 +34,14 @@ const TriggerType = (modal: string, userData: ProfileData) => {
   switch (modal) {
     case "movie":
       return (
-        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"} >
+        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"} >
           <p className="font-light text-lg">Movies</p>
           <p className="font-bold text-5xl">{movieCount(userData.watched)}</p>
         </Button >
       )
     case "tv":
       return (
-        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36" variant={"outline"}>
+        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
           <p className="font-light text-lg">Tv Shows</p>
           <p className="font-bold text-5xl">{tvCount(userData.watched)}</p>
         </Button>

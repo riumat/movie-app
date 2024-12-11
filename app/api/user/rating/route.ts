@@ -121,8 +121,6 @@ export async function GET(request: Request) {
       }
     }
 
-
-
     const totalShows = await prisma.content.count({
       where: {
         user_id: Number(id),
@@ -145,6 +143,9 @@ export async function GET(request: Request) {
         content_id: true,
         rating: true,
         content_type: true,
+      },
+      orderBy: {
+        rating: 'desc'
       },
       skip: (page - 1) * pageSize,
       take: pageSize,

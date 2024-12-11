@@ -13,16 +13,25 @@ export async function DELETE(request: Request) {
       });
     }
 
-    const { receiverId } = await request.json();
+    const { id } = await request.json();
+
     const requesterId = session.user.id;
 
-    // Delete the relationship
+    const exists = await prisma.relationship.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!exists) {
+      return NextResponse.json(
+        { error: "Friend request not found" },
+        { status: 404 }
+      );
+    }
     await prisma.relationship.delete({
       where: {
-        requester_id_receiver_id: {
-          requester_id: requesterId,
-          receiver_id: receiverId,
-        },
+        id: id,
       },
     });
 

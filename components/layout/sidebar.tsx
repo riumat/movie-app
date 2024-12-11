@@ -35,7 +35,7 @@ const Sidebar = ({ session }: { session: any }) => {
             {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
               <li key={item.path} className="mb-7">
                 <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 ml-3'>
-                  <item.icon size={17}/>
+                  <item.icon size={17} />
                   <span
                     className={`px-3 py-1 rounded-xl hover:underline font-normal
                       ${pathname === item.path ? 'underline font-bold' : ''}`}
@@ -47,15 +47,20 @@ const Sidebar = ({ session }: { session: any }) => {
             ))}
 
           </ul>
-          <div className="mb-4 flex justify-evenly items-center">
-            {isLogged ? (
-              <LogoutModal />
-            ) : (
-              <AuthModal isOpen={false} label='Login' />
+          <div className='flex flex-col gap-5 items-center'>
+            {session && (
+              <p className='text-sm font-extralight'>Logged as <span className='font-bold'>{session.user.name}</span></p>
             )}
-            <div className='w-full flex justify-center relative '>
-              <ModeToggle />
+
+            <div className="mb-4 flex justify-between items-center w-full ">
+              {isLogged ? (
+                <LogoutModal />
+              ) : (
+                <AuthModal isOpen={false} label='Login' />
+              )}
+                <ModeToggle />
             </div>
+
           </div>
         </div>
       </nav>
