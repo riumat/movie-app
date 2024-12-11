@@ -8,9 +8,10 @@ import useIsWatched from "@/lib/hooks/use-watched";
 import ToggleWatchlist from "@/components/content/toggle-watchlist";
 import { MovieData } from "@/lib/types/movie";
 import { TvData } from "@/lib/types/tv";
+import { ContentUserData } from "@/lib/types/content";
 
 const UserSection = ({ userData, contentData }:
-  { userData: any, contentData: MovieData | TvData }) => {
+  { userData: ContentUserData | undefined, contentData: MovieData | TvData }) => {
   if (!userData) return (
     <AuthModal
       isOpen={false}
@@ -18,7 +19,7 @@ const UserSection = ({ userData, contentData }:
     />
   );
 
-  const { isWatched, handleIsWatched } = useIsWatched(userData, contentData);
+  const { isWatched, handleIsWatched } = useIsWatched(userData.watched, contentData);
 
   return (
     <div className="flex gap-5 ">
@@ -53,7 +54,6 @@ const UserSection = ({ userData, contentData }:
         disabled={!isWatched}
       />
       <ToggleWatchlist
-        isWatched={isWatched}
         userData={userData}
         contentData={contentData}
       />

@@ -1,65 +1,60 @@
-"use client"
-import Searchbar from '@/components/ui/searchbar';
-import usePagination from '@/lib/hooks/use-pagination';
-import useSearchResults from '@/lib/hooks/use-search-results';
-import { useState } from 'react';
-import MultiSkeletonGrid from '@/components/search-section/multi-skeleton-grid';
-import MultiGrid from '@/components/search-section/multi-grid';
+'use client'
+import Link from 'next/link'
+import ContentCard from '@/components/cards/content-card'
+import Pagination from '@/components/ui/pagination'
+import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
+import { FiltersSidebar } from '@/components/content/filters-sidebar'
+import { useFilterState } from '@/lib/hooks/use-filter-state'
+import { MovieData } from '@/lib/types/movie'
+import { TvData } from '@/lib/types/tv'
+import { FilterItem } from '@/lib/types/filter'
+import ContentDisplay from '@/components/content/content-display'
+import { Suspense } from 'react'
+import UserList from '@/components/search-section/user-list'
+import MultiGrid from '@/components/search-section/multi-grid'
+import { useRouter } from 'next/navigation'
 
-type ViewProps = {
-  searchQuery: string;
-  handleSearch: (query: string) => void;
+type Props = {
+  searchResults: any
+  users: any
+  session: any
+  results: any
+  totalPages: number
+  page: number
+  query: string
 }
 
-
-const InitialView = ({ handleSearch, searchQuery }: ViewProps) => (
-  <div className="relative flex-1">
-    <div className="relative h-full z-10 flex items-center justify-center">
-      <div className="w-full max-w-4xl mt-56">
-        {/* <Searchbar onSearch={handleSearch} initialValue={searchQuery} /> */}
-      </div>
-    </div>
-  </div>
-)
-
-const Body = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const { currentPage, setCurrentPage } = usePagination();
-  const { searchResults, isLoading, totalPages } = useSearchResults(searchQuery, currentPage);
-
-  const handleSearch = (query: string) => {
-    setCurrentPage(1);
-    setSearchQuery(query);
+const Body = ({ searchResults, users, session, results, totalPages, page, query }: Props) => {
+  const router = useRouter();
+  if (!searchResults) {
+    return;
   }
 
-  if (searchQuery === '') {
-    return (
-      <InitialView
-        handleSearch={handleSearch}
-        searchQuery={searchQuery}
-      />
-    )
+  const handleChangePage = (page: number) => {
+    router.push(`/search?query=${query}&page=${page}`);
   }
 
   return (
-    <div className="relative flex-1">
-      <div className="relative h-full z-10 flex flex-col items-center">
-        <div className="w-full max-w-4xl mt-5 h-10 text-sm">
-          {/* <Searchbar onSearch={handleSearch} initialValue={searchQuery} /> */}
-        </div>
-       {/*  {isLoading ?
-          <MultiSkeletonGrid />
-          :
-          <MultiGrid
-            searchResults={searchResults}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        } */}
-      </div>
-    </div >
-  );
-};
+    <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden  ">
+      <div className='flex flex-grow overflow-hidden w-full gap-5'>
+        <UserList users={users} session={session} />
+        <MultiGrid
+          searchResults={results}
+          totalPages={totalPages}
+          currentPage={Number(page)}
+          query={query}
+        />
 
-export default Body;
+      </div>
+      <div className='border rounded-lg bg-background/95 py-3 w-full flex justify-center'>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          handleChangePage={handleChangePage}
+        />
+      </div>
+    </div>
+  )
+}
+export default Body
+

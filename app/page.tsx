@@ -1,15 +1,16 @@
-import Background from "@/components/layout/background";
-import Body from "@/components/search-section/body";
-import { fetchTrendingPosters } from "@/lib/fetchers";
+import YouTubePlayer from "@/components/layout/bg-player";
+import Body from "@/components/landing-page/body";
+import { fetchTrending } from "@/lib/fetchers";
 
 const Home = async () => {
-  const posters = await fetchTrendingPosters(0, 5, "movie");
-
+  const { movies, tv, video } = await fetchTrending();
   return (
     <>
-      <Background
-        posters={posters} />
-      <Body />
+      <YouTubePlayer video={video} />
+      <Body
+        movies={movies}
+        tv={tv}
+      />
     </>
 
   );

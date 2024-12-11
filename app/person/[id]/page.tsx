@@ -13,6 +13,8 @@ const PersonPage = async ({ params }: { params: { id: string } }) => {
   const personData: PersonData = await fetchPersonData(params.id)
     .catch(() => notFound())
 
+    console.log(userData)
+
   return (
     <div className="flex-1 flex  w-full justify-between overflow-hidden pb-12 mt-16">
       <div className='flex flex-col flex-1 gap-2 justify-between items-center ml-5'>

@@ -6,10 +6,12 @@ import { VideoItem } from "@/lib/types/video"
 
 export type MovieData = {
   type: "movie",
+  media_type: string,
   id: number,
   title: string,
   images: ImagesItem,
   budget: number,
+  genre_ids: number[],
   genres: {
     id: number,
     name: string,
@@ -17,6 +19,7 @@ export type MovieData = {
   homepage: string,
   overview: string,
   poster_path: string,
+  backdrop_path: string,
   production_companies: {
     id: number,
     logo_path: string,
@@ -36,19 +39,14 @@ export type MovieData = {
     clips: VideoItem[],
     feat: VideoItem[],
   },
-  recommendations: {
-    page: number,
-    total_pages: number,
-    total_results: number,
-    results: MovieItem[],
-  }
+  recommendations: MovieData[],
   providers: ProviderItem[],
 }
 
 export type MovieResult = {
   backdrop_path: string,
   id: number,
-  media_type: string,
+  media_type: "movie",
   overview: string,
   poster_path: string,
   title: string

@@ -1,29 +1,29 @@
 import Background from "@/components/layout/background"
-import MultiGrid from "@/components/search-section/multi-grid"
-import { fetchQueryData, fetchTrendingPosters } from "@/lib/fetchers"
+import Body from "@/components/search-section/body"
+import { fetchQueryData } from "@/lib/fetchers"
+import { getSession } from "@/lib/session"
 
 const Page = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
   const { page = "1", query = "" }: { [key: string]: string, } = await searchParams
-  const { results, total_pages } = await fetchQueryData(query.toString(), page.toString())
-  const posters = await fetchTrendingPosters(0, 5, "movie");
-  console.log(results)
+  const { results, total_pages, users } = await fetchQueryData(query, page)
+  const session = await getSession()
 
   return (
-    <>
-      <Background
-        posters={posters} />
-      <div className="relative flex-1">
-        <div className="relative h-full z-10 flex flex-col items-center mt-10">
-
-          <MultiGrid
-            searchResults={results}
-            totalPages={total_pages}
-            currentPage={Number(page)}
-            query={query}
-          />
-        </div>
-      </div >
-    </>
+    
+    <div className="flex-1 ">
+      <Background />
+      <div className="flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
+        <Body
+          searchResults={results}
+          users={users}
+          session={session}
+          results={results}
+          totalPages={total_pages}
+          page={Number(page)}
+          query={query}
+        />
+      </div>
+    </div>
   )
 }
 

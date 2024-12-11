@@ -6,9 +6,9 @@ export async function GET(request: Request) {
   const genres = searchParams.get('genres');
   const watchProviders = searchParams.get('providers');
   const page = searchParams.get('page') ?? 1;
-  const startDate = searchParams.get('startDate');
-  const endDate = searchParams.get('endDate');
-  const sort = searchParams.get('sortType');
+  const from = searchParams.get('from');
+  const to = searchParams.get('to');
+  const sort = searchParams.get('sort');
   const media = searchParams.get('media');
 
   try {
@@ -22,8 +22,8 @@ export async function GET(request: Request) {
         with_genres: genres,
         with_watch_providers: watchProviders,
         watch_region: "IT",
-        "primary_release_date.gte": startDate,
-        "primary_release_date.lte": endDate,
+        "primary_release_date.gte": from,
+        "primary_release_date.lte": to,
       },
       headers: {
         accept: 'application/json',

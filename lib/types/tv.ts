@@ -6,6 +6,8 @@ import { VideoItem } from "@/lib/types/video";
 
 export type TvData = {
   type: "tv";
+  media_type: string,
+  overview: string;
   created_by: {
     id: number;
     name: string;
@@ -13,6 +15,7 @@ export type TvData = {
   }[];
   first_air_date: string;
   last_air_date: string;
+  genre_ids: number[],
   genres: {
     id: number;
     name: string;
@@ -28,6 +31,7 @@ export type TvData = {
   }[];
   number_of_episodes: number;
   poster_path: string;
+  backdrop_path: string;
   seasons: {
     air_date: string,
     episode_count: number,
@@ -48,12 +52,7 @@ export type TvData = {
     clips: VideoItem[],
     feat: VideoItem[],
   },
-  recommendations: {
-    page: number,
-    total_pages: number,
-    total_results: number,
-    results: TvItem[],
-  }
+  recommendations: TvData[],
   providers: ProviderItem[],
   images: ImagesItem
 }
@@ -70,7 +69,7 @@ export interface TvItem {
 export interface TvResult {
   backdrop_path: string,
   id: number,
-  media_type: string,
+  media_type: "tv",
   overview: string,
   poster_path: string,
   name: string

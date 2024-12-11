@@ -1,23 +1,27 @@
-import { fetchContentDataWithFilters, fetchTrendingPosters } from "@/lib/fetchers";
+import { checkUserContent, fetchContentDataWithFilters, fetchGenres, fetchProviders, fetchTrendingPosters } from "@/lib/fetchers";
 import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
+import { getSession } from "@/lib/session";
 
-const DiscoverPage = async () => {
-  const posters = await fetchTrendingPosters(5, 10, "movie");
-  const { genres, providers, content, yearRange, sortType } = await fetchContentDataWithFilters("movie");
+const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
+  const media = "movie";
+  const session = await getSession();
+  const params: { [key: string]: string, } = await searchParams;
+  const genres = await fetchGenres(media);
+  const providers = await fetchProviders(media);
+  const contentData = await fetchContentDataWithFilters(params, media);
+  const userData = await checkUserContent(session, contentData.content, media);
 
   return (
-    <div className="flex-1  min-h-screen">
-      <Background
-        posters={posters} />
-      <div className="flex flex-col min-h-screen items-center mt-10">
+    <div className="flex-1 ">
+      <Background />
+      <div className="flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
         <Body
-          initialContents={content}
+          contentData={contentData}
           genres={genres}
-          watchProviders={providers}
-          yearRange={yearRange}
-          sortType={sortType}
-          media={"movie"}
+          providers={providers}
+          media={media}
+          userData={userData}
         />
       </div>
     </div>

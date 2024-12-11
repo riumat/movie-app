@@ -4,10 +4,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const useIsWatched = (userData: any, contentData: MovieData | TvData) => {
-  const [isWatched, setIsWatched] = useState<boolean>(userData.watched);
+const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData) => {
+  const [isWatched, setIsWatched] = useState<boolean>(isWatchedServer);
   const router = useRouter();
-  const contentDuration = contentData.type === "tv" ? contentData.seasons.reduce((acc, season) => acc + season.episode_count, 0) : contentData.runtime;
+  const genres = contentData.genres ? contentData.genres.map(genre => genre.id) : contentData.genre_ids;
+  const duration = (contentData.type === 'movie' ? contentData.runtime : undefined) ?? undefined;
 
   const handleIsWatched = () => {
     const newIsWatched = !isWatched;
@@ -15,16 +16,15 @@ const useIsWatched = (userData: any, contentData: MovieData | TvData) => {
       axios
         .post('/api/user/watch', {
           contentId: contentData.id,
-          userId: userData.userId,
           contentType: contentData.type,
-          duration: contentDuration,
-          genres: contentData.genres.map(genre => genre.id).join(","),
+          duration: duration,
+          genres: genres,
+
         })
-        .then(res => {
+        .then(() => {
           axios.delete('/api/user/watchlist', {
             data: {
               contentId: contentData.id,
-              userId: userData.userId,
               contentType: contentData.type,
             }
           })
@@ -37,11 +37,11 @@ const useIsWatched = (userData: any, contentData: MovieData | TvData) => {
         .delete('/api/user/watch', {
           data: {
             contentId: contentData.id,
-            userId: userData.userId,
             contentType: contentData.type,
+            duration: contentData.type === 'movie' ? contentData.runtime : 2,
           },
         })
-        .then(res => {
+        .then(() => {
           setIsWatched(newIsWatched)
           router.refresh();
         })

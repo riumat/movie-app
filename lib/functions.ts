@@ -155,6 +155,18 @@ export const tvTotalDuration = () => {
 
 }
 
+export const getUserDuration = (watched: any) => {
+  const totalDuration = watched.reduce((total: number, content: any) => {
+    if (content.content_type === 'movie') {
+      return total + content.duration;
+    } else if (content.content_type === 'tv') {
+      return total + content.episode_count * content.duration;
+    }
+    return total;
+  }, 0);
+  return formatMinutes(totalDuration)
+}
+
 export const getAge = (birthdate: string, deathdate: string) => {
   const endDate = deathdate ? new Date(deathdate) : new Date()
   const birthDate = new Date(birthdate)
@@ -166,4 +178,24 @@ export const getAge = (birthdate: string, deathdate: string) => {
   }
 
   return age
+}
+
+export const movieCount = (watched: any) => {
+  const movieCount = watched.filter((content: any) => content.content_type === 'movie').length
+  return movieCount
+}
+
+export const tvCount = (watched: any) => {
+  const tvCount = watched.filter((content: any) => content.content_type === 'tv').length
+  return tvCount
+}
+
+export const formatDateSince = (date: Date) => {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const month = months[date.getMonth()];
+  const year = date.getFullYear().toString();
+  return `${month} ${year}`;
 }

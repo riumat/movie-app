@@ -14,7 +14,7 @@ const ContentBackground = ({ poster }: { poster: string }) => {
             alt={"movie poster"}
             fill
             priority
-            sizes={"60vw"}
+            sizes={"100vw"}
             className="filter grayscale-[15%] brightness-90 object-cover"
           />
         </div>

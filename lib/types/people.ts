@@ -64,7 +64,15 @@ export type PeopleResult = {
   id: number,
   name: string,
   profile_path: string,
-  media_type: string,
+  media_type: "person",
   known_for_department: string,
   gender: number,
+}
+
+export type PeopleFollowed={
+  id: number,
+  name: string,
+  profile_path: string,
+  type: "person",
+  known_for_department: string
 }

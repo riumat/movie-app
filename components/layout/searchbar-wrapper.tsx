@@ -3,7 +3,7 @@ import React from 'react'
 
 const SearchbarWrapper = () => {
   return (
-    <div className='absolute top-0 flex justify-center w-full mt-2 z-10'>
+    <div className='absolute top-0 w-screen flex justify-center  mt-2 z-40'>
       <Searchbar />
     </div>
   )

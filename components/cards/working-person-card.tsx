@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { BeatLoader } from 'react-spinners';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
+import Loader from '@/components/layout/loader';
 
 interface NameCardProps {
   name: string;
@@ -24,10 +24,10 @@ const WorkingPersonCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) =
   }
   return (
     <div className="flex flex-col gap-1 bg-transparent w-full max-w-[140px] mx-auto text-foreground">
-      <div className='relative w-full max-h-48 pb-[150%] rounded-lg overflow-hidden'>
+      <div className='relative w-full h-48 pb-[150%] rounded-lg overflow-hidden'>
         {!imageLoaded && (
-          <div className="z-40 flex justify-center items-center h-full">
-            <BeatLoader color="#ffffff" size={10} />
+          <div className="z-40 flex justify-center items-center h-48 ">
+            <Loader />
           </div>
         )}
         <Image

@@ -1,5 +1,15 @@
+import { IoHomeOutline } from "react-icons/io5";
+
+import { FaFilm } from "react-icons/fa";
+import { FaTv } from "react-icons/fa";
+import { BiCameraMovie } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa6";
+
+
+
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
+export const youtubeUrl = "https://www.youtube.com/watch?v=";
 
 export const imgWidth = {
   poster: {
@@ -40,11 +50,10 @@ export const placeholders = {
 }
 
 export const sidebarItems = [
-  { label: 'Home', path: '/' },
-  { label: 'Movies', path: '/movie' },
-  { label: 'Tv Shows', path: '/tv' },
-  { label: 'People', path: '/person' },
-  { label: 'Genres', path: '/genres' },
+  { label: 'Home', path: '/', icon: IoHomeOutline },
+  { label: 'Movies', path: '/movie', icon: FaFilm },
+  { label: 'Tv Shows', path: '/tv', icon: FaTv },
+  { label: 'Profile', path: '/user', icon: FaRegUser },
 ];
 
 
@@ -81,16 +90,8 @@ export const selectorTvList = [
     value: "crew",
   },
   {
-    name: "Overview",
-    value: "overview",
-  },
-  {
     name: "Seasons",
     value: "seasons",
-  },
-  {
-    name: "Watch",
-    value: "watch",
   },
   {
     name: "Videos",
@@ -110,14 +111,6 @@ export const selectorMovieList = [
   {
     name: "Crew ",
     value: "crew",
-  },
-  {
-    name: "Overview",
-    value: "overview",
-  },
-  {
-    name: "Watch",
-    value: "watch",
   },
   {
     name: "Videos",
@@ -148,3 +141,12 @@ export const externalUrls = {
   tiktok: "https://www.tiktok.com/",
   tmdb: "https://www.themoviedb.org/person/"
 }
+
+export const twGenresStyle=[
+  "font-bold text-4xl ",
+  "font-base text-lg ",
+  "font-base text-lg ",
+  "font-light text-base ",
+  "font-light text-base ",
+]
+

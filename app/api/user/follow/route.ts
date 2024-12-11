@@ -81,7 +81,10 @@ export async function DELETE(request: Request) {
 
     await prisma.person.delete({
       where: {
-        id: existingRow.id,
+        person_id_user_id: {
+          person_id: existingRow.person_id,
+          user_id: existingRow.user_id,
+        },
       },
     });
 

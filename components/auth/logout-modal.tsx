@@ -31,8 +31,8 @@ const LogoutModal = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <FaUser size={20} />
+      <Button variant="outline" className="px-3">
+          {"Logout"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
