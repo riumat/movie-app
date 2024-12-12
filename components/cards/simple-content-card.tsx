@@ -4,14 +4,10 @@ import Image from 'next/image';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
-import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
-import { FaEye, FaRegEye } from "react-icons/fa6";
 import Loader from '@/components/layout/loader';
 
 
-const SimpleContentCard = ({ item, }:
-  { item: any }
-) => {
+const SimpleContentCard = ({ item }: { item: MovieData | TvData }) => {
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
   const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
@@ -23,36 +19,35 @@ const SimpleContentCard = ({ item, }:
     setIsImageLoaded(false);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>, handler: () => void) => {
-    e.stopPropagation();
-    e.preventDefault();
-    handler();
-  }
-
   return (
-    <div className="flex items-center gap-3 w-32 h-32 relative justify-start border">
-      <div className='flex justify-start relative w-32 h-32'>
+    <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group `}>
+
+      <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <Loader />
           </div>
         )}
         <Image
-          src={`${imageUrl}${imgWidth.poster[342]}${item.poster_path}`}
-          alt={item.title}
+          src={imgSrc}
+          alt={"alt item"}
           fill
-          className='rounded-lg z-30 object-contain block '
+          className='rounded-lg z-30 object-contain'
           onLoad={onLoadCallback}
           onError={onErrorCallback}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           loading='lazy'
         />
-      </div>
-      <div className="flex flex-col gap-1 items-start">
-        <p className="font-bold text-xl">{item.type === "movie" ? item.title : item.name}</p>
-        <p className='px-3 py-1 rounded-xl border'>{item.type}</p>
-      </div>
+        <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-between p-2 z-50">
+          {(item.media_type === "movie"||item.type==="movie") && (
+            <p className="text-foreground text-sm font-bold z-50 mt-3 text-center">{(item as MovieData).title}</p>
+          )}
+          {(item.media_type === "tv"||item.type==="tv") && (
+            <p className="text-foreground text-sm font-bold z-50 mt-3 text-center">{(item as TvData).name}</p>
+          )}
 
+        </div>
+      </div>
     </div>
   );
 };

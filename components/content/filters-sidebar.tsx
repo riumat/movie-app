@@ -38,8 +38,8 @@ export const FiltersSidebar = ({
   media
 }: FiltersSidebarProps) => {
   return (
-    <div className="flex-1 md:w-[275px] md:flex-none  w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
-      <div>
+    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
+      <div className="flex flex-col items-center">
         <h2 className="text-sm font-normal mb-3 text-start">Genres</h2>
         <ComboboxFilter
           label="genres"
@@ -49,7 +49,7 @@ export const FiltersSidebar = ({
         />
       </div>
 
-      <div>
+      <div className="flex flex-col items-center">
         <h2 className="text-sm font-normal mb-3 text-start">Watch Providers</h2>
         <ComboboxFilter
           label="providers"
@@ -59,13 +59,13 @@ export const FiltersSidebar = ({
         />
       </div>
 
-      <div>
+      <div className="flex flex-col items-center">
         <h2 className="text-sm font-normal mb-3 text-start">Year Range</h2>
         <DatePickerWithYearRange onChange={onYearChange} />
 
       </div>
 
-      <div>
+      <div className="flex flex-col items-center">
         <h2 className="text-sm font-normal mb-3 text-start">Sort by</h2>
         {media === "movie" ?
           <MovieSortInput sortType={filters.sortType} onChange={onSortChange} />

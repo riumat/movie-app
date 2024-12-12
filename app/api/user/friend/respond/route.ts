@@ -14,7 +14,6 @@ export async function POST(request: Request) {
     }
 
     const { id, status } = await request.json();
-    const receiverId = session.user.id;
 
     const existingRelationship = await prisma.relationship.findUnique({
       where: {

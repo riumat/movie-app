@@ -28,13 +28,13 @@ const Body = ({ id, userData, session }: { id: string, userData: ProfileData, se
         <WatchlistModal key={"modal-6"} id={id} userData={userData} />
       </div>
 
-      <div className="w-full relative flex bg-background rounded-xl pt-5">
+      <div className="w-full flex-1 relative flex bg-background rounded-xl pt-5">
 
         <Chart genres={userData.genres} />
         <Separator orientation="vertical" className="mr-6" />
 
-        <div className="flex-1 h-full  flex flex-col  ">
-          <div className="flex-1  flex flex-col justify-center items-center overflow-hidden">
+        <div className="flex-1 h-full flex flex-col ">
+          <div className="flex-1 flex flex-col justify-center items-center overflow-hidden">
             {userData.friends.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3">
                 <IoSadOutline size={70} />

@@ -1,15 +1,11 @@
 'use client'
-import Link from 'next/link'
-import ContentCard from '@/components/cards/content-card'
 import Pagination from '@/components/ui/pagination'
-import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
 import { FiltersSidebar } from '@/components/content/filters-sidebar'
 import { useFilterState } from '@/lib/hooks/use-filter-state'
 import { MovieData } from '@/lib/types/movie'
 import { TvData } from '@/lib/types/tv'
 import { FilterItem } from '@/lib/types/filter'
 import ContentDisplay from '@/components/content/content-display'
-import { Suspense } from 'react'
 
 type Props = {
   contentData: {

@@ -38,7 +38,7 @@ const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
 
   return (
     <div className={`flex flex-col bg-transparent w-full max-w-[350px]  rounded-lg mx-auto relative group ${isWatched ? 'border-b-4 border-destructive' : ''}`}>
-      <div className="relative w-full max-h-44 h-40 rounded-lg overflow-hidden">
+      <div className="relative w-full max-h-44 h-[140px] rounded-lg overflow-hidden">
         {!isImageLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <Loader />
@@ -54,7 +54,7 @@ const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
           sizes='(max-width: 768px) 500vw, (max-width: 1200px) 140vw, 100vw'
           loading='lazy'
         />
-        <div className="absolute inset-0 bg-background/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-evenly p-2 z-50">
+        <div className="absolute h-full w-full  inset-0 bg-background/85 opacity-0 group-hover:opacity-100  transition-opacity duration-300 flex flex-col items-center justify-evenly p-2 z-50">
           {item.type === "movie" && (
             <p className="text-foreground text-xl font-bold z-50  text-center">{item.title}</p>
           )}

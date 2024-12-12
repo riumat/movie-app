@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const years = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - 99 + i).toString())
+const years = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - 99 + i).toString()).sort((a, b) => Number(b) - Number(a))
 
 const DatePickerWithYearRange = ({ onChange }: { onChange: (range: { from: string; to: string }) => void }) => {
   const [range, setRange] = React.useState<{ from: string; to: string }>({

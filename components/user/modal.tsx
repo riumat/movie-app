@@ -18,6 +18,7 @@ import { StopCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { CgDanger } from "react-icons/cg";
+import { IoSadOutline, IoSadSharp } from "react-icons/io5";
 
 
 
@@ -106,28 +107,42 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
             </div>
           ) : (
             <>
-              <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
-                {isLoading ? (
-                  <div className="flex items-center justify-center h-full">
-                    <Loader />
-                  </div>
-                ) : (
-                  <>
-                    {list.length > 0 && (
-                      list.map((item) => (
-                        <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
-                          <ContentUserCard item={item} />
-                        </Link>
-                      ))
-                    )}
-                  </>
-                )}
-              </div>
-              <Pagination
-                page={page}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-              />
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full">
+                  <Loader />
+                </div>
+              ) : (
+                <>
+                  {list.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center gap-5 h-full">
+                      <IoSadOutline size={50} />
+                      <p className="text-xl">Empty! <Link href={"/movie"} className="hover:underline">Start browsing now!</Link></p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col gap-2">
+
+                        <>
+                          {list.length > 0 && (
+                            list.map((item) => (
+                              <Link key={item.id} href={`/${item.type}/${item.id}`} className="py-3 rounded-lg hover:bg-secondary ">
+                                <ContentUserCard item={item} />
+                              </Link>
+                            ))
+                          )}
+                        </>
+                      </div>
+                      <Pagination
+                        page={page}
+                        totalPages={totalPages}
+                        handleChangePage={handleChangePage}
+                      />
+                    </>
+                  )}
+
+                </>
+              )}
+
             </>
           )}
 

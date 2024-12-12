@@ -1,9 +1,9 @@
 "use client"
 import Link from "next/link";
-import ContentCard from "@/components/cards/content-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { MovieData } from "@/lib/types/movie";
 import { TvData } from "@/lib/types/tv";
+import SimpleContentCard from "@/components/cards/simple-content-card";
 
 
 
@@ -23,10 +23,8 @@ const CarouselVertical = ({ contentList }: { contentList: MovieData[] | TvData[]
             <Link
               href={`/${content.media_type}/${content.id}`}
             >
-              <ContentCard
+              <SimpleContentCard
                 item={content}
-                isWatchedServer={false}
-                isBookmarkedServer={false}
               />
             </Link>
           </CarouselItem>

@@ -6,14 +6,11 @@ import { PersonData } from '@/lib/types/people';
 import PastWorks from '@/components/people/past-works';
 import { Separator } from '@/components/ui/separator';
 
-//use case, activity diagram, sequence, r schema db
 
 const PersonPage = async ({ params }: { params: { id: string } }) => {
   const userData = await fetchUserPersonData(params.id)
   const personData: PersonData = await fetchPersonData(params.id)
     .catch(() => notFound())
-
-    console.log(userData)
 
   return (
     <div className="flex-1 flex  w-full justify-between overflow-hidden pb-12 mt-16">
@@ -24,7 +21,6 @@ const PersonPage = async ({ params }: { params: { id: string } }) => {
       </div>
       <Separator orientation="vertical" className='h-full' />
       <PastWorks personData={personData} />
-
     </div>
   )
 }
