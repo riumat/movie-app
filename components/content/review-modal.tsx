@@ -19,7 +19,7 @@ import { useEffect, useState } from "react"
 
 const ReviewModal = ({ userData, contentData, disabled }: { userData: any, contentData: any, disabled: boolean }) => {
   const [open, setOpen] = useState(false);
-  const { review, handleReview } = useReview(userData, contentData, open);
+  const { review, handleReview } = useReview(userData, contentData);
   const [text, setText] = useState(review ? review : "");
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

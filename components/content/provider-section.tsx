@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { imageUrl, imgWidth } from '@/lib/constants';
-import { ProviderItem } from '@/lib/types';
+import { ProviderItem } from '@/lib/types/provider';
 
 interface WatchProviderProps {
   providers: ProviderItem[];

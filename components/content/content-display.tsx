@@ -16,7 +16,6 @@ type ContentDisplayProps = {
 }
 
 const ContentDisplay = ({ contentData, userData }: ContentDisplayProps) => {
-  console.log(userData)
   return (
     <>
       {!contentData.content ? (

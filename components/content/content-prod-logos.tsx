@@ -1,5 +1,6 @@
 import { imageUrl, imgWidth } from "@/lib/constants"
-import { MovieData, TvData } from "@/lib/types"
+import { MovieData } from "@/lib/types/movie"
+import { TvData } from "@/lib/types/tv"
 import Image from "next/image"
 
 const ContentProdLogos = ({ contentData }: { contentData: MovieData | TvData }) => {

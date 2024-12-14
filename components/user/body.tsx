@@ -57,7 +57,10 @@ const Body = ({ id, userData, session }: { id: string, userData: ProfileData, se
               </div>
             )}
           </div>
-          {session && userData.requests.length > 0 && <RequestModal userData={userData} />}
+          {session && (
+            session.user.id === Number(id) && userData.requests.length > 0 && <RequestModal userData={userData} />
+          )
+          }
 
         </div>
 

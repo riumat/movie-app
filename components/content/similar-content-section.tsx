@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ContentCard from '@/components/cards/content-card';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
+import SimpleContentCard from '@/components/cards/simple-content-card';
 
 
 interface SimilarContentSectionProps {
@@ -21,11 +22,19 @@ const SimilarContentSection: React.FC<SimilarContentSectionProps> = ({ recommend
               <Link
                 key={`${index}-${item.id}-${item.type}`}
                 href={`/${item.type}/${item.id}`}>
-                <ContentCard
-                  item={item}
-                  isWatchedServer={similarData.watched.includes(item.id)}
-                  isBookmarkedServer={similarData.bookmarked.includes(item.id)}
-                />
+                {similarData.length!==0 ? (
+                  <ContentCard
+                    key={`${index}-${item.id}-${item.type}`}
+                    item={item}
+                    isWatchedServer={similarData.watched.includes(item.id)}
+                    isBookmarkedServer={similarData.bookmarked.includes(item.id)}
+                  />
+                ) : (
+                  <SimpleContentCard
+                    key={`${index}-${item.id}-${item.type}`}
+                    item={item}
+                  />
+                )}
               </Link>
             ))}
           </div>
