@@ -15,7 +15,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   const similarData: any = await checkUserContent(session, movieData.recommendations, media);
 
   return (
-    <div className="flex-1 flex flex-col items-center w-full ">
+    <div className="flex-1 flex flex-col items-center w-full">
       <ContentBackground
         poster={movieData.images.backdrops[0]?.file_path}
       />

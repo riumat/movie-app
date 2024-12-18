@@ -1,54 +1,45 @@
-'use client'
-import Pagination from '@/components/ui/pagination'
 import { FiltersSidebar } from '@/components/content/filters-sidebar'
-import { useFilterState } from '@/lib/hooks/use-filter-state'
-import { MovieData } from '@/lib/types/movie'
-import { TvData } from '@/lib/types/tv'
 import { FilterItem } from '@/lib/types/filter'
+import PaginationWrapper from '@/components/layout/pagination-wrapper'
+import { Suspense } from 'react'
+import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
 import ContentDisplay from '@/components/content/content-display'
 
 type Props = {
-  contentData: {
-    content: MovieData[] | TvData[]
-    totalPages: number
-    sort: string
-  }
-  genres: FilterItem[],
-  providers: FilterItem[],
-  media: string
-  userData: any
+ /*  totalPages: number */
+ /*  genres: FilterItem[],
+  providers: FilterItem[], */
+  media: string,
+  params: any
 }
 
-const Body = ({ contentData, genres, providers, media, userData }: Props) => {
-  const { filters, handlers } = useFilterState()
-
+const Body = ({ /* totalPages, */ /* genres, providers, */ media, params }: Props) => {
   return (
     <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden  ">
       <div className='flex flex-grow overflow-hidden w-full gap-5'>
-        <FiltersSidebar
+       {/*  <FiltersSidebar
           genres={genres}
-          filters={filters}
           watchProviders={providers}
-          onGenreChange={handlers.handleGenreChange}
-          onProviderChange={handlers.handleProviderChange}
-          onYearChange={handlers.handleYearChange}
-          onSortChange={handlers.handleSortChange}
-          onReset={handlers.handleReset}
           media={media}
-        />
-        <ContentDisplay
-          contentData={contentData}
-          userData={userData}
-        />
+        /> */}
+
+        <Suspense fallback={
+          <div className="flex-1 mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
+            {Array.from({ length: 20 }).map((_, index) => (
+              <ContentCardSkeleton key={index} />
+            ))}
+          </div>
+        }>
+          <ContentDisplay
+            params={params}
+            media={media}
+          />
+        </Suspense>
 
       </div>
-      <div className='border rounded-lg bg-background/95 py-3 w-full flex justify-center'>
-        <Pagination
-          page={filters.page}
-          totalPages={contentData.totalPages}
-          handleChangePage={handlers.handleChangePage}
-        />
-      </div>
+      {/* <div className='border rounded-lg bg-background/95 py-3 w-full flex justify-center'>
+        <PaginationWrapper totalPages={totalPages} />
+      </div> */}
     </div>
   )
 }

@@ -1,10 +1,11 @@
 "use client"
+import { imageUrl, imgWidth, youtubeUrl } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 
-const YouTubePlayer = ({ video }: { video: { url: string, title: string, id: number, poster: string } }) => {
+const BackgroundPlayer = ({ video }: { video: { url: string, title: string, id: number, poster: string } }) => {
   const [isEnded, setIsEnded] = useState(false);
   const [domLoaded, setDomLoaded] = useState(false);
 
@@ -20,7 +21,7 @@ const YouTubePlayer = ({ video }: { video: { url: string, title: string, id: num
             isEnded ? (
               <div className="absolute top-0 mx-auto w-full h-full " >
                 <Image
-                  src={`https://image.tmdb.org/t/p/original${video.poster}`}
+                  src={`${imageUrl}${imgWidth.poster.original}${video.poster}`}
                   alt={video.title}
                   layout="fill"
                   objectFit="cover"
@@ -29,7 +30,7 @@ const YouTubePlayer = ({ video }: { video: { url: string, title: string, id: num
               </div>
             ) : (
               <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${video.url}&end=60`}
+                url={`${youtubeUrl}${video.url}&end=60`}
                 loading="lazy"
                 fallback={<p>loading</p>}
                 onEnded={() => setIsEnded(true)}
@@ -61,4 +62,4 @@ const YouTubePlayer = ({ video }: { video: { url: string, title: string, id: num
   );
 };
 
-export default YouTubePlayer;
+export default BackgroundPlayer;

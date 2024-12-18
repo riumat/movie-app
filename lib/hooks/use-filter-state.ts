@@ -1,3 +1,4 @@
+"use client"
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react'
 
@@ -25,6 +26,7 @@ export const useFilterState = () => {
   const [range, setRange] = useState({ from: searchParams.get("from") || "1924", to: searchParams.get("to") || new Date().getFullYear().toString() })
   const [sortType, setSortType] = useState(searchParams.get("sort") || "popularity.desc")
   const [page, setPage] = useState(searchParams.get("page") ? Number(searchParams.get("page")) : 1)
+  const [totalPages, setTotalPage] = useState(searchParams.get("total_pages") ? Number(searchParams.get("total_pages")) : 1)
   const router = useRouter();
 
   const handleChangePage = (page: number) => {
@@ -37,28 +39,28 @@ export const useFilterState = () => {
     const updated = toggleItemInSelectedItems(genre, selectedGenres)
     setPage(1)
     setSelectedGenres(updated)
-    router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&total_pages=${totalPages}`)
   }
 
   const handleProviderChange = (provider: number) => {
     const updated = toggleItemInSelectedItems(provider, selectedProviders)
     setPage(1)
     setSelectedProviders(updated)
-    router.push(`?genres=${selectedGenres}&providers=${updated.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${selectedGenres}&providers=${updated.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&total_pages=${totalPages}`)
 
   }
 
   const handleYearChange = (range: { from: string, to: string }) => {
     setPage(1)
     setRange(range)
-    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&total_pages=${totalPages}`)
 
   }
 
   const handleSortChange = (sort: string) => {
     setPage(1)
     setSortType(sort)
-    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sort}`)
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sort}&total_pages=${totalPages}`)
 
   }
 

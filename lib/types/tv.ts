@@ -54,7 +54,9 @@ export type TvData = {
   },
   recommendations: TvData[],
   providers: ProviderItem[],
-  images: ImagesItem
+  images: ImagesItem,
+  watched: boolean,
+  watchlisted: boolean,
 }
 
 export interface TvItem {

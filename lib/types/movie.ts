@@ -41,6 +41,8 @@ export type MovieData = {
   },
   recommendations: MovieData[],
   providers: ProviderItem[],
+  watched: boolean,
+  watchlisted: boolean,
 }
 
 export type MovieResult = {

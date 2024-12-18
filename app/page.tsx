@@ -1,18 +1,19 @@
-import YouTubePlayer from "@/components/layout/bg-player";
 import Body from "@/components/landing-page/body";
+import BackgroundPlayer from "@/components/layout/bg-player";
 import { fetchTrending } from "@/lib/fetchers";
 import { getSession } from "@/lib/session";
 
 const Home = async () => {
-  const session = await getSession();
-  const { movies, tv, video } = await fetchTrending();
+  const sessionData = getSession();
+  const trendingData = fetchTrending();
+  const [session, { movies, tv, video }] = await Promise.all([sessionData, trendingData]);
   return (
     <>
-      <YouTubePlayer video={video} />
+      <BackgroundPlayer video={video} />
       <Body
         movies={movies}
         tv={tv}
-        session={session}
+        isLogged={!!session}
       />
     </>
 
