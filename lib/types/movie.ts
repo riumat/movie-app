@@ -43,6 +43,7 @@ export type MovieData = {
   providers: ProviderItem[],
   watched: boolean,
   watchlisted: boolean,
+  user: any,
 }
 
 export type MovieResult = {

@@ -57,6 +57,7 @@ export type TvData = {
   images: ImagesItem,
   watched: boolean,
   watchlisted: boolean,
+  user: any,
 }
 
 export interface TvItem {

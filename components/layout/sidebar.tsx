@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import AuthModal from '@/components/auth/auth-modal';
 import LogoutModal from '@/components/auth/logout-modal';
 
+
 const Sidebar = ({ session }: { session: any }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -28,17 +29,18 @@ const Sidebar = ({ session }: { session: any }) => {
       ${isOpen ? 'translate-x-0 left-0' : '-translate-x-full'}
         `}
       >
-        <div className={`h-[100vh] px-4 py-3 bg-background flex flex-col justify-between gap-5 z-20 w-full relative border-r border-neutral-700
+        <div className={`h-[100vh] px-4 py-3 flex flex-col justify-between gap-5 z-20 w-full relative border-r border-neutral-700
            `}>
 
+          <div className={`h-[100vh] content-[''] absolute inset-0 bg-[url('https://www.toptal.com/designers/subtlepatterns/uploads/slash_it.png')] bg-repeat opacity-30 -z-10 `} />
           <ul className='relative text-sm flex flex-col gap-1 mt-16'>
             {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
               <li key={item.path} className="mb-7">
-                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 ml-3'>
+                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-2 ml-3'>
                   <item.icon size={17} />
                   <span
-                    className={`px-3 py-1 rounded-xl hover:underline font-normal
-                      ${pathname === item.path ? 'underline font-bold' : ''}`}
+                    className={`px-3 py-1 rounded-xl hover:underline text-sm
+                      ${pathname === item.path ? 'underline font-bold' : 'font-light'}`}
                   >
                     {item.label}
                   </span>
@@ -58,7 +60,7 @@ const Sidebar = ({ session }: { session: any }) => {
               ) : (
                 <AuthModal isOpen={false} label='Login' />
               )}
-                <ModeToggle />
+              <ModeToggle />
             </div>
 
           </div>

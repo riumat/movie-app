@@ -1,23 +1,19 @@
 import Body from "@/components/landing-page/body";
 import BackgroundPlayer from "@/components/layout/bg-player";
-import { fetchTrending } from "@/lib/fetchers";
-import { getSession } from "@/lib/session";
+import { getLandingPageData } from "@/lib/fetchers/index";
 
 const Home = async () => {
-  const sessionData = getSession();
-  const trendingData = fetchTrending();
-  const [session, { movies, tv, video }] = await Promise.all([sessionData, trendingData]);
+  const trendingData = await getLandingPageData();
   return (
     <>
-      <BackgroundPlayer video={video} />
+      <BackgroundPlayer video={trendingData.video} />
       <Body
-        movies={movies}
-        tv={tv}
-        isLogged={!!session}
+        movies={trendingData.movies}
+        tv={trendingData.tv}
       />
     </>
 
   );
 }
 
-export default Home;
+export default Home

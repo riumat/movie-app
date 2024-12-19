@@ -6,7 +6,7 @@ import { MovieData } from "@/lib/types/movie";
 import { TvData } from "@/lib/types/tv";
 import SimpleOrizontalCard from "@/components/cards/simple-orizontal-card";
 
-const CarouselWrapper = ({ contentList, isLogged }: { contentList: MovieData[] | TvData[], isLogged: boolean }) => {
+const CarouselWrapper = ({ contentList }: { contentList: MovieData[] | TvData[] }) => {
   return (
     <Carousel
       opts={{
@@ -22,11 +22,11 @@ const CarouselWrapper = ({ contentList, isLogged }: { contentList: MovieData[] |
             <Link
               href={`/${content.media_type}/${content.id}`}
             >
-              {isLogged ? (
+              {content.user ? (
                 <OrizontalCard
                   item={content}
-                  isWatchedServer={false}
-                  isBookmarkedServer={false}
+                  isWatchedServer={content.user.watched}
+                  isBookmarkedServer={content.user.watchlisted}
                 />
               ) : (
                 <SimpleOrizontalCard

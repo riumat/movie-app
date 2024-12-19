@@ -5,20 +5,21 @@ import DatePickerWithYearRange from "@/components/content/range-date-picker"
 import MovieSortInput from "@/components/movie/movie-sort-input"
 import TvSortInput from "@/components/tv/tv-sort-input"
 import { Button } from "@/components/ui/button"
-import { useFilterState } from "@/lib/hooks/use-filter-state"
 
 interface FiltersSidebarProps {
   genres: FilterItem[]
-  watchProviders: FilterItem[]
-  media: string
+  providers: FilterItem[]
+  media: string,
+  handlers: any,
+  filters: any
 }
-
 export const FiltersSidebar = ({
   genres,
-  watchProviders,
-  media
+  providers,
+  media,
+  handlers,
+  filters
 }: FiltersSidebarProps) => {
-  const { filters, handlers } = useFilterState()
 
   return (
     <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
@@ -37,7 +38,7 @@ export const FiltersSidebar = ({
         <ComboboxFilter
           label="providers"
           selectedItems={filters.selectedProviders}
-          items={watchProviders}
+          items={providers}
           onChange={handlers.handleProviderChange}
         />
       </div>

@@ -1,25 +1,21 @@
-import { fetchFilteredContents, fetchGenresAndProviders } from "@/lib/fetchers";
 import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
+import { getFilteredContents, getGenresAndProviders, getTotalPagesFiltered } from "@/lib/fetchers/index";
+import ContentDisplay from "@/components/content/content-display";
+import { Suspense } from "react";
 
 const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
   const media = "tv"
   const params: { [key: string]: string, } = await searchParams;
-  /* const { genres, providers } = await fetchGenresAndProviders(media);
-  const { totalPages } = await fetchFilteredContents(params, media); */
 
   return (
     <div className="flex-1">
       <Background />
       <div className="flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
         <Body
-         /*  totalPages={totalPages}
-          genres={genres}
-          providers={providers} */
           media={media}
           params={params}
         />
-
       </div>
     </div>
   );

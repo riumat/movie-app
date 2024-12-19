@@ -26,6 +26,12 @@ body {
   .neon-shadow {
     @apply -inset-0.5 bg-teal-50 group-hover:opacity-100 group-hover:duration-200 blur opacity-30;
   }
+  .content-card-button{
+    @apply flex items-center text-foreground/80 hover:scale-105 hover:text-foreground active:scale-90 duration-200;
+  }
+  .content-card-hover{
+    @apply absolute h-full w-full inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-evenly p-2 z-50;
+  }
 
   :root {
     --background: 240 10% 3.9%;

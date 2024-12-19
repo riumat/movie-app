@@ -199,3 +199,40 @@ export const formatDateSince = (date: Date) => {
   const year = date.getFullYear().toString();
   return `${month} ${year}`;
 }
+
+export const formatCreditsReleaseDate = (list: any[]) => {
+  return list.map((credit: any) => {
+    if (credit.media_type === "tv") {
+      return {
+        ...credit,
+        release_date: credit.first_air_date,
+      }
+    }
+    return {
+      ...credit,
+    }
+  })
+    .filter((credit: any) => credit.release_date !== "")
+    .sort((a: any, b: any) =>
+      new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
+    )
+
+}
+
+
+export const formatVideoContent = (videos: any[]) => {
+  return {
+    trailers: videos
+      .filter((video: any) =>
+        video.official && video.type === "Trailer" || video.type === "Teaser"
+      ),
+    clips: videos
+      .filter((video: any) =>
+        video.official && video.type === "Clip"
+      ),
+    feat: videos
+      .filter((video: any) =>
+        video.type === "Featurette"
+      )
+  }
+}

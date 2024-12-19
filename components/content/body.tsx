@@ -1,28 +1,22 @@
-import { FiltersSidebar } from '@/components/content/filters-sidebar'
-import { FilterItem } from '@/lib/types/filter'
-import PaginationWrapper from '@/components/layout/pagination-wrapper'
-import { Suspense } from 'react'
 import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
 import ContentDisplay from '@/components/content/content-display'
+import FiltersSection from '@/components/content/filters-section'
+import { getFilteredContents, getGenresAndProviders, getTotalPagesFiltered } from '@/lib/fetchers/index'
+import { Suspense } from 'react'
 
 type Props = {
- /*  totalPages: number */
- /*  genres: FilterItem[],
-  providers: FilterItem[], */
   media: string,
   params: any
 }
 
-const Body = ({ /* totalPages, */ /* genres, providers, */ media, params }: Props) => {
+const Body = async ({ media, params }: Props) => {
+  const filterPromise = getGenresAndProviders(media);
+  const contentPromise = getFilteredContents(params, media)
+  const [{ genres, providers }, { content, totalPages }] = await Promise.all([filterPromise, contentPromise])
+
   return (
     <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden  ">
-      <div className='flex flex-grow overflow-hidden w-full gap-5'>
-       {/*  <FiltersSidebar
-          genres={genres}
-          watchProviders={providers}
-          media={media}
-        /> */}
-
+      <FiltersSection props={{ genres, providers, media, totalPages }}>
         <Suspense fallback={
           <div className="flex-1 mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
             {Array.from({ length: 20 }).map((_, index) => (
@@ -31,17 +25,14 @@ const Body = ({ /* totalPages, */ /* genres, providers, */ media, params }: Prop
           </div>
         }>
           <ContentDisplay
-            params={params}
-            media={media}
+            content={content}
           />
         </Suspense>
-
-      </div>
-      {/* <div className='border rounded-lg bg-background/95 py-3 w-full flex justify-center'>
-        <PaginationWrapper totalPages={totalPages} />
-      </div> */}
+      </FiltersSection>
     </div>
   )
 }
 export default Body
+
+
 
