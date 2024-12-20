@@ -142,11 +142,18 @@ export const externalUrls = {
   tmdb: "https://www.themoviedb.org/person/"
 }
 
-export const twGenresStyle=[
+export const twGenresStyle = [
   "font-bold text-4xl ",
   "font-base text-lg ",
   "font-base text-lg ",
   "font-light text-base ",
   "font-light text-base ",
+]
+
+export const boxOfficeResults = [
+  { value: "Flop", color: "red-800" },
+  { value: "Average", color: "yellow-800" },
+  { value: "Success", color: "blue-800" },
+  { value: "Blockbuster", color: "green-800" }
 ]
 

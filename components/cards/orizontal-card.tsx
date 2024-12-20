@@ -9,13 +9,11 @@ import useWatchlist from '@/lib/hooks/use-watchlist';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
 
-const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
-  { item: MovieData | TvData, isWatchedServer: boolean, isBookmarkedServer: boolean }
-) => {
+const OrizontalCard = ({ item }: { item: MovieData | TvData }) => {
   const imgSrc = item.backdrop_path ? `${imageUrl}${imgWidth.backdrop[780]}${item.backdrop_path}` : placeholders.multi;
-  const { isWatched, handleIsWatched } = useIsWatched(isWatchedServer, item);
-  const { isListed, handleWatchlist } = useWatchlist(isBookmarkedServer, item);
-  
+  const { isWatched, handleIsWatched } = useIsWatched(item);
+  const { isListed, handleWatchlist } = useWatchlist(item);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, handler: () => void) => {
     e.stopPropagation();
     e.preventDefault();
@@ -24,6 +22,18 @@ const OrizontalCard = ({ item, isWatchedServer, isBookmarkedServer }:
 
   return (
     <div className={`flex flex-col bg-transparent w-full max-w-[340px] rounded-lg mx-auto relative group `}>
+      {isWatched && (
+        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-t-lg z-40 shadow ">
+          <FaRegEye size={17} />
+          <p className='text-center py-1'>Watched</p>
+        </div>
+      )}
+      {isListed && (
+        <div className="absolute bottom-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-b-lg z-40 shadow ">
+          <FaRegBookmark size={17} />
+          <p className='text-center py-1'>Watchlist</p>
+        </div>
+      )}
       <div className="relative w-full max-h-44 h-[140px] rounded-lg overflow-hidden">
         <ImageWithLoader src={imgSrc} />
         <div className="content-card-hover">

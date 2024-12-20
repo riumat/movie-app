@@ -1,8 +1,5 @@
 import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
-import { getFilteredContents, getGenresAndProviders, getTotalPagesFiltered } from "@/lib/fetchers/index";
-import ContentDisplay from "@/components/content/content-display";
-import { Suspense } from "react";
 
 const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
   const media = "tv"

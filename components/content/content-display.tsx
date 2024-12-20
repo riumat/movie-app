@@ -1,6 +1,5 @@
 import ContentCard from '@/components/cards/content-card'
 import SimpleContentCard from '@/components/cards/simple-content-card'
-import { getFilteredContents } from '@/lib/fetchers/index'
 import { MovieData } from '@/lib/types/movie'
 import { TvData } from '@/lib/types/tv'
 import Link from 'next/link'
@@ -20,8 +19,6 @@ const ContentDisplay = async ({ content }: ContentDisplayProps) => {
             <ContentCard
               key={`${index}-${item.id}-${item.type}`}
               item={item}
-              isWatchedServer={item.watched}
-              isBookmarkedServer={item.watchlisted}
             />
           ) : (
             <SimpleContentCard

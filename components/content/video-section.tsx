@@ -1,7 +1,7 @@
 "use client";
 import { youtubeUrl } from '@/lib/constants';
 import { VideoItem } from '@/lib/types/video';
-import React from 'react';
+import React, { use, useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 
 interface VideoSectionProps {
@@ -13,6 +13,13 @@ interface VideoSectionProps {
 }
 
 const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clips, feat } }) => {
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   if (trailers.length === 0 && clips.length === 0 && feat.length === 0) {
     return (

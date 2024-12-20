@@ -56,6 +56,60 @@ export const getPrismaPersonData = async (id: string) => {
 
 }
 
+export const getPrismaContentFriendsData = async (id: string, media: string) => {
+  const session = await getSession();
+  if (!session) return;
+  try {
+    const relationships = await prisma.relationship.findMany({
+      where: {
+        OR: [
+          {
+            requester_id: session.user.id,
+            status: 'accepted'
+          },
+          {
+            receiver_id: session.user.id,
+            status: 'accepted'
+          }
+        ]
+      },
+      select: {
+        requester_id: true,
+        receiver_id: true
+      }
+    });
+
+    const friendIds = relationships.map(rel =>
+      rel.requester_id === session.user.id ? rel.receiver_id : rel.requester_id
+    );
+
+    const friendsData = (await Promise.all(
+      friendIds
+        .map(async friendId => {
+          const [content, user] = await Promise.all([
+            prisma.content.findFirst({
+              where: {
+                content_id: Number(id),
+                user_id: friendId,
+                content_type: media as ContentType
+              }
+            }),
+            prisma.user.findUnique({
+              where: { user_id: friendId },
+              select: { user_id: true, username: true }
+            })
+          ]);
+
+          return content && user ? { id: user.user_id, username: user.username } : null;
+        })
+    )).filter((data): data is { id: number, username: string } => data !== null);
+
+    return friendsData;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 export const getPrismaContentData = async (id: string, media: string) => {
   const session = await getSession();
   if (!session) {

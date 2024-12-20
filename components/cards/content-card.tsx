@@ -10,11 +10,10 @@ import useIsWatched from '@/lib/hooks/use-watched';
 import useWatchlist from '@/lib/hooks/use-watchlist';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
-const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
-  { item: MovieData | TvData, isWatchedServer: boolean, isBookmarkedServer: boolean }
+const ContentCard = ({ item, }: { item: MovieData | TvData }
 ) => {
-  const { isWatched, handleIsWatched } = useIsWatched(isWatchedServer, item);
-  const { isListed, handleWatchlist } = useWatchlist(isBookmarkedServer, item);
+  const { isWatched, handleIsWatched } = useIsWatched(item);
+  const { isListed, handleWatchlist } = useWatchlist(item);
   const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, handler: () => void) => {
@@ -26,8 +25,15 @@ const ContentCard = ({ item, isWatchedServer, isBookmarkedServer }:
   return (
     <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group`}>
       {isWatched && (
-        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-xs font-bold  rounded-t-lg z-40">
+        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-t-lg z-40 shadow py-1">
+          <FaRegEye size={17} />
           <p className='text-center py-1'>Watched</p>
+        </div>
+      )}
+       {isListed && (
+        <div className="absolute bottom-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-b-lg z-40 shadow py-1">
+          <FaRegBookmark size={17} />
+          <p className='text-center py-1'>Watchlist</p>
         </div>
       )}
       <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">

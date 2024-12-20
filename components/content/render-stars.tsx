@@ -1,8 +1,8 @@
 import useRating from "@/lib/hooks/use-rating";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 
-const RenderStars = ({ isWatched, userData, contentData }: { isWatched: boolean, userData: any, contentData:any }) => {
-  const { rating, handleStarClick } = useRating(userData, contentData);
+const RenderStars = ({ isWatched, contentData }: { isWatched: boolean, contentData: any }) => {
+  const { rating, handleStarClick } = useRating(contentData);
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     stars.push(

@@ -14,7 +14,7 @@ const ProviderModal = ({ providers }: { providers: any[] }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='w-fit px-2 pb-1 border-b flex gap-2 items-center cursor-pointer '>
+        <div className='w-fit px-2 pb-1 border-b flex gap-2 items-center cursor-pointer hover:scale-105 duration-50 '>
           <p className='font-bold'>Providers</p>
           <LuTv size={17} />
         </div>

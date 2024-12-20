@@ -1,40 +1,38 @@
 import { selectorMovieList, selectorTvList } from "@/lib/constants";
 import { Selection } from "@/lib/types/content";
+import Link from "next/link";
 
 interface MainSectionSelectorProps {
-  setSelection: (selection: Selection) => void;
-  selection: Selection;
-  media: string
+  media: string,
+  id: string
 }
 
-const ContentNavbar = ({ setSelection, selection, media }: MainSectionSelectorProps) => {
+const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
   return (
-    <div className=' flex  justify-center items-start gap-5 text-sm py-3 border-b border-neutral-700 sticky top-0 z-50 bg-background text-foreground'>
+    <div className=' flex  justify-center items-start gap-5 text-base py-3 border-b border-neutral-700 sticky top-0 z-40 bg-background text-foreground'>
       {media === "movie" ? (
         selectorMovieList.map((item) => (
-          <button
+          <Link
             key={item.value}
-            onClick={() => setSelection(item.value as Selection)}
+            href={`/movie/${id}/${item.value}`}
             className={`
-              ${selection === item.value ? "underline font-bold" : "font-light"}
-               py-1 px-10 hover:underline outline-none
-               `}
+              py-1 px-10 hover:underline outline-none
+              `}
           >
             {item.name}
-          </button>
+          </Link>
         ))
       ) : (
         selectorTvList.map((item) => (
-          <button
+          <Link
             key={item.value}
-            onClick={() => setSelection(item.value as Selection)}
+            href={`/tv/${id}/${item.value}`}
             className={`
-              ${selection === item.value ? "underline font-bold" : "font-light"}
-               py-1 px-10 hover:underline outline-none
-               `}
+              py-1 px-10 hover:underline outline-none
+              `}
           >
             {item.name}
-          </button>
+          </Link>
         ))
       )
       }

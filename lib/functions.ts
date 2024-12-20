@@ -11,9 +11,9 @@ export function formatDate(date: string): string {
 
 export function formatNumber(number: number): string {
   if (number >= 1000000) {
-    return `${(number / 1000000).toFixed(1)}M`;
+    return `${(number / 1000000).toFixed(0)}M`;
   } else if (number >= 1000) {
-    return `${(number / 1000).toFixed(1)}K`;
+    return `${(number / 1000).toFixed(0)}K`;
   } else {
     return number.toString();
   }
@@ -235,4 +235,54 @@ export const formatVideoContent = (videos: any[]) => {
         video.type === "Featurette"
       )
   }
+}
+
+export const rateMovieFinance = (budget: number, revenue: number, releaseDate: string): number => {
+  const DAYS_TRESHOLD_OLD = 90;
+  const DAYS_TRESHOLD_NEW = 30;
+
+  const today = new Date();
+  const movieDate = new Date(releaseDate);
+
+  if (movieDate > today) return 4;
+
+  const ratio = revenue / budget;
+
+  const daysPassed = Math.floor((today.getTime() - movieDate.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (ratio < 1) {
+    return 0;
+  } else if (ratio >= 1 && ratio < 1.3 && daysPassed > DAYS_TRESHOLD_OLD) {
+    return 0;
+  } else if (ratio >= 1 && ratio < 1.5) {
+    if (daysPassed <= DAYS_TRESHOLD_NEW) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }else if (ratio >= 1.3 && ratio < 2) {
+    return 1;
+  } else if (ratio >= 2 && ratio < 4) {
+    return 2;
+  } else if (ratio >= 4) {
+    return 3;
+  }
+
+  return 4; //todo
+}
+
+export const getDaysSince = (date: string): string => {
+  const today = new Date();
+  const targetDate = new Date(date);
+  const timeDiff = today.getTime() - targetDate.getTime();
+  const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  
+  if (totalDays >= 365) {
+    const years = Math.floor(totalDays / 365);
+    const remainingDays = totalDays % 365;
+    if (remainingDays === 0) return `${years} years`;
+    return `${years} years and ${remainingDays} days`;
+  }
+  
+  return `${totalDays} days`;
 }

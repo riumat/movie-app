@@ -4,8 +4,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const useIsWatched = (isWatchedServer: boolean, contentData: MovieData | TvData) => {
-  const [isWatched, setIsWatched] = useState<boolean>(isWatchedServer);
+const useIsWatched = (contentData: MovieData | TvData) => {
+  const [isWatched, setIsWatched] = useState<boolean>(contentData.user?.watched ?? false);
   const router = useRouter();
   const genres = contentData.genres ? contentData.genres.map(genre => genre.id) : contentData.genre_ids;
   const duration = (contentData.type === 'movie' ? contentData.runtime : undefined) ?? undefined;

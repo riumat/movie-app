@@ -8,10 +8,17 @@ export async function POST(request: Request) {
   const prisma = new PrismaClient();
 
   try {
+    const session = await getSession();
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const body = await request.json();
-    const { contentId, userId, contentType, review } = body;
+    const { contentId, contentType, review } = body;
 
-    if (!contentId || !userId || !contentType || review === undefined) {
+    if (!contentId || !contentType || review === undefined) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -21,7 +28,7 @@ export async function POST(request: Request) {
     const existingRow = await prisma.content.findUnique({
       where: {
         user_id_content_id_content_type: {
-          user_id: Number(userId),
+          user_id: Number(session.user.id),
           content_id: Number(contentId),
           content_type: contentType,
         },
@@ -37,7 +44,7 @@ export async function POST(request: Request) {
       await prisma.content.update({
         where: {
           user_id_content_id_content_type: {
-            user_id: Number(userId),
+            user_id: Number(session.user.id),
             content_id: Number(contentId),
             content_type: contentType,
           },
@@ -113,7 +120,7 @@ export async function GET(request: Request) {
         });
       }
     }
-    
+
     const totalShows = await prisma.content.count({
       where: {
         user_id: Number(id),

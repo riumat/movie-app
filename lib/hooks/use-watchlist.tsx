@@ -3,8 +3,8 @@ import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useWatchlist = (watchlisted: boolean, contentData: MovieData | TvData) => {
-  const [isListed, setIsListed] = useState<boolean>(watchlisted);
+const useWatchlist = (contentData: MovieData | TvData) => {
+  const [isListed, setIsListed] = useState<boolean>(contentData.user?.watchlist ?? false);
 
   const handleWatchlist = () => {
     const newListed = !isListed;

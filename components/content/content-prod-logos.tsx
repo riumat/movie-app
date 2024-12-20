@@ -5,10 +5,10 @@ import Image from "next/image"
 
 const ContentProdLogos = ({ contentData }: { contentData: MovieData | TvData }) => {
   return (
-    <div className='w-[60%] flex  gap-5 xl:gap-10 justify-start items-center relative '>
+    <div className='max-w-96 flex gap-5 xl:gap-10 justify-start items-center relative '>
       {contentData.production_companies.slice(0, 4).map((company, index) => (
         company.logo_path && (
-          <div key={index} className={`relative flex justify-center w-[80px] h-[50px]`}>
+          <div key={index} className={`relative flex justify-center w-[60px] h-[60px] `}>
             <Image
               src={`${imageUrl}${imgWidth.logo[154]}${company.logo_path}`}
               fill

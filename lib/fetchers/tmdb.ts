@@ -90,6 +90,91 @@ type ContentResponse = {
   providersData: any;
   creditsData: any;
 }
+export const getTmdbGenericContentData = async (id: string, media: string) => {
+  try {
+    const contentData = await fetch(`${tmdbUrl}/${media}/${id}?api_key=${apiKey}&language=en-US`);
+    if (!contentData.ok) {
+      throw new Error('Failed to fetch content data');
+    }
+    const content = await contentData.json();
+    return content;
+  } catch (error) {
+    throw new Error(`Failed to fetch content data: ${error}`);
+  }
+}
+export const getTmdbHeaderData = async (id: string, media: string) => {
+  try {
+    const [contentRes, providersRes, imagesRes] = await Promise.all([
+      fetch(`${tmdbUrl}/${media}/${id}?api_key=${apiKey}&language=en-US`),
+      fetch(`${tmdbUrl}/${media}/${id}/watch/providers?api_key=${apiKey}`),
+      fetch(`${tmdbUrl}/${media}/${id}/images?api_key=${apiKey}`),
+    ]);
+    if (!contentRes.ok || !providersRes.ok || !imagesRes.ok) {
+      throw new Error('Failed to fetch content data');
+    }
+
+    const [contentData, providersData, imagesData] = await Promise.all([
+      contentRes.json(),
+      providersRes.json(),
+      imagesRes.json(),
+    ]);
+
+    return {
+      ...contentData,
+      providers: providersData,
+      images: imagesData
+    };
+  } catch (error) {
+    throw new Error(`Failed to fetch content data: ${error}`);
+  }
+}
+
+
+
+export const getTmdbCreditsData = async (id: string, media: string) => {
+  const creditsUrl = media === "movie" ? "credits" : "aggregate_credits";
+  try {
+    const response = await fetch(`${tmdbUrl}/${media}/${id}/${creditsUrl}?api_key=${apiKey}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch credits data');
+    }
+
+    const creditsData = await response.json();
+    return creditsData;
+  } catch (error) {
+    throw new Error(`Failed to fetch credits data: ${error}`);
+  }
+}
+
+export const getTmdbVideosData = async (id: string, media: string) => {
+  try {
+    const response = await fetch(`${tmdbUrl}/${media}/${id}/videos?api_key=${apiKey}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch videos data');
+    }
+
+    const videosData = await response.json();
+    return videosData;
+  } catch (error) {
+    throw new Error(`Failed to fetch videos data: ${error}`);
+  }
+}
+
+export const getTmdbRecommendationsData = async (id: string, media: string) => {
+  try {
+    const response = await fetch(`${tmdbUrl}/${media}/${id}/recommendations?api_key=${apiKey}&language=en-US`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch recommendations data');
+    }
+    const recommendationsData = await response.json();
+    return recommendationsData;
+  } catch (error) {
+    throw new Error(`Failed to fetch recommendations data: ${error}`);
+  }
+
+}
 
 export const getTmdbContentData = async (contentId: string, media: string): Promise<ContentResponse> => {
   try {
