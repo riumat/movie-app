@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export default async function MovieLayout({ children, params }: { children: React.ReactNode, params: any }) {
-  const media = "movie"
+  const media = "tv"
   const movieData = await getHeaderContentData(params.id, media)
     .catch(() => { notFound() })
 
@@ -21,7 +21,7 @@ export default async function MovieLayout({ children, params }: { children: Reac
         contentData={movieData}
       />
       <section className="bg-background text-foreground w-full ">
-        <div className='flex flex-col mb-10 mx-5'>
+        <div className='flex flex-col  mb-10 mx-5'>
           <ContentNavbar
             media={movieData.type}
             id={params.id}

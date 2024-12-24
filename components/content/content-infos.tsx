@@ -17,7 +17,7 @@ const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
           {contentData.type === "tv" ? (
             <>
               <p>{formatTvDuration(contentData.first_air_date, contentData.last_air_date)}</p>
-              <p>{`${contentData.seasons.length} ${contentData.seasons.length === 1 ? "season" : "seasons"}`}</p>
+              <p>{`${contentData.number_of_seasons} ${contentData.number_of_seasons === 1 ? "season" : "seasons"}`}</p>
               <p>{contentData.status}</p>
             </>
           ) : (

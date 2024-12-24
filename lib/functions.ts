@@ -260,7 +260,7 @@ export const rateMovieFinance = (budget: number, revenue: number, releaseDate: s
     } else {
       return 0;
     }
-  }else if (ratio >= 1.3 && ratio < 2) {
+  } else if (ratio >= 1.3 && ratio < 2) {
     return 1;
   } else if (ratio >= 2 && ratio < 4) {
     return 2;
@@ -276,13 +276,25 @@ export const getDaysSince = (date: string): string => {
   const targetDate = new Date(date);
   const timeDiff = today.getTime() - targetDate.getTime();
   const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-  
+
   if (totalDays >= 365) {
     const years = Math.floor(totalDays / 365);
     const remainingDays = totalDays % 365;
     if (remainingDays === 0) return `${years} years`;
     return `${years} years and ${remainingDays} days`;
   }
-  
+
   return `${totalDays} days`;
+}
+
+
+export const getAverageEpisodeRuntime = (runtimes: number[]) => {
+  if (!runtimes.length) return;
+  const sum = runtimes.reduce((acc, runtime) => acc + runtime, 0);
+  return formatMinutes(Math.round(sum / runtimes.length));
+}
+
+
+export const getRatingAngle = (rating: number): number => {
+  return (rating / 10) * 360;
 }

@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
-import { MovieData } from '@/lib/types/movie';
-import { getContentData, getGenericContentData } from '@/lib/fetchers/index';
+import { getGenericContentData } from '@/lib/fetchers/index';
 import { formatNumber, getDaysSince, rateMovieFinance } from '@/lib/functions';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 import { boxOfficeResults, imageUrl, imgWidth } from '@/lib/constants';
@@ -12,13 +11,11 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   const movieData = await getGenericContentData(params.id, media)
     .catch(() => { notFound() })
 
-  console.log(rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date))
-
   const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
 
   return (
-    <div className='flex gap-2  justify-between mx-10 '>
-      <div className='flex gap-5 items-center flex-[1.5] text-sm '>
+    <div className='flex flex-col lg:flex-row gap-20 md:gap-2  justify-between mx-10 '>
+      <div className='flex gap-5 items-center flex-[1.5] text-sm border'>
         <div className='w-52 h-72 relative' >
           <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} />
         </div>
@@ -45,7 +42,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
-      <div className={`flex flex-col  items-center justify-center gap-5  rounded-lg flex-1 `}>
+      <div className={`flex flex-col  lg:items-center justify-center gap-5  rounded-lg flex-1 `}>
         <div className='flex gap-5'>
           <div className='flex flex-col gap-1 items-center'>
             <p className='font-light'>Budget</p>
@@ -63,12 +60,14 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
           <p className={`font-semibold`}>{boxOfficeData.value}</p>
         </div>
       </div>
-      <div className='flex-1 flex justify-center '>
+      <div className='flex-1 flex lg:justify-center '>
         <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />
       </div>
-      <div className='flex-1 flex justify-center '>
-        <p>Friends who watched it: {movieData.user.map((user: any) => user.username)}</p>
-      </div>
+      {movieData.user && (
+        <div className='flex-1 flex justify-center '>
+          <p>Friends who watched it: {movieData.user.map((user: any) => user.username)}</p>
+        </div>
+      )}
     </div>
   );
 }

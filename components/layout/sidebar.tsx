@@ -34,7 +34,7 @@ const Sidebar = ({ session }: { session: any }) => {
   }, [session])
 
   if (!isMounted) {
-    return null; // o un loading fallback
+    return null; 
   }
 
   if (isDesktop) {
@@ -96,9 +96,9 @@ const Sidebar = ({ session }: { session: any }) => {
     <Sheet>
       <SheetTrigger
         onClick={toggleSidebar}
-        className={`fixed z-50 top-3 left-5 cursor-pointer bg-background/40 rounded-md`}
+        className={`fixed z-50 top-3 left-5  w-9 h-9 lg:h-8 lg:w-8 cursor-pointer border border-input bg-background/80 shadow-sm hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg lg:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0`}
       >
-        <IoMenu className='text-foreground z-50' />
+        <IoMenu  className='text-foreground  z-50' />
       </SheetTrigger>
       <SheetContent side={'left'} className='max-w-[50%] p-0'>
         <div className={`h-[100vh] w-full px-4 py-3 flex flex-col justify-between gap-5 z-20  relative border-r border-neutral-700

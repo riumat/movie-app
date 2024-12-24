@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import Link from "next/link"
+import { getRatingAngle } from "@/lib/functions"
 
 
 const chartConfig = {
@@ -45,7 +46,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
           <RadialBarChart
             data={chartData}
             startAngle={0}
-            endAngle={250}
+            endAngle={getRatingAngle(data.value)}
             innerRadius={80}
             outerRadius={110}
           >
@@ -96,7 +97,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
           <p>{`Out of ${data.total} votes at `}</p>
           <Link href={"https://www.themoviedb.org/"} className="hover:underline">The Movie Database</Link>
         </div>
-       
+
       </CardFooter>
     </Card>
   )

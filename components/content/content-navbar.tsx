@@ -1,6 +1,7 @@
+"use client"
 import { selectorMovieList, selectorTvList } from "@/lib/constants";
-import { Selection } from "@/lib/types/content";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface MainSectionSelectorProps {
   media: string,
@@ -8,6 +9,8 @@ interface MainSectionSelectorProps {
 }
 
 const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
+  const pathname = usePathname()
+  const selection = pathname.split("/")[3] ?? "";
   return (
     <div className=' flex  justify-center items-start gap-5 text-base py-3 border-b border-neutral-700 sticky top-0 z-40 bg-background text-foreground'>
       {media === "movie" ? (
@@ -17,6 +20,7 @@ const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
             href={`/movie/${id}/${item.value}`}
             className={`
               py-1 px-10 hover:underline outline-none
+              ${selection === item.value ? "underline font-semibold" : ""}
               `}
           >
             {item.name}
@@ -29,6 +33,7 @@ const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
             href={`/tv/${id}/${item.value}`}
             className={`
               py-1 px-10 hover:underline outline-none
+               ${selection === item.value ? "underline font-semibold" : ""}
               `}
           >
             {item.name}

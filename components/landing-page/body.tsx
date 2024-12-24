@@ -7,7 +7,7 @@ const Body = ({ movies, tv }: { movies: MovieData[], tv: TvData[] }) => {
   return (
     <section className="relative flex-1 flex justify-center h-[93.5vh] mt-[200px]">
       <div className="w-[90%] mt-40 flex flex-col gap-8 ">
-        <div className="flex flex-col gap-5 ">
+        <div className="flex flex-col gap-5  ">
           <p className="text-xl font-bold ">Trending Movies</p>
           <CarouselWrapper contentList={movies}  />
         </div>

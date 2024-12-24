@@ -18,15 +18,13 @@ const CarouselWrapper = ({ contentList }: { contentList: MovieData[] | TvData[] 
         {contentList.map(content => (
           <CarouselItem
             key={content.id}
-            className={"basis-1/5"}>
+            className={"basis-[100%] lg:basis-[20%]"}>
             <Link
               href={`/${content.media_type}/${content.id}`}
             >
               {content.user ? (
                 <OrizontalCard
                   item={content}
-                  isWatchedServer={content.user.watched}
-                  isBookmarkedServer={content.user.watchlisted}
                 />
               ) : (
                 <SimpleOrizontalCard

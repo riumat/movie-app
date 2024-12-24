@@ -30,6 +30,7 @@ export type TvData = {
     origin_country: string;
   }[];
   number_of_episodes: number;
+  number_of_seasons: number;
   poster_path: string;
   backdrop_path: string;
   seasons: {

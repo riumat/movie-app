@@ -15,7 +15,6 @@ import MultiGrid from '@/components/search-section/multi-grid'
 import { useRouter } from 'next/navigation'
 
 type Props = {
-  searchResults: any
   users: any
   session: any
   results: any
@@ -24,9 +23,9 @@ type Props = {
   query: string
 }
 
-const Body = ({ searchResults, users, session, results, totalPages, page, query }: Props) => {
+const Body = ({ users, session, results, totalPages, page, query }: Props) => {
   const router = useRouter();
-  if (!searchResults) {
+  if (!results) {
     return;
   }
 

@@ -35,7 +35,7 @@ const Searchbar = () => {
     <div className={`relative flex items-center rounded-2xl border 
     opacity-80 hover:opacity-100 
     border-foreground/30  bg-background/95 
-    duration-200 h-full text-sm w-[40%] 
+    duration-200 h-full text-sm lg:w-[40%] w-[65%] 
     `}
     >
       <div className='text-foreground pl-4 '>

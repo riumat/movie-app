@@ -82,6 +82,10 @@ export const relevantTvJobs = [
 
 export const selectorTvList = [
   {
+    name: "Overview",
+    value: ""
+  },
+  {
     name: "Cast",
     value: "cast"
   },
@@ -104,6 +108,10 @@ export const selectorTvList = [
 ];
 
 export const selectorMovieList = [
+  {
+    name: "Overview",
+    value: ""
+  },
   {
     name: "Cast",
     value: "cast"

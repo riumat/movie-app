@@ -1,5 +1,6 @@
 "use client"
 import { imageUrl, imgWidth, youtubeUrl } from "@/lib/constants";
+import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,13 +9,14 @@ import ReactPlayer from "react-player/lazy";
 const BackgroundPlayer = ({ video }: { video: { url: string, title: string, id: number, poster: string } }) => {
   const [isEnded, setIsEnded] = useState(false);
   const [domLoaded, setDomLoaded] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     setDomLoaded(true);
   }, []);
 
   return (
-    <div className='absolute h-[100vh] w-full -top-40 overflow-hidden -z-10'>
+    <div className='absolute h-full w-full -top-40 overflow-hidden -z-10'>
       {domLoaded && (
         <>
           {
@@ -25,7 +27,7 @@ const BackgroundPlayer = ({ video }: { video: { url: string, title: string, id: 
                   alt={video.title}
                   layout="fill"
                   objectFit="cover"
-                  sizes="100vw"
+                  sizes={isDesktop ? "100vw" : "100vh"}
                 />
               </div>
             ) : (
@@ -47,9 +49,9 @@ const BackgroundPlayer = ({ video }: { video: { url: string, title: string, id: 
         </>
       )}
 
-      <div className='absolute top-0 left-0 bg-gradient-to-r from-background to-transparent  z-0 w-[35%] h-full ' />
-      <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-background via-background/75 to-transparent z-0" />
-      <div className="absolute w-full h-[50%] top-[40%] left-20 z-50">
+      <div className='hidden lg:visible absolute top-0 left-0 bg-gradient-to-r from-background to-transparent  z-0 w-[35%] h-full ' />
+      <div className="absolute -bottom-[10px] left-0 w-[101%] h-full lg:h-[50%] bg-gradient-to-t from-background via-background/90 lg:via-background/80 to-transparent z-0 " />
+      <div className="absolute w-full h-[50%] top-[40%] text-center lg:text-start lg:left-20 z-50 ">
         <p className="font-light">Top trending movie this week</p>
         <Link
           href={`/movies/${video.id}`}
