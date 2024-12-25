@@ -1,15 +1,11 @@
-"use client";
+import ContentCard from "@/components/cards/content-card";
 import MultiCard from "@/components/cards/multi-card";
-import { MovieResult } from "@/lib/types/movie";
-import { PeopleResult } from "@/lib/types/people";
-import { TvResult } from "@/lib/types/tv";
+import PersonCard from "@/components/cards/person-card";
+import SimpleContentCard from "@/components/cards/simple-content-card";
 import Link from "next/link";
 
 interface MultiGridProps {
-  searchResults: (MovieResult | TvResult | PeopleResult)[];
-  currentPage: number;
-  totalPages: number;
-  query: string
+  searchResults: any[];
 }
 
 const MultiGrid = ({ searchResults }: MultiGridProps) => {
@@ -19,13 +15,32 @@ const MultiGrid = ({ searchResults }: MultiGridProps) => {
 
   return (
     <div className="flex-1 bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col pb-3 ">
-      <div className="mt-2 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
-        {searchResults.map((result, index) => (
+      <div className="py-5 px-3 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-x-5 gap-y-10 overflow-x-hidden scrollbar-thin bg-background/95">
+        {searchResults.map((item: any, index) => (
           <Link
             key={index}
-            href={`/${result.media_type}/${result.id}`}
+            href={`/${item.media_type}/${item.id}`}
+            className="flex flex-col items-center gap-2"
           >
-            <MultiCard key={index} item={result} />
+            {item.media_type !== "person" &&
+              (item.user ? (
+                <ContentCard
+                  key={`${index}-${item.id}-${item.type}`}
+                  item={item}
+                />
+              ) : (
+                <SimpleContentCard
+                  key={`${index}-${item.id}-${item.type}`}
+                  item={item}
+                />
+              ))}
+            {item.media_type === "person" && (
+              <PersonCard
+                item={item}
+              />
+            )}
+
+            <p className="font-light px-3 py-1 border border-foreground/30 rounded-xl  text-sm">{item.media_type}</p>
           </Link>
         ))}
       </div>

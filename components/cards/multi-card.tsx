@@ -1,67 +1,75 @@
 "use client"
-import { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { MovieResult } from '@/lib/types/movie';
-import { TvResult } from '@/lib/types/tv';
-import { PeopleResult } from '@/lib/types/people';
-import Loader from '@/components/layout/loader';
+import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
+import { FaEye, FaRegEye } from "react-icons/fa6";
+import useIsWatched from '@/lib/hooks/use-watched';
+import useWatchlist from '@/lib/hooks/use-watchlist';
+import ImageWithLoader from '@/components/layout/image-with-loader';
 
-//
-const MultiCard = ({ item }: { item: MovieResult | TvResult | PeopleResult }) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const image = item.media_type === 'person' ? item.profile_path : item.poster_path;
+const ContentCard = ({ item, }: { item: any }
+) => {
+  const { isWatched, handleIsWatched } = useIsWatched(item);
+  const { isListed, handleWatchlist } = useWatchlist(item);
+  const imgSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
-  const onLoadCallback = () => {
-    setIsImageLoaded(true);
-  };
-  const onErrorCallback = () => {
-    setIsImageLoaded(false);
-  };
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>, handler: () => void) => {
+    e.stopPropagation();
+    e.preventDefault();
+    handler();
+  }
 
   return (
-    <div className=" flex flex-col w-full max-w-[140px] rounded-lg mx-auto bg-transparent text-foreground gap-3 ">
-      <div className="relative w-full max-h-92 pb-[150%] rounded-lg overflow-hidden">
-        {!isImageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader />
-          </div>
-        )}
-        <Image
-          src={image ? `${imageUrl}${imgWidth.backdrop[300]}${image}` : placeholders.multi}
-          alt={"alt item"}
-          fill
-          className='rounded-lg z-30 object-contain'
-          onLoad={onLoadCallback}
-          onError={onErrorCallback}
-          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-          loading='lazy'
-        />
-      </div>
-      <div className=" flex flex-col items-center text-sm">
-        {item.media_type === 'person' ? (
-          <div className="font-semibold text-center mb-2 text-base">{item.name}</div>
-        ) : (
-          <div className="font-semibold text-center mb-2 text-base">{item.media_type === "movie" ? item.title : item.name}</div>
-        )}
-        <div className='flex gap-2 justify-center '>
-          {item.media_type && (
-            <p className=" font-light px-3 py-1 border border-foreground/30 rounded-xl  text-sm">{item.media_type[0].toUpperCase() + item.media_type.slice(1)} </p>
+    <div className={`flex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group`}>
+      {isWatched && (
+        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-t-lg z-40 shadow py-1">
+          <FaRegEye size={17} />
+          <p className='text-center py-1'>Watched</p>
+        </div>
+      )}
+      {isListed && (
+        <div className="absolute bottom-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-b-lg z-40 shadow py-1">
+          <FaRegBookmark size={17} />
+          <p className='text-center py-1'>Watchlist</p>
+        </div>
+      )}
+      <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
+        <ImageWithLoader src={imgSrc} />
+        <div className="content-card-hover">
+          {item.type === "movie" && (
+            <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{item.title}</p>
           )}
-          {item.media_type !== "person" && (
-            item.media_type === "movie" ? (
-              item.release_date && (
-                <p className=' font-light px-3 py-1 border border-foreground/30 rounded-xl text-sm'>{item.release_date?.slice(0, 4)}</p>
-              )
-            ) : (
-              (item.first_air_date) && (
-                <p className='font-light px-3 py-1 border border-foreground/30 rounded-xl text-sm'>{item.first_air_date?.slice(0, 4)}</p>
-              )
-            ))}
+          {item.type === "tv" && (
+            <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{item.name}</p>
+          )}
+          <div className='flex justify-evenly items-center mb-3 w-full'>
+            <div className="flex justify-between items-center">
+              {isWatched ? (
+                <div className="content-card-button" onClick={(e) => handleClick(e, handleIsWatched)}>
+                  <FaEye size={30} />
+                </div>
+              ) : (
+                <div className="content-card-button" onClick={(e) => handleClick(e, handleIsWatched)}>
+                  <FaRegEye size={30} />
+                </div>
+              )}
+            </div>
+            <div className="flex justify-between items-center">
+              {isListed ? (
+                <div className="content-card-button" onClick={(e) => handleClick(e, handleWatchlist)}>
+                  <FaBookmark size={30} />
+                </div>
+              ) : (
+                <div className="content-card-button" onClick={(e) => handleClick(e, handleWatchlist)}>
+                  <FaRegBookmark size={30} />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default MultiCard;
+export default ContentCard;

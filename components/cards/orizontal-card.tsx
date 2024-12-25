@@ -21,7 +21,7 @@ const OrizontalCard = ({ item }: { item: MovieData | TvData }) => {
   }
 
   return (
-    <div className={`flex flex-col bg-transparent w-[70%] lg:w-full max-w-[340px] rounded-lg mx-auto relative group `}>
+    <div className={`flex flex-col bg-transparent w-[70%] lg:w-full max-w-[250px] rounded-lg mx-auto relative group `}>
       {isWatched && (
         <div className="absolute top-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-t-lg z-40 shadow ">
           <FaRegEye size={17} />

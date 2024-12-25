@@ -1,10 +1,8 @@
 "use client"
 import React from 'react';
-import Image from 'next/image';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
-import Loader from '@/components/layout/loader';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
 
@@ -18,10 +16,10 @@ const SimpleContentCard = ({ item }: { item: MovieData | TvData }) => {
         <ImageWithLoader src={imgSrc} />
         <div className="content-card-hover">
           {(item.media_type === "movie" || item.type === "movie") && (
-            <p className="text-foreground text-sm font-bold z-50 mt-3 text-center">{(item as MovieData).title}</p>
+            <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{(item as MovieData).title}</p>
           )}
           {(item.media_type === "tv" || item.type === "tv") && (
-            <p className="text-foreground text-sm font-bold z-50 mt-3 text-center">{(item as TvData).name}</p>
+            <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{(item as TvData).name}</p>
           )}
 
         </div>

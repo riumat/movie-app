@@ -1,13 +1,21 @@
+import { getSession } from "@/lib/session";
 import { PrismaClient } from "@prisma/client";
 
 export async function POST(request: Request) {
   const prisma = new PrismaClient();
 
   try {
+    const session = await getSession();
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const body = await request.json();
-    const { personId, userId } = body;
+    const { personId } = body;
 
-    if (!personId || !userId) {
+    if (!personId) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -16,7 +24,7 @@ export async function POST(request: Request) {
 
     const existingRow = await prisma.person.findFirst({
       where: {
-        user_id: Number(userId),
+        user_id: Number(session.user.id),
         person_id: Number(personId),
       },
     });
@@ -29,7 +37,7 @@ export async function POST(request: Request) {
     }
     await prisma.person.create({
       data: {
-        user_id: Number(userId),
+        user_id: Number(session.user.id),
         person_id: Number(personId),
       },
     });
@@ -55,10 +63,17 @@ export async function DELETE(request: Request) {
   const prisma = new PrismaClient();
 
   try {
+    const session = await getSession();
+    if (!session) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const body = await request.json();
-    const { personId, userId } = body;
+    const { personId } = body;
 
-    if (!personId || !userId) {
+    if (!personId) {
       return new Response(JSON.stringify({ error: "Invalid input data" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -67,7 +82,7 @@ export async function DELETE(request: Request) {
 
     const existingRow = await prisma.person.findFirst({
       where: {
-        user_id: Number(userId),
+        user_id: Number(session.user.id),
         person_id: Number(personId),
       },
     });

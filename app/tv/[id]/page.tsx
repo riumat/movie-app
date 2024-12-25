@@ -9,19 +9,31 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   const media = "tv"
   const movieData = await getGenericContentData(params.id, media)
     .catch(() => { notFound() })
-
-  console.log(movieData)
+    
   return (
-    <div className='flex gap-2 justify-between mx-10 border'>
-      <div className='flex gap-5 items-center flex-[1.5] text-sm '>
+    <div className='flex gap-2 justify-between mx-10 '>
+      <div className='flex gap-5 items-center flex-[2] text-base'>
         <div className='w-52 h-72 relative' >
           <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} />
         </div>
-        <div className='flex flex-col gap-1 items-start justify-evenly h-full'>
+        <div className='grid grid-cols-2 gap-x-10 h-full py-3'>
           <div className='flex flex-col gap-1 items-start'>
             <p className='font-light text-sm'>Original Title</p>
             <p className='font-bold'>{movieData.original_name}</p>
           </div>
+          <div className='flex flex-col gap-1 items-start'>
+            <p className='font-light text-sm'>Number Of Episodes</p>
+            <p className='font-bold'>{movieData.number_of_episodes}</p>
+          </div>
+          <div className='flex flex-col gap-1 items-start'>
+            <p className='font-light text-sm'>Created By</p>
+            <div className='font-bold flex flex-col '>
+              {movieData.created_by.map((person: any) => (
+                <p key={person.name}>{person.name}</p>
+              ))}
+            </div>
+          </div>
+
           <div className='flex flex-col gap-1 items-start'>
             <p className='font-light text-sm'>Production</p>
             <div className='font-bold flex flex-col '>
@@ -38,26 +50,13 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
               ))}
             </div>
           </div>
+
+
+
         </div>
       </div>
-      <div className='flex flex-col  items-start justify-center gap-5 flex-1 text-sm '>
-        <div className='flex flex-col gap-1 items-start'>
-          <p className='font-light text-sm'>Created By</p>
-          <div className='font-bold flex flex-col '>
-            {movieData.created_by.map((person: any) => (
-              <p key={person.name}>{person.name}</p>
-            ))}
-          </div>
-        </div>
-        <div className='flex flex-col gap-1 items-start'>
-          <p className='font-light text-sm'>Average Episode Runtime</p>
-          <p className='font-bold'>{getAverageEpisodeRuntime(movieData.episode_run_time)}</p>
-        </div>
-        <div className='flex flex-col gap-1 items-start'>
-          <p className='font-light text-sm'>Number Of Episodes</p>
-          <p className='font-bold'>{movieData.number_of_episodes}</p>
-        </div>
-      </div>
+
+
 
       <div className='flex-1 flex justify-center '>
         <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />

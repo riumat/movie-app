@@ -9,8 +9,7 @@ import { Button } from '@/components/ui/button';
 import AuthModal from '@/components/auth/auth-modal';
 import LogoutModal from '@/components/auth/logout-modal';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const Sidebar = ({ session }: { session: any }) => {
   const pathname = usePathname();
@@ -23,8 +22,6 @@ const Sidebar = ({ session }: { session: any }) => {
     setIsMounted(true);
   }, []);
 
-  
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -34,7 +31,7 @@ const Sidebar = ({ session }: { session: any }) => {
   }, [session])
 
   if (!isMounted) {
-    return null; 
+    return null;
   }
 
   if (isDesktop) {
@@ -46,7 +43,6 @@ const Sidebar = ({ session }: { session: any }) => {
         >
           <div className={`h-[100vh] px-4 py-3 flex flex-col justify-between gap-5 z-20 w-full relative border-r border-neutral-700`}>
 
-            <div className={`h-[100vh] content-[''] absolute inset-0 bg-[url('https://www.toptal.com/designers/subtlepatterns/uploads/slash_it.png')] bg-repeat opacity-30 -z-10 `} />
             <ul className='relative text-sm flex flex-col gap-1 mt-16'>
               {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
                 <li key={item.path} className="mb-7">
@@ -98,7 +94,7 @@ const Sidebar = ({ session }: { session: any }) => {
         onClick={toggleSidebar}
         className={`fixed z-50 top-3 left-5  w-9 h-9 lg:h-8 lg:w-8 cursor-pointer border border-input bg-background/80 shadow-sm hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg lg:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0`}
       >
-        <IoMenu  className='text-foreground  z-50' />
+        <IoMenu className='text-foreground  z-50' />
       </SheetTrigger>
       <SheetContent side={'left'} className='max-w-[50%] p-0'>
         <div className={`h-[100vh] w-full px-4 py-3 flex flex-col justify-between gap-5 z-20  relative border-r border-neutral-700

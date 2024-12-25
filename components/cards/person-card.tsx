@@ -1,46 +1,21 @@
-import Loader from '@/components/layout/loader'
-import { imageUrl, imgWidth } from '@/lib/constants'
-import Image from 'next/image'
+import ImageWithLoader from '@/components/layout/image-with-loader'
+import { imageUrl, imgWidth, placeholders } from '@/lib/constants'
 import React from 'react'
 
-
-const PeopleCard = ({ item }: { item: any }) => {
-  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
-
-  const onLoadCallback = () => {
-    setIsImageLoaded(true);
-  };
-
-  const onErrorCallback = () => {
-    setIsImageLoaded(false);
-  };
-
+const PersonCard = ({ item }: { item: any }) => {
+  const imageSrc = item.profile_path ? `${imageUrl}${imgWidth.poster[342]}${item.profile_path}` : placeholders.profile;
 
   return (
-    <div className="flex items-start gap-3  relative justify-start">
-      <div className='flex justify-start relative w-20 h-32'>
-        {!isImageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader />
-          </div>
-        )}
-        <Image
-          src={`${imageUrl}${imgWidth.poster[342]}${item.profile_path}`}
-          alt={item.title}
-          fill
-          className='rounded-lg z-30 object-contain block '
-          onLoad={onLoadCallback}
-          onError={onErrorCallback}
-          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-          loading='lazy'
-        />
+    <div className="fflex flex-col bg-transparent w-full max-w-[170px] rounded-lg mx-auto relative group">
+      <div className='relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden'>
+        <ImageWithLoader src={imageSrc} />
       </div>
-      <div className="flex flex-col gap-1 flex-1 ">
-        <p className="font-bold text-xl">{item.name}</p>
+      <div className="content-card-hover ">
+        <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{item.name}</p>
       </div>
 
     </div>
   )
 }
 
-export default PeopleCard
+export default PersonCard

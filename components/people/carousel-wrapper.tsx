@@ -18,7 +18,7 @@ const CarouselWrapper = ({ contentList }: { contentList: MovieData[] | TvData[] 
         {contentList.map(content => (
           <CarouselItem
             key={content.id}
-            className={"basis-[100%] lg:basis-[20%]"}>
+            className={"basis-[100%] lg:basis-[16.66%]"}>
             <Link
               href={`/${content.media_type}/${content.id}`}
             >

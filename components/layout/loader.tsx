@@ -7,7 +7,7 @@ const Loader = () => {
   const { theme } = useTheme();
   const color = theme === "light" ? "#000000" : "#ffffff"
   return (
-    <RotateLoader color={color} size={15} />
+    <RotateLoader color={color} size={9} />
   )
 }
 

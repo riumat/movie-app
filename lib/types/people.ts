@@ -57,7 +57,8 @@ export type PersonData = {
     release_date: string,
     media_type: string,
     job: string
-  }[]
+  }[],
+  user?: any
 }
 
 export type PeopleResult = {
@@ -69,7 +70,7 @@ export type PeopleResult = {
   gender: number,
 }
 
-export type PeopleFollowed={
+export type PeopleFollowed = {
   id: number,
   name: string,
   profile_path: string,

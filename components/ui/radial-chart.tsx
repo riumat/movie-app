@@ -21,6 +21,12 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import Link from "next/link"
 import { getRatingAngle } from "@/lib/functions"
 
+const getVoteColor = (vote: number): string => {
+  // HSL: 0 = red, 120 = green
+  const hue = Math.round((vote / 10) * 120);
+  return `hsl(${hue}, 70%, 50%)`;
+};
+
 
 const chartConfig = {
   vote: {
@@ -30,9 +36,9 @@ const chartConfig = {
 } satisfies ChartConfig
 
 const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
-  const chartData = [
-    { vote: data.value.toFixed(1), fill: "#ffffff" },
-  ]
+  const chartData = [{ vote: data.value.toFixed(1) }];
+  const voteColor = getVoteColor(data.value);
+
   return (
     <Card className="flex flex-col justify-start items-center border-none">
       <CardHeader className="items-center p-0">
@@ -45,10 +51,11 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
         >
           <RadialBarChart
             data={chartData}
-            startAngle={0}
-            endAngle={getRatingAngle(data.value)}
+            startAngle={90}
+            endAngle={getRatingAngle(data.value) + 90}
             innerRadius={80}
             outerRadius={110}
+
           >
             <PolarGrid
               gridType="circle"
@@ -57,7 +64,13 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
               className="first:fill-muted last:fill-background"
               polarRadius={[86, 74]}
             />
-            <RadialBar dataKey="vote" background cornerRadius={10} />
+            <RadialBar
+              dataKey="vote"
+              background
+              cornerRadius={3}
+              fill={voteColor}
+
+            />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
@@ -79,7 +92,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="fill-foreground text-sm" 
                         >
                           Average Vote
                         </tspan>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const useWatchlist = (contentData: MovieData | TvData) => {
-  const [isListed, setIsListed] = useState<boolean>(contentData.user?.watchlist ?? false);
+  const [isListed, setIsListed] = useState<boolean>(contentData.user?.watchlisted ?? false);
 
   const handleWatchlist = () => {
     const newListed = !isListed;

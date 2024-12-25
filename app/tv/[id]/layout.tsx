@@ -11,7 +11,7 @@ export default async function MovieLayout({ children, params }: { children: Reac
   const media = "tv"
   const movieData = await getHeaderContentData(params.id, media)
     .catch(() => { notFound() })
-
+    console.log(movieData)
   return (
     <div className="flex-1 flex flex-col items-center w-full">
       <ContentBackground

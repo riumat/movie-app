@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button'
 import useIsFollowing from '@/lib/hooks/use-follow';
 import { FaHeart, FaHeartCrack } from "react-icons/fa6";
 
-const ToggleFollow = ({ userData, personId }: { userData: any, personId: number }) => {
-  const { isFollowing, handleIsFollowing } = useIsFollowing(userData, personId)
+const ToggleFollow = ({ following, personId }: { following: boolean, personId: number }) => {
+  const { isFollowing, handleIsFollowing } = useIsFollowing(following, personId)
   return (
     <Button
       onClick={handleIsFollowing}

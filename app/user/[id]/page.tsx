@@ -15,7 +15,6 @@ const userPage = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
-  console.log(userData.genres)
 
   return (
     <div className="flex-1 ">

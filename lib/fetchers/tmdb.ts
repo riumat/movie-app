@@ -121,7 +121,7 @@ export const getTmdbHeaderData = async (id: string, media: string) => {
 
     return {
       ...contentData,
-      providers: providersData,
+      providers: providersData.results?.IT?.flatrate ?? [],
       images: imagesData
     };
   } catch (error) {

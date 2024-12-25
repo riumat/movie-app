@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -56,9 +57,10 @@ const WatchlistModal = ({ id, userData }: { id: string, userData: ProfileData })
           <p className="font-bold text-4xl">{userData.watchlist.length}</p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">
+      <DialogContent className="max-w-[60vw] h-[82vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
           <DialogTitle className="text-2xl">Your Watchlist</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
           {isError ? (

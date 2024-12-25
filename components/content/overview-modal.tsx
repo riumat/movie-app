@@ -16,12 +16,13 @@ const OverviewModal = ({ overview }: { overview: string }) => {
           <IoReaderOutline size={17} />
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[50vw] max-h-[60vh] overflow-hidden flex flex-col gap-8">
+
+      <DialogContent className="sm:max-w-[50vw] max-h-[60vh] min-h-[30vh] overflow-hidden flex flex-col gap-8  ">
         <DialogHeader>
           <DialogTitle className="text-2xl">About</DialogTitle>
         </DialogHeader>
-        <div className="h-full overflow-y-auto scrollbar-thin">
-          <p className="font-normal leading-8">{overview}</p>
+        <div className="h-full overflow-y-auto scrollbar-thin ">
+          <p className="font-normal leading-8 mx-16">{overview}</p>
         </div>
       </DialogContent>
     </Dialog>

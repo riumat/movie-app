@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-import Image from 'next/image';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
 import { MovieData } from '@/lib/types/movie';
 import { TvData } from '@/lib/types/tv';
@@ -30,7 +29,7 @@ const ContentCard = ({ item, }: { item: MovieData | TvData }
           <p className='text-center py-1'>Watched</p>
         </div>
       )}
-       {isListed && (
+      {isListed && (
         <div className="absolute bottom-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-b-lg z-40 shadow py-1">
           <FaRegBookmark size={17} />
           <p className='text-center py-1'>Watchlist</p>

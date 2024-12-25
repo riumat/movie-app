@@ -9,13 +9,15 @@ import RadialChart from '@/components/ui/radial-chart';
 const MoviePage = async ({ params }: { params: { id: string } }) => {
   const media = "movie"
   const movieData = await getGenericContentData(params.id, media)
-    .catch(() => { notFound() })
+    .catch((e) => {
+      notFound()
+    })
 
   const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
 
   return (
     <div className='flex flex-col lg:flex-row gap-20 md:gap-2  justify-between mx-10 '>
-      <div className='flex gap-5 items-center flex-[1.5] text-sm border'>
+      <div className='flex gap-5 items-center flex-[1.5] '>
         <div className='w-52 h-72 relative' >
           <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} />
         </div>

@@ -8,7 +8,6 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   const media = "movie"
   const similarContent = await getSimilarContentData(params.id, media)
     .catch(() => { notFound() })
-    console.log(similarContent)
   return (
     <SimilarContentSection movieData={similarContent} />
   );

@@ -22,9 +22,9 @@ export const FiltersSidebar = ({
 }: FiltersSidebarProps) => {
 
   return (
-    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
+    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10 ">
+      <p className="text-center font-bold">Filters</p>
       <div className="flex flex-col items-center">
-        <h2 className="text-sm font-normal mb-3 text-start">Genres</h2>
         <ComboboxFilter
           label="genres"
           selectedItems={filters.selectedGenres}
@@ -34,9 +34,8 @@ export const FiltersSidebar = ({
       </div>
 
       <div className="flex flex-col items-center">
-        <h2 className="text-sm font-normal mb-3 text-start">Watch Providers</h2>
         <ComboboxFilter
-          label="providers"
+          label="networks"
           selectedItems={filters.selectedProviders}
           items={providers}
           onChange={handlers.handleProviderChange}
@@ -57,7 +56,7 @@ export const FiltersSidebar = ({
           <TvSortInput sortType={filters.sortType} onChange={handlers.handleSortChange} />
         }
       </div>
-      <Button variant="secondary" className="w-full" onClick={handlers.handleReset}>Reset Filters</Button>
+      <Button variant="destructive" className="w-full" onClick={handlers.handleReset}>Reset Filters</Button>
     </div>
   )
 }

@@ -1,14 +1,18 @@
 "use client"
 import Pagination from "@/components/ui/pagination"
-import { useFilterState } from "@/lib/hooks/use-filter-state"
+import { useRouter } from "next/navigation";
 
-const PaginationWrapper = ({ totalPages }: { totalPages: number }) => {
-  const { filters, handlers } = useFilterState();
+const PaginationWrapper = ({ totalPages, query, page }: { totalPages: number, query: string, page: number }) => {
+  const router = useRouter();
+
+  const handleChangePage = (page: number) => {
+    router.push(`/search?query=${query}&page=${page}`);
+  }
   return (
     <Pagination
-      page={filters.page}
+      page={page}
       totalPages={totalPages}
-      handleChangePage={handlers.handleChangePage}
+      handleChangePage={handleChangePage}
     />
   )
 }

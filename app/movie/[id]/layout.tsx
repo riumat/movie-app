@@ -10,7 +10,8 @@ import { Suspense } from "react";
 export default async function MovieLayout({ children, params }: { children: React.ReactNode, params: any }) {
   const media = "movie"
   const movieData = await getHeaderContentData(params.id, media)
-    .catch(() => { notFound() })
+    .catch((e) => { 
+      notFound() })
 
   return (
     <div className="flex-1 flex flex-col items-center w-full">

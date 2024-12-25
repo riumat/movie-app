@@ -265,6 +265,9 @@ export const rateMovieFinance = (budget: number, revenue: number, releaseDate: s
   } else if (ratio >= 2 && ratio < 4) {
     return 2;
   } else if (ratio >= 4) {
+    if (revenue < 200000000) {
+      return 2;
+    }
     return 3;
   }
 

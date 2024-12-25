@@ -15,10 +15,10 @@ const Body = async ({ media, params }: Props) => {
   const [{ genres, providers }, { content, totalPages }] = await Promise.all([filterPromise, contentPromise])
 
   return (
-    <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden  ">
+    <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden">
       <FiltersSection props={{ genres, providers, media, totalPages }}>
         <Suspense fallback={
-          <div className="flex-1 mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin">
+          <div className="flex-1 mt-8 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-10 overflow-x-hidden h-full scrollbar-thin ">
             {Array.from({ length: 20 }).map((_, index) => (
               <ContentCardSkeleton key={index} />
             ))}

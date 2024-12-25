@@ -1,10 +1,9 @@
-import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const useIsFollowing = (userData: any, personId: number) => {
-  const [isFollowing, setIsFollowing] = useState<boolean>(userData.isFollowed);
+const useIsFollowing = (following: boolean, personId: number) => {
+  const [isFollowing, setIsFollowing] = useState<boolean>(following);
   const router = useRouter();
 
 
@@ -14,7 +13,6 @@ const useIsFollowing = (userData: any, personId: number) => {
       axios
         .post('/api/user/follow', {
           personId: personId,
-          userId: userData.userId,
         })
         .then(() => {
           setIsFollowing(newIsFollowing)
@@ -26,7 +24,6 @@ const useIsFollowing = (userData: any, personId: number) => {
         .delete('/api/user/follow', {
           data: {
             personId: personId,
-            userId: userData.id,
           },
         })
         .then(() => {

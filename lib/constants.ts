@@ -2,10 +2,7 @@ import { IoHomeOutline } from "react-icons/io5";
 
 import { FaFilm } from "react-icons/fa";
 import { FaTv } from "react-icons/fa";
-import { BiCameraMovie } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
-
-
 
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
