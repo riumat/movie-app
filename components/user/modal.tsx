@@ -11,15 +11,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
-import { movieCount, tvCount } from "@/lib/functions";
+import ModalOpenerButton from "@/components/user/modal-opener-button";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
+import { ListCollapse } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { CgDanger } from "react-icons/cg";
 import { IoSadOutline } from "react-icons/io5";
-
-
 
 const modalType = (modal: string) => {
   switch (modal) {
@@ -27,25 +26,6 @@ const modalType = (modal: string) => {
       return "/api/user/movie"
     case "tv":
       return "/api/user/tv"
-  }
-}
-
-const TriggerType = (modal: string, userData: ProfileData) => {
-  switch (modal) {
-    case "movie":
-      return (
-        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"} >
-          <p className="font-light text-lg">Movies</p>
-          <p className="font-bold text-4xl">{movieCount(userData.watched)}</p>
-        </Button >
-      )
-    case "tv":
-      return (
-        <Button className="flex flex-col gap-1 items-center relative px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
-          <p className="font-light text-lg">Tv Shows</p>
-          <p className="font-bold text-4xl">{tvCount(userData.watched)}</p>
-        </Button>
-      )
   }
 }
 
@@ -57,8 +37,6 @@ const titleModal = (modal: string) => {
       return "Watched Tv Shows"
   }
 }
-
-
 
 const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, modal: string }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,8 +69,8 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
   }
   return (
     <Dialog>
-      <DialogTrigger asChild onClick={() => handleList(page)} >
-        {TriggerType(modal, userData)}
+      <DialogTrigger  onClick={() => handleList(page)} className="cursor-pointer" >
+        <ModalOpenerButton />
       </DialogTrigger>
       <DialogContent className="max-w-[60vw] h-[82vh] overflow-hidden flex flex-col gap-8" >
         <DialogHeader>

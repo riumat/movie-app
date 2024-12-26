@@ -1,12 +1,8 @@
 import Chart from "@/components/ui/donut"
 import { Separator } from "@/components/ui/separator"
+import ActivitySection from "@/components/user/activity-section"
 import Header from "@/components/user/header"
-import Modal from "@/components/user/modal"
-import PeopleModal from "@/components/user/people-modal"
-import RatingModal from "@/components/user/rating-modal"
 import RequestModal from "@/components/user/requests-modal"
-import ReviewModal from "@/components/user/review-modal"
-import WatchlistModal from "@/components/user/watchlist-modal"
 import { formatMinutes } from "@/lib/functions"
 import { ProfileData } from "@/lib/types/user"
 import Link from "next/link"
@@ -18,19 +14,15 @@ const Body = ({ id, userData, session }: { id: string, userData: ProfileData, se
     <div className="flex flex-col w-[95%] h-[93.5%]   text-foreground px-3  pb-0  rounded-lg ">
 
       <Header id={id} session={session} userData={userData} />
-
-      <div className="flex items-center gap-10 w-full justify-evenly my-5  ">
-        <Modal key={"modal-1"} id={id} userData={userData} modal="movie" />
-        <Modal key={"modal-2"} id={id} userData={userData} modal="tv" />
-        <RatingModal key={"modal-3"} id={id} userData={userData} />
-        <ReviewModal key={"modal-4"} id={id} userData={userData} />
-        <PeopleModal key={"modal-5"} id={id} userData={userData} />
-        <WatchlistModal key={"modal-6"} id={id} userData={userData} />
+      <Separator />
+      <div className="flex">
+        <ActivitySection id={id} userData={userData} />
       </div>
 
       <div className="w-full flex-1 relative flex bg-background rounded-xl pt-5">
-
         <Chart genres={userData.genres} />
+
+
         <Separator orientation="vertical" className="mr-6" />
 
         <div className="flex-1 h-full flex flex-col ">

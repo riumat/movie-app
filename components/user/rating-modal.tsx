@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
+import ModalOpenerButton from "@/components/user/modal-opener-button";
 import { ContentRated } from "@/lib/types/content";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
@@ -50,16 +51,13 @@ const RatingModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
   }
   return (
     <Dialog>
-      <DialogTrigger asChild onClick={() => handleList(page)} >
-        <Button className="flex flex-col gap-1 items-center relative  px-7 py-3 h-full border-b border-t-0 border-x-0 w-36 transform transition duration-200 hover:scale-105" variant={"outline"}>
-          <p className="font-light text-lg">Rated</p>
-          <p className="font-bold text-4xl">{userData.rated}</p>
-        </Button>
+      <DialogTrigger onClick={() => handleList(page)} >
+        <ModalOpenerButton />
       </DialogTrigger>
       <DialogContent className="max-w-[60vw] h-[82vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
           <DialogTitle className="text-2xl">Your Ratings</DialogTitle>
-          <DialogDescription/>
+          <DialogDescription />
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
           {isError ? (
