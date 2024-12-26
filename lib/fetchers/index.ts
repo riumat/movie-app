@@ -1,6 +1,6 @@
 "server-only"
 
-import { getPrismaContentData, getPrismaContentFriendsData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
+import { getPrismaContentData, getPrismaContentFriendsData, getPrismaFeatureContentData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
 import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
 import { formatCombinedCredits, formatCreditsReleaseDate, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList, formatVideoContent } from "@/lib/functions";
 
@@ -157,13 +157,13 @@ export const getSimilarContentData = async (contentId: string, media: string) =>
 
   return {
     recommendations: recommendations.results.map((result: any) => ({
-       ...result,
-        type: media,
-        user: prismaContent ? {
-          watched: prismaContent.watchedSet.has(result.id),
-          watchlisted: prismaContent.watchlistedSet.has(result.id)
-        } : null
-       }))
+      ...result,
+      type: media,
+      user: prismaContent ? {
+        watched: prismaContent.watchedSet.has(result.id),
+        watchlisted: prismaContent.watchlistedSet.has(result.id)
+      } : null
+    }))
   };
 }
 
@@ -241,4 +241,15 @@ export const getLandingPageData = async () => {
     })
     )
   }
+}
+
+export const getFeaturedContentData = async (id: string) => {
+  const prismaContent = await getPrismaFeatureContentData(id);
+  if (!prismaContent) return null;
+  const tmdbContent = await getTmdbContentData(prismaContent.content_id.toString(), prismaContent.content_type);
+
+  return {
+    prismaContent,
+    tmdbContent
+  };
 }

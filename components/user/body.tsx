@@ -1,11 +1,13 @@
 import Chart from "@/components/ui/donut"
 import { Separator } from "@/components/ui/separator"
 import ActivitySection from "@/components/user/activity-section"
+import FeaturedContent from "@/components/user/featured-content"
 import Header from "@/components/user/header"
 import RequestModal from "@/components/user/requests-modal"
 import { formatMinutes } from "@/lib/functions"
 import { ProfileData } from "@/lib/types/user"
 import Link from "next/link"
+import { Suspense } from "react"
 import { IoSadOutline } from "react-icons/io5";
 
 
@@ -17,6 +19,9 @@ const Body = ({ id, userData, session }: { id: string, userData: ProfileData, se
       <Separator />
       <div className="flex">
         <ActivitySection id={id} userData={userData} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FeaturedContent id={id} session={session} />
+        </Suspense>
       </div>
 
       <div className="w-full flex-1 relative flex bg-background rounded-xl pt-5">

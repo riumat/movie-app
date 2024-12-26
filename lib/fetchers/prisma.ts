@@ -218,3 +218,32 @@ export const getPrismaWatchlist = async () => {
     await prisma.$disconnect();
   }
 }
+
+
+export const getPrismaFeatureContentData = async (userId: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        user_id: Number(userId)
+      },
+      select: {
+        featured_content_id: true,
+        featured_content_type: true
+      }
+    });
+
+    if (!user?.featured_content_id || !user?.featured_content_type) return null;
+
+    const content = await prisma.content.findFirst({
+      where: {
+        content_id: user.featured_content_id,
+        content_type: user.featured_content_type,
+        user_id: Number(userId)
+      }
+    });
+
+    return content;
+  } finally {
+    await prisma.$disconnect();
+  }
+}

@@ -1,7 +1,6 @@
 "use client"
 import ContentUserCard from "@/components/cards/content-user-card";
 import Loader from "@/components/layout/loader";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,6 @@ import Pagination from "@/components/ui/pagination";
 import ModalOpenerButton from "@/components/user/modal-opener-button";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
-import { ListCollapse } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { CgDanger } from "react-icons/cg";
