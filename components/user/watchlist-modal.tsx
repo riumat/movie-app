@@ -62,11 +62,11 @@ const WatchlistModal = ({ id, userData }: { id: string, userData: ProfileData })
           <DialogTitle className="text-2xl">Your Watchlist</DialogTitle>
           <DialogDescription />
         </DialogHeader>
-        <div className="h-full flex flex-col gap-5  overflow-hidden">
+        <div className="h-full flex flex-col gap-5 overflow-hidden">
           {isError ? (
             <div className="flex flex-col items-center justify-center gap-5 h-full">
               <CgDanger size={35} />
-              <p className="text-xl">You need to be friends with this user to view their informations!</p>
+              <p className="text-xl">You need to be friend with this user to view their informations!</p>
             </div>
           ) : (
             <>
