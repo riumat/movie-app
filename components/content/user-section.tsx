@@ -8,18 +8,17 @@ import useIsWatched from "@/lib/hooks/use-watched";
 import ToggleWatchlist from "@/components/content/toggle-watchlist";
 import { MovieData } from "@/lib/types/movie";
 import { TvData } from "@/lib/types/tv";
-import { ContentUserData } from "@/lib/types/content";
 
-const UserSection = ({ userData, contentData }:
-  { userData: ContentUserData | undefined, contentData: MovieData | TvData }) => {
-  if (!userData) return (
+const UserSection = ({ contentData }:
+  { contentData: MovieData | TvData }) => {
+  if (!contentData.user) return (
     <AuthModal
       isOpen={false}
       label="Login to rate or review"
     />
   );
 
-  const { isWatched, handleIsWatched } = useIsWatched(userData.watched, contentData);
+  const { isWatched, handleIsWatched } = useIsWatched(contentData);
 
   return (
     <div className="flex gap-5 ">
@@ -44,17 +43,14 @@ const UserSection = ({ userData, contentData }:
       <div className="flex items-center " >
         <RenderStars
           isWatched={isWatched}
-          userData={userData}
           contentData={contentData}
         />
       </div>
       <ReviewModal
-        userData={userData}
         contentData={contentData}
         disabled={!isWatched}
       />
       <ToggleWatchlist
-        userData={userData}
         contentData={contentData}
       />
 

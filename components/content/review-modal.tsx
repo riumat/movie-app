@@ -17,9 +17,9 @@ import useReview from "@/lib/hooks/use-review"
 import { useEffect, useState } from "react"
 
 
-const ReviewModal = ({ userData, contentData, disabled }: { userData: any, contentData: any, disabled: boolean }) => {
+const ReviewModal = ({ contentData, disabled }: { contentData: any, disabled: boolean }) => {
   const [open, setOpen] = useState(false);
-  const { review, handleReview } = useReview(userData, contentData);
+  const { review, handleReview } = useReview(contentData);
   const [text, setText] = useState(review ? review : "");
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

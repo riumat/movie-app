@@ -1,13 +1,13 @@
 "use client"
 import { useTheme } from 'next-themes';
 import React from 'react'
-import { BeatLoader, HashLoader, RotateLoader } from 'react-spinners'
+import { RotateLoader } from 'react-spinners'
 
 const Loader = () => {
   const { theme } = useTheme();
-  const color = theme === "dark" ? "#ffffff" : "#000000"
+  const color = theme === "light" ? "#000000" : "#ffffff"
   return (
-    <RotateLoader color={color} size={15} />
+    <RotateLoader color={color} size={9} />
   )
 }
 

@@ -5,14 +5,13 @@ import { TvData } from "@/lib/types/tv";
 import axios from "axios";
 import { useState } from "react";
 
-const useReview = (userData: ContentUserData, contentData: MovieData | TvData) => {
-  const [review, setReview] = useState<string>(userData.review ?? "");
+const useReview = (contentData: MovieData | TvData) => {
+  const [review, setReview] = useState<string>(contentData.user.review ?? "");
 
   const handleReview = (newReview: string) => {
     axios
       .post('/api/user/review', {
         contentId: contentData.id,
-        userId: userData.userId,
         contentType: contentData.type,
         review: newReview,
       })

@@ -2,10 +2,7 @@ import { IoHomeOutline } from "react-icons/io5";
 
 import { FaFilm } from "react-icons/fa";
 import { FaTv } from "react-icons/fa";
-import { BiCameraMovie } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa6";
-
-
 
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
@@ -82,6 +79,10 @@ export const relevantTvJobs = [
 
 export const selectorTvList = [
   {
+    name: "Overview",
+    value: ""
+  },
+  {
     name: "Cast",
     value: "cast"
   },
@@ -104,6 +105,10 @@ export const selectorTvList = [
 ];
 
 export const selectorMovieList = [
+  {
+    name: "Overview",
+    value: ""
+  },
   {
     name: "Cast",
     value: "cast"
@@ -142,11 +147,18 @@ export const externalUrls = {
   tmdb: "https://www.themoviedb.org/person/"
 }
 
-export const twGenresStyle=[
+export const twGenresStyle = [
   "font-bold text-4xl ",
   "font-base text-lg ",
   "font-base text-lg ",
   "font-light text-base ",
   "font-light text-base ",
+]
+
+export const boxOfficeResults = [
+  { value: "Flop", color: "red-800" },
+  { value: "Average", color: "yellow-800" },
+  { value: "Success", color: "blue-800" },
+  { value: "Blockbuster", color: "green-800" }
 ]
 

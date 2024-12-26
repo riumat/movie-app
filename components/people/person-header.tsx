@@ -7,7 +7,7 @@ import { PersonData } from '@/lib/types/people';
 import Image from 'next/image';
 import React from 'react';
 
-const PersonHeader = ({ personData, userData }: { personData: PersonData, userData: any }) => {
+const PersonHeader = ({ personData }: { personData: PersonData }) => {
   return (
     <div className="relative w-full text-foreground px-5">
       <div className='flex justify-start items-start gap-10 ml-28'>
@@ -42,8 +42,8 @@ const PersonHeader = ({ personData, userData }: { personData: PersonData, userDa
 
           <p><span className="font-thin">Department:</span> {personData.known_for_department}</p>
 
-          {userData ? (
-            <ToggleFollow userData={userData} personId={personData.id} />
+          {personData.user ? (
+            <ToggleFollow following={personData.user} personId={personData.id} />
           ) : (
             <AuthModal
               isOpen={false}

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -12,13 +13,11 @@ import {
 import Pagination from "@/components/ui/pagination";
 import { movieCount, tvCount } from "@/lib/functions";
 import { ProfileData } from "@/lib/types/user";
-import { StopIcon } from "@radix-ui/react-icons";
 import axios from "axios";
-import { StopCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { CgDanger } from "react-icons/cg";
-import { IoSadOutline, IoSadSharp } from "react-icons/io5";
+import { IoSadOutline } from "react-icons/io5";
 
 
 
@@ -95,9 +94,10 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
       <DialogTrigger asChild onClick={() => handleList(page)} >
         {TriggerType(modal, userData)}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">
+      <DialogContent className="max-w-[60vw] h-[82vh] overflow-hidden flex flex-col gap-8" >
         <DialogHeader>
           <DialogTitle className="text-2xl">{titleModal(modal)}</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
           {isError ? (

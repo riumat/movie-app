@@ -1,22 +1,19 @@
-import YouTubePlayer from "@/components/layout/bg-player";
 import Body from "@/components/landing-page/body";
-import { fetchTrending } from "@/lib/fetchers";
-import { getSession } from "@/lib/session";
+import BackgroundPlayer from "@/components/layout/bg-player";
+import { getLandingPageData } from "@/lib/fetchers/index";
 
 const Home = async () => {
-  const session = await getSession();
-  const { movies, tv, video } = await fetchTrending();
+  const trendingData = await getLandingPageData();
   return (
     <>
-      <YouTubePlayer video={video} />
+      <BackgroundPlayer video={trendingData.video} />
       <Body
-        movies={movies}
-        tv={tv}
-        session={session}
+        movies={trendingData.movies}
+        tv={trendingData.tv}
       />
     </>
 
   );
 }
 
-export default Home;
+export default Home

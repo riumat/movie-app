@@ -1,3 +1,5 @@
+"use client"
+import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react'
 
@@ -38,6 +40,7 @@ export const useFilterState = () => {
     setPage(1)
     setSelectedGenres(updated)
     router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    
   }
 
   const handleProviderChange = (provider: number) => {

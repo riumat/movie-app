@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -58,6 +59,7 @@ const PeopleModal = ({ id, userData }: { id: string, userData: ProfileData }) =>
       <DialogContent className="sm:max-w-[50vw] h-[82vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
           <DialogTitle className="text-2xl">People You Follow</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
         <div className="h-full flex flex-col gap-5  overflow-hidden">
           {isError ? (

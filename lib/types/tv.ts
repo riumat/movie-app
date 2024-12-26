@@ -30,6 +30,7 @@ export type TvData = {
     origin_country: string;
   }[];
   number_of_episodes: number;
+  number_of_seasons: number;
   poster_path: string;
   backdrop_path: string;
   seasons: {
@@ -54,7 +55,10 @@ export type TvData = {
   },
   recommendations: TvData[],
   providers: ProviderItem[],
-  images: ImagesItem
+  images: ImagesItem,
+  watched: boolean,
+  watchlisted: boolean,
+  user: any,
 }
 
 export interface TvItem {

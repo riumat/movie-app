@@ -7,8 +7,8 @@ import { TvData } from "@/lib/types/tv"
 const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
 
   return (
-    <div className=' flex flex-col justify-end gap-5 w-full text-sm'>
-      <div className='w-full flex justify-start gap-3'>
+    <div className=' flex flex-col justify-end gap-7 w-full text-sm'>
+      <div className='w-full flex justify-start gap-10'>
         <OverviewModal overview={contentData.overview} /> 
         <ProviderModal providers={contentData.providers} />
       </div>
@@ -17,7 +17,7 @@ const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
           {contentData.type === "tv" ? (
             <>
               <p>{formatTvDuration(contentData.first_air_date, contentData.last_air_date)}</p>
-              <p>{`${contentData.seasons.length} ${contentData.seasons.length === 1 ? "season" : "seasons"}`}</p>
+              <p>{`${contentData.number_of_seasons} ${contentData.number_of_seasons === 1 ? "season" : "seasons"}`}</p>
               <p>{contentData.status}</p>
             </>
           ) : (

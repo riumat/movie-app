@@ -18,15 +18,14 @@ const sectionComponents = {
   videos: (data: MovieData) => (
     <VideoSection videoInfo={data.videos} />
   ),
-  similar: (data: MovieData, similarData: any) => (
+  similar: (data: MovieData) => (
     <SimilarContentSection
-      recommendations={data.recommendations}
-      similarData={similarData}
+      movieData={data}
     />
   )
 };
 
-const Body = ({ movieData, similarData }: { movieData: MovieData, similarData: any }) => {
+const Body = ({ movieData }: { movieData: MovieData }) => {
   const [selection, setSelection] = useState<Selection>("cast");
 
   const SelectedSection = () => {
@@ -36,14 +35,14 @@ const Body = ({ movieData, similarData }: { movieData: MovieData, similarData: a
         flex flex-col gap-5 
         ${selection === 'videos' ? 'h-full mt-10 justify-around' : 'my-10 w-full h-full pb-20'}
       `}>
-        {SectionComponent && SectionComponent(movieData, similarData)}
+        {SectionComponent && SectionComponent(movieData)}
       </div>
     );
   };
 
   return (
-    <section className="bg-background text-foreground w-full">
-      <div className='flex flex-col mt-5 mb-10 mx-5'>
+    <section className="bg-background text-foreground w-full ">
+      <div className='flex flex-col  mb-10 mx-5'>
         <ContentNavbar
           setSelection={setSelection}
           selection={selection}

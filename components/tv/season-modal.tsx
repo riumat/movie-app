@@ -1,4 +1,5 @@
 "use client"
+import ImageWithLoader from "@/components/layout/image-with-loader";
 import Loader from "@/components/layout/loader";
 import {
   Dialog,
@@ -26,19 +27,12 @@ type SeasonsSectionProps = {
   showId: string
 }
 
-//`/tv/${id}/season/${season.season_number}`
 
 const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [episodes, setEpisodes] = useState<any[]>([]);
-
-  const onLoadCallback = () => {
-    setIsImageLoaded(true);
-  };
-  const onErrorCallback = () => {
-    setIsImageLoaded(false);
-  };
+  const imageSrc = season.poster_path ? `${imageUrl}${imgWidth.poster[342]}${season.poster_path}` : placeholders.multi;
+  const customClassName = season.poster_path ? "" : "grayscale filter invert";
 
   const handleSeason = async () => {
     setIsLoading(true);
@@ -58,20 +52,7 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
       <DialogTrigger asChild onClick={handleSeason} className="cursor-pointer">
         <div className='flex flex-col gap-5 bg-transparent w-full max-w-[200px] rounded-lg mx-auto relative'>
           <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden ">
-            {!isImageLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Loader />
-              </div>
-            )}
-            <Image
-              src={season.poster_path ? `${imageUrl}${imgWidth.poster[342]}${season.poster_path}` : placeholders.multi}
-              alt={"season poster"}
-              onLoad={onLoadCallback}
-              onError={onErrorCallback}
-              fill
-              className={`rounded-lg object-cover  ${season.poster_path ? "" : "grayscale filter invert"}`}
-              sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
-            />
+            <ImageWithLoader src={imageSrc} className={`rounded-lg ${customClassName}`} />
           </div>
           <div className='flex flex-col items-center gap-2'>
             <p className="text-xl font-bold text-neutral-900 dark:text-white">
@@ -88,9 +69,9 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[50vw] max-h-[60vh] overflow-hidden flex flex-col gap-8">
+      <DialogContent className="sm:max-w-[50vw] h-[60vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Overview</DialogTitle>
+          <DialogTitle className="text-2xl">{season.name}</DialogTitle>
         </DialogHeader>
         <div className="h-full overflow-y-auto scrollbar-thin">
           {isLoading ? (
