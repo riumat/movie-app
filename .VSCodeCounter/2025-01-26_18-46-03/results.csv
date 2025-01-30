@@ -1,0 +1,222 @@
+"filename", "language", "TypeScript JSX", "TypeScript", "CSS", "MS SQL", "Prisma", "JSON", "JavaScript", "JSON with Comments", "Markdown", "comment", "blank", "total"
+"/home/clr/projects/movie-app/.eslintrc.json", "JSON", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 13
+"/home/clr/projects/movie-app/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 14, 37
+"/home/clr/projects/movie-app/app/api/filtered/route.ts", "TypeScript", 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 2, 37
+"/home/clr/projects/movie-app/app/api/multisearch/route.ts", "TypeScript", 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 2, 26
+"/home/clr/projects/movie-app/app/api/revalidate/route.ts", "TypeScript", 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 3, 27
+"/home/clr/projects/movie-app/app/api/season/route.ts", "TypeScript", 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"/home/clr/projects/movie-app/app/api/user/featured/route.ts", "TypeScript", 0, 40, 0, 0, 0, 0, 0, 0, 0, 2, 7, 49
+"/home/clr/projects/movie-app/app/api/user/follow/route.ts", "TypeScript", 0, 104, 0, 0, 0, 0, 0, 0, 0, 0, 16, 120
+"/home/clr/projects/movie-app/app/api/user/friend/remove/route.ts", "TypeScript", 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 6, 48
+"/home/clr/projects/movie-app/app/api/user/friend/request/route.ts", "TypeScript", 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 12, 112
+"/home/clr/projects/movie-app/app/api/user/friend/respond/route.ts", "TypeScript", 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 7, 57
+"/home/clr/projects/movie-app/app/api/user/friend/route.ts", "TypeScript", 0, 68, 0, 0, 0, 0, 0, 0, 0, 0, 6, 74
+"/home/clr/projects/movie-app/app/api/user/logout/route.ts", "TypeScript", 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10
+"/home/clr/projects/movie-app/app/api/user/movie/route.ts", "TypeScript", 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 13, 103
+"/home/clr/projects/movie-app/app/api/user/people/route.ts", "TypeScript", 0, 84, 0, 0, 0, 0, 0, 0, 0, 0, 13, 97
+"/home/clr/projects/movie-app/app/api/user/rating/route.ts", "TypeScript", 0, 156, 0, 0, 0, 0, 0, 0, 0, 0, 22, 178
+"/home/clr/projects/movie-app/app/api/user/review/route.ts", "TypeScript", 0, 153, 0, 0, 0, 0, 0, 0, 0, 0, 23, 176
+"/home/clr/projects/movie-app/app/api/user/tv/route.ts", "TypeScript", 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 13, 103
+"/home/clr/projects/movie-app/app/api/user/watch/route.ts", "TypeScript", 0, 151, 0, 0, 0, 0, 0, 0, 0, 0, 23, 174
+"/home/clr/projects/movie-app/app/api/user/watchlist/route.ts", "TypeScript", 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 30, 222
+"/home/clr/projects/movie-app/app/globals.css", "CSS", 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 11, 102
+"/home/clr/projects/movie-app/app/layout.tsx", "TypeScript JSX", 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 68
+"/home/clr/projects/movie-app/app/loading.tsx", "TypeScript JSX", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 17
+"/home/clr/projects/movie-app/app/movie/[id]/cast/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/movie/[id]/crew/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/movie/[id]/layout.tsx", "TypeScript JSX", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 41
+"/home/clr/projects/movie-app/app/movie/[id]/page.tsx", "TypeScript JSX", 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 80
+"/home/clr/projects/movie-app/app/movie/[id]/similar/page.tsx", "TypeScript JSX", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"/home/clr/projects/movie-app/app/movie/[id]/videos/page.tsx", "TypeScript JSX", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"/home/clr/projects/movie-app/app/movie/page.tsx", "TypeScript JSX", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 21
+"/home/clr/projects/movie-app/app/page.tsx", "TypeScript JSX", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"/home/clr/projects/movie-app/app/person/[id]/page.tsx", "TypeScript JSX", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"/home/clr/projects/movie-app/app/search/page.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 29
+"/home/clr/projects/movie-app/app/tv/[id]/cast/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/tv/[id]/crew/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/tv/[id]/layout.tsx", "TypeScript JSX", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 40
+"/home/clr/projects/movie-app/app/tv/[id]/page.tsx", "TypeScript JSX", 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 76
+"/home/clr/projects/movie-app/app/tv/[id]/seasons/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/tv/[id]/similar/page.tsx", "TypeScript JSX", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 19
+"/home/clr/projects/movie-app/app/tv/[id]/videos/page.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/home/clr/projects/movie-app/app/tv/page.tsx", "TypeScript JSX", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 21
+"/home/clr/projects/movie-app/app/user/[id]/page.tsx", "TypeScript JSX", 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 32
+"/home/clr/projects/movie-app/auth.config.ts", "TypeScript", 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 1, 21
+"/home/clr/projects/movie-app/auth.ts", "TypeScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"/home/clr/projects/movie-app/components.json", "JSON", 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 20
+"/home/clr/projects/movie-app/components/DropdownMenu.tsx", "TypeScript JSX", 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 53
+"/home/clr/projects/movie-app/components/SelectedFilters.tsx", "TypeScript JSX", 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 32
+"/home/clr/projects/movie-app/components/auth/auth-modal.tsx", "TypeScript JSX", 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 69
+"/home/clr/projects/movie-app/components/auth/login-form.tsx", "TypeScript JSX", 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 58
+"/home/clr/projects/movie-app/components/auth/logout-modal.tsx", "TypeScript JSX", 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 60
+"/home/clr/projects/movie-app/components/auth/register-form.tsx", "TypeScript JSX", 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 83
+"/home/clr/projects/movie-app/components/cards/content-card-skeleton.tsx", "TypeScript JSX", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"/home/clr/projects/movie-app/components/cards/content-card.tsx", "TypeScript JSX", 73, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 78
+"/home/clr/projects/movie-app/components/cards/content-user-card.tsx", "TypeScript JSX", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 29
+"/home/clr/projects/movie-app/components/cards/movie-card.tsx", "TypeScript JSX", 48, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 53
+"/home/clr/projects/movie-app/components/cards/multi-card-skeleton.tsx", "TypeScript JSX", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 19
+"/home/clr/projects/movie-app/components/cards/multi-card.tsx", "TypeScript JSX", 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 76
+"/home/clr/projects/movie-app/components/cards/orizontal-card.tsx", "TypeScript JSX", 83, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 89
+"/home/clr/projects/movie-app/components/cards/people-card.tsx", "TypeScript JSX", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/home/clr/projects/movie-app/components/cards/person-card.tsx", "TypeScript JSX", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/home/clr/projects/movie-app/components/cards/rating-card.tsx", "TypeScript JSX", 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 35
+"/home/clr/projects/movie-app/components/cards/review-card.tsx", "TypeScript JSX", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 22
+"/home/clr/projects/movie-app/components/cards/simple-content-card.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 32
+"/home/clr/projects/movie-app/components/cards/simple-orizontal-card.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 31
+"/home/clr/projects/movie-app/components/cards/tv-card.tsx", "TypeScript JSX", 48, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 54
+"/home/clr/projects/movie-app/components/cards/working-person-card.tsx", "TypeScript JSX", 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 34
+"/home/clr/projects/movie-app/components/content/body.tsx", "TypeScript JSX", 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 39
+"/home/clr/projects/movie-app/components/content/carousel-vertical.tsx", "TypeScript JSX", 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 43
+"/home/clr/projects/movie-app/components/content/combobox-filters.tsx", "TypeScript JSX", 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 106
+"/home/clr/projects/movie-app/components/content/content-display.tsx", "TypeScript JSX", 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 36
+"/home/clr/projects/movie-app/components/content/content-header.tsx", "TypeScript JSX", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 26
+"/home/clr/projects/movie-app/components/content/content-infos.tsx", "TypeScript JSX", 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 43
+"/home/clr/projects/movie-app/components/content/content-navbar.tsx", "TypeScript JSX", 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 48
+"/home/clr/projects/movie-app/components/content/content-prod-logos.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 27
+"/home/clr/projects/movie-app/components/content/filters-section.tsx", "TypeScript JSX", 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 35
+"/home/clr/projects/movie-app/components/content/filters-sidebar.tsx", "TypeScript JSX", 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 63
+"/home/clr/projects/movie-app/components/content/filters.tsx", "TypeScript JSX", 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 41
+"/home/clr/projects/movie-app/components/content/overview-modal.tsx", "TypeScript JSX", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 33
+"/home/clr/projects/movie-app/components/content/provider-modal.tsx", "TypeScript JSX", 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 63
+"/home/clr/projects/movie-app/components/content/provider-section.tsx", "TypeScript JSX", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 43
+"/home/clr/projects/movie-app/components/content/range-date-picker.tsx", "TypeScript JSX", 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 105
+"/home/clr/projects/movie-app/components/content/render-stars.tsx", "TypeScript JSX", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 22
+"/home/clr/projects/movie-app/components/content/review-modal.tsx", "TypeScript JSX", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 72
+"/home/clr/projects/movie-app/components/content/similar-content-section.tsx", "TypeScript JSX", 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 47
+"/home/clr/projects/movie-app/components/content/toggle-watchlist.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 29
+"/home/clr/projects/movie-app/components/content/user-section.tsx", "TypeScript JSX", 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 62
+"/home/clr/projects/movie-app/components/content/video-section.tsx", "TypeScript JSX", 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 109
+"/home/clr/projects/movie-app/components/content/year-input.tsx", "TypeScript JSX", 28, 0, 0, 0, 0, 0, 0, 0, 0, 36, 9, 73
+"/home/clr/projects/movie-app/components/landing-page/body.tsx", "TypeScript JSX", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 23
+"/home/clr/projects/movie-app/components/layout/background.tsx", "TypeScript JSX", 9, 0, 0, 0, 0, 0, 0, 0, 0, 3, 6, 18
+"/home/clr/projects/movie-app/components/layout/bg-player.tsx", "TypeScript JSX", 43, 0, 0, 0, 0, 0, 0, 0, 0, 15, 6, 64
+"/home/clr/projects/movie-app/components/layout/content-background.tsx", "TypeScript JSX", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 29
+"/home/clr/projects/movie-app/components/layout/image-with-loader.tsx", "TypeScript JSX", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 29
+"/home/clr/projects/movie-app/components/layout/loader.tsx", "TypeScript JSX", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"/home/clr/projects/movie-app/components/layout/pagination-wrapper.tsx", "TypeScript JSX", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"/home/clr/projects/movie-app/components/layout/searchbar-wrapper.tsx", "TypeScript JSX", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"/home/clr/projects/movie-app/components/layout/sidebar-wrapper.tsx", "TypeScript JSX", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"/home/clr/projects/movie-app/components/layout/sidebar.tsx", "TypeScript JSX", 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 145
+"/home/clr/projects/movie-app/components/movie/body.tsx", "TypeScript JSX", 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 59
+"/home/clr/projects/movie-app/components/movie/movie-sort-input.tsx", "TypeScript JSX", 95, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 102
+"/home/clr/projects/movie-app/components/people/carousel-wrapper.tsx", "TypeScript JSX", 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 48
+"/home/clr/projects/movie-app/components/people/credits-list.tsx", "TypeScript JSX", 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 46
+"/home/clr/projects/movie-app/components/people/ext-links-list.tsx", "TypeScript JSX", 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 57
+"/home/clr/projects/movie-app/components/people/known-section.tsx", "TypeScript JSX", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 21
+"/home/clr/projects/movie-app/components/people/past-works.tsx", "TypeScript JSX", 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 65
+"/home/clr/projects/movie-app/components/people/person-header.tsx", "TypeScript JSX", 55, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 61
+"/home/clr/projects/movie-app/components/people/toggle-follow.tsx", "TypeScript JSX", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 21
+"/home/clr/projects/movie-app/components/search-section/body.tsx", "TypeScript JSX", 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 43
+"/home/clr/projects/movie-app/components/search-section/multi-grid.tsx", "TypeScript JSX", 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 51
+"/home/clr/projects/movie-app/components/search-section/multi-skeleton-grid.tsx", "TypeScript JSX", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 15
+"/home/clr/projects/movie-app/components/search-section/user-list.tsx", "TypeScript JSX", 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 44
+"/home/clr/projects/movie-app/components/theme/theme-provider.tsx", "TypeScript JSX", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"/home/clr/projects/movie-app/components/theme/toggle-theme.tsx", "TypeScript JSX", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"/home/clr/projects/movie-app/components/tv/body.tsx", "TypeScript JSX", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 68
+"/home/clr/projects/movie-app/components/tv/season-modal.tsx", "TypeScript JSX", 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 111
+"/home/clr/projects/movie-app/components/tv/seasons-section.tsx", "TypeScript JSX", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 33
+"/home/clr/projects/movie-app/components/tv/tv-sort-input.tsx", "TypeScript JSX", 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 98
+"/home/clr/projects/movie-app/components/ui/button.tsx", "TypeScript JSX", 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 58
+"/home/clr/projects/movie-app/components/ui/calendar.tsx", "TypeScript JSX", 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 73
+"/home/clr/projects/movie-app/components/ui/card.tsx", "TypeScript JSX", 68, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 77
+"/home/clr/projects/movie-app/components/ui/carousel.tsx", "TypeScript JSX", 232, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 263
+"/home/clr/projects/movie-app/components/ui/chart.tsx", "TypeScript JSX", 332, 0, 0, 0, 0, 0, 0, 0, 0, 2, 37, 371
+"/home/clr/projects/movie-app/components/ui/command.tsx", "TypeScript JSX", 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 153
+"/home/clr/projects/movie-app/components/ui/dialog.tsx", "TypeScript JSX", 109, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 122
+"/home/clr/projects/movie-app/components/ui/donut.tsx", "TypeScript JSX", 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 66
+"/home/clr/projects/movie-app/components/ui/dropdown-menu.tsx", "TypeScript JSX", 187, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 206
+"/home/clr/projects/movie-app/components/ui/genres-pie-chart.tsx", "TypeScript JSX", 106, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 120
+"/home/clr/projects/movie-app/components/ui/input.tsx", "TypeScript JSX", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 23
+"/home/clr/projects/movie-app/components/ui/label.tsx", "TypeScript JSX", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 27
+"/home/clr/projects/movie-app/components/ui/pagination.tsx", "TypeScript JSX", 51, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 55
+"/home/clr/projects/movie-app/components/ui/popover.tsx", "TypeScript JSX", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 34
+"/home/clr/projects/movie-app/components/ui/radial-chart.tsx", "TypeScript JSX", 106, 0, 0, 0, 0, 0, 0, 0, 0, 1, 13, 120
+"/home/clr/projects/movie-app/components/ui/render-stars.tsx", "TypeScript JSX", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"/home/clr/projects/movie-app/components/ui/searchbar.tsx", "TypeScript JSX", 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 56
+"/home/clr/projects/movie-app/components/ui/separator.tsx", "TypeScript JSX", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/home/clr/projects/movie-app/components/ui/sheet.tsx", "TypeScript JSX", 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 140
+"/home/clr/projects/movie-app/components/ui/table.tsx", "TypeScript JSX", 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 121
+"/home/clr/projects/movie-app/components/ui/tabs.tsx", "TypeScript JSX", 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 56
+"/home/clr/projects/movie-app/components/ui/textarea.tsx", "TypeScript JSX", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 23
+"/home/clr/projects/movie-app/components/ui/toast.tsx", "TypeScript JSX", 116, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 129
+"/home/clr/projects/movie-app/components/ui/toaster.tsx", "TypeScript JSX", 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 36
+"/home/clr/projects/movie-app/components/ui/toggle.tsx", "TypeScript JSX", 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 46
+"/home/clr/projects/movie-app/components/ui/tooltip.tsx", "TypeScript JSX", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 33
+"/home/clr/projects/movie-app/components/user/activity-section.tsx", "TypeScript JSX", 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 108
+"/home/clr/projects/movie-app/components/user/body.tsx", "TypeScript JSX", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 31
+"/home/clr/projects/movie-app/components/user/featured-content.tsx", "TypeScript JSX", 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 59
+"/home/clr/projects/movie-app/components/user/featured-modal.tsx", "TypeScript JSX", 39, 0, 0, 0, 0, 0, 0, 0, 0, 27, 7, 73
+"/home/clr/projects/movie-app/components/user/featured-tabs.tsx", "TypeScript JSX", 152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 163
+"/home/clr/projects/movie-app/components/user/friends-management.tsx", "TypeScript JSX", 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 43
+"/home/clr/projects/movie-app/components/user/friends-modal.tsx", "TypeScript JSX", 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 37
+"/home/clr/projects/movie-app/components/user/friends-tabs.tsx", "TypeScript JSX", 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 109
+"/home/clr/projects/movie-app/components/user/header.tsx", "TypeScript JSX", 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 64
+"/home/clr/projects/movie-app/components/user/modal-opener-button.tsx", "TypeScript JSX", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"/home/clr/projects/movie-app/components/user/modal.tsx", "TypeScript JSX", 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 132
+"/home/clr/projects/movie-app/components/user/people-modal.tsx", "TypeScript JSX", 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 101
+"/home/clr/projects/movie-app/components/user/rating-modal.tsx", "TypeScript JSX", 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 101
+"/home/clr/projects/movie-app/components/user/requests-modal.tsx", "TypeScript JSX", 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 89
+"/home/clr/projects/movie-app/components/user/review-modal.tsx", "TypeScript JSX", 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 101
+"/home/clr/projects/movie-app/components/user/watchlist-modal.tsx", "TypeScript JSX", 95, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 102
+"/home/clr/projects/movie-app/lib/actions/auth.ts", "TypeScript", 0, 206, 0, 0, 0, 0, 0, 0, 0, 0, 29, 235
+"/home/clr/projects/movie-app/lib/constants.ts", "TypeScript", 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 17, 165
+"/home/clr/projects/movie-app/lib/fetchers.ts", "TypeScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 347, 15, 370
+"/home/clr/projects/movie-app/lib/fetchers/index.ts", "TypeScript", 0, 222, 0, 0, 0, 0, 0, 0, 0, 0, 33, 255
+"/home/clr/projects/movie-app/lib/fetchers/prisma.ts", "TypeScript", 0, 222, 0, 0, 0, 0, 0, 0, 0, 0, 27, 249
+"/home/clr/projects/movie-app/lib/fetchers/tmdb.ts", "TypeScript", 0, 224, 0, 0, 0, 0, 0, 0, 0, 0, 40, 264
+"/home/clr/projects/movie-app/lib/functions.ts", "TypeScript", 0, 259, 0, 0, 0, 0, 0, 0, 0, 0, 46, 305
+"/home/clr/projects/movie-app/lib/hooks/use-content-fetch.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 27
+"/home/clr/projects/movie-app/lib/hooks/use-filter-state.ts", "TypeScript", 0, 78, 0, 0, 0, 0, 0, 0, 0, 0, 18, 96
+"/home/clr/projects/movie-app/lib/hooks/use-follow.ts", "TypeScript", 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 6, 41
+"/home/clr/projects/movie-app/lib/hooks/use-friend.ts", "TypeScript", 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 5, 41
+"/home/clr/projects/movie-app/lib/hooks/use-isomorphic.ts", "TypeScript", 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"/home/clr/projects/movie-app/lib/hooks/use-media-query.ts", "TypeScript", 0, 47, 0, 0, 0, 0, 0, 0, 0, 3, 11, 61
+"/home/clr/projects/movie-app/lib/hooks/use-pagination.ts", "TypeScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 4, 15
+"/home/clr/projects/movie-app/lib/hooks/use-rating.ts", "TypeScript", 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"/home/clr/projects/movie-app/lib/hooks/use-review.ts", "TypeScript", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 5, 30
+"/home/clr/projects/movie-app/lib/hooks/use-search-results.ts", "TypeScript", 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 8, 40
+"/home/clr/projects/movie-app/lib/hooks/use-toast.ts", "TypeScript", 0, 160, 0, 0, 0, 0, 0, 0, 0, 3, 32, 195
+"/home/clr/projects/movie-app/lib/hooks/use-user-friend.ts", "TypeScript", 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 4, 33
+"/home/clr/projects/movie-app/lib/hooks/use-watched.ts", "TypeScript", 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 6, 56
+"/home/clr/projects/movie-app/lib/hooks/use-watchlist.ts", "TypeScript", 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 5, 35
+"/home/clr/projects/movie-app/lib/schemas.ts", "TypeScript", 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 1, 16
+"/home/clr/projects/movie-app/lib/session.ts", "TypeScript", 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 8, 53
+"/home/clr/projects/movie-app/lib/types/auth.ts", "TypeScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13
+"/home/clr/projects/movie-app/lib/types/cast.ts", "TypeScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"/home/clr/projects/movie-app/lib/types/content.ts", "TypeScript", 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 5, 40
+"/home/clr/projects/movie-app/lib/types/crew.ts", "TypeScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"/home/clr/projects/movie-app/lib/types/episode.ts", "TypeScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10
+"/home/clr/projects/movie-app/lib/types/filter.ts", "TypeScript", 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 5, 9
+"/home/clr/projects/movie-app/lib/types/image.ts", "TypeScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8
+"/home/clr/projects/movie-app/lib/types/movie.ts", "TypeScript", 0, 67, 0, 0, 0, 0, 0, 0, 0, 0, 3, 70
+"/home/clr/projects/movie-app/lib/types/people.ts", "TypeScript", 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 2, 79
+"/home/clr/projects/movie-app/lib/types/provider.ts", "TypeScript", 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"/home/clr/projects/movie-app/lib/types/season.ts", "TypeScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"/home/clr/projects/movie-app/lib/types/session.ts", "TypeScript", 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9
+"/home/clr/projects/movie-app/lib/types/tv.ts", "TypeScript", 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 3, 85
+"/home/clr/projects/movie-app/lib/types/user.ts", "TypeScript", 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36
+"/home/clr/projects/movie-app/lib/types/video.ts", "TypeScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"/home/clr/projects/movie-app/lib/utils.ts", "TypeScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9
+"/home/clr/projects/movie-app/middleware.ts", "TypeScript", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 3, 14
+"/home/clr/projects/movie-app/next.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 19, 0, 0, 1, 2, 22
+"/home/clr/projects/movie-app/package-lock.json", "JSON", 0, 0, 0, 0, 0, 7783, 0, 0, 0, 0, 1, 7784
+"/home/clr/projects/movie-app/package.json", "JSON", 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 1, 65
+"/home/clr/projects/movie-app/postcss.config.mjs", "JavaScript", 0, 0, 0, 0, 0, 0, 6, 0, 0, 1, 2, 9
+"/home/clr/projects/movie-app/prisma/migrations/20241119113718_init/migration.sql", "MS SQL", 0, 0, 0, 36, 0, 0, 0, 0, 0, 8, 12, 56
+"/home/clr/projects/movie-app/prisma/migrations/20241120131137_updated_unique_email/migration.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 7, 1, 9
+"/home/clr/projects/movie-app/prisma/migrations/20241122010316_edited_review_length/migration.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 3
+"/home/clr/projects/movie-app/prisma/migrations/20241122111439_added_watchlist/migration.sql", "MS SQL", 0, 0, 0, 8, 0, 0, 0, 0, 0, 2, 3, 13
+"/home/clr/projects/movie-app/prisma/migrations/20241123130815_genres_and_content/migration.sql", "MS SQL", 0, 0, 0, 8, 0, 0, 0, 0, 0, 10, 3, 21
+"/home/clr/projects/movie-app/prisma/migrations/20241123131137_format_tables_name/migration.sql", "MS SQL", 0, 0, 0, 52, 0, 0, 0, 0, 0, 30, 25, 107
+"/home/clr/projects/movie-app/prisma/migrations/20241126153713_added_unique_person/migration.sql", "MS SQL", 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 1, 12
+"/home/clr/projects/movie-app/prisma/migrations/20241128190014_removed_genres_duration_removed_ids/migration.sql", "MS SQL", 0, 0, 0, 19, 0, 0, 0, 0, 0, 19, 10, 48
+"/home/clr/projects/movie-app/prisma/migrations/20241206200321_added_content_to_genres/migration.sql", "MS SQL", 0, 0, 0, 11, 0, 0, 0, 0, 0, 4, 5, 20
+"/home/clr/projects/movie-app/prisma/migrations/20241206233843_edited_content_to_genre/migration.sql", "MS SQL", 0, 0, 0, 6, 0, 0, 0, 0, 0, 11, 4, 21
+"/home/clr/projects/movie-app/prisma/migrations/20241208111757_added_watchlist_name/migration.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 7, 1, 9
+"/home/clr/projects/movie-app/prisma/migrations/20241211134953_added_id_relatioship/migration.sql", "MS SQL", 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 1, 12
+"/home/clr/projects/movie-app/prisma/migrations/20241226174736_feature_content_id/migration.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 3
+"/home/clr/projects/movie-app/prisma/migrations/20241226175219_feature_content_type/migration.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 3
+"/home/clr/projects/movie-app/prisma/schema.prisma", "Prisma", 0, 0, 0, 0, 93, 0, 0, 0, 0, 0, 23, 116
+"/home/clr/projects/movie-app/tailwind.config.ts", "TypeScript", 0, 62, 0, 0, 0, 0, 0, 0, 0, 0, 2, 64
+"/home/clr/projects/movie-app/tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 1, 27
+"Total", "-", 6874, 3843, 91, 151, 93, 7880, 25, 26, 23, 588, 1601, 21195

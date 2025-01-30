@@ -10,16 +10,17 @@ const useFriend = (userData: ProfileData, personId: string) => {
   const handleFriend = () => {
     const newIsFriend = friendStatus;
     if (newIsFriend === "notFriends" || newIsFriend === "rejected") {
+      setFriendStatus("pending")
       axios
         .post('/api/user/friend/request', {
           receiverId: Number(personId),
         })
         .then(() => {
-          setFriendStatus(newIsFriend)
           router.refresh();
         })
         .catch(err => console.log(err));
     } else if (newIsFriend === "accepted") {
+      setFriendStatus("notFriends")
       axios
         .delete('/api/user/friend/remove', {
           data: {
@@ -27,7 +28,6 @@ const useFriend = (userData: ProfileData, personId: string) => {
           },
         })
         .then(() => {
-          setFriendStatus(newIsFriend)
           router.refresh();
         })
         .catch(err => console.log(err));

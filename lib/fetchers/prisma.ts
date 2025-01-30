@@ -228,7 +228,7 @@ export const getPrismaFeatureContentData = async (userId: string) => {
       },
       select: {
         featured_content_id: true,
-        featured_content_type: true
+        featured_content_type: true,
       }
     });
 

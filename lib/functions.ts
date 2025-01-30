@@ -301,3 +301,4 @@ export const getAverageEpisodeRuntime = (runtimes: number[]) => {
 export const getRatingAngle = (rating: number): number => {
   return (rating / 10) * 360;
 }
+

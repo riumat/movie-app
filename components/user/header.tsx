@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import FriendsModal from "@/components/user/friends-modal"
 import { formatDateSince, formatMinutes } from "@/lib/functions"
 import useFriend from "@/lib/hooks/use-friend"
 import { ProfileData } from "@/lib/types/user"
@@ -9,11 +10,11 @@ import { Clock, Minus, Plus } from "lucide-react"
 const Header = ({ id, session, userData }: { id: string, session: any, userData: ProfileData }) => {
   const { friendStatus, handleFriend } = useFriend(userData, id);
   return (
-    <div className="flex  px-10 py-5 bg-background rounded-xl">
-      <div className=" p-2 flex-1 flex flex-col gap-2">
+    <div className="flex py-5 bg-background rounded-xl">
+      <div className=" flex-1 flex flex-col gap-2">
         <div className="flex gap-10 items-center">
-          <p className="text-4xl font-bold">{`${userData.name}`}</p>
-          {session.user.id !== Number(id) &&
+          <p className="text-5xl font-bold">{`${userData.name}`}</p>
+          {session.user.id !== Number(id) ?
             <Button
               variant={"outline"}
               className="mt-2 px-3 py-1 flex items-center gap-2"
@@ -41,7 +42,10 @@ const Header = ({ id, session, userData }: { id: string, session: any, userData:
                 </>
               )}
 
-            </Button>}
+            </Button>
+            :
+            <FriendsModal session={session} />
+          }
         </div>
         <p className="font-light text-sm italic text-foreground/70">{`member since ${formatDateSince(userData.since)}`}</p>
       </div>

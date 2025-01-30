@@ -14,7 +14,7 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users, session }) => {
-  const userList = users.filter(user => user.user_id !== session?.user.id).sort((a, b) => (b.watchtime - a.watchtime));
+  const userList = users?.filter(user => user.user_id !== session?.user.id).sort((a, b) => (b.watchtime - a.watchtime));
   return (
     <div className=" w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10">
       <h2 className='text-2xl font-bold text-center'>Users</h2>
@@ -25,7 +25,7 @@ const UserList: React.FC<UserListProps> = ({ users, session }) => {
           <ul className="flex flex-col gap-2 items-start ml-3">
             {userList.map((user, index) => (
               <li key={index} className="w-full px-3 py-3 rounded-lg hover:bg-secondary/50">
-                <Link href={`/user/${user.user_id}`} className='flex items-center gap-2'>
+                <Link href={`/user/${user.id}`} className='flex items-center gap-2'>
                   <p className='font-bold'>{user.username}</p>
                   <p className='font-extralight text-sm'>{formatMinutes(user.watchtime)} watched</p>
                 </Link>

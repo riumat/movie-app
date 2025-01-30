@@ -51,7 +51,7 @@ const Chart = ({ genres }: { genres: any[] }) => {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent className="text-sm" hideLabel />}
+              content={<ChartTooltipContent className="text-sm"  />}
             />
             <Bar dataKey="contents" fill="hsl(var(--chart-1))" radius={10} />
           </BarChart>

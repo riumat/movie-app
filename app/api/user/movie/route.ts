@@ -16,12 +16,13 @@ async function getMovieDetails(movieId: number) {
 function getPaginationParams(url: URL) {
   const page = parseInt(url.searchParams.get('page') || '1', 10);
   const id = parseInt(url.searchParams.get('id') || '1');
-  return { page, id };
+  const query = url.searchParams.get('query') || '';
+  return { page, id, query };
 }
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const { page, id } = getPaginationParams(url);
+  const { page, id, query } = getPaginationParams(url);
   const pageSize = 10;
 
   try {
@@ -52,15 +53,6 @@ export async function GET(request: Request) {
       }
     }
 
-    const totalMovies = await prisma.content.count({
-      where: {
-        content_type: ContentType.movie,
-        user_id: Number(id),
-      },
-    });
-
-    const totalPages = Math.ceil(totalMovies / pageSize);
-
     const movieContents = await prisma.content.findMany({
       where: {
         content_type: ContentType.movie,
@@ -87,10 +79,18 @@ export async function GET(request: Request) {
 
     const movieDetails = await Promise.all(movieDetailsPromises);
 
+    const filteredMovies = query 
+      ? movieDetails.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()))
+      : movieDetails;
+
+    const totalMovies = filteredMovies.length;
+
+    const totalPages = Math.ceil(totalMovies / pageSize);
+
     return new Response(JSON.stringify({
       currentPage: page,
       totalPages,
-      list: movieDetails,
+      list: filteredMovies,
     }), {
       headers: { 'Content-Type': 'application/json' },
     });

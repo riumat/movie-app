@@ -50,7 +50,7 @@ const Sidebar = ({ session }: { session: any }) => {
                     <item.icon size={17} />
                     <span
                       className={`px-3 py-1 rounded-xl hover:underline text-sm
-                      ${pathname === item.path ? 'underline font-bold' : 'font-light'}`}
+                      ${pathname === item.path ? 'underline font-bold' : 'font-medium'}`}
                     >
                       {item.label}
                     </span>

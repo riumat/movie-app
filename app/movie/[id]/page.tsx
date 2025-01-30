@@ -59,7 +59,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
         <p className='text-sm text-muted-foreground'>{getDaysSince(movieData.release_date)} since release</p>
         <div className='flex items-center gap-1'>
           <p className='font-light'>Box Office Status:</p>
-          <p className={`font-semibold`}>{boxOfficeData.value}</p>
+          <p className={`font-semibold`}>{boxOfficeData?.value}</p>
         </div>
       </div>
       <div className='flex-1 flex lg:justify-center '>

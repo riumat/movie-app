@@ -8,8 +8,8 @@ const ContentUserCard = ({ item }: { item: any }) => {
   const imageSrc = item.poster_path ? `${imageUrl}${imgWidth.poster[342]}${item.poster_path}` : placeholders.multi;
 
   return (
-    <div className="flex items-center gap-3  relative justify-start">
-      <div className='flex justify-start relative w-20 h-20'>
+    <div className="flex items-center gap-3 relative justify-start">
+      <div className='flex justify-start relative w-16 h-24 '>
         <ImageWithLoader src={imageSrc} />
       </div>
       <div className="flex flex-col gap-1">

@@ -58,7 +58,6 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
           console.error(err);
         }
       });
-
   }
 
   const handleChangePage = (newPage: number) => {

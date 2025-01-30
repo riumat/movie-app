@@ -5,8 +5,8 @@ import { TvData } from '@/lib/types/tv';
 import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 import { FaEye, FaRegEye } from "react-icons/fa6";
 import useIsWatched from '@/lib/hooks/use-watched';
-import useWatchlist from '@/lib/hooks/use-watchlist';
 import ImageWithLoader from '@/components/layout/image-with-loader';
+import useWatchlist from '@/lib/hooks/use-watchlist';
 
 
 const OrizontalCard = ({ item }: { item: MovieData | TvData }) => {
