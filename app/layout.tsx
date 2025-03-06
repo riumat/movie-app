@@ -6,9 +6,10 @@ import { BeatLoader } from "react-spinners";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import SidebarWrapper from "@/components/layout/sidebar-wrapper";
 import { Toaster } from "@/components/ui/toaster";
-import SearchbarWrapper from "@/components/layout/searchbar-wrapper";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import Navbar from "@/components/layout/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,20 +44,22 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="font-[family-name:var(--font-geist-sans)] flex h-screen w-screen overflow-x-hidden relative">
-            <SidebarWrapper />
-            <div className="flex flex-col flex-grow h-full overflow-x-hidden">
-              <SearchbarWrapper />
-              <Suspense fallback={
-                <div className="h-full flex justify-center items-center">
-                  <BeatLoader className="text-foreground" size={10} />
-                </div>
-              }>
-                <main className="flex flex-col overflow-y-auto overflow-x-hidden scrollbar-thin relative">
-                  {children}
-                  <Toaster />
-                </main>
-              </Suspense>
-            </div>
+            <SidebarProvider>
+              <AppSidebar />
+              <div className="flex flex-col flex-grow w-full h-full overflow-x-hidden relative">
+                <Navbar />
+                <Suspense fallback={
+                  <div className="h-full flex justify-center items-center">
+                    <BeatLoader className="text-foreground" size={10} />
+                  </div>
+                }>
+                  <main className="flex flex-col overflow-y-auto overflow-x-hidden scrollbar-thin absolute w-full h-full top-0">
+                    {children}
+                    <Toaster />
+                  </main>
+                </Suspense>
+              </div>
+            </SidebarProvider>
           </div>
         </ThemeProvider>
       </body>
