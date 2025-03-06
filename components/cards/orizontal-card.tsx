@@ -1,7 +1,7 @@
 "use client"
-import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { MovieData } from '@/lib/types/movie';
-import { TvData } from '@/lib/types/tv';
+import { backdropRatio, imageUrl, imgWidth, placeholders } from '@/lib/constants';
+import { MovieData } from '@/lib/types/movie.types';
+import { TvData } from '@/lib/types/tv.types';
 import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
 import { FaEye, FaRegEye } from "react-icons/fa6";
 import useIsWatched from '@/lib/hooks/use-watched';
@@ -21,26 +21,28 @@ const OrizontalCard = ({ item }: { item: MovieData | TvData }) => {
   }
 
   return (
-    <div className={`flex flex-col bg-transparent w-[70%] lg:w-full max-w-[250px] rounded-lg mx-auto relative group `}>
-      {isWatched && (
-        <div className="absolute top-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-t-lg z-40 shadow ">
-          <FaRegEye size={17} />
-          <p className='text-center py-1'>Watched</p>
-        </div>
-      )}
-      {isListed && (
-        <div className="absolute bottom-0 left-0 w-full bg-foreground text-background text-sm font-semibold flex gap-2 justify-center items-center  rounded-b-lg z-40 shadow ">
-          <FaRegBookmark size={17} />
-          <p className='text-center py-1'>Watchlist</p>
-        </div>
-      )}
-      <div className="relative w-full max-h-44 h-[140px] rounded-lg overflow-hidden">
-        <ImageWithLoader src={imgSrc} />
-        <div className="content-card-hover">
-          {item.type === "movie" && (
+    <div className={`relative max-w-[300px]`}>
+      <div className='flex flex-col gap-3 rounded-sm bg-gradient-to-t from-muted/30 to-muted/60 '>
+        {
+          (isWatched || isListed) && (
+            <div className="absolute top-0 right-0 h-full bg-foreground text-background text-sm font-semibold flex flex-col gap-3 justify-center items-center rounded-r-sm shadow-lg z-40  px-1 ">
+
+              {isWatched && (
+                <FaRegEye size={17} />
+              )}
+              {isListed && (
+                <FaRegBookmark size={17} />
+              )}
+            </div>
+          )
+        }
+
+        <ImageWithLoader src={imgSrc} ratio={backdropRatio} className='' />
+        {/*  <div className="content-card-hover">
+          {item.media_type === "movie" && (
             <p className="text-foreground text-base font-bold z-50 text-center">{item.title}</p>
           )}
-          {item.type === "tv" && (
+          {item.media_type === "tv" && (
             <p className="text-foreground text-lg font-bold z-50 text-center">{item.name}</p>
           )}
           <div className='flex justify-evenly items-center w-full'>
@@ -79,7 +81,8 @@ const OrizontalCard = ({ item }: { item: MovieData | TvData }) => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
+
       </div>
     </div>
   );

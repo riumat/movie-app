@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import ContentCard from '@/components/cards/content-card';
-import { MovieData } from '@/lib/types/movie';
-import { TvData } from '@/lib/types/tv';
+import { MovieData } from '@/lib/types/movie.types';
+import { TvData } from '@/lib/types/tv.types';
 import SimpleContentCard from '@/components/cards/simple-content-card';
 
 

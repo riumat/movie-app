@@ -8,6 +8,9 @@ export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
 export const youtubeUrl = "https://www.youtube.com/watch?v=";
 
+export const backdropRatio=16/9;
+export const posterRatio=2/3;
+
 export const imgWidth = {
   poster: {
     92: "/w92",

@@ -6,7 +6,7 @@ import CreditsList from '@/components/people/credits-list';
 import ContentNavbar from '@/components/content/content-navbar';
 import SimilarContentSection from '@/components/content/similar-content-section';
 import SeasonsSection from '@/components/tv/seasons-section';
-import { TvData } from '@/lib/types/tv';
+import { TvData } from '@/lib/types/tv.types';
 import { Selection } from '@/lib/types/content';
 
 const sectionComponents = {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MovieResult } from '@/lib/types/movie';
-import { TvResult } from '@/lib/types/tv';
-import { PeopleResult } from '@/lib/types/people';
+import { MovieResult } from '@/lib/types/movie.types';
+import { TvResult } from '@/lib/types/tv.types';
+import { PeopleResult } from '@/lib/types/person.types';
 
 type SearchResult = MovieResult | TvResult | PeopleResult;
 

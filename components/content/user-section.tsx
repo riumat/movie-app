@@ -6,8 +6,8 @@ import AuthModal from "@/components/auth/auth-modal";
 import RenderStars from "@/components/content/render-stars";
 import useIsWatched from "@/lib/hooks/use-watched";
 import ToggleWatchlist from "@/components/content/toggle-watchlist";
-import { MovieData } from "@/lib/types/movie";
-import { TvData } from "@/lib/types/tv";
+import { MovieData } from "@/lib/types/movie.types";
+import { TvData } from "@/lib/types/tv.types";
 
 const UserSection = ({ contentData }:
   { contentData: MovieData | TvData }) => {

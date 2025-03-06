@@ -36,7 +36,7 @@ const Sidebar = ({ session }: { session: any }) => {
 
   if (isDesktop) {
     return (
-      <div className={` flex z-50 duration-50 ${isOpen ? 'w-40' : 'w-0'}`}>
+      <div className={`flex z-50 duration-50 flex-shrink-0 ${isOpen ? 'w-40' : 'w-0'}`}>
         <div className={`text-foreground flex items-center relative z-20 h-screen duration-50 w-40
       ${isOpen ? 'translate-x-0 left-0' : '-translate-x-full'}
         `}

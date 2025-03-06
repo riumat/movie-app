@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CreditsList from '@/components/people/credits-list';
 import ContentNavbar from '@/components/content/content-navbar';
 import SimilarContentSection from '@/components/content/similar-content-section';
-import { MovieData } from '@/lib/types/movie';
+import { MovieData } from '@/lib/types/movie.types';
 import { Selection } from '@/lib/types/content';
 
 

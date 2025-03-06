@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import Pagination from "@/components/ui/pagination";
 import ModalOpenerButton from "@/components/user/modal-opener-button";
-import { PeopleFollowed } from "@/lib/types/people";
+import { PeopleFollowed } from "@/lib/types/person.types";
 import { ProfileData } from "@/lib/types/user";
 import axios from "axios";
 import Link from "next/link";

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import PersonHeader from '@/components/people/person-header';
 import KnownForSection from '@/components/people/known-section';
-import { PersonData } from '@/lib/types/people';
+import { PersonData } from '@/lib/types/person.types';
 import PastWorks from '@/components/people/past-works';
 import { Separator } from '@/components/ui/separator';
 import { getPersonData } from '@/lib/fetchers/index';

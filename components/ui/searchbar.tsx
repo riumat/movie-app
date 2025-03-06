@@ -33,9 +33,9 @@ const Searchbar = () => {
 
   return (
     <div className={`relative flex items-center rounded-2xl border 
-    opacity-80 hover:opacity-100 
+    opacity-85 hover:opacity-100 
     border-foreground/30  bg-background/95 
-    duration-200 h-full text-sm lg:w-[40%] w-[65%] 
+    duration-200 h-full text-sm lg:w-[40%] w-[60%] z-50
     `}
     >
       <div className='text-foreground pl-4 '>
@@ -47,7 +47,7 @@ const Searchbar = () => {
         placeholder="Search movies, tv shows, actors and more..."
         value={searchTerm}
         onChange={handleInputChange}
-        className="w-full py-2 px-4 mr-2 text-foreground rounded-md bg-transparent placeholder-foreground/50 focus:outline-none focus:border-transparent"
+        className="w-full py-2 px-4 mr-2 text-foreground rounded-md bg-transparent placeholder-foreground/50 focus:outline-none focus:border-transparent placeholder:truncate"
       />
     </div>
   );

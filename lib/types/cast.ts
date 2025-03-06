@@ -13,3 +13,4 @@ export type TvCastItem = {
   }[],
   profile_path: string,
 }
+

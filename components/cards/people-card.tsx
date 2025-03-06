@@ -1,5 +1,5 @@
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { PeopleFollowed } from '@/lib/types/people';
+import { PeopleFollowed } from '@/lib/types/person.types';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
 const PeopleCard = ({ item }: { item: PeopleFollowed }) => {

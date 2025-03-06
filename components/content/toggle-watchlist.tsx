@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import useWatchlist from "@/lib/hooks/use-watchlist";
-import { MovieData } from "@/lib/types/movie";
-import { TvData } from "@/lib/types/tv";
+import { MovieData } from "@/lib/types/movie.types";
+import { TvData } from "@/lib/types/tv.types";
 import { Minus, Plus } from "lucide-react";
 
 const ToggleWatchlist = ({ contentData }: { contentData: MovieData | TvData }) => {

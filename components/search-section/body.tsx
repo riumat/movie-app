@@ -2,11 +2,14 @@ import UserList from '@/components/search-section/user-list'
 import MultiGrid from '@/components/search-section/multi-grid'
 import { Separator } from '@/components/ui/separator'
 import PaginationWrapper from '@/components/layout/pagination-wrapper'
+import { MovieData } from '@/lib/types/movie.types'
+import { TvData } from '@/lib/types/tv.types'
+import { PersonResult } from '@/lib/types/person.types'
 
 type Props = {
   users: any
   session: any
-  results: any
+  results: (MovieData | TvData | PersonResult)[]
   totalPages: number
   page: number
   query: string

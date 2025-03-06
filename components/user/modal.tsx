@@ -66,7 +66,7 @@ const Modal = ({ id, userData, modal }: { id: string, userData: ProfileData, mod
   }
   return (
     <Dialog>
-      <DialogTrigger  onClick={() => handleList(page)} className="cursor-pointer" >
+      <DialogTrigger onClick={() => handleList(page)} className="cursor-pointer" >
         <ModalOpenerButton />
       </DialogTrigger>
       <DialogContent className="max-w-[60vw] h-[82vh] overflow-hidden flex flex-col gap-8" >

@@ -3,7 +3,7 @@ import ExternalLinksList from '@/components/people/ext-links-list';
 import ToggleFollow from '@/components/people/toggle-follow';
 import { imageUrl, imgWidth } from '@/lib/constants';
 import { formatDate, getAge } from '@/lib/functions';
-import { PersonData } from '@/lib/types/people';
+import { PersonData } from '@/lib/types/person.types';
 import Image from 'next/image';
 import React from 'react';
 

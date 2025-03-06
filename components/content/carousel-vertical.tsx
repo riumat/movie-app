@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { MovieData } from "@/lib/types/movie";
-import { TvData } from "@/lib/types/tv";
+import { MovieData } from "@/lib/types/movie.types";
+import { TvData } from "@/lib/types/tv.types";
 import SimpleContentCard from "@/components/cards/simple-content-card";
 
 

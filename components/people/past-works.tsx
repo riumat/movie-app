@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PersonData } from "@/lib/types/people";
+import { PersonData } from "@/lib/types/person.types";
 import Link from "next/link";
 
 

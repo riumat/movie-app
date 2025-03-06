@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { TvResult } from '@/lib/types/tv';
+import { TvResult } from '@/lib/types/tv.types';
 import Loader from '@/components/layout/loader';
 //
 

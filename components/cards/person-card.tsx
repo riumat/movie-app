@@ -1,8 +1,9 @@
 import ImageWithLoader from '@/components/layout/image-with-loader'
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants'
+import { PersonResult } from '@/lib/types/person.types';
 import React from 'react'
 
-const PersonCard = ({ item }: { item: any }) => {
+const PersonCard = ({ item }: { item: PersonResult }) => {
   const imageSrc = item.profile_path ? `${imageUrl}${imgWidth.poster[342]}${item.profile_path}` : placeholders.profile;
 
   return (

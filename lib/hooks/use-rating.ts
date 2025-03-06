@@ -1,5 +1,5 @@
-import { MovieData } from "@/lib/types/movie";
-import { TvData } from "@/lib/types/tv";
+import { MovieData } from "@/lib/types/movie.types";
+import { TvData } from "@/lib/types/tv.types";
 import axios from "axios";
 import { useState } from "react";
 

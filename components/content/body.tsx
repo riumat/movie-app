@@ -1,12 +1,20 @@
 import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
 import ContentDisplay from '@/components/content/content-display'
 import FiltersSection from '@/components/content/filters-section'
-import { getFilteredContents, getGenresAndProviders, getTotalPagesFiltered } from '@/lib/fetchers/index'
+import { getFilteredContents, getGenresAndProviders } from '@/lib/fetchers/index'
+import { MediaType } from '@/lib/types/content.types'
 import { Suspense } from 'react'
 
 type Props = {
-  media: string,
-  params: any
+  media: MediaType,
+  params: {
+    genres: string,
+    providers: string,
+    page: string,
+    from: string,
+    to: string,
+    sort: string,
+  }
 }
 
 const Body = async ({ media, params }: Props) => {

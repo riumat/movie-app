@@ -1,22 +1,23 @@
 import ContentCard from "@/components/cards/content-card";
-import MultiCard from "@/components/cards/multi-card";
 import PersonCard from "@/components/cards/person-card";
 import SimpleContentCard from "@/components/cards/simple-content-card";
+import { MovieData } from "@/lib/types/movie.types";
+import { PersonResult } from "@/lib/types/person.types";
+import { TvData } from "@/lib/types/tv.types";
 import Link from "next/link";
 
 interface MultiGridProps {
-  searchResults: any[];
+  searchResults: (MovieData | TvData | PersonResult)[];
 }
 
 const MultiGrid = ({ searchResults }: MultiGridProps) => {
   if (!searchResults) {
     return;
   }
-
   return (
     <div className="flex-1 bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col pb-3 ">
       <div className="py-5 px-3 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-x-5 gap-y-10 overflow-x-hidden scrollbar-thin bg-background/95">
-        {searchResults.map((item: any, index) => (
+        {searchResults.map((item, index) => (
           <Link
             key={index}
             href={`/${item.media_type}/${item.id}`}
@@ -25,12 +26,12 @@ const MultiGrid = ({ searchResults }: MultiGridProps) => {
             {item.media_type !== "person" &&
               (item.user ? (
                 <ContentCard
-                  key={`${index}-${item.id}-${item.type}`}
+                  key={`${index}-${item.id}-${item.media_type}`}
                   item={item}
                 />
               ) : (
                 <SimpleContentCard
-                  key={`${index}-${item.id}-${item.type}`}
+                  key={`${index}-${item.id}-${item.media_type}`}
                   item={item}
                 />
               ))}

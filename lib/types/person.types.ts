@@ -61,7 +61,7 @@ export type PersonData = {
   user?: any
 }
 
-export type PeopleResult = {
+export type PersonResult = {
   id: number,
   name: string,
   profile_path: string,

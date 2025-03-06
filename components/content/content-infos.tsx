@@ -1,8 +1,8 @@
 import OverviewModal from "@/components/content/overview-modal";
 import ProviderModal from "@/components/content/provider-modal";
 import { formatDate, formatMinutes, formatTvDuration } from "@/lib/functions"
-import { MovieData } from "@/lib/types/movie"
-import { TvData } from "@/lib/types/tv"
+import { MovieData } from "@/lib/types/movie.types"
+import { TvData } from "@/lib/types/tv.types"
 
 const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
 

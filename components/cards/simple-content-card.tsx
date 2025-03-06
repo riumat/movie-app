@@ -1,8 +1,8 @@
 "use client"
 import React from 'react';
 import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
-import { MovieData } from '@/lib/types/movie';
-import { TvData } from '@/lib/types/tv';
+import { MovieData } from '@/lib/types/movie.types';
+import { TvData } from '@/lib/types/tv.types';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
 
@@ -15,10 +15,10 @@ const SimpleContentCard = ({ item }: { item: MovieData | TvData }) => {
       <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden">
         <ImageWithLoader src={imgSrc} />
         <div className="content-card-hover">
-          {(item.media_type === "movie" || item.type === "movie") && (
+          {(item.media_type === "movie") && (
             <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{(item as MovieData).title}</p>
           )}
-          {(item.media_type === "tv" || item.type === "tv") && (
+          {(item.media_type === "tv") && (
             <p className="text-foreground text-base font-bold z-50 mt-3 text-center">{(item as TvData).name}</p>
           )}
 

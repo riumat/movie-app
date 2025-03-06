@@ -3,6 +3,10 @@
 import { getPrismaContentData, getPrismaContentFriendsData, getPrismaFeatureContentData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
 import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
 import { formatCombinedCredits, formatCreditsReleaseDate, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList, formatVideoContent } from "@/lib/functions";
+import { MediaType } from "@/lib/types/content.types";
+import { MovieData } from "@/lib/types/movie.types";
+import { FilterParams } from "@/lib/types/params.types";
+import { TvData } from "@/lib/types/tv.types";
 
 export const getGenresAndProviders = async (media: string) => {
   const { genres, providers } = await getTmdbGenresAndProviders(media);
@@ -14,7 +18,7 @@ export const getGenresAndProviders = async (media: string) => {
   };
 };
 
-export const getTotalPagesFiltered = async (params: any, media: string) => {
+export const getTotalPagesFiltered = async (params: FilterParams, media: MediaType) => {
   const {
     genres = "",
     providers = "",
@@ -36,7 +40,7 @@ export const getTotalPagesFiltered = async (params: any, media: string) => {
   return content.total_pages;
 }
 
-export const getFilteredContents = async (params: any, media: string) => {
+export const getFilteredContents = async (params: FilterParams, media: MediaType) => {
   const {
     genres = "",
     providers = "",
@@ -225,21 +229,21 @@ export const getLandingPageData = async () => {
   ]);
   return {
     ...contents,
-    movies: contents.movies.map((item: any) => ({
+    movies: contents.movies.map((item) => ({
       ...item,
       user: prismaMovie ? {
         watched: prismaMovie.watchedSet.has(item.id),
         watchlisted: prismaMovie.watchlistedSet.has(item.id)
       } : null
-    })),
-    tv: contents.tv.map((item: any) => ({
+    })) as MovieData[],
+    tv: contents.tv.map((item) => ({
       ...item,
       user: prismaTv ? {
         watched: prismaTv.watchedSet.has(item.id),
         watchlisted: prismaTv.watchlistedSet.has(item.id)
       } : null
     })
-    )
+    ) as TvData[]
   }
 }
 

@@ -1,9 +1,9 @@
 import { baseUrl } from "@/lib/constants";
 import { formatCombinedCredits, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList } from "@/lib/functions";
 import { getSession } from "@/lib/session";
-import { MovieData } from "@/lib/types/movie";
+import { MovieData } from "@/lib/types/movie.types";
 import { SessionData } from "@/lib/types/session";
-import { TvData } from "@/lib/types/tv";
+import { TvData } from "@/lib/types/tv.types";
 import { ContentType, PrismaClient } from "@prisma/client";
 const apiKey = process.env.TMDB_API_KEY
 

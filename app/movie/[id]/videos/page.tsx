@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { MovieData } from '@/lib/types/movie';
+import { MovieData } from '@/lib/types/movie.types';
 import { getContentData, getContentVideosData } from '@/lib/fetchers/index';
 import CreditsList from '@/components/people/credits-list';
 import VideoSection from '@/components/content/video-section';
