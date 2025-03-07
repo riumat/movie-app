@@ -9,8 +9,7 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<FilterPara
 
   return (
     <div className="flex-1">
-     
-      <div className="flex flex-col items-center mt-[3.3rem]">
+      <div className="flex flex-col items-center mt-[4rem]">
         <Body
           media={MEDIA}
           params={params}

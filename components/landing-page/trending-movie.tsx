@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const BackgroundPlayer = ({ video }: { video: { title: string, id: number, poster: string, release: string, runtime: number, genres: { id: number, name: string }[] } }) => {
+const TrendingMovieSection = ({ movie }: { movie: { title: string, id: number, poster: string, release: string, runtime: number, genres: { id: number, name: string }[] } }) => {
 
   return (
     <div className='absolute h-[60vh] w-full  '>
@@ -13,8 +13,8 @@ const BackgroundPlayer = ({ video }: { video: { title: string, id: number, poste
         <div className="absolute top-0 mx-auto w-full h-full right-0 border " >
           <Image
             priority
-            src={`${imageUrl}${imgWidth.poster.original}${video.poster}`}
-            alt={video.title}
+            src={`${imageUrl}${imgWidth.poster.original}${movie.poster}`}
+            alt={movie.title}
             fill
             sizes={"(max-width: 768px) 100vh, (max-width: 1200px) 100vw"}
             quality={100}
@@ -27,15 +27,15 @@ const BackgroundPlayer = ({ video }: { video: { title: string, id: number, poste
         <div className="absolute flex flex-col items-center lg:items-start w-full h-[50%] top-[35%] lg:top-[30%] text-center lg:text-start lg:left-20 z-30 ">
           <p className="font-light text-base lg:text-lg mb-3 lg:mb-6">Top trending movie this week</p>
           <div className=" flex flex-col gap-3 items-center lg:items-start">
-            <p className="text-foreground font-bold text-2xl lg:text-4xl">{video.title}</p>
+            <p className="text-foreground font-bold text-2xl lg:text-4xl">{movie.title}</p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3 lg:gap-5 text-sm lg:text-base justify-center lg:justify-start">
-                <p>{formatDate(video.release)}</p>
+                <p>{formatDate(movie.release)}</p>
                 <p>•</p>
-                <p>{formatMinutes(video.runtime)}</p>
+                <p>{formatMinutes(movie.runtime)}</p>
               </div>
               <div className="flex items-center gap-1 text-sm lg:text-base justify-center lg:justify-start">
-                {video.genres.map((genre, index, array) => (
+                {movie.genres.map((genre, index, array) => (
                   <span key={genre.id} className="mr-2">
                     {genre.name}{index < array.length - 1 ? ',' : ''}
                   </span>
@@ -45,10 +45,10 @@ const BackgroundPlayer = ({ video }: { video: { title: string, id: number, poste
 
             <Button variant="default" size="default" className="w-40 mt-3 lg:mt-0" >
               <Link
-                href={`/movie/${video.id}`}
+                href={`/movie/${movie.id}`}
                 className="flex justify-center items-center gap-2"
               >
-                <p>Visit Page</p>
+                <p>Details</p>
                 <ArrowRight size={24} />
               </Link>
             </Button>
@@ -59,4 +59,4 @@ const BackgroundPlayer = ({ video }: { video: { title: string, id: number, poste
   );
 };
 
-export default BackgroundPlayer;
+export default TrendingMovieSection;

@@ -3,7 +3,7 @@
 import { tmdbConfig } from "@/lib/fetchers/axios.config";
 import { endpoint } from "@/lib/fetchers/endpoints";
 import { ApiGenreResponse, ApiItemResponse, ApiListResponse } from "@/lib/types/api.types";
-import { MediaType } from "@/lib/types/content.types";
+import { Content, MediaType } from "@/lib/types/content.types";
 import { MovieData } from "@/lib/types/movie.types";
 import { FilterParams } from "@/lib/types/params.types";
 import { PersonResult } from "@/lib/types/person.types";
@@ -126,7 +126,7 @@ export const getTmdbVideosData = async (id: string, media: string) => {
 
 export const getTmdbRecommendationsData = async (id: string, media: string) => {
   try {
-    return (await tmdbConfig().get(endpoint.dynamicContent.recommendations(media, id))).data;
+    return (await tmdbConfig().get<ApiListResponse<MovieData|TvData>>(endpoint.dynamicContent.recommendations(media, id))).data;
   } catch (error) {
     throw new Error(`Failed to fetch recommendations data: ${error}`);
   }
@@ -178,28 +178,27 @@ export const getTmdbSearchResults = async (query: string, page: string) => {
   }
 }
 
+export const getTmdbLandingFeatured = async () => {
+  const movies = (await (tmdbConfig().get<ApiListResponse<MovieData>>(endpoint.trending.movies))).data.results;
+  const trendingMovie = (await tmdbConfig().get<MovieData>(endpoint.dynamicContent.all(MOVIE, movies[0].id.toString()))).data;
+  return {
+    title: trendingMovie.title,
+    id: trendingMovie.id,
+    poster: trendingMovie.backdrop_path,
+    release: trendingMovie.release_date,
+    runtime: trendingMovie.runtime,
+    genres: trendingMovie.genres
+  }
+}
+
 export const getTmdbLandingContent = async () => {
   const [trendingMovies, trendingTv] = await Promise.all([
     tmdbConfig().get<ApiListResponse<MovieData>>(endpoint.trending.movies),
     tmdbConfig().get<ApiListResponse<TvData>>(endpoint.trending.tv)
   ]);
 
-  const movies = trendingMovies.data.results;
-  const tv = trendingTv.data.results;
-
-  const trendingMovie = (await tmdbConfig().get<MovieData>(endpoint.dynamicContent.all(MOVIE, movies[0].id.toString()))).data;
-  console.log(trendingMovie);
-
   return {
-    movies,
-    tv,
-    video: {
-      title: trendingMovie.title,
-      id: trendingMovie.id,
-      poster: trendingMovie.backdrop_path,
-      release: trendingMovie.release_date,
-      runtime: trendingMovie.runtime,
-      genres: trendingMovie.genres
-    }
+    movies: trendingMovies.data.results,
+    tv: trendingTv.data.results,
   }
 }

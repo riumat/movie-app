@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const getPrismaWatchAndWatchlistIds = async (media: string) => {
   const session = await getSession();
-  if (!session) return;
+  if (!session) return ;
   try {
     const [watched, watchlisted] = await Promise.all([
       prisma.content.findMany({
@@ -243,6 +243,74 @@ export const getPrismaFeatureContentData = async (userId: string) => {
     });
 
     return content;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export const getPrismaUserGenres = async () => {
+  const session = await getSession();
+  if (!session) return;
+
+  try {
+    const genres = await prisma.contentToGenre.groupBy({
+      by: ['genre_id'],
+      where: { user_id: Number(session.user.id) },
+      _count: { genre_id: true }
+    })
+
+    return genres.map(genre => genre.genre_id);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export const getPrismaBestRatedMovies = async () => {
+  const session = await getSession();
+  if (!session) return;
+
+  try {
+    const ids = await prisma.content.groupBy({
+      by: ['content_id', 'rating'],
+      where: {
+        user_id: Number(session.user.id),
+        rating: {
+          gt: 3
+        },
+        content_type: 'movie',
+      },
+    })
+    return ids.slice(0, 4).sort((a, b) => (b.rating! - a.rating!)).map(content => (
+      {
+        id: content.content_id,
+      }
+    ));
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export const getPrismaBestRatedTvShows = async () => {
+  const session = await getSession();
+  if (!session) return;
+
+  try {
+    const ids = await prisma.content.groupBy({
+      by: ['content_id', 'rating'],
+      where: {
+        user_id: Number(session.user.id),
+        rating: {
+          gt: 3
+        },
+        content_type: 'tv',
+      },
+    })
+    return ids.slice(0, 5).map(content => (
+      {
+        id: content.content_id,
+        rating: content.rating
+      }
+    ));
   } finally {
     await prisma.$disconnect();
   }

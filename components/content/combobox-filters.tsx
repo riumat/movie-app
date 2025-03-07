@@ -58,7 +58,7 @@ const ComboboxFilter = ({ items, onChange, selectedItems, label }: ComboboxDemoP
           <p className="text-ellipsis overflow-hidden font-light">
             {selectedItems.length > 0
               ? filterGroup(selectedItems, items).join(", ")
-              : `Select ${label}`}
+              : ` ${label}`}
           </p>
           <ChevronsUpDown className="opacity-50" />
         </Button>

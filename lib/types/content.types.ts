@@ -36,6 +36,8 @@ export interface Content<T> {
   };
   recommendations: T[];
   providers: ProviderItem[];
+  vote_average: number;
+  vote_count: number;
   watched: boolean;
   watchlisted: boolean;
   user: {

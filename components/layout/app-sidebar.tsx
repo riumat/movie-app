@@ -1,3 +1,6 @@
+import AuthModal from "@/components/auth/auth-modal"
+import LogoutModal from "@/components/auth/logout-modal"
+import { ModeToggle } from "@/components/theme/toggle-theme"
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +16,7 @@ import { usePathname } from "next/navigation"
 
 export const AppSidebar = async () => {
   const session = await getSession()
+  const isLogged = !!session;
 
   return (
     <Sidebar>
@@ -30,14 +34,14 @@ export const AppSidebar = async () => {
         </div>
       </SidebarHeader >
       <SidebarContent>
-        <SidebarGroup >
-          <ul className='relative text-sm flex flex-col ml-6 gap-1 '>
+        <SidebarGroup className="w-full flex">
+          <ul className=' text-sm flex flex-col gap-5  mx-auto'>
             {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
-              <li key={item.path} className="mb-10">
-                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-2 ml-3'>
+              <li key={item.path} className="  ">
+                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 hover:underline p-3'>
                   <item.icon size={17} />
                   <span
-                    className="px-3 py-1 rounded-xl hover:underline text-sm"
+
                   >
                     {item.label}
                   </span>
@@ -49,7 +53,16 @@ export const AppSidebar = async () => {
         </SidebarGroup>
         <SidebarGroup />
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter >
+        <div className="mb-8  flex justify-evenly items-center ">
+          <ModeToggle />
+          {isLogged ? (
+            <LogoutModal />
+          ) : (
+            <AuthModal isOpen={false} label='Login' />
+          )}
+        </div>
+      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -37,6 +37,7 @@ const Body = async ({ media, params }: Props) => {
           />
         </Suspense>
       </FiltersSection>
+      
     </div>
   )
 }

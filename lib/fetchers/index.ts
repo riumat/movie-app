@@ -1,8 +1,9 @@
 "server-only"
 
-import { getPrismaContentData, getPrismaContentFriendsData, getPrismaFeatureContentData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
-import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
+import { getPrismaBestRatedMovies, getPrismaBestRatedTvShows, getPrismaContentData, getPrismaContentFriendsData, getPrismaFeatureContentData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
+import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbLandingFeatured, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
 import { formatCombinedCredits, formatCreditsReleaseDate, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList, formatVideoContent } from "@/lib/functions";
+import { ApiListResponse } from "@/lib/types/api.types";
 import { MediaType } from "@/lib/types/content.types";
 import { MovieData } from "@/lib/types/movie.types";
 import { FilterParams } from "@/lib/types/params.types";
@@ -218,29 +219,51 @@ export const getSearchResults = async (query: string, page: string) => {
   };
 }
 
+export const getLandingPageFeatured = async () => {
+  const featuredMovie = await getTmdbLandingFeatured();
+  return featuredMovie;
+}
+
 export const getLandingPageData = async () => {
-  const tmdbPromise = getTmdbLandingContent();
-  const prismaMoviePromise = getPrismaWatchAndWatchlistIds("movie");
-  const prismaTvPromise = getPrismaWatchAndWatchlistIds("tv");
-  const [contents, prismaMovie, prismaTv] = await Promise.all([
-    tmdbPromise,
+  const prismaMoviePromise = getPrismaWatchAndWatchlistIds("movie") ?? [];
+  const prismaTvPromise = getPrismaWatchAndWatchlistIds("tv") ?? [];
+  const [prismaUserMovies, prismaUserTvs] = await Promise.all([
     prismaMoviePromise,
     prismaTvPromise
   ]);
+
+  const prismaBestRatedMovieP = getPrismaBestRatedMovies();
+  const prismaBestRatedTvP = getPrismaBestRatedTvShows();
+  const [prismaRatedMovies, prismaRatedTv] = await Promise.all([prismaBestRatedMovieP, prismaBestRatedTvP]);
+
+  const ratedMoviesTmp = await Promise.all(prismaRatedMovies?.map(async (movie) => {
+    const tmdbData = await getTmdbRecommendationsData(movie.id.toString(), "movie") as ApiListResponse<MovieData>;
+    return tmdbData.results.filter(c => (c.vote_average > 7 && c.vote_count > 150)).splice(0, 5);
+  }) || []);
+  const ratedTvs = await Promise.all(prismaRatedTv?.map(async (tv) => {
+    const tmdbData = await getTmdbRecommendationsData(tv.id.toString(), "tv") as ApiListResponse<TvData>;
+    return tmdbData.results.filter(c => (c.vote_average > 7 && c.vote_count > 150)).splice(0, 5)
+  }) || []);
+
+
+  const trendingContents = await getTmdbLandingContent();
+
+
   return {
-    ...contents,
-    movies: contents.movies.map((item) => ({
+    ratedMovies: ratedMoviesTmp.flat().filter(movie => !prismaUserMovies?.watchedSet.has(movie.id)),
+    ratedTvs: ratedTvs.flat().filter(tv => !prismaUserTvs?.watchedSet.has(tv.id)),
+    movies: trendingContents.movies.map((item) => ({
       ...item,
-      user: prismaMovie ? {
-        watched: prismaMovie.watchedSet.has(item.id),
-        watchlisted: prismaMovie.watchlistedSet.has(item.id)
+      user: prismaUserMovies ? {
+        watched: prismaUserMovies.watchedSet.has(item.id),
+        watchlisted: prismaUserMovies.watchlistedSet.has(item.id)
       } : null
     })) as MovieData[],
-    tv: contents.tv.map((item) => ({
+    tv: trendingContents.tv.map((item) => ({
       ...item,
-      user: prismaTv ? {
-        watched: prismaTv.watchedSet.has(item.id),
-        watchlisted: prismaTv.watchlistedSet.has(item.id)
+      user: prismaUserTvs ? {
+        watched: prismaUserTvs.watchedSet.has(item.id),
+        watchlisted: prismaUserTvs.watchlistedSet.has(item.id)
       } : null
     })
     ) as TvData[]

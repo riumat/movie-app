@@ -63,6 +63,7 @@ const Sidebar = ({ session }: { session: any }) => {
               {session && (
                 <p className='text-sm font-extralight'>Logged as <span className='font-bold'>{session.user.name}</span></p>
               )}
+              
 
               <div className="mb-4 flex justify-between items-center w-full ">
                 {isLogged ? (

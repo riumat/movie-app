@@ -31,7 +31,7 @@ const LogoutModal = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-      <Button variant="outline" className="px-3">
+      <Button variant="default" className="px-3">
           {"Logout"}
         </Button>
       </DialogTrigger>

@@ -22,11 +22,10 @@ export const FiltersSidebar = ({
 }: FiltersSidebarProps) => {
 
   return (
-    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-background/95 text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10 ">
-      <p className="text-center font-bold">Filters</p>
+    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] bg-gradient-to-r from-background to-secondary text-foreground rounded-lg pt-5 px-3 flex flex-col gap-10  ">
       <div className="flex flex-col items-center">
         <ComboboxFilter
-          label="genres"
+          label="Genres"
           selectedItems={filters.selectedGenres}
           items={genres}
           onChange={handlers.handleGenreChange}
@@ -35,7 +34,7 @@ export const FiltersSidebar = ({
 
       <div className="flex flex-col items-center">
         <ComboboxFilter
-          label="networks"
+          label="Networks"
           selectedItems={filters.selectedProviders}
           items={providers}
           onChange={handlers.handleProviderChange}
