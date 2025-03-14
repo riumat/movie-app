@@ -27,6 +27,7 @@ export const useFilterState = () => {
   const [range, setRange] = useState({ from: searchParams.get("from") || "1924", to: searchParams.get("to") || new Date().getFullYear().toString() })
   const [sortType, setSortType] = useState(searchParams.get("sort") || "popularity.desc")
   const [page, setPage] = useState(searchParams.get("page") ? Number(searchParams.get("page")) : 1)
+  const [runtime, setRuntime] = useState<number[]>([Number(searchParams.get("with_runtime.gte")) || 0, Number(searchParams.get("with_runtime.lte")) || 300])
   const router = useRouter();
 
   const handleChangePage = (page: number) => {
@@ -39,7 +40,7 @@ export const useFilterState = () => {
     const updated = toggleItemInSelectedItems(genre, selectedGenres)
     setPage(1)
     setSelectedGenres(updated)
-    router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${updated}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`)
     
   }
 
@@ -47,22 +48,28 @@ export const useFilterState = () => {
     const updated = toggleItemInSelectedItems(provider, selectedProviders)
     setPage(1)
     setSelectedProviders(updated)
-    router.push(`?genres=${selectedGenres}&providers=${updated.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${selectedGenres}&providers=${updated.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`)
 
   }
 
   const handleYearChange = (range: { from: string, to: string }) => {
     setPage(1)
     setRange(range)
-    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}`)
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`)
 
   }
 
   const handleSortChange = (sort: string) => {
     setPage(1)
     setSortType(sort)
-    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sort}`)
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sort}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`)
 
+  }
+
+  const handleRuntime = (runtime: number[]) => {
+    setPage(1)
+    setRuntime(runtime)
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`) //todo non funziona
   }
 
   const handleReset = () => {
@@ -89,6 +96,7 @@ export const useFilterState = () => {
       handleYearChange,
       handleSortChange,
       handleChangePage,
+      handleRuntime,
       handleReset
     },
   }

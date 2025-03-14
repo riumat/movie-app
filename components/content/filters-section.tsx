@@ -9,7 +9,7 @@ const FiltersSection = ({ children, props }: { children: any, props: any }) => {
   const { filters, handlers } = useFilterState();
   return (
     <>
-      <div className='flex flex-grow overflow-hidden w-full gap-5  '>
+      <div className='flex flex-grow overflow-hidden w-full gap-10  '>
         {children}
         <FiltersSidebar
           genres={props.genres}
@@ -19,7 +19,6 @@ const FiltersSection = ({ children, props }: { children: any, props: any }) => {
           filters={filters}
         />
       </div>
-      <Separator />
       <div className='rounded-lg bg-background/95 py-3 w-full flex justify-center'>
         <Pagination
           page={filters.page}

@@ -1,7 +1,7 @@
 import ContentCardSkeleton from '@/components/cards/content-card-skeleton'
 import ContentDisplay from '@/components/content/content-display'
 import FiltersSection from '@/components/content/filters-section'
-import { getFilteredContents, getGenresAndProviders } from '@/lib/fetchers/index'
+import { getFilteredTotalPages, getGenresAndProviders } from '@/lib/fetchers/index'
 import { MediaType } from '@/lib/types/content.types'
 import { Suspense } from 'react'
 
@@ -19,8 +19,8 @@ type Props = {
 
 const Body = async ({ media, params }: Props) => {
   const filterPromise = getGenresAndProviders(media);
-  const contentPromise = getFilteredContents(params, media)
-  const [{ genres, providers }, { content, totalPages }] = await Promise.all([filterPromise, contentPromise])
+  const contentPromise = getFilteredTotalPages(params, media)
+  const [{ genres, providers }, totalPages] = await Promise.all([filterPromise, contentPromise])
 
   return (
     <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden">
@@ -33,11 +33,12 @@ const Body = async ({ media, params }: Props) => {
           </div>
         }>
           <ContentDisplay
-            content={content}
+            params={params}
+            media={media}
           />
         </Suspense>
       </FiltersSection>
-      
+
     </div>
   )
 }

@@ -41,6 +41,29 @@ export const getTotalPagesFiltered = async (params: FilterParams, media: MediaTy
   return content.total_pages;
 }
 
+export const getFilteredTotalPages = async (params: FilterParams, media: MediaType) => {
+  const {
+    genres = "",
+    providers = "",
+    page = "1",
+    from = "1920",
+    to = new Date().getFullYear().toString(),
+    sort = "popularity.desc"
+  } = params;
+
+  const { total_pages } = await getTmdbFilteredContent({
+    genres,
+    providers,
+    page,
+    from,
+    to,
+    sort
+  }, media);
+
+  return total_pages;
+
+}
+
 export const getFilteredContents = async (params: FilterParams, media: MediaType) => {
   const {
     genres = "",
@@ -67,17 +90,14 @@ export const getFilteredContents = async (params: FilterParams, media: MediaType
     prismaPromise
   ]);
 
-  return {
-    content: content.results.map((item: any) => ({
-      ...item,
-      type: media,
-      user: prismaContent ? {
-        watched: prismaContent.watchedSet.has(item.id),
-        watchlisted: prismaContent.watchlistedSet.has(item.id)
-      } : null
-    })),
-    totalPages: content.total_pages
-  };
+  return content.results.map((item: any) => ({
+    ...item,
+    type: media,
+    user: prismaContent ? {
+      watched: prismaContent.watchedSet.has(item.id),
+      watchlisted: prismaContent.watchlistedSet.has(item.id)
+    } : null
+  }))
 }
 
 export const getPersonData = async (id: string) => {

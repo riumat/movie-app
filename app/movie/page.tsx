@@ -1,4 +1,3 @@
-import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
 import { FilterParams } from "@/lib/types/params.types";
 
