@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import SubmitButton from "@/components/ui/submit-button";
 import { registerAction } from "@/lib/actions/auth";
 import { AuthState } from "@/lib/types/auth";
 import { useEffect } from "react";
@@ -68,10 +68,10 @@ const RegisterForm = ({ setOpen }: { setOpen: (flag: boolean) => void }) => {
             {state?.errors?.confirmPassword && <p className="text-red-500 text-sm">{state?.errors?.confirmPassword}</p>}
           </div>
 
-
-          <Button type="submit" variant="secondary" className="px-10">
+          <SubmitButton >
             Register
-          </Button>
+          </SubmitButton>
+
         </div>
 
       </div>
