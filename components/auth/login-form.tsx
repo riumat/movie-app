@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import SubmitButton from "@/components/ui/submit-button";
 import { loginAction } from "@/lib/actions/auth";
 import { AuthState } from "@/lib/types/auth";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ const LoginForm = ({ setOpen }: { setOpen: (flag: boolean) => void }) => {
       setOpen(false);
     }
   }, [state])
+
   return (
     <form action={formAction}>
       <div className="flex items-center space-x-2 mt-5">
@@ -44,9 +45,9 @@ const LoginForm = ({ setOpen }: { setOpen: (flag: boolean) => void }) => {
             {state?.errors?.password && <p className="text-red-500 text-sm">{state?.errors?.password}</p>}
           </div>
 
-          <Button type="submit" variant="secondary" className="px-10">
-            Log In
-          </Button>
+         <SubmitButton >
+          Log In
+         </SubmitButton>
         </div>
 
       </div>

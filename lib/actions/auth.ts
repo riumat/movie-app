@@ -1,21 +1,21 @@
 "use server"
 
-import { baseUrl } from "@/lib/constants";
-import { formatMinutes } from "@/lib/functions";
 import { getAuthSchema } from "@/lib/schemas";
 import { getSession, setSession } from "@/lib/session";
 import { AuthState } from "@/lib/types/auth";
 import { Prisma, PrismaClient } from '@prisma/client'
-import axios from "axios";
+import bcrypt from "bcryptjs";
 
-const apiKey = process.env.TMDB_API_KEY;
-
-
+const prisma = new PrismaClient();
+const SALT = 10;
 
 export const loginAction = async (prevState: any, formData: FormData) => {
   const AuthSchema = await getAuthSchema();
-  const prisma = new PrismaClient();
-  const LoginUser = AuthSchema.omit({ name: true, password: true, repeatPassword: true })
+  const LoginUser = AuthSchema.omit({
+    name: true,
+    password: true,
+    repeatPassword: true
+  })
 
   const validateFields = LoginUser.safeParse({
     email: formData.get("email"),
@@ -36,16 +36,16 @@ export const loginAction = async (prevState: any, formData: FormData) => {
     }
   })
     .then(user => {
-      if (user.password === formData.get("password")) {
+      if (bcrypt.compareSync(formData.get("password")?.toString() ?? "", user.password)) {
         const data = {
           id: user.user_id,
           name: user.username,
+          email: user.email,
         }
         setSession(data)
 
         return {
           success: true,
-          userId: user.user_id
         }
       } else {
         return {
@@ -81,11 +81,10 @@ export const loginAction = async (prevState: any, formData: FormData) => {
 
 export const registerAction = async (prevState: any, formData: FormData) => {
   const AuthSchema = await getAuthSchema();
-  const prisma = new PrismaClient();
 
   const RegisterUser = AuthSchema.refine(
     data => data.password === data.repeatPassword,
-    { message: "Passwords dont match.", path: ["confirmPassword"] }
+    { message: "Passwords don't match.", path: ["confirmPassword"] }
   )
 
   const validateFields = RegisterUser.safeParse({
@@ -102,23 +101,26 @@ export const registerAction = async (prevState: any, formData: FormData) => {
     }
     return returnState;
   }
-
+  const salt = await bcrypt.genSalt(SALT);
+  const hashedPassword = await bcrypt.hash(validateFields.data.password, salt);
 
   const returnState: AuthState = await prisma.user.create({
     data: {
       username: validateFields.data.name,
       email: validateFields.data.email,
-      password: validateFields.data.password,
+      password: hashedPassword,
     }
   })
     .then(async (res) => {
-      const user = {
+      const data = {
         id: res.user_id,
         name: res.username,
+        email: res.email,
       }
 
-      setSession(user)
-      return { success: true, userId: res.user_id }
+      setSession(data)
+
+      return { success: true };
     }
     )
     .catch(error => {
