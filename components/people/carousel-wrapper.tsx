@@ -19,7 +19,7 @@ const CarouselWrapper = ({ contentList }: { contentList: MovieData[] | TvData[] 
           <CarouselItem
             key={content.id}
             className="basis-[100%] md:basis-1/2 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6 flex items-center pl-4">
-            <ContentInfoModal content={content} /> //todo passarlo come props in modo da passare anche lo scheletro
+            <ContentInfoModal content={content} />
           </CarouselItem>
         ))}
       </CarouselContent>

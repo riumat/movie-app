@@ -69,7 +69,7 @@ export const useFilterState = () => {
   const handleRuntime = (runtime: number[]) => {
     setPage(1)
     setRuntime(runtime)
-    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`) //todo non funziona
+    router.push(`?genres=${selectedGenres}&providers=${selectedProviders.join(',')}&page=${"1"}&from=${range.from}&to=${range.to}&sort=${sortType}&with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`) 
   }
 
   const handleReset = () => {

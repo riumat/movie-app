@@ -271,7 +271,7 @@ export const rateMovieFinance = (budget: number, revenue: number, releaseDate: s
     return 3;
   }
 
-  return 4; //todo
+  return 4; 
 }
 
 export const getDaysSince = (date: string): string => {
