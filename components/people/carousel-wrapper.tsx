@@ -2,9 +2,7 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { MovieData } from "@/lib/types/movie.types";
 import { TvData } from "@/lib/types/tv.types";
-import SimpleOrizontalCard from "@/components/cards/simple-orizontal-card";
 import ContentInfoModal from "@/components/content/content-info-modal";
-import { ReactNode } from "react";
 
 const CarouselWrapper = ({ contentList }: { contentList: MovieData[] | TvData[] }) => {
   return (
