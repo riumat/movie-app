@@ -1,4 +1,3 @@
-"use client"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { MovieData } from "@/lib/types/movie.types";
 import { TvData } from "@/lib/types/tv.types";

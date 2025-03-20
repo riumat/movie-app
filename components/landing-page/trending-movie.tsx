@@ -5,7 +5,18 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const TrendingMovieSection = ({ movie }: { movie: { title: string, id: number, poster: string, release: string, runtime: number, genres: { id: number, name: string }[] } }) => {
+interface TrendingMovieSectionProps {
+  movie: {
+    title: string;
+    id: number;
+    poster: string;
+    release: string;
+    runtime: number;
+    genres: { id: number; name: string }[];
+  };
+}
+
+const TrendingMovieSection = ({ movie }: TrendingMovieSectionProps) => {
 
   return (
     <div className='absolute h-[60vh] w-full  '>
