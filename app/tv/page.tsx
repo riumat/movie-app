@@ -1,17 +1,21 @@
-import Background from "@/components/layout/background";
 import Body from "@/components/content/body";
+import { getGenresAndProviders } from "@/lib/fetchers/index";
+import { FilterParams } from "@/lib/types/params.types";
 
-const DiscoverPage = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string }> }) => {
-  const media = "tv"
-  const params: { [key: string]: string, } = await searchParams;
+const MEDIA = "tv"
+
+const DiscoverPage = async ({ searchParams }: { searchParams: Promise<FilterParams> }) => {
+  const params = await searchParams;
+  const { genres, providers } = await getGenresAndProviders(MEDIA);
 
   return (
     <div className="flex-1">
-      <Background />
-      <div className="flex flex-col h-[93.5vh] items-center mt-[3.3rem]">
+      <div className="flex flex-col items-center mt-[4rem]">
         <Body
-          media={media}
+          media={MEDIA}
           params={params}
+          genres={genres}
+          providers={providers}
         />
       </div>
     </div>

@@ -5,4 +5,6 @@ export interface FilterParams {
   from: string,
   to: string,
   sort: string,
+  runtime_gte: string,
+  runtime_lte: string
 }

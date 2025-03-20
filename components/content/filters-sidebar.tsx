@@ -5,15 +5,15 @@ import DatePickerWithYearRange from "@/components/content/range-date-picker"
 import MovieSortInput from "@/components/movie/movie-sort-input"
 import TvSortInput from "@/components/tv/tv-sort-input"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import RuntimeSlider from "@/components/content/runtime-slider"
+import { Filters, Handlers } from "@/lib/hooks/use-filter-state"
 
 interface FiltersSidebarProps {
   genres: FilterItem[]
   providers: FilterItem[]
   media: string,
-  handlers: any,
-  filters: any
+  handlers: Handlers,
+  filters: Filters
 }
 export const FiltersSidebar = ({
   genres,
@@ -26,20 +26,9 @@ export const FiltersSidebar = ({
   return (
     <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] flex flex-col gap-3 ">
 
-      <div className=" bg-secondary/50 text-foreground rounded-lg p-5  flex flex-col gap-3">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Checkbox />
-          <span className="text-sm">Hide watched content</span>
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Checkbox />
-          <span className="text-sm">Highlight watchlist</span>
-        </div>
-      </div>
-
-      <div className=" bg-secondary/50 text-foreground rounded-lg p-5 flex flex-col gap-3">
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
         <div className="flex flex-col ">
-          <h2 className="text-sm font-normal mb-3 text-start">Sort by</h2>
+          <h2 className="text-sm font-normal mb-3 text-center">Sort by</h2>
           {media === "movie" ?
             <MovieSortInput sortType={filters.sortType} onChange={handlers.handleSortChange} />
             :
@@ -48,34 +37,46 @@ export const FiltersSidebar = ({
         </div>
       </div>
 
-      <div className="flex-1 bg-secondary/50 text-foreground rounded-lg p-5  flex flex-col gap-8">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col items-center">
-            <ComboboxFilter
-              label="Genres"
-              selectedItems={filters.selectedGenres}
-              items={genres}
-              onChange={handlers.handleGenreChange}
-            />
-          </div>
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-5  flex flex-col gap-3">
+      <h2 className="text-sm font-normal text-center">Genres and networks</h2>
 
-          <div className="flex flex-col items-center">
-            <ComboboxFilter
-              label="Networks"
-              selectedItems={filters.selectedProviders}
-              items={providers}
-              onChange={handlers.handleProviderChange}
-            />
-          </div>
-        </div>
+        <ComboboxFilter
+          label="Genres"
+          selectedItems={filters.selectedGenres}
+          items={genres}
+          onChange={handlers.handleGenreChange}
+        />
 
-        <DatePickerWithYearRange onChange={handlers.handleYearChange} />
-
-        <RuntimeSlider onChange={handlers.handleRuntime} />
-
-
-        <Button variant="destructive" className="w-full" onClick={handlers.handleReset}>Reset Filters</Button>
+        <ComboboxFilter
+          label="Networks"
+          selectedItems={filters.selectedProviders}
+          items={providers}
+          onChange={handlers.handleProviderChange}
+        />
       </div>
+
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
+      <h2 className="text-sm font-normal text-center">Year range</h2>
+
+
+        <DatePickerWithYearRange
+          onChange={handlers.handleYearChange}
+          selectedRange={filters.yearRange}
+        />
+      </div>
+
+
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
+      <h2 className="text-sm font-normal text-center">Duration</h2>
+
+        <RuntimeSlider
+          onChange={handlers.handleRuntime}
+          selectedRuntime={filters.runtime}
+        />
+      </div>
+      <div className="flex-1"></div>
+      <Button variant="destructive" className="w-full" onClick={handlers.handleReset}>Reset filters</Button>
+
 
     </div>
   )

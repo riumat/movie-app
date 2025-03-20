@@ -2,6 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { MovieData } from "@/lib/types/movie.types";
 import { TvData } from "@/lib/types/tv.types";
 import ContentInfoModal from "@/components/content/content-info-modal";
+import OrizontalCard from "@/components/cards/orizontal-card";
 
 const CarouselWrapper = ({ contentList }: { contentList: (MovieData | TvData)[] }) => {
   return (
@@ -16,7 +17,10 @@ const CarouselWrapper = ({ contentList }: { contentList: (MovieData | TvData)[] 
           <CarouselItem
             key={content.id}
             className="basis-[100%] md:basis-1/2 lg:basis-1/4 xl:basis-1/5  flex items-center pl-4">
-            <ContentInfoModal content={content} />
+            <ContentInfoModal
+              content={content}
+              trigger={<OrizontalCard item={content} />}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

@@ -39,17 +39,12 @@ export const getTmdbFilteredContent = async (params: FilterParams, media: MediaT
       sort_by: params.sort,
       without_genres: '10763,10764,10767',
       'vote_count.gte': '200',
+      'with_runtime.gte': params.runtime_gte,
+      'with_runtime.lte': params.runtime_lte,
       watch_region: 'IT'
     }
   })).data;
   return data;
-}
-
-type PersonResponse = {
-  personData: any;
-  creditsData: any;
-  imagesData: any;
-  externalData: any;
 }
 
 export const getTmdbPersonData = async (id: string) => {

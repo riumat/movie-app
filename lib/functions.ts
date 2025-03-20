@@ -5,7 +5,7 @@ import { CrewItem } from "@/lib/types/crew";
 export function formatDate(date: string): string {
   if (!date) return '';
   const [year, month, day] = date.split('-');
-  return `${day}/${month}/${year}`;
+  return `${day} · ${month} · ${year}`;
 }
 
 

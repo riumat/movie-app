@@ -1,10 +1,12 @@
 import Body from "@/components/content/body";
+import { getGenresAndProviders } from "@/lib/fetchers/index";
 import { FilterParams } from "@/lib/types/params.types";
 
 const MEDIA = "movie"
 
 const DiscoverPage = async ({ searchParams }: { searchParams: Promise<FilterParams> }) => {
   const params = await searchParams;
+  const { genres, providers } = await getGenresAndProviders(MEDIA);
 
   return (
     <div className="flex-1">
@@ -12,6 +14,8 @@ const DiscoverPage = async ({ searchParams }: { searchParams: Promise<FilterPara
         <Body
           media={MEDIA}
           params={params}
+          genres={genres}
+          providers={providers}
         />
       </div>
     </div>

@@ -1,5 +1,3 @@
-import AuthModal from "@/components/auth/auth-modal"
-import LogoutModal from "@/components/auth/logout-modal"
 import { ModeToggle } from "@/components/theme/toggle-theme"
 import {
   Sidebar,
@@ -9,21 +7,17 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar"
 import { sidebarItems } from "@/lib/constants"
-import { getSession } from "@/lib/session"
 import Image from "next/image"
 import Link from "next/link"
 
 export const AppSidebar = async () => {
-  const session = await getSession()
-  const isLogged = !!session;
-
   return (
     <Sidebar>
       <SidebarHeader >
         <div className="flex items-center justify-between">
           <div className="flex justify-center w-full ">
             <Image
-              src="/logo.png"
+              src="/logo-no-bg.png"
               alt="logo"
               className="rounded-full relative -top-5"
               width={160}
@@ -35,9 +29,9 @@ export const AppSidebar = async () => {
       <SidebarContent>
         <SidebarGroup className="w-full flex">
           <ul className=' text-sm flex flex-col gap-5  mx-auto'>
-            {sidebarItems.filter((item) => session ? item : item.label !== "Profile").map((item) => (
+            {sidebarItems.map((item) => (
               <li key={item.path} className="  ">
-                <Link href={item.path === "/user" ? `${item.path}/${session.user.id}` : item.path} className='flex items-center gap-3 hover:underline p-3'>
+                <Link href={item.path} className='flex items-center gap-3 hover:underline p-3'>
                   <item.icon size={17} />
                   <span
 
@@ -55,11 +49,6 @@ export const AppSidebar = async () => {
       <SidebarFooter >
         <div className="mb-8  flex justify-evenly items-center ">
           <ModeToggle />
-          {isLogged ? (
-            <LogoutModal />
-          ) : (
-            <AuthModal isOpen={false} label='Login' />
-          )}
         </div>
       </SidebarFooter>
     </Sidebar>

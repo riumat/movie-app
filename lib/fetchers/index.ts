@@ -1,6 +1,5 @@
 "server-only"
 
-import { getPrismaBestRatedMovies, getPrismaBestRatedTvShows, getPrismaContentData, getPrismaContentFriendsData, getPrismaFeatureContentData, getPrismaPersonData, getPrismaSearchResults, getPrismaWatchAndWatchlistIds } from "@/lib/fetchers/prisma";
 import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbLandingFeatured, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
 import { formatCombinedCredits, formatCreditsReleaseDate, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList, formatVideoContent } from "@/lib/functions";
 import { ApiListResponse } from "@/lib/types/api.types";
@@ -26,7 +25,9 @@ export const getTotalPagesFiltered = async (params: FilterParams, media: MediaTy
     page = "1",
     from = "1920",
     to = new Date().getFullYear().toString(),
-    sort = "popularity.desc"
+    sort = "popularity.desc",
+    runtime_lte = "360",
+    runtime_gte = "0"
   } = params;
 
   const content = await getTmdbFilteredContent({
@@ -35,33 +36,12 @@ export const getTotalPagesFiltered = async (params: FilterParams, media: MediaTy
     page,
     from,
     to,
-    sort
+    sort,
+    runtime_gte,
+    runtime_lte,
   }, media);
 
   return content.total_pages;
-}
-
-export const getFilteredTotalPages = async (params: FilterParams, media: MediaType) => {
-  const {
-    genres = "",
-    providers = "",
-    page = "1",
-    from = "1920",
-    to = new Date().getFullYear().toString(),
-    sort = "popularity.desc"
-  } = params;
-
-  const { total_pages } = await getTmdbFilteredContent({
-    genres,
-    providers,
-    page,
-    from,
-    to,
-    sort
-  }, media);
-
-  return total_pages;
-
 }
 
 export const getFilteredContents = async (params: FilterParams, media: MediaType) => {
@@ -71,44 +51,39 @@ export const getFilteredContents = async (params: FilterParams, media: MediaType
     page = "1",
     from = "1920",
     to = new Date().getFullYear().toString(),
-    sort = "popularity.desc"
+    sort = "popularity.desc",
+    runtime_lte = "360",
+    runtime_gte = "0"
   } = params;
 
-  const tmdbPromise = getTmdbFilteredContent({
+  const { results, total_pages } = await getTmdbFilteredContent({
     genres,
     providers,
     page,
     from,
     to,
-    sort
+    sort,
+    runtime_gte,
+    runtime_lte,
   }, media);
 
-  const prismaPromise = getPrismaWatchAndWatchlistIds(media);
 
-  const [content, prismaContent] = await Promise.all([
-    tmdbPromise,
-    prismaPromise
-  ]);
-
-  return content.results.map((item: any) => ({
-    ...item,
-    type: media,
-    user: prismaContent ? {
-      watched: prismaContent.watchedSet.has(item.id),
-      watchlisted: prismaContent.watchlistedSet.has(item.id)
-    } : null
-  }))
+  return {
+    results: results.map((item: any) => ({
+      ...item,
+      media_type: media
+    })),
+    totalPages: total_pages
+  }
 }
 
 export const getPersonData = async (id: string) => {
-  const tmdbPromise = getTmdbPersonData(id);
-  const prismaPromise = getPrismaPersonData(id);
-  const [{
+  const {
     personData,
     creditsData,
     imagesData,
     externalData
-  }, prismaContent] = await Promise.all([tmdbPromise, prismaPromise]);
+  } = await getTmdbPersonData(id);
 
   const knownForCredits = personData.known_for_department === "Acting" ?
     formatCombinedCredits(creditsData.cast) :
@@ -124,31 +99,24 @@ export const getPersonData = async (id: string) => {
     external_ids: externalData,
     cast_credits: formattedCastCredits,
     crew_credits: formattedCrewCredits,
-    user: prismaContent ?? null
   };
 }
 
 export const getGenericContentData = async (id: string, media: string) => {
-  const tmdbPromise = getTmdbGenericContentData(id, media);
-  const prismaPromise = getPrismaContentFriendsData(id, media);
-  const [contentData, prismaContent] = await Promise.all([tmdbPromise, prismaPromise]);
+  const contentData = await getTmdbGenericContentData(id, media);
 
   return {
     ...contentData,
     type: media,
-    user: prismaContent ?? null
   };
 }
 
 export const getHeaderContentData = async (id: string, media: string) => {
-  const tmdbPromise = getTmdbHeaderData(id, media);
-  const prismaPromise = getPrismaContentData(id, media);
-  const [contentData, prismaContent] = await Promise.all([tmdbPromise, prismaPromise]);
+  const contentData = await getTmdbHeaderData(id, media);
 
   return {
     ...contentData,
     type: media,
-    user: prismaContent ?? null
   };
 }
 
@@ -176,31 +144,24 @@ export const getContentVideosData = async (contentId: string, media: string) => 
 }
 
 export const getSimilarContentData = async (contentId: string, media: string) => {
-  const similarPromise = getTmdbRecommendationsData(contentId, media);
-  const prismaPromise = getPrismaWatchAndWatchlistIds(media);
-  const [recommendations, prismaContent] = await Promise.all([similarPromise, prismaPromise]);
+  const recommendations = await getTmdbRecommendationsData(contentId, media);
 
   return {
     recommendations: recommendations.results.map((result: any) => ({
       ...result,
       type: media,
-      user: prismaContent ? {
-        watched: prismaContent.watchedSet.has(result.id),
-        watchlisted: prismaContent.watchlistedSet.has(result.id)
-      } : null
     }))
   };
 }
 
 export const getContentData = async (contentId: string, media: string) => {
-  const tmdbPromise = getTmdbContentData(contentId, media);
-  const prismaPromise = getPrismaContentData(contentId, media);
-  const [{
+  const {
     contentData,
     creditsData,
     imagesData,
     providersData
-  }, prismaContent] = await Promise.all([tmdbPromise, prismaPromise]);
+  } = await getTmdbContentData(contentId, media);
+
   const credits = media === "movie" ?
     {
       ...creditsData,
@@ -223,19 +184,14 @@ export const getContentData = async (contentId: string, media: string) => {
     credits: credits,
     videos: { trailers, clips, feat },
     type: media,
-    user: prismaContent ?? null
   };
 }
 
 export const getSearchResults = async (query: string, page: string) => {
-  const tmdbPromise = getTmdbSearchResults(query, page);
-  const prismaPromise = getPrismaSearchResults(query);
-
-  const [contents, users] = await Promise.all([tmdbPromise, prismaPromise]);
+  const contents = await getTmdbSearchResults(query, page);
 
   return {
     contents: contents,
-    users: users
   };
 }
 
@@ -245,58 +201,16 @@ export const getLandingPageFeatured = async () => {
 }
 
 export const getLandingPageData = async () => {
-  const prismaMoviePromise = getPrismaWatchAndWatchlistIds("movie") ?? [];
-  const prismaTvPromise = getPrismaWatchAndWatchlistIds("tv") ?? [];
-  const [prismaUserMovies, prismaUserTvs] = await Promise.all([
-    prismaMoviePromise,
-    prismaTvPromise
-  ]);
-
-  const prismaBestRatedMovieP = getPrismaBestRatedMovies();
-  const prismaBestRatedTvP = getPrismaBestRatedTvShows();
-  const [prismaRatedMovies, prismaRatedTv] = await Promise.all([prismaBestRatedMovieP, prismaBestRatedTvP]);
-
-  const ratedMoviesTmp = await Promise.all(prismaRatedMovies?.map(async (movie) => {
-    const tmdbData = await getTmdbRecommendationsData(movie.id.toString(), "movie") as ApiListResponse<MovieData>;
-    return tmdbData.results.filter(c => (c.vote_average > 7 && c.vote_count > 150)).splice(0, 5);
-  }) || []);
-  const ratedTvs = await Promise.all(prismaRatedTv?.map(async (tv) => {
-    const tmdbData = await getTmdbRecommendationsData(tv.id.toString(), "tv") as ApiListResponse<TvData>;
-    return tmdbData.results.filter(c => (c.vote_average > 7 && c.vote_count > 150)).splice(0, 5)
-  }) || []);
-
-
   const trendingContents = await getTmdbLandingContent();
 
 
   return {
-    ratedMovies: ratedMoviesTmp.flat().filter(movie => !prismaUserMovies?.watchedSet.has(movie.id)),
-    ratedTvs: ratedTvs.flat().filter(tv => !prismaUserTvs?.watchedSet.has(tv.id)),
     movies: trendingContents.movies.map((item) => ({
       ...item,
-      user: prismaUserMovies ? {
-        watched: prismaUserMovies.watchedSet.has(item.id),
-        watchlisted: prismaUserMovies.watchlistedSet.has(item.id)
-      } : null
     })) as MovieData[],
     tv: trendingContents.tv.map((item) => ({
       ...item,
-      user: prismaUserTvs ? {
-        watched: prismaUserTvs.watchedSet.has(item.id),
-        watchlisted: prismaUserTvs.watchlistedSet.has(item.id)
-      } : null
     })
     ) as TvData[]
   }
-}
-
-export const getFeaturedContentData = async (id: string) => {
-  const prismaContent = await getPrismaFeatureContentData(id);
-  if (!prismaContent) return null;
-  const tmdbContent = await getTmdbContentData(prismaContent.content_id.toString(), prismaContent.content_type);
-
-  return {
-    prismaContent,
-    tmdbContent
-  };
 }

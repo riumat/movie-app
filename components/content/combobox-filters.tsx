@@ -53,7 +53,7 @@ const ComboboxFilter = ({ items, onChange, selectedItems, label }: ComboboxDemoP
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[220px] justify-between px-2"
+          className=" justify-between px-2 w-full"
         >
           <p className="text-ellipsis overflow-hidden font-light">
             {selectedItems.length > 0
@@ -63,7 +63,7 @@ const ComboboxFilter = ({ items, onChange, selectedItems, label }: ComboboxDemoP
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0 scrollbar-thin">
+      <PopoverContent className="w-full p-0 scrollbar-thin">
         <Command>
           <CommandInput placeholder={`Search ${label}...`} className="h-9" />
           <CommandList>

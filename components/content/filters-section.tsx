@@ -1,11 +1,10 @@
 "use client"
 import { FiltersSidebar } from '@/components/content/filters-sidebar'
 import Pagination from '@/components/ui/pagination'
-import { Separator } from '@/components/ui/separator'
 import { useFilterState } from '@/lib/hooks/use-filter-state'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-const FiltersSection = ({ children, props }: { children: any, props: any }) => {
+const FiltersSection = ({ children, props }: { children: ReactNode, props: any }) => {
   const { filters, handlers } = useFilterState();
   return (
     <>
