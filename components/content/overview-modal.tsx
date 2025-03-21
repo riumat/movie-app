@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -11,15 +12,15 @@ const OverviewModal = ({ overview }: { overview: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='w-fit px-2 pb-1 border-b flex gap-2 items-center cursor-pointer hover:scale-105 duration-50 '>
-          <p className='font-bold'>About</p>
+        <Button variant={"secondary"} className='px-3 flex gap-2 items-center '>
+          <p className=''>Synopsis</p>
           <IoReaderOutline size={17} />
-        </div>
+        </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[50vw] max-h-[60vh] min-h-[30vh] overflow-hidden flex flex-col gap-8  ">
+      <DialogContent className="sm:max-w-[50vw] max-h-[60vh]  overflow-hidden flex flex-col gap-8  ">
         <DialogHeader>
-          <DialogTitle className="text-2xl">About</DialogTitle>
+          <DialogTitle className="text-2xl">Synopsis</DialogTitle>
         </DialogHeader>
         <div className="h-full overflow-y-auto scrollbar-thin ">
           <p className="font-normal leading-8 mx-16">{overview}</p>

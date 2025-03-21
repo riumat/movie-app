@@ -19,12 +19,13 @@ export function formatNumber(number: number): string {
   }
 }
 
-export const formatTvDuration = (start: string, end: string): string => {
+export const formatTvDuration = (start: string, end: string,status:string): string => {
   if (!start || !end) return '';
   const [year] = start.split('-');
   const [endYear] = end.split('-');
+  if (status === "Returning Series") return `${year} · present`;
   if (year === endYear) return year
-  return `${year} - ${endYear}`;
+  return `${year} · ${endYear}`;
 
 }
 

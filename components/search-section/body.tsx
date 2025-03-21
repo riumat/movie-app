@@ -6,15 +6,13 @@ import { TvData } from '@/lib/types/tv.types'
 import { PersonResult } from '@/lib/types/person.types'
 
 type Props = {
-  users: any
-  session: any
   results: (MovieData | TvData | PersonResult)[]
   totalPages: number
   page: number
   query: string
 }
 
-const Body = ({ users, session, results, totalPages, page, query }: Props) => {
+const Body = ({ results, totalPages, page, query }: Props) => {
   if (!results) {
     return;
   }
@@ -27,8 +25,7 @@ const Body = ({ users, session, results, totalPages, page, query }: Props) => {
         />
 
       </div>
-      <Separator />
-      <div className='rounded-lg bg-background/95 py-3 w-full flex justify-center'>
+      <div className='rounded-lg bg-secondary/70 py-3 w-full flex justify-center'>
         <PaginationWrapper
           page={page}
           totalPages={totalPages}

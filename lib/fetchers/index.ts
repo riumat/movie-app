@@ -102,12 +102,12 @@ export const getPersonData = async (id: string) => {
   };
 }
 
-export const getGenericContentData = async (id: string, media: string) => {
-  const contentData = await getTmdbGenericContentData(id, media);
+export const getGenericContentData = async (id: string, media: string, appends: string[]) => {
+  const contentData = await getTmdbGenericContentData(id, media, appends);
 
   return {
     ...contentData,
-    type: media,
+    media_type: media,
   };
 }
 
@@ -116,13 +116,13 @@ export const getHeaderContentData = async (id: string, media: string) => {
 
   return {
     ...contentData,
-    type: media,
+    media_type: media,
   };
 }
 
 export const getContentCreditData = async (contentId: string, media: string) => {
   const creditsPromise = getTmdbCreditsData(contentId, media);
-  const contentPromise = getTmdbGenericContentData(contentId, media);
+  const contentPromise = getTmdbGenericContentData(contentId, media, []);
   const [creditsData, contentData] = await Promise.all([creditsPromise, contentPromise]);
   const credits = media === "movie" ?
     {

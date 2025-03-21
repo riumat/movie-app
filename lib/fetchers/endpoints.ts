@@ -20,6 +20,7 @@ export const endpoint = {
   },
   dynamicContent: {
     all: (type: string, id: string) => `/${type}/${id}`,
+    allWithAppend: (type: string, id: string, append: string[]) => `/${type}/${id}?append_to_response=${append.join(',')}`,
     images: (type: string, id: string) => `/${type}/${id}/images`,
     providers: (type: string, id: string) => `/${type}/${id}/watch/providers`,
     credits: (type: string, id: string, creditType: string) => `/${type}/${id}/${creditType}`,

@@ -1,6 +1,6 @@
 import ContentInfos from '@/components/content/content-infos';
 import ContentProdLogos from '@/components/content/content-prod-logos';
-import UserSection from '@/components/content/user-section';
+import ExternalLinksList from '@/components/people/ext-links-list';
 import { MovieData } from '@/lib/types/movie.types';
 import { TvData } from '@/lib/types/tv.types';
 import React from 'react';
@@ -12,10 +12,10 @@ const ContentHeader = ({ contentData }: { contentData: MovieData | TvData }) => 
       <div className="absolute inset-0 flex flex-col gap-7 items-start text-foreground p-5 bg-gradient-to-b from-transparent  to-background ">
         <div className='flex flex-col  w-full'>
           <ContentProdLogos contentData={contentData} />
-          <h2 className="text-5xl font-bold ">{contentData.type === "movie" ? contentData.title : contentData.name}</h2>
+          <h2 className="text-5xl font-bold ">{contentData.media_type === "movie" ? contentData.title : contentData.name}</h2>
         </div>
         <ContentInfos contentData={contentData} />
-        <UserSection contentData={contentData} />
+        <ExternalLinksList externalIds={contentData.external_ids} />
       </div>
 
     </div>

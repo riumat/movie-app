@@ -40,14 +40,14 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
   const voteColor = getVoteColor(data.value);
 
   return (
-    <Card className="flex flex-col justify-start items-center border-none">
-      <CardHeader className="items-center p-0">
-        <CardDescription ></CardDescription>
+    <Card className="flex flex-col justify-center items-center border-none bg-transparent">
+      <CardHeader className="items-center p-0 !w-0 !h-0">
+        <CardDescription className="p-0 m-0" ></CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 p-0  w-full">
+     <CardContent className="flex-1 p-0 w-full">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px] "
+          className="mx-auto aspect-square max-h-[200px] "
         >
           <RadialBarChart
             data={chartData}
@@ -85,17 +85,11 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          className="fill-foreground text-5xl font-bold"
                         >
                           {chartData[0].vote.toLocaleString()}
                         </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-foreground text-sm" 
-                        >
-                          Average Vote
-                        </tspan>
+                        
                       </text>
                     )
                   }
@@ -106,8 +100,8 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <div className="flex flex-col items-center gap-1 text-sm leading-none text-muted-foreground">
-          <p>{`Out of ${data.total} votes at `}</p>
+        <div className="flex flex-col items-center gap-1 text-xs leading-none text-muted-foreground">
+          <p>{`Average rating based on ${data.total} votes on `}</p>
           <Link href={"https://www.themoviedb.org/"} className="hover:underline">The Movie Database</Link>
         </div>
 

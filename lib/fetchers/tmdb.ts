@@ -74,9 +74,9 @@ type ContentResponse = {
   creditsData: any;
 }
 
-export const getTmdbGenericContentData = async (id: string, media: string) => {
+export const getTmdbGenericContentData = async (id: string, media: string, appends: string[]) => {
   try {
-    return (await tmdbConfig().get(endpoint.dynamicContent.all(media, id))).data;
+    return (await tmdbConfig().get(endpoint.dynamicContent.allWithAppend(media, id, appends))).data;
   } catch (error) {
     throw new Error(`Failed to fetch content data: ${error}`);
   }
@@ -84,7 +84,7 @@ export const getTmdbGenericContentData = async (id: string, media: string) => {
 export const getTmdbHeaderData = async (id: string, media: string) => {
   try {
     const [contentRes, providersRes, imagesRes] = await Promise.all([
-      tmdbConfig().get(endpoint.dynamicContent.all(media, id)),
+      tmdbConfig().get(endpoint.dynamicContent.allWithAppend(media, id,["external_ids"])),
       tmdbConfig().get(endpoint.dynamicContent.providers(media, id), { params: { watch_region: 'IT' } }),
       tmdbConfig().get(endpoint.dynamicContent.images(media, id))
     ]);
@@ -121,7 +121,7 @@ export const getTmdbVideosData = async (id: string, media: string) => {
 
 export const getTmdbRecommendationsData = async (id: string, media: string) => {
   try {
-    return (await tmdbConfig().get<ApiListResponse<MovieData|TvData>>(endpoint.dynamicContent.recommendations(media, id))).data;
+    return (await tmdbConfig().get<ApiListResponse<MovieData | TvData>>(endpoint.dynamicContent.recommendations(media, id))).data;
   } catch (error) {
     throw new Error(`Failed to fetch recommendations data: ${error}`);
   }

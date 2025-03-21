@@ -1,75 +1,76 @@
 import { notFound } from 'next/navigation';
 import { getGenericContentData } from '@/lib/fetchers/index';
-import { formatNumber, getDaysSince, rateMovieFinance } from '@/lib/functions';
+import { formatMinutes, formatNumber, getDaysSince, rateMovieFinance } from '@/lib/functions';
 import ImageWithLoader from '@/components/layout/image-with-loader';
-import { boxOfficeResults, imageUrl, imgWidth } from '@/lib/constants';
+import { boxOfficeResults, imageUrl, imgWidth, posterRatio } from '@/lib/constants';
 import { Separator } from '@/components/ui/separator';
 import RadialChart from '@/components/ui/radial-chart';
 
 const MoviePage = async ({ params }: { params: { id: string } }) => {
   const media = "movie"
-  const movieData = await getGenericContentData(params.id, media)
+  const movieData = await getGenericContentData(params.id, media, ["credits"])
     .catch((e) => {
       notFound()
     })
 
+  console.log(movieData);
+
   const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
 
   return (
-    <div className='flex flex-col lg:flex-row gap-20 md:gap-2  justify-between mx-10 '>
-      <div className='flex gap-5 items-center flex-[1.5] '>
-        <div className='w-52 h-72 relative' >
-          <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} />
-        </div>
-        <div className='flex flex-col gap-1 items-start justify-evenly h-full'>
-          <div className='flex flex-col gap-1 items-start'>
-            <p className='font-light text-sm'>Original Title</p>
-            <p className='font-bold'>{movieData.original_title}</p>
+    <div className='flex flex-col lg:flex-row gap-20 md:gap-3  justify-between mx-10 '>
+      <div className='w-56  rounded-lg ' >
+        <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} ratio={posterRatio} />
+      </div>
+      <div className='flex items-center flex-1 2 p-3 rounded-lg'>
+
+        <div className='flex-1 grid grid-cols-2  mx-3 gap-10   text-sm flex-wrap'>
+          <div className='flex flex-col gap-1 items-start '>
+            <p className='font-light '>Original Title</p>
+            <p className=' font-semibold'>{movieData.original_title}</p>
           </div>
           <div className='flex flex-col gap-1 items-start'>
-            <p className='font-light text-sm'>Production</p>
-            <div className='font-bold flex flex-col '>
+            <p className='font-light '>Directed by</p>
+            {movieData.credits.crew.filter((crew: any) => crew.job === 'Director')
+              .map((director: any) => (
+                <div key={director.id} className='flex flex-col gap-1 items-start'>
+                  <p className=' font-semibold'>{director.name}</p>
+                </div>
+              ))}
+          </div>
+          <div className='flex flex-col gap-1 items-start'>
+            <p className='font-light '>Production</p>
+            <div className='font-semibold flex flex-col '>
               {movieData.production_countries.map((country: any) => (
                 <p key={country.name}>{country.name}</p>
               ))}
             </div>
           </div>
           <div className='flex flex-col gap-1 items-start '>
-            <p className='font-light text-sm'>Spoken Languages</p>
-            <div className='font-bold flex flex-col'>
+            <p className='font-light '>Spoken Languages</p>
+            <div className='font-semibold flex flex-col'>
               {movieData.spoken_languages.map((language: any) => (
                 <p key={language.english_name}>{`${language.name} ${language.english_name === language.name ? "" : `(${language.english_name})`}`}</p>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div className={`flex flex-col  lg:items-center justify-center gap-5  rounded-lg flex-1 `}>
-        <div className='flex gap-5'>
-          <div className='flex flex-col gap-1 items-center'>
-            <p className='font-light'>Budget</p>
-            <p className='font-bold'>{formatNumber(movieData.budget)}$</p>
+          <div className='flex flex-col gap-1 items-start '>
+            <p className='font-light '>Duration</p>
+            <p className=' font-semibold'>{movieData.runtime} mins ({formatMinutes(movieData.runtime)})</p>
           </div>
-          <Separator orientation='vertical' />
-          <div className='flex flex-col gap-1 items-center'>
-            <p className='font-light'>Revenue</p>
-            <p className='font-bold'>{formatNumber(movieData.revenue)}$</p>
+          <div className='flex flex-col gap-1 items-start '>
+            <p className='font-light '>Status</p>
+            <p className=' font-semibold'>{movieData.status}</p>
           </div>
         </div>
-        <p className='text-sm text-muted-foreground'>{getDaysSince(movieData.release_date)} since release</p>
-        <div className='flex items-center gap-1'>
-          <p className='font-light'>Box Office Status:</p>
-          <p className={`font-semibold`}>{boxOfficeData?.value}</p>
-        </div>
       </div>
-      <div className='flex-1 flex lg:justify-center '>
+
+
+      <div className='flex flex-col gap-3 bg-secondary/40 rounded-lg px-7 justify-center  '>
+
         <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />
       </div>
-      {movieData.user && (
-        <div className='flex-1 flex justify-center '>
-          <p>Friends who watched it: {movieData.user.map((user: any) => user.username)}</p>
-        </div>
-      )}
+
     </div>
   );
 }

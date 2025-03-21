@@ -45,7 +45,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="font-[family-name:var(--font-geist-sans)] flex h-screen w-screen overflow-x-hidden relative">
-            <SidebarProvider>
+            <SidebarProvider defaultOpen>
               <AppSidebar />
               <div className="flex flex-col flex-grow w-full h-full overflow-x-hidden relative">
                 <Navbar />

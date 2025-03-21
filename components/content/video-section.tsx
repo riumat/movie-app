@@ -30,22 +30,21 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
   }
 
   return (
-    <div className='flex flex-col gap-20'>
+    <div className='flex flex-col gap-16'>
       {trailers.length > 0 && (
-        <div className='flex flex-col gap-2 justify-evenly items-center'>
-          <p className='text-center text-2xl font-bold'>Trailers</p>
-          <div className='flex justify-center gap-2 flex-wrap w-full'>
+        <div className='flex flex-col gap-7  items-center '>
+          <p className='text-center text-2xl font-semibold'>Trailers</p>
+          <div className='flex justify-center gap-5 flex-wrap w-full'>
             {trailers.slice(0, 3).map((video) => (
-              <div key={video.key} className='flex flex-col gap-2 items-center'>
+              <div key={video.key} className='flex flex-col gap-3 items-center bg-secondary/50 p-3 rounded-lg'>
                 <ReactPlayer
                   key={video.key}
                   url={`${youtubeUrl}${video.key}`}
                   loading='lazy'
                   light
-                  width={426}
-                  height={240}
+                  width={340}
+                  height={192}
                   controls
-
                 />
                 <p className='text-center text-sm'>{video.name}</p>
 
@@ -56,17 +55,17 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
       )}
 
       {clips.length > 0 && (
-        <div className='flex flex-col gap-2 justify-evenly items-center'>
+        <div className='flex flex-col gap-7 items-center '>
           <p className='text-center text-2xl font-bold'>Clips</p>
-          <div className='flex justify-center gap-2 flex-wrap w-full'>
+          <div className='flex justify-center gap-5 flex-wrap w-full'>
             {clips.slice(0, 2).map((video) => (
-              <div key={video.key} className="flex flex-col gap-2 items-center">
+              <div key={video.key} className="flex flex-col gap-2 items-center bg-secondary/50 p-3 rounded-lg">
                 <ReactPlayer
                   url={`${youtubeUrl}${video.key}`}
                   loading='lazy'
                   light
-                  width={426}
-                  height={240}
+                  width={340}
+                  height={192}
                   controls
 
                 />
@@ -78,18 +77,18 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
         </div>
       )}
       {feat.length > 0 && (
-        <div className='flex flex-col gap-2 justify-evenly items-center'>
-          <p className='text-center text-2xl font-bold'>Features</p>
-          <div className='flex justify-center gap-2 flex-wrap w-full'>
+        <div className='flex flex-col gap-7 items-center '>
+          <p className='text-center text-2xl font-bold '>Features</p>
+          <div className='flex justify-center gap-5 flex-wrap w-full'>
 
             {feat.slice(0, 2).map((video) => (
-              <div key={video.key} className="flex flex-col gap-2 items-center">
+              <div key={video.key} className="flex flex-col gap-2 items-center bg-secondary/50 p-3 rounded-lg">
                 <ReactPlayer
                   url={`${youtubeUrl}${video.key}`}
                   loading='lazy'
                   light
-                  width={426}
-                  height={240}
+                  width={340}
+                  height={192}
                   controls
 
                 />

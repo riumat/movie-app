@@ -1,4 +1,3 @@
-import AuthModal from '@/components/auth/auth-modal';
 import ExternalLinksList from '@/components/people/ext-links-list';
 import ToggleFollow from '@/components/people/toggle-follow';
 import { imageUrl, imgWidth } from '@/lib/constants';
@@ -41,15 +40,6 @@ const PersonHeader = ({ personData }: { personData: PersonData }) => {
           </div>
 
           <p><span className="font-thin">Department:</span> {personData.known_for_department}</p>
-
-          {personData.user ? (
-            <ToggleFollow following={personData.user} personId={personData.id} />
-          ) : (
-            <AuthModal
-              isOpen={false}
-              label="Login to follow"
-            />
-          )}
 
         </div>
       </div>

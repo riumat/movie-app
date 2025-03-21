@@ -44,4 +44,13 @@ export interface Content<T> {
     watched: boolean,
     watchlisted: boolean,
   };
+  external_ids: {
+    facebook_id?: string,
+    instagram_id?: string,
+    twitter_id?: string,
+    tiktok_id?: string,
+    imdb_id?: string,
+    wikidata_id?: string,
+    youtube_id?: string,
+  }
 }

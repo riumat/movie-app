@@ -4,7 +4,7 @@ import SeasonsSection from '@/components/tv/seasons-section';
 
 const MoviePage = async ({ params }: { params: { id: string } }) => {
   const media = "tv"
-  const creditsData = await getGenericContentData(params.id, media)
+  const creditsData = await getGenericContentData(params.id, media,[])
     .catch(() => { notFound() })
   return (
     <SeasonsSection seasons={creditsData.seasons} />

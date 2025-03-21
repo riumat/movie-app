@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -15,10 +16,10 @@ const ProviderModal = ({ providers }: { providers: any[] }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className='w-fit px-2 pb-1 border-b flex gap-2 items-center cursor-pointer hover:scale-105 duration-50 '>
-          <p className='font-bold'>Where To Watch</p>
+        <Button variant={"secondary"} className='px-3 flex gap-2 items-center '>
+          <p className='text-sm'>Networks</p>
           <LuTv size={17} />
-        </div>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[50vw] max-h-[60vh] min-h-[20vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>

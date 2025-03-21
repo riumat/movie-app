@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { imageUrl, imgWidth, placeholders } from "@/lib/constants";
+import { imageUrl, imgWidth, placeholders, posterRatio } from "@/lib/constants";
 import { formatDate } from "@/lib/functions";
 import axios from "axios";
 import Image from "next/image";
@@ -52,7 +52,7 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
       <DialogTrigger asChild onClick={handleSeason} className="cursor-pointer">
         <div className='flex flex-col gap-5 bg-transparent w-full max-w-[200px] rounded-lg mx-auto relative'>
           <div className="relative w-full max-h-60 pb-[150%] rounded-lg overflow-hidden ">
-            <ImageWithLoader src={imageSrc} className={`rounded-lg ${customClassName}`} />
+            <ImageWithLoader src={imageSrc} className={`rounded-lg ${customClassName}`} ratio={posterRatio} />
           </div>
           <div className='flex flex-col items-center gap-2'>
             <p className="text-xl font-bold text-neutral-900 dark:text-white">

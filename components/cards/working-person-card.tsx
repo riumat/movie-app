@@ -1,5 +1,5 @@
 import React from 'react';
-import { imageUrl, imgWidth, placeholders } from '@/lib/constants';
+import { imageUrl, imgWidth, placeholders, posterRatio } from '@/lib/constants';
 import ImageWithLoader from '@/components/layout/image-with-loader';
 
 interface NameCardProps {
@@ -20,10 +20,11 @@ const WorkingPersonCard: React.FC<NameCardProps> = ({ name, imagePath, desc }) =
         <ImageWithLoader
           src={imageSrc}
           className={invert}
+          ratio={posterRatio}
         />
       </div>
       <div className='flex flex-col items-center  mt-2  justify-center'>
-        <p className="text-center font-bold text-wrap text-xs xl:text-sm">{name}</p>
+        <p className="text-center font-semibold text-wrap text-xs xl:text-sm">{name}</p>
         <p className="text-center text-wrap text-xs xl:text-sm font-light text-foreground/80">{desc}</p>
       </div>
     </div>
