@@ -4,7 +4,7 @@ import Link from "next/link"
 import { AiFillTikTok } from "react-icons/ai"
 import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
-import { SiThemoviedatabase, SiWikidata, SiWikipedia } from "react-icons/si"
+import { SiWikipedia } from "react-icons/si"
 
 type ExternalIds = {
   facebook_id?: string,

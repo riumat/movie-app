@@ -1,6 +1,7 @@
 import { relevantMovieJobs, relevantTvJobs } from "@/lib/constants";
 import { CastItem } from "@/lib/types/cast";
 import { CrewItem } from "@/lib/types/crew";
+import { VideoItem } from "@/lib/types/video.types";
 
 export function formatDate(date: string): string {
   if (!date) return '';
@@ -19,7 +20,7 @@ export function formatNumber(number: number): string {
   }
 }
 
-export const formatTvDuration = (start: string, end: string,status:string): string => {
+export const formatTvDuration = (start: string, end: string, status: string): string => {
   if (!start || !end) return '';
   const [year] = start.split('-');
   const [endYear] = end.split('-');
@@ -221,18 +222,18 @@ export const formatCreditsReleaseDate = (list: any[]) => {
 }
 
 
-export const formatVideoContent = (videos: any[]) => {
+export const formatVideoContent = (videos: VideoItem[]) => {
   return {
     trailers: videos
-      .filter((video: any) =>
+      .filter((video) =>
         video.official && video.type === "Trailer" || video.type === "Teaser"
       ),
     clips: videos
-      .filter((video: any) =>
+      .filter((video) =>
         video.official && video.type === "Clip"
       ),
     feat: videos
-      .filter((video: any) =>
+      .filter((video) =>
         video.type === "Featurette"
       )
   }
@@ -272,7 +273,7 @@ export const rateMovieFinance = (budget: number, revenue: number, releaseDate: s
     return 3;
   }
 
-  return 4; 
+  return 4;
 }
 
 export const getDaysSince = (date: string): string => {
@@ -303,3 +304,43 @@ export const getRatingAngle = (rating: number): number => {
   return (rating / 10) * 360;
 }
 
+export const getPageNumbers = (totalPages: number, currentPage: number) => {
+  const pages = [];
+  const maxPagesToShow = 5;
+  const maxPages = totalPages > 500 ? 500 : totalPages; //tmdb limitation
+
+  if (maxPages <= maxPagesToShow) {
+    for (let i = 1; i <= maxPages; i++) {
+      pages.push(i)
+    }
+  } else {
+    pages.push(1)
+
+    let startPage = Math.max(2, currentPage - 1)
+    let endPage = Math.min(maxPages - 1, currentPage + 1)
+
+    if (currentPage <= 3) {
+      endPage = Math.min(maxPages - 1, 4)
+    }
+
+    if (currentPage >= maxPages - 2) {
+      startPage = Math.max(2, maxPages - 3)
+    }
+
+    if (startPage > 2) {
+      pages.push("ellipsis-start")
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i)
+    }
+
+    if (endPage < maxPages - 1) {
+      pages.push("ellipsis-end")
+    }
+
+    pages.push(maxPages)
+  }
+
+  return pages
+}

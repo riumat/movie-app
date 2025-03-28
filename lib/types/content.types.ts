@@ -5,7 +5,7 @@ import { ProviderItem } from "@/lib/types/provider.types";
 import { TvData } from "@/lib/types/tv.types";
 import { VideoItem } from "@/lib/types/video.types";
 
-export type MediaType = "movie" | "tv";
+export type ContentType = "movie" | "tv";
 
 export type DynamicContentType<T> = T extends "movie" ? MovieData : TvData;
 

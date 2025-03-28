@@ -1,11 +1,11 @@
 import ContentDisplay from '@/components/content/content-display'
 import FiltersSection from '@/components/content/filters-section'
-import { getFilteredContents, getGenresAndProviders } from '@/lib/fetchers/index'
-import { MediaType } from '@/lib/types/content.types'
+import { getFilteredContents } from '@/lib/fetchers/index'
 import { FilterParams } from '@/lib/types/params.types'
+import { ContentType } from '@prisma/client'
 
 type Props = {
-  media: MediaType,
+  media: ContentType,
   params: FilterParams,
   genres: {
     id: number,

@@ -1,18 +1,15 @@
-import { notFound } from 'next/navigation';
-import { MovieData } from '@/lib/types/movie.types';
-import { getContentData, getContentVideosData } from '@/lib/fetchers/index';
-import CreditsList from '@/components/people/credits-list';
+import { getContentVideosData } from '@/lib/fetchers/index';
 import VideoSection from '@/components/content/video-section';
+import { mediaType } from '@/lib/constants';
 
-const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const media = "movie"
-  const videosData = await getContentVideosData(params.id, media)
-    .catch(() => { notFound() })
+const MovieVideoSection = async ({ params }: { params: { id: string } }) => {
+  const videosData = await getContentVideosData(params.id, mediaType.movie)
+
   return (
     <VideoSection videoInfo={videosData} />
   );
 }
 
-export default MoviePage
+export default MovieVideoSection
 
 

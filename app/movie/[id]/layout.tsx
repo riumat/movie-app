@@ -1,18 +1,15 @@
-'use server'
-
 import ContentHeader from "@/components/content/content-header";
 import ContentNavbar from "@/components/content/content-navbar";
 import ContentBackground from "@/components/layout/content-background";
 import Loader from "@/components/layout/loader";
+import { mediaType } from "@/lib/constants";
 import { getHeaderContentData } from "@/lib/fetchers/index";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-const MEDIA = "movie"
-
-export default async function MovieLayout({ children, params }: { children: React.ReactNode, params: any }) {
-  const movieData = await getHeaderContentData(params.id, MEDIA)
-    .catch((e) => {
+export default async function MovieLayout({ children, params }: { children: React.ReactNode, params: { id: string } }) {
+  const movieData = await getHeaderContentData(params.id, mediaType.movie)
+    .catch(() => {
       notFound()
     })
 

@@ -1,6 +1,6 @@
 "use client"
 import { FiltersSidebar } from '@/components/content/filters-sidebar'
-import Pagination from '@/components/ui/pagination'
+import PaginationMenu from '@/components/ui/pagination-menu'
 import { useFilterState } from '@/lib/hooks/use-filter-state'
 import React, { ReactNode } from 'react'
 
@@ -19,10 +19,10 @@ const FiltersSection = ({ children, props }: { children: ReactNode, props: any }
         />
       </div>
       <div className='rounded-lg bg-background/95 py-3 w-full flex justify-center'>
-        <Pagination
-          page={filters.page}
-          handleChangePage={handlers.handleChangePage}
+        <PaginationMenu
+          currentPage={filters.page}
           totalPages={props.totalPages}
+          handleChangePage={handlers.handleChangePage}
         />
       </div>
     </>

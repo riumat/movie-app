@@ -1,16 +1,17 @@
 "use client"
-import Pagination from "@/components/ui/pagination"
+import PaginationMenu from "@/components/ui/pagination-menu";
 import { useRouter } from "next/navigation";
 
-const PaginationWrapper = ({ totalPages, query, page }: { totalPages: number, query: string, page: number }) => {
+const PaginationWrapper = ({ totalPages, query, currentPage }: { totalPages: number, query: string, currentPage: number }) => {
   const router = useRouter();
 
   const handleChangePage = (page: number) => {
     router.push(`/search?query=${query}&page=${page}`);
   }
+
   return (
-    <Pagination
-      page={page}
+    <PaginationMenu
+      currentPage={currentPage}
       totalPages={totalPages}
       handleChangePage={handleChangePage}
     />

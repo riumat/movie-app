@@ -1,5 +1,4 @@
 import MultiGrid from '@/components/search-section/multi-grid'
-import { Separator } from '@/components/ui/separator'
 import PaginationWrapper from '@/components/layout/pagination-wrapper'
 import { MovieData } from '@/lib/types/movie.types'
 import { TvData } from '@/lib/types/tv.types'
@@ -25,9 +24,9 @@ const Body = ({ results, totalPages, page, query }: Props) => {
         />
 
       </div>
-      <div className='rounded-lg bg-secondary/70 py-3 w-full flex justify-center'>
+      <div className='rounded-lg bg-secondary py-3 w-full flex justify-center'>
         <PaginationWrapper
-          page={page}
+          currentPage={page}
           totalPages={totalPages}
           query={query}
         />

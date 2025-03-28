@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { IoSearchOutline } from "react-icons/io5";
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
@@ -9,16 +9,16 @@ const Searchbar = () => {
   const router = useRouter();
 
 
-  const onSearch = (query: string) => {
+  const onSearch = useCallback((query: string) => {
     if (query === "") {
-      router.push('/')
+      router.push('/');
     } else {
       router.push(`/search?query=${query}&page=1`);
     }
-  };
+  }, [router]);
 
-  const debouncedSearch = useCallback(
-    debounce((query: string) => {
+  const debouncedSearch = useMemo(
+    () => debounce((query: string) => {
       onSearch(query);
     }, 500),
     [onSearch]

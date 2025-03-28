@@ -8,10 +8,9 @@ const ContentDisplay = async ({ results }: { results: (MovieData | TvData)[] }) 
 
   return (
     <div className="rounded-lg  px-3 w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-x-5 gap-y-10 overflow-x-hidden scrollbar-thin bg-background" >
-      {results.map((item: MovieData | TvData, index: number) => (
-
+      {results.map((item) => (
         <ContentInfoModal
-          key={index}
+          key={item.id}
           content={item}
           trigger={<VerticalCard item={item} />}
         />

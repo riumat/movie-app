@@ -11,8 +11,8 @@ const VerticalCard = ({ item }: { item: MovieData | TvData | PersonResult }) => 
 
   return (
     <div className={`relative max-w-[300px]`}>
-      <div className='flex flex-col gap-3 rounded-sm bg-gradient-to-t from-muted/30 to-muted/60 '>
-        <ImageWithLoader src={imgSrc} ratio={posterRatio} className='' />
+      <div className='flex flex-col gap-3 rounded-sm  '>
+        <ImageWithLoader src={imgSrc} ratio={posterRatio}  />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import TrendingMovieSection from "@/components/landing-page/trending-movie";
 import { getLandingPageFeatured } from "@/lib/fetchers/index";
 import { Suspense } from "react";
 
-const Home = async () => {
+const LandingPage = async () => {
   const featuredMovie = await getLandingPageFeatured();
   return (
     <div className=" flex flex-col">
@@ -17,4 +17,4 @@ const Home = async () => {
   );
 }
 
-export default Home
+export default LandingPage

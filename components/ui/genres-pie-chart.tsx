@@ -2,13 +2,8 @@
 
 import React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-
-interface Genre {
-  name: string
-  count: number
-}
 
 interface TopGenresChartProps {
   genres: {
@@ -24,26 +19,6 @@ const COLORS = [
   "hsl(var(--chart-4))",
   "hsl(var(--chart-5))",
 ]
-
-const GENRE_NAMES = [
-  "Azione",
-  "Commedia",
-  "Dramma",
-  "Fantascienza",
-  "Horror",
-  "Romantico",
-  "Avventura",
-  "Animazione",
-  "Documentario",
-  "Thriller",
-]
-
-function generateRandomGenres(): Genre[] {
-  return GENRE_NAMES.map((name) => ({
-    name,
-    count: Math.floor(Math.random() * 100) + 1, // Random number between 1 and 100
-  }))
-}
 
 const GenresPieChart = ({ genres }: TopGenresChartProps) => {
   const allGenres = genres

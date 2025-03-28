@@ -2,13 +2,12 @@
 
 import { getTmdbContentData, getTmdbCreditsData, getTmdbFilteredContent, getTmdbGenericContentData, getTmdbGenresAndProviders, getTmdbHeaderData, getTmdbLandingContent, getTmdbLandingFeatured, getTmdbPersonData, getTmdbRecommendationsData, getTmdbSearchResults, getTmdbVideosData } from "@/lib/fetchers/tmdb";
 import { formatCombinedCredits, formatCreditsReleaseDate, formatCrewList, formatFilterProviders, formatProviders, formatTvAggregate, formatTvCastList, formatVideoContent } from "@/lib/functions";
-import { ApiListResponse } from "@/lib/types/api.types";
-import { MediaType } from "@/lib/types/content.types";
+import { ContentType } from "@/lib/types/content.types";
 import { MovieData } from "@/lib/types/movie.types";
 import { FilterParams } from "@/lib/types/params.types";
 import { TvData } from "@/lib/types/tv.types";
 
-export const getGenresAndProviders = async (media: string) => {
+export const getGenresAndProviders = async (media: ContentType) => {
   const { genres, providers } = await getTmdbGenresAndProviders(media);
   const formattedProviders = formatFilterProviders(providers);
 
@@ -18,7 +17,7 @@ export const getGenresAndProviders = async (media: string) => {
   };
 };
 
-export const getTotalPagesFiltered = async (params: FilterParams, media: MediaType) => {
+export const getTotalPagesFiltered = async (params: FilterParams, media: ContentType) => {
   const {
     genres = "",
     providers = "",
@@ -44,7 +43,7 @@ export const getTotalPagesFiltered = async (params: FilterParams, media: MediaTy
   return content.total_pages;
 }
 
-export const getFilteredContents = async (params: FilterParams, media: MediaType) => {
+export const getFilteredContents = async (params: FilterParams, media: ContentType) => {
   const {
     genres = "",
     providers = "",
@@ -102,7 +101,7 @@ export const getPersonData = async (id: string) => {
   };
 }
 
-export const getGenericContentData = async (id: string, media: string, appends: string[]) => {
+export const getGenericContentData = async (id: string, media: ContentType, appends: string[]) => {
   const contentData = await getTmdbGenericContentData(id, media, appends);
 
   return {
@@ -111,7 +110,7 @@ export const getGenericContentData = async (id: string, media: string, appends: 
   };
 }
 
-export const getHeaderContentData = async (id: string, media: string) => {
+export const getHeaderContentData = async (id: string, media: ContentType) => {
   const contentData = await getTmdbHeaderData(id, media);
 
   return {
@@ -120,7 +119,7 @@ export const getHeaderContentData = async (id: string, media: string) => {
   };
 }
 
-export const getContentCreditData = async (contentId: string, media: string) => {
+export const getContentCreditData = async (contentId: string, media: ContentType) => {
   const creditsPromise = getTmdbCreditsData(contentId, media);
   const contentPromise = getTmdbGenericContentData(contentId, media, []);
   const [creditsData, contentData] = await Promise.all([creditsPromise, contentPromise]);
@@ -137,24 +136,21 @@ export const getContentCreditData = async (contentId: string, media: string) => 
   return credits
 }
 
-export const getContentVideosData = async (contentId: string, media: string) => {
+export const getContentVideosData = async (contentId: string, media: ContentType) => {
   const videos = await getTmdbVideosData(contentId, media);
   const { trailers, clips, feat } = formatVideoContent(videos.results);
   return { trailers, clips, feat };
 }
 
-export const getSimilarContentData = async (contentId: string, media: string) => {
+export const getSimilarContentData = async (contentId: string, media: ContentType) => {
   const recommendations = await getTmdbRecommendationsData(contentId, media);
 
   return {
-    recommendations: recommendations.results.map((result: any) => ({
-      ...result,
-      type: media,
-    }))
+    recommendations: recommendations.results
   };
 }
 
-export const getContentData = async (contentId: string, media: string) => {
+export const getContentData = async (contentId: string, media: ContentType) => {
   const {
     contentData,
     creditsData,

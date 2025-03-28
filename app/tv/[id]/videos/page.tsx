@@ -1,11 +1,9 @@
-import { notFound } from 'next/navigation';
 import { getContentVideosData } from '@/lib/fetchers/index';
 import VideoSection from '@/components/content/video-section';
+import { mediaType } from '@/lib/constants';
 
 const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const media = "tv"
-  const videosData = await getContentVideosData(params.id, media)
-    .catch(() => { notFound() })
+  const videosData = await getContentVideosData(params.id, mediaType.tv)
   return (
     <VideoSection videoInfo={videosData} />
   );

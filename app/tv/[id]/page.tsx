@@ -1,14 +1,13 @@
 import { notFound } from 'next/navigation';
 import { getGenericContentData } from '@/lib/fetchers/index';
-import { formatDate, getAverageEpisodeRuntime } from '@/lib/functions';
+import { formatDate } from '@/lib/functions';
 import ImageWithLoader from '@/components/layout/image-with-loader';
-import { imageUrl, imgWidth, posterRatio } from '@/lib/constants';
+import { imageUrl, imgWidth, mediaType, posterRatio } from '@/lib/constants';
 import RadialChart from '@/components/ui/radial-chart';
 import { Badge } from '@/components/ui/badge';
 
-const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const media = "tv"
-  const movieData = await getGenericContentData(params.id, media, [])
+const TvPage = async ({ params }: { params: { id: string } }) => {
+  const movieData = await getGenericContentData(params.id, mediaType.tv, [])
     .catch(() => { notFound() })
 
   return (
@@ -92,6 +91,6 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   );
 }
 
-export default MoviePage
+export default TvPage
 
 

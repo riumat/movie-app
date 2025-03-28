@@ -2,14 +2,14 @@ import { IoHomeOutline } from "react-icons/io5";
 
 import { FaFilm } from "react-icons/fa";
 import { FaTv } from "react-icons/fa";
-import { FaRegUser } from "react-icons/fa6";
+import { ContentType } from "@/lib/types/content.types";
 
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imageUrl = "https://image.tmdb.org/t/p";
 export const youtubeUrl = "https://www.youtube.com/watch?v=";
 
-export const backdropRatio=16/9;
-export const posterRatio=2/3;
+export const backdropRatio = 16 / 9;
+export const posterRatio = 2 / 3;
 
 export const imgWidth = {
   poster: {
@@ -204,4 +204,10 @@ export const boxOfficeResults = [
   { value: "Success", color: "blue-800" },
   { value: "Blockbuster", color: "green-800" }
 ]
+
+export const mediaType: { movie: ContentType, tv: ContentType } =
+{
+  movie: "movie",
+  tv: "tv",
+}
 

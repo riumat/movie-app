@@ -1,16 +1,14 @@
-import { notFound } from 'next/navigation';
-import { getContentCreditData, getGenericContentData } from '@/lib/fetchers/index';
+import { getGenericContentData } from '@/lib/fetchers/index';
 import SeasonsSection from '@/components/tv/seasons-section';
+import { mediaType } from '@/lib/constants';
 
-const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const media = "tv"
-  const creditsData = await getGenericContentData(params.id, media,[])
-    .catch(() => { notFound() })
+const TvSeasonSection = async ({ params }: { params: { id: string } }) => {
+  const creditsData = await getGenericContentData(params.id, mediaType.tv, [])
   return (
     <SeasonsSection seasons={creditsData.seasons} />
   );
 }
 
-export default MoviePage
+export default TvSeasonSection
 
 

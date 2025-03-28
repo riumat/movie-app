@@ -1,7 +1,7 @@
 "use client";
 import { youtubeUrl } from '@/lib/constants';
 import { VideoItem } from '@/lib/types/video.types';
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player/youtube';
 
 interface VideoSectionProps {

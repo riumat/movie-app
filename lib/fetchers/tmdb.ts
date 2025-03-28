@@ -1,19 +1,18 @@
 "server-only"
 
+import { mediaType } from "@/lib/constants";
 import { tmdbConfig } from "@/lib/fetchers/axios.config";
 import { endpoint } from "@/lib/fetchers/endpoints";
-import { ApiGenreResponse, ApiItemResponse, ApiListResponse } from "@/lib/types/api.types";
-import { Content, MediaType } from "@/lib/types/content.types";
+import { ApiGenreResponse, ApiListResponse } from "@/lib/types/api.types";
 import { MovieData } from "@/lib/types/movie.types";
 import { FilterParams } from "@/lib/types/params.types";
 import { PersonResult } from "@/lib/types/person.types";
 import { ProviderItem } from "@/lib/types/provider.types";
 import { TvData } from "@/lib/types/tv.types";
+import { ContentType } from "@prisma/client";
 
 const MOVIE_RELEASE_DATE = 'primary_release_date';
 const TV_RELEASE_DATE = 'first_air_date';
-const MOVIE = 'movie';
-const TV = 'tv';
 
 export const getTmdbGenresAndProviders = async (media: string) => {
   const [genresData, providersData] = await Promise.all([
@@ -26,8 +25,8 @@ export const getTmdbGenresAndProviders = async (media: string) => {
   };
 };
 
-export const getTmdbFilteredContent = async (params: FilterParams, media: MediaType) => {
-  const release = media === MOVIE ? MOVIE_RELEASE_DATE : TV_RELEASE_DATE;
+export const getTmdbFilteredContent = async (params: FilterParams, media: ContentType) => {
+  const release = media === mediaType.movie ? MOVIE_RELEASE_DATE : TV_RELEASE_DATE;
 
   const data = (await tmdbConfig().get<ApiListResponse<MovieData | TvData>>(endpoint.discover.all(media), {
     params: {
@@ -74,7 +73,7 @@ type ContentResponse = {
   creditsData: any;
 }
 
-export const getTmdbGenericContentData = async (id: string, media: string, appends: string[]) => {
+export const getTmdbGenericContentData = async (id: string, media: ContentType, appends: string[]) => {
   try {
     return (await tmdbConfig().get(endpoint.dynamicContent.allWithAppend(media, id, appends))).data;
   } catch (error) {
@@ -102,7 +101,7 @@ export const getTmdbHeaderData = async (id: string, media: string) => {
   }
 }
 
-export const getTmdbCreditsData = async (id: string, media: string) => {
+export const getTmdbCreditsData = async (id: string, media: ContentType) => {
   const creditsUrl = media === "movie" ? "credits" : "aggregate_credits";
   try {
     return (await tmdbConfig().get(endpoint.dynamicContent.credits(media, id, creditsUrl))).data;
@@ -111,7 +110,7 @@ export const getTmdbCreditsData = async (id: string, media: string) => {
   }
 }
 
-export const getTmdbVideosData = async (id: string, media: string) => {
+export const getTmdbVideosData = async (id: string, media: ContentType) => {
   try {
     return (await tmdbConfig().get(endpoint.dynamicContent.videos(media, id))).data;
   } catch (error) {
@@ -119,7 +118,7 @@ export const getTmdbVideosData = async (id: string, media: string) => {
   }
 }
 
-export const getTmdbRecommendationsData = async (id: string, media: string) => {
+export const getTmdbRecommendationsData = async (id: string, media: ContentType) => {
   try {
     return (await tmdbConfig().get<ApiListResponse<MovieData | TvData>>(endpoint.dynamicContent.recommendations(media, id))).data;
   } catch (error) {
@@ -128,9 +127,9 @@ export const getTmdbRecommendationsData = async (id: string, media: string) => {
 
 }
 
-export const getTmdbContentData = async (contentId: string, media: string): Promise<ContentResponse> => {
+export const getTmdbContentData = async (contentId: string, media: ContentType): Promise<ContentResponse> => {
   try {
-    const creditsType = media === "movie" ? "credits" : "aggregate_credits";
+    const creditsType = media === mediaType.movie ? "credits" : "aggregate_credits";
     const [contentRes, imagesRes, providersRes, creditsRes] = await Promise.all([
       tmdbConfig().get(endpoint.dynamicContent.all(media, contentId), { params: { append_to_response: 'videos,recommendations' } }),
       tmdbConfig().get(endpoint.dynamicContent.images(media, contentId)),
@@ -175,7 +174,7 @@ export const getTmdbSearchResults = async (query: string, page: string) => {
 
 export const getTmdbLandingFeatured = async () => {
   const movies = (await (tmdbConfig().get<ApiListResponse<MovieData>>(endpoint.trending.movies))).data.results;
-  const trendingMovie = (await tmdbConfig().get<MovieData>(endpoint.dynamicContent.all(MOVIE, movies[0].id.toString()))).data;
+  const trendingMovie = (await tmdbConfig().get<MovieData>(endpoint.dynamicContent.all(mediaType.movie, movies[0].id.toString()))).data;
   return {
     title: trendingMovie.title,
     id: trendingMovie.id,

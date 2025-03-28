@@ -1,39 +1,26 @@
 import React from 'react';
-import Link from 'next/link';
-import ContentCard from '@/components/cards/content-card';
 import { MovieData } from '@/lib/types/movie.types';
 import { TvData } from '@/lib/types/tv.types';
-import SimpleContentCard from '@/components/cards/simple-content-card';
+import ContentInfoModal from '@/components/content/content-info-modal';
+import VerticalCard from '@/components/cards/vertical-card';
 
 
 interface SimilarContentSectionProps {
-  movieData: any;
+  contents: (MovieData | TvData)[];
 }
 
-const SimilarContentSection: React.FC<SimilarContentSectionProps> = ({ movieData }) => {
-  const recommendations = movieData.recommendations;
+const SimilarContentSection: React.FC<SimilarContentSectionProps> = ({ contents }) => {
   return (
     <div className=" h-full ">
-      {recommendations.length > 0 && (
+      {contents.length > 0 && (
         <div className='flex flex-col gap-4 items-center h-full overflow-y-auto scrollbar-thin flex-1'>
-          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2 gap-y-10">
-            {recommendations.map((item: any, index: number) => (
-              <Link
-                key={`${index}-${item.id}-${item.type}`}
-                href={`/${item.type}/${item.id}`}>
-                {item.user ? (
-                  <ContentCard
-                    key={`${index}-${item.id}-${item.type}`}
-                    item={item}
-
-                  />
-                ) : (
-                  <SimpleContentCard
-                    key={`${index}-${item.id}-${item.type}`}
-                    item={item}
-                  />
-                )}
-              </Link>
+          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-20 gap-y-10">
+            {contents.map((item) => (
+              <ContentInfoModal
+                key={item.id}
+                content={item}
+                trigger={<VerticalCard item={item} />}
+              />
             ))}
           </div>
         </div>

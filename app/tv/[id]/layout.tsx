@@ -1,17 +1,15 @@
-'use server'
-
 import ContentHeader from "@/components/content/content-header";
 import ContentNavbar from "@/components/content/content-navbar";
 import ContentBackground from "@/components/layout/content-background";
+import Loader from "@/components/layout/loader";
+import { mediaType } from "@/lib/constants";
 import { getHeaderContentData } from "@/lib/fetchers/index";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export default async function MovieLayout({ children, params }: { children: React.ReactNode, params: any }) {
-  const media = "tv"
-  const movieData = await getHeaderContentData(params.id, media)
+export default async function TvLayout({ children, params }: { children: React.ReactNode, params: { id: string } }) {
+  const movieData = await getHeaderContentData(params.id, mediaType.tv)
     .catch(() => { notFound() })
-    console.log(movieData)
   return (
     <div className="flex-1 flex flex-col items-center w-full">
       <ContentBackground
@@ -27,7 +25,7 @@ export default async function MovieLayout({ children, params }: { children: Reac
             id={params.id}
           />
           <div className='rounded-xl z-0 flex-1 overflow-hidden relative min-h-[300px] mt-10 '>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader />}>
               {children}
             </Suspense>
           </div>

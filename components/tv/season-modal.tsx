@@ -11,7 +11,6 @@ import {
 import { imageUrl, imgWidth, placeholders, posterRatio } from "@/lib/constants";
 import { formatDate } from "@/lib/functions";
 import axios from "axios";
-import Image from "next/image";
 import { useState } from "react";
 
 type SeasonsSectionProps = {

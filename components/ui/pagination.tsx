@@ -1,87 +1,116 @@
-"use client"
-import { Button } from '@/components/ui/button';
-import React, { useEffect, useState } from 'react'
-import { GrFormPrevious } from "react-icons/gr";
-import { GrFormNext } from "react-icons/gr";
-import { MdFirstPage } from "react-icons/md";
-import { MdLastPage } from "react-icons/md";
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 
-interface PaginationProps {
-  page: number;
-  totalPages: number;
-  handleChangePage: (page: number) => void;
+const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
+  <nav
+    role="navigation"
+    aria-label="pagination"
+    className={cn("mx-auto flex w-full justify-center", className)}
+    {...props}
+  />
+)
+Pagination.displayName = "Pagination"
+
+const PaginationContent = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<"ul">
+>(({ className, ...props }, ref) => (
+  <ul
+    ref={ref}
+    className={cn("flex flex-row items-center gap-1", className)}
+    {...props}
+  />
+))
+PaginationContent.displayName = "PaginationContent"
+
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<"li">
+>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props} />
+))
+PaginationItem.displayName = "PaginationItem"
+
+type PaginationLinkProps = {
+  isActive?: boolean
+} & Pick<ButtonProps, "size"> &
+  React.ComponentProps<"a">
+
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => (
+  <a
+    aria-current={isActive ? "page" : undefined}
+    className={cn(
+      buttonVariants({
+        variant: isActive ? "default" : "outline",
+        size,
+      }),
+      className
+    )}
+    {...props}
+  />
+)
+PaginationLink.displayName = "PaginationLink"
+
+const PaginationPrevious = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to previous page"
+    size="default"
+    className={cn("gap-1 px-2", className)}
+    {...props}
+  >
+    <ChevronLeftIcon className="h-4 w-4" />
+    <span>Previous</span>
+  </PaginationLink>
+)
+PaginationPrevious.displayName = "PaginationPrevious"
+
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to next page"
+    size="default"
+    className={cn("gap-1 px-2", className)}
+    {...props}
+  >
+    <span>Next</span>
+    <ChevronRightIcon className="h-4 w-4" />
+  </PaginationLink>
+)
+PaginationNext.displayName = "PaginationNext"
+
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span">) => (
+  <span
+    aria-hidden
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    {...props}
+  >
+    <DotsHorizontalIcon className="h-4 w-4" />
+    <span className="sr-only">More pages</span>
+  </span>
+)
+PaginationEllipsis.displayName = "PaginationEllipsis"
+
+export {
+  Pagination,
+  PaginationContent,
+  PaginationLink,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
 }
-
-const getPaginationArray = (currentPage: number, totalPages: number) => {
-  const groupSize = 4;
-  let start = Math.floor((currentPage - 1) / groupSize) * groupSize + 1;
-  let end = Math.min(start + groupSize - 1, totalPages);
-  
-  const pages = [];
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
-  }
-  return pages;
-}
-
-const Pagination = ({ page, totalPages, handleChangePage }: PaginationProps) => {
-  const [renderedPages, setRenderedPages] = useState<number[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(page);
-
-  useEffect(() => {
-    const rendered = getPaginationArray(page, totalPages);
-    setRenderedPages(rendered);
-    setCurrentPage(page);
-    console.log(rendered);
-  }, [page]);
-
-  const onChange = (pageSelected: number) => {
-    const rendered = getPaginationArray(pageSelected, totalPages);
-    setRenderedPages(rendered);
-    setCurrentPage(pageSelected);
-    handleChangePage(pageSelected);
-  }
-
-  return (
-    <div className=" flex justify-center items-center space-x-4 text-foreground rounded-b-lg">
-
-      <Button
-        size={"sm"}
-        variant={"outline"}
-        className='px-3'
-        onClick={() => onChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        <GrFormPrevious />
-      </Button>
-      {totalPages > 5 && (
-        renderedPages.map((p) => (
-          <Button
-            key={p}
-            size={"sm"}
-            variant={currentPage === p ? "default" : "outline"}
-            className='px-3'
-            onClick={() => onChange(p)}
-            disabled={currentPage === p}
-          >
-            {p}
-          </Button>
-        ))
-      )}
-
-      <Button
-        size={"sm"}
-        variant={"outline"}
-        className='px-3'
-        onClick={() => onChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        <GrFormNext />
-      </Button>
-
-
-    </div>
-  )
-}
-
-export default Pagination

@@ -1,21 +1,12 @@
-import { notFound } from 'next/navigation';
 import { getGenericContentData } from '@/lib/fetchers/index';
-import { formatMinutes, formatNumber, getDaysSince, rateMovieFinance } from '@/lib/functions';
+import { formatMinutes } from '@/lib/functions';
 import ImageWithLoader from '@/components/layout/image-with-loader';
-import { boxOfficeResults, imageUrl, imgWidth, posterRatio } from '@/lib/constants';
-import { Separator } from '@/components/ui/separator';
+import { imageUrl, imgWidth, mediaType, posterRatio } from '@/lib/constants';
 import RadialChart from '@/components/ui/radial-chart';
 
-const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const media = "movie"
-  const movieData = await getGenericContentData(params.id, media, ["credits"])
-    .catch((e) => {
-      notFound()
-    })
-
-  console.log(movieData);
-
-  const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
+const MovieOverviewSection = async ({ params }: { params: { id: string } }) => {
+  const movieData = await getGenericContentData(params.id, mediaType.movie, ["credits"])
+  //const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
 
   return (
     <div className='flex flex-col lg:flex-row gap-20 md:gap-3  justify-between mx-10 '>
@@ -65,9 +56,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-
       <div className='flex flex-col gap-3 bg-secondary/40 rounded-lg px-7 justify-center  '>
-
         <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />
       </div>
 
@@ -75,6 +64,6 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   );
 }
 
-export default MoviePage
+export default MovieOverviewSection
 
 

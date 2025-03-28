@@ -58,7 +58,6 @@ export type PersonData = {
     media_type: string,
     job: string
   }[],
-  user?: any
 }
 
 export type PersonResult = {

@@ -1,7 +1,6 @@
 'use client'
 
 import { FilterItem } from '@/lib/types/filter';
-import React, { useState, useEffect } from 'react';
 
 interface CheckboxGroupProps {
   items: FilterItem[];
