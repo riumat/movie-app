@@ -13,12 +13,14 @@ import {
 import { imageUrl, imgWidth, posterRatio, tmdbMovieGenres, tmdbTvGenres } from "@/lib/constants";
 import { formatDate } from "@/lib/functions";
 import { MovieData } from "@/lib/types/movie.types";
+import { PersonResult } from "@/lib/types/person.types";
 import { TvData } from "@/lib/types/tv.types";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData, trigger: ReactNode }) => {
+const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | PersonResult, trigger: ReactNode }) => {
+  const path = content.media_type === "person" ? content.profile_path : content.poster_path
   return (
     <Dialog>
       <DialogTrigger className="cursor-pointer w-full rounded-sm" >
@@ -31,7 +33,7 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData, t
         </DialogHeader>
         <div className="flex flex-col items-center gap-5">
           <div className="w-[75%] lg:w-[270px] h-full relative">
-            <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${content.poster_path}`} ratio={posterRatio} />
+            <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${path}`} ratio={posterRatio} />
           </div>
 
           <div className="h-full flex flex-col gap-3 items-center">
@@ -49,7 +51,7 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData, t
                 </div>
               </>
 
-            ) : (
+            ) : content.media_type === "tv" ? (
               <>
                 <p className="text-sm">{formatDate(content.first_air_date)}</p>
                 <div className="flex flex-wrap items-center gap-2">
@@ -59,6 +61,11 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData, t
                     </Badge>
                   ))}
                 </div>
+              </>
+            ) : (
+              <>
+                <p className="text-sm">{content.known_for_department}</p>
+
               </>
             )}
 

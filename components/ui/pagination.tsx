@@ -29,7 +29,10 @@ const Pagination = ({ page, totalPages, handleChangePage }: PaginationProps) => 
   const [currentPage, setCurrentPage] = useState<number>(page);
 
   useEffect(() => {
+    const rendered = getPaginationArray(page, totalPages);
+    setRenderedPages(rendered);
     setCurrentPage(page);
+    console.log(rendered);
   }, [page]);
 
   const onChange = (pageSelected: number) => {
