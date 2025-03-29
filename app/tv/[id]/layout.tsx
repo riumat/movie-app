@@ -19,12 +19,12 @@ export default async function TvLayout({ children, params }: { children: React.R
         contentData={movieData}
       />
       <section className="bg-background text-foreground w-full ">
-        <div className='flex flex-col  mb-10 mx-5'>
+        <div className='flex flex-col mb-10 '>
           <ContentNavbar
             media={movieData.type}
             id={params.id}
           />
-          <div className='rounded-xl z-0 flex-1 overflow-hidden relative min-h-[300px] mt-10 '>
+          <div className='rounded-xl z-0 flex-1 overflow-hidden relative min-h-[300px] mt-10 mx-5 '>
             <Suspense fallback={<Loader />}>
               {children}
             </Suspense>
