@@ -33,7 +33,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoInfo: { trailers, clip
     <div className='flex flex-col gap-16'>
       {trailers.length > 0 && (
         <div className='flex flex-col gap-7  items-center '>
-          <p className='text-center text-2xl font-semibold'>Trailers</p>
+          <p className='text-center text-xl lg:text-2xl font-semibold'>Trailers</p>
           <div className='flex justify-center gap-5 flex-wrap w-full'>
             {trailers.slice(0, 3).map((video) => (
               <div key={video.key} className='flex flex-col gap-3 items-center bg-secondary/50 p-3 rounded-lg'>

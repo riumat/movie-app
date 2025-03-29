@@ -8,8 +8,10 @@ const MovieOverviewSection = async ({ params }: { params: { id: string } }) => {
   const movieData = await getGenericContentData(params.id, mediaType.movie, ["credits"])
   //const boxOfficeData = boxOfficeResults[rateMovieFinance(movieData.budget, movieData.revenue, movieData.release_date)]
 
+
+  //todo responsive
   return (
-    <div className='flex flex-col lg:flex-row gap-20 md:gap-3  justify-between mx-10 '>
+    <div className='flex flex-col lg:flex-row gap-20 md:gap-3  items-center justify-between mx-10 '>
       <div className='w-56  rounded-lg ' >
         <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} ratio={posterRatio} />
       </div>

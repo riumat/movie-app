@@ -24,11 +24,11 @@ export const FiltersSidebar = ({
 }: FiltersSidebarProps) => {
 
   return (
-    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[24%] flex flex-col gap-3 ">
+    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[150px] flex flex-col gap-2 lg:gap-3 ">
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
-        <div className="flex flex-col ">
-          <h2 className="text-sm font-normal mb-3 text-center">Sort by</h2>
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+        <div className="flex flex-col items-center">
+          <h2 className=" text-xs lg:text-sm font-normal mb-3 text-center">Sort by</h2>
           {media === "movie" ?
             <MovieSortInput sortType={filters.sortType} onChange={handlers.handleSortChange} />
             :
@@ -37,8 +37,8 @@ export const FiltersSidebar = ({
         </div>
       </div>
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-5  flex flex-col gap-3">
-      <h2 className="text-sm font-normal text-center">Genres and networks</h2>
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5  flex flex-col gap-3">
+      <h2 className=" text-xs lg:text-sm font-normal text-center">Genres and networks</h2>
 
         <ComboboxFilter
           label="Genres"
@@ -55,8 +55,8 @@ export const FiltersSidebar = ({
         />
       </div>
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
-      <h2 className="text-sm font-normal text-center">Year range</h2>
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+      <h2 className=" text-xs lg:text-sm font-normal text-center">Year range</h2>
 
 
         <DatePickerWithYearRange
@@ -66,8 +66,8 @@ export const FiltersSidebar = ({
       </div>
 
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-5 flex flex-col gap-3">
-      <h2 className="text-sm font-normal text-center">Duration</h2>
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+      <h2 className=" text-xs lg:text-sm font-normal text-center">Duration</h2>
 
         <RuntimeSlider
           onChange={handlers.handleRuntime}
@@ -75,7 +75,7 @@ export const FiltersSidebar = ({
         />
       </div>
       <div className="flex-1"></div>
-      <Button variant="destructive" className="w-full" onClick={handlers.handleReset}>Reset filters</Button>
+      <Button variant="destructive" className="w-full text-sm " onClick={handlers.handleReset}>Reset filters</Button>
 
 
     </div>

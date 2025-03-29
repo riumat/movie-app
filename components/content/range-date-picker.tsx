@@ -30,7 +30,7 @@ const DatePickerWithYearRange = ({ onChange, selectedRange }: { onChange: (range
   }, [selectedRange])
 
   return (
-    <div className={cn("flex justify-center items-center gap-3 ")}>
+    <div className={cn("flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-3 ")}>
       <div className="flex items-center justify-between flex-1 ">
         <Popover>
           <PopoverTrigger asChild className="">
@@ -38,7 +38,7 @@ const DatePickerWithYearRange = ({ onChange, selectedRange }: { onChange: (range
               id="from-year-trigger"
               variant={"outline"}
               className={cn(
-                "flex gap-3 justify-between  items-center  w-full  px-3",
+                "flex gap-3 justify-between  items-center  w-full  px-3 text-xs lg:text-sm",
                 !range.from && "text-muted-foreground"
               )}
             >
@@ -70,7 +70,7 @@ const DatePickerWithYearRange = ({ onChange, selectedRange }: { onChange: (range
           </PopoverContent>
         </Popover>
       </div>
-      <p>-</p>
+      <p className="hidden lg:block">-</p>
       <div className="flex items-center justify-between flex-1">
         <Popover>
           <PopoverTrigger asChild>
@@ -78,7 +78,7 @@ const DatePickerWithYearRange = ({ onChange, selectedRange }: { onChange: (range
               id="to-year-trigger"
               variant={"outline"}
               className={cn(
-                "flex gap-3 justify-between  items-center w-full  px-3",
+                "flex gap-3 justify-between  items-center w-full  px-3 text-xs lg:text-sm",
                 !range.to && "text-muted-foreground"
               )}
             >

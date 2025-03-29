@@ -13,7 +13,7 @@ const PaginationMenu = ({ currentPage, totalPages, handleChangePage }: Paginatio
 
   return (
     <Pagination>
-      <PaginationContent className="gap-3">
+      <PaginationContent className="gap-1 lg:gap-3 ">
         <PaginationItem>
           <PaginationPrevious
             href="#"
@@ -22,7 +22,7 @@ const PaginationMenu = ({ currentPage, totalPages, handleChangePage }: Paginatio
               handleChangePage(currentPage - 1)
             }}
             aria-disabled={currentPage === 1}
-            className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+            className={currentPage === 1 ? "pointer-events-none opacity-50 text-xs lg:text-sm" : "text-xs lg:text-sm"}
           />
         </PaginationItem>
 
@@ -30,7 +30,7 @@ const PaginationMenu = ({ currentPage, totalPages, handleChangePage }: Paginatio
           if (page === "ellipsis-start" || page === "ellipsis-end") {
             return (
               <PaginationItem key={`ellipsis-${i}`}>
-                <PaginationEllipsis />
+                <PaginationEllipsis className='text-xs lg:text-sm' />
               </PaginationItem>
             )
           }
@@ -39,6 +39,7 @@ const PaginationMenu = ({ currentPage, totalPages, handleChangePage }: Paginatio
             <PaginationItem key={`page-${page}`}>
               <PaginationLink
                 href="#"
+                className='text-xs lg:text-sm'
                 onClick={(e) => {
                   e.preventDefault()
                   handleChangePage(Number(page))
@@ -59,7 +60,7 @@ const PaginationMenu = ({ currentPage, totalPages, handleChangePage }: Paginatio
               handleChangePage(currentPage + 1)
             }}
             aria-disabled={currentPage === totalPages}
-            className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+            className={currentPage === totalPages ? "pointer-events-none opacity-50 text-xs lg:text-sm" : "text-xs lg:text-sm"}
           />
         </PaginationItem>
       </PaginationContent>

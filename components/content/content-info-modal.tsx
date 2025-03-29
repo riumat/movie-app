@@ -26,18 +26,18 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | 
       <DialogTrigger className="cursor-pointer w-full rounded-sm" >
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-[95vw] lg:max-w-[500px] h-[80vh] overflow-hidden flex flex-col justify- gap-8" >
+      <DialogContent className="max-w-[95vw] lg:max-w-[500px] min-h-[80vh] max-h-[93vh] overflow-hidden flex flex-col justify-center gap-3 lg:gap-8" >
         <DialogHeader className="w-0 h-0" >
           <DialogTitle className="w-0 h-0" />
           <DialogDescription className="w-0 h-0" />
         </DialogHeader>
         <div className="flex flex-col items-center gap-5">
-          <div className="w-[75%] lg:w-[270px] h-full relative">
+          <div className="w-[60%] lg:w-[270px] h-full relative">
             <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${path}`} ratio={posterRatio} />
           </div>
 
           <div className="h-full flex flex-col gap-3 items-center">
-            <h1 className="text-xl font-bold">{content.media_type === "movie" ? content.title : content.name}</h1>
+            <h1 className="text-xl  font-bold">{content.media_type === "movie" ? content.title : content.name}</h1>
 
             {content.media_type === "movie" ? (
               <>

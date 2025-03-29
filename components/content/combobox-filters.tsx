@@ -55,7 +55,7 @@ const ComboboxFilter = ({ items, onChange, selectedItems, label }: ComboboxDemoP
           aria-expanded={open}
           className=" justify-between px-2 w-full"
         >
-          <p className="text-ellipsis overflow-hidden font-light">
+          <p className="text-ellipsis overflow-hidden font-light text-xs lg:text-sm">
             {selectedItems.length > 0
               ? filterGroup(selectedItems, items).join(", ")
               : ` ${label}`}

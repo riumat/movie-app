@@ -21,7 +21,7 @@ const Body = async ({ media, params, genres, providers }: Props) => {
   const { totalPages, results } = await getFilteredContents(params, media)
 
   return (
-    <div className="flex flex-col items-center w-[95%] gap-5  h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden">
+    <div className="flex flex-col items-center w-[95%] gap-5 h-[90vh] lg:h-[91vh] text-foreground px-3  pb-0  rounded-lg overflow-hidden">
       <FiltersSection props={{ genres, providers, media, totalPages }}>
         <ContentDisplay
           results={results}

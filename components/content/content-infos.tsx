@@ -8,13 +8,13 @@ import { TvData } from "@/lib/types/tv.types"
 const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
 
   return (
-    <div className=' flex flex-col justify-end gap-7 w-full text-sm'>
-      <div className='w-full flex justify-start gap-5'>
+    <div className=' flex flex-col justify-end gap-7 w-full text-sm '>
+      <div className='w-full flex justify-center lg:justify-start gap-5'>
         <OverviewModal overview={contentData.overview} /> 
         <ProviderModal providers={contentData.providers} />
       </div>
-      <div className='flex justify-start items-start '>
-        <div className='flex gap-12'>
+      <div className='flex justify-center lg:justify-start items-start text-sm'>
+        <div className='flex flex-col lg:flex-row gap-3 lg:gap-12 items-center'>
           {contentData.media_type === "tv" ? (
             <>
               <p>{formatTvDuration(contentData.first_air_date, contentData.last_air_date,contentData.status)}</p>

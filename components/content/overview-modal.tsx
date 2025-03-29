@@ -12,18 +12,18 @@ const OverviewModal = ({ overview }: { overview: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"secondary"} className='px-3 flex gap-2 items-center '>
+        <Button variant={"secondary"} className='px-3 flex gap-2 items-center text-xs lg:text-sm '>
           <p className=''>Synopsis</p>
           <IoReaderOutline size={17} />
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[50vw] max-h-[60vh]  overflow-hidden flex flex-col gap-8  ">
+      <DialogContent className="max-w-[90%] sm:max-w-[50vw] max-h-[60vh]  overflow-hidden flex flex-col gap-8  ">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Synopsis</DialogTitle>
+          <DialogTitle className="text-xl lg:text-2xl">Synopsis</DialogTitle>
         </DialogHeader>
         <div className="h-full overflow-y-auto scrollbar-thin ">
-          <p className="font-normal leading-8 mx-16">{overview}</p>
+          <p className="font-normal lg:leading-8 mx-2 lg:mx-16 text-sm">{overview}</p>
         </div>
       </DialogContent>
     </Dialog>

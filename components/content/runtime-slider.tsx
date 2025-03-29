@@ -13,7 +13,7 @@ const RuntimeSlider = ({ onChange, selectedRuntime }: { onChange: (runtimeRange:
   }, [selectedRuntime])
 
   return (
-    <div className='flex flex-col gap-3 items-center'>
+    <div className='flex flex-col gap-1 lg:gap-3 items-center'>
       <Slider
         onValueChange={handleOnChange}
         value={selectedRuntime}
@@ -23,7 +23,7 @@ const RuntimeSlider = ({ onChange, selectedRuntime }: { onChange: (runtimeRange:
         minStepsBetweenThumbs={1}
       />
       <div>
-        <span className='text-sm'>{range[0]} - {range[1]} minutes</span>
+        <span className=' text-xs lg:text-sm'>{range[0]} - {range[1]} minutes</span>
       </div>
     </div>
 

@@ -1,3 +1,4 @@
+"use client"
 import { ModeToggle } from "@/components/theme/toggle-theme"
 import {
   Sidebar,
@@ -5,14 +6,17 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { sidebarItems } from "@/lib/constants"
 import Image from "next/image"
 import Link from "next/link"
 
-export const AppSidebar = async () => {
+export const AppSidebar = () => {
+  const { setOpenMobile } = useSidebar();
+
   return (
-    <Sidebar>
+    <Sidebar >
       <SidebarHeader >
         <div className="flex items-center justify-between">
           <div className="flex justify-center w-full ">
@@ -31,7 +35,11 @@ export const AppSidebar = async () => {
           <ul className=' text-sm flex flex-col gap-5  mx-auto'>
             {sidebarItems.map((item) => (
               <li key={item.path} className="  ">
-                <Link href={item.path} className='flex items-center gap-3 hover:underline p-3'>
+                <Link
+                  href={item.path}
+                  className='flex items-center gap-3 hover:underline p-3'
+                  onClick={() => setOpenMobile(false)}
+                >
                   <item.icon size={17} />
                   <span
 

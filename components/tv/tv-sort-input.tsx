@@ -51,11 +51,11 @@ const TvSortInput = ({ sortType, onChange }: SortInputProps) => {
   };
 
   return (
-    <div className="relative w-[220px] flex gap-2">
+    <div className="relative w-[220px] flex lg:flex-row flex-col items-center gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className="w-full px-4 py-2 flex justify-between items-center font-light"
+            className="lg:w-full px-4 py-2 flex justify-between items-center font-light text-xs lg:text-sm"
             type="button"
             variant="outline"
           >
@@ -77,20 +77,22 @@ const TvSortInput = ({ sortType, onChange }: SortInputProps) => {
           </ul>
         </PopoverContent>
       </Popover>
-      <Button
-        variant={`${order === "asc" ? "outline" : "default"}`}
-        className="px-2"
-        onClick={() => handleOrderChange("desc")}
-      >
-        <GrAscend className="rotate-180" />
-      </Button>
-      <Button
-        variant={`${order === "asc" ? "default" : "outline"}`}
-        className="px-2"
-        onClick={() => handleOrderChange("asc")}
-      >
-        <GrAscend />
-      </Button>
+      <div className='flex items-center gap-2'>
+        <Button
+          variant={`${order === "asc" ? "outline" : "default"}`}
+          className="px-2"
+          onClick={() => handleOrderChange("desc")}
+        >
+          <GrAscend className="rotate-180" />
+        </Button>
+        <Button
+          variant={`${order === "asc" ? "default" : "outline"}`}
+          className="px-2"
+          onClick={() => handleOrderChange("asc")}
+        >
+          <GrAscend />
+        </Button>
+      </div>
     </div>
   );
 };

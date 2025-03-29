@@ -42,7 +42,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
       <CardHeader className="items-center p-0 !w-0 !h-0">
         <CardDescription className="p-0 m-0" ></CardDescription>
       </CardHeader>
-     <CardContent className="flex-1 p-0 w-full">
+      <CardContent className="flex-1 p-0 w-full">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[200px] "
@@ -87,7 +87,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
                         >
                           {chartData[0].vote.toLocaleString()}
                         </tspan>
-                        
+
                       </text>
                     )
                   }
@@ -97,10 +97,11 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <div className="flex flex-col items-center gap-1 text-xs leading-none text-muted-foreground">
-          <p>{`Average rating based on ${data.total} votes on `}</p>
-          <Link href={"https://www.themoviedb.org/"} className="hover:underline">The Movie Database</Link>
+      <CardFooter className="flex-col gap-2 ">
+        <div className="flex flex-col items-center gap-1 text-xs leading-1 text-muted-foreground">
+          <span className="text-center">{`Average rating based on ${data.total} votes on `}
+            <Link href={"https://www.themoviedb.org/"} className="hover:underline font-medium">The Movie Database</Link>
+          </span>
         </div>
 
       </CardFooter>

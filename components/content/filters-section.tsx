@@ -8,7 +8,7 @@ const FiltersSection = ({ children, props }: { children: ReactNode, props: any }
   const { filters, handlers } = useFilterState();
   return (
     <>
-      <div className='flex flex-grow overflow-hidden w-full gap-10  '>
+      <div className='flex flex-grow overflow-hidden w-full gap-3 lg:gap-10  '>
         {children}
         <FiltersSidebar
           genres={props.genres}
