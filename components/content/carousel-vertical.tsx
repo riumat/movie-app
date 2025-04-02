@@ -1,13 +1,13 @@
 "use client"
-import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { MovieData } from "@/lib/types/movie.types";
 import { TvData } from "@/lib/types/tv.types";
-import SimpleContentCard from "@/components/cards/simple-content-card";
+import ContentInfoModal from "@/components/content/content-info-modal";
+import VerticalCard from "@/components/cards/vertical-card";
 
 
 
-const CarouselVertical = ({ contentList }: { contentList: MovieData[] | TvData[]}) => {
+const CarouselVertical = ({ contentList }: { contentList: MovieData[] | TvData[] }) => {
   return (
     <Carousel
       opts={{
@@ -19,19 +19,16 @@ const CarouselVertical = ({ contentList }: { contentList: MovieData[] | TvData[]
         {contentList.map(content => (
           <CarouselItem
             key={content.id}
-            className={"basis-1/5"}>
-            <Link
-              href={`/${content.media_type}/${content.id}`}
-            >
-              <SimpleContentCard
-                item={content}
-              />
-            </Link>
+            className={"basis-[100%] md:basis-1/2 lg:basis-1/4 xl:basis-1/5 flex items-center pl-4"}>
+            <ContentInfoModal
+              content={content}
+              trigger={<VerticalCard item={content} />}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="-left-14 " />
+      <CarouselNext className="-right-14 " />
     </Carousel>
 
   );

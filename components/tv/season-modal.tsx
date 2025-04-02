@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { imageUrl, imgWidth, placeholders, posterRatio } from "@/lib/constants";
 import { formatDate } from "@/lib/functions";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import axios from "axios";
 import { useState } from "react";
 
@@ -54,11 +55,11 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
             <ImageWithLoader src={imageSrc} className={`rounded-lg ${customClassName}`} ratio={posterRatio} />
           </div>
           <div className='flex flex-col items-center gap-2'>
-            <p className="text-xl font-bold text-neutral-900 dark:text-white">
+            <p className="text-sm lg:text-xl font-bold text-neutral-900 dark:text-white">
               {season.name}
             </p>
             <div className='flex flex-col items-center gap-2'>
-              <p className="font-normal text-sm text-neutral-800 dark:text-gray-400 border px-2 py-1 rounded-xl">
+              <p className="font-normal text-xs lg:text-sm text-neutral-800 dark:text-gray-400 border px-2 py-1 rounded-xl">
                 {formatDate(season.air_date)}
               </p>
               <p className="font-normal text-sm text-neutral-800 dark:text-gray-400 border px-2 py-1 rounded-xl">
@@ -68,28 +69,26 @@ const SeasonModal = ({ season, showId }: SeasonsSectionProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[50vw] h-[60vh] overflow-hidden flex flex-col gap-8">
+      <DialogContent className="max-w-[90%] sm:max-w-[50vw] h-[60vh] overflow-hidden flex flex-col gap-8">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{season.name}</DialogTitle>
+          <DialogTitle className="text-base lg:text-2xl">{season.name}</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
-        <div className="h-full overflow-y-auto scrollbar-thin">
+        <div className="h-full w-full overflow-auto scrollbar-thin">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
               <Loader />
             </div>
           ) : (
-            <div>
+            <div className="flex flex-col gap-3 lg:gap-5">
               {episodes.length > 0 && (
                 episodes.map((episode, index) => (
-                  <div key={episode.id} className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className="relative w-10 h-10">
-
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <p>{index + 1}</p>
-                        <p className="font-bold text-lg">{episode.name}</p>
-                        <p className="text-sm text-neutral-500">
+                  <div key={episode.id} className=" ">
+                    <div className="flex items-center gap-3">
+                      <p className="text-base">{index + 1}</p>
+                      <div className="flex flex-col lg:flex-row lg:items-center lg:gap-2">
+                        <p className="font-bold text-xs lg:text-lg">{episode.name}</p>
+                        <p className="text-xs lg:text-sm text-neutral-500">
                           {formatDate(episode.air_date)}
                         </p>
                       </div>

@@ -1,8 +1,8 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { selectorMovieList, selectorTvList } from "@/lib/constants";
-import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
   const selection = pathname.split("/")[3] ?? "";
   const [tabSelected, setTabSelected] = useState("Overview")
   const [isOpen, setIsOpen] = useState(false)
-  const isMobile = true
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (media === "movie") {
@@ -41,10 +41,11 @@ const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
 
   if (isMobile) {
     return (
+      <div className=' flex  justify-center items-start gap-1 lg:gap-5 text-sm lg:text-base py-3 border-b border-neutral-700 sticky top-0 z-40 bg-background text-foreground mx-2 lg:mx-5'>
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
-            className=" px-4 py-2 flex justify-between items-center font-light text-center text-sm mx-10"
+            className=" px-10 py-2 flex justify-between items-center font-light text-center text-sm mx-10  "
             type="button"
             variant="outline"
           >
@@ -91,6 +92,7 @@ const ContentNavbar = ({ media, id }: MainSectionSelectorProps) => {
         )
         }
       </Popover>
+      </div>
     )
   }
 

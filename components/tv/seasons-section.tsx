@@ -21,9 +21,9 @@ const SeasonsSection = ({ seasons }: SeasonsSectionProps) => {
   const { id } = params;
 
   return (
-    <section className="grid grid-cols-5 justify-items-center gap-y-10 h-full">
+    <section className="grid grid-cols-2 lg:grid-cols-5 justify-items-center gap-x-5 gap-y-10 h-full">
       {seasons.map((season) => (
-        <SeasonModal key={season.id} season={season} showId={id as string} />
+        <SeasonModal key={season.id} season={season} showId={id as string} /> //todo fix layout
       ))}
     </section>
   )

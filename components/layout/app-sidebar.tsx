@@ -19,7 +19,7 @@ export const AppSidebar = () => {
     <Sidebar >
       <SidebarHeader >
         <div className="flex items-center justify-between">
-          <div className="flex justify-center w-full ">
+          <div className="flex justify-center w-full cursor-default">
             <Image
               src="/logo-no-bg.png"
               alt="logo"

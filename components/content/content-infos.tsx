@@ -26,7 +26,7 @@ const ContentInfos = ({ contentData }: { contentData: MovieData | TvData }) => {
               <p>{formatMinutes(contentData.runtime)}</p>
             </>
           )}
-          <div>
+          <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
             {contentData.genres.map((genre) => (
               <Badge variant={"secondary"} key={genre.id} className="mr-2 cursor-pointer">
                 {genre.name}

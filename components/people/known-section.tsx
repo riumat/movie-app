@@ -4,9 +4,9 @@ const KnownForSection = ({ contents }: { contents: any }) => {
   return (
     <>
       {contents.length > 0 && (
-        <div className=' flex flex-col gap-2 w-full '>
-          <p className='font-light text-xl ml-10 pb-2'>Known for</p>
-          <div className="ml-10 justify-center  w-[91%]">
+        <div className=' w-[62%] lg:w-[90%] flex flex-col gap-2 lg:gap-8 '>
+          <p className='font-light text-base lg:text-xl text-center lg:text-start lg:ml-10 pb-2'>Known for</p>
+          <div className="lg:ml-10 lg:w-[91%]">
             <CarouselVertical
               contentList={contents}
             />

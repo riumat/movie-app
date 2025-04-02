@@ -74,9 +74,9 @@ const TvPage = async ({ params }: { params: { id: string } }) => {
               <Badge variant={"default"}>{formatDate(movieData.next_episode_to_air.air_date)}</Badge>
             </div>
           ) : (
-            <div>
-              <p>Last episode</p>
-              <p>{movieData.last_episode_to_air.name}</p>
+            <div className='flex flex-col items-center text-sm'>
+              <p className='font-light'>Last episode</p>
+              <p className='font-medium'>{movieData.last_episode_to_air.name}</p>
               <p>{formatDate(movieData.last_episode_to_air.air_date)}</p>
             </div>
           )}
