@@ -53,16 +53,17 @@ const TrendingMovieSection = ({ movie }: TrendingMovieSectionProps) => {
                 ))}
               </div>
             </div>
+            <Link
+              href={`/movie/${movie.id}`}
+              className=" "
+            >
+              <Button variant="default" size="default" className="w-40 mt-3 lg:mt-0 flex justify-center items-center gap-2" >
 
-            <Button variant="default" size="default" className="w-40 mt-3 lg:mt-0" >
-              <Link
-                href={`/movie/${movie.id}`}
-                className="flex justify-center items-center gap-2"
-              >
-                <p>Details</p>
-                <ArrowRight size={24} />
-              </Link>
-            </Button>
+                <p className="font-semibold ">Details</p>
+                <ArrowRight  className=" !w-5 !h-5" />
+              </Button>
+            </Link>
+
           </div>
         </div>
       </div>

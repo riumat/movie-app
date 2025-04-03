@@ -28,18 +28,18 @@ const PersonHeader = ({ personData }: { personData: PersonData }) => {
               <h1 className="text-base lg:text-4xl font-bold">{personData.name}</h1>
             )}
           </div>
-          <div className='flex flex-col gap-5 lg:gap-1 text-xs lg:text-sm '>
+          <div className='flex flex-col gap-5 lg:gap-1 text-xs lg:text-base '>
             {personData.birthday !== null && personData.birthday !== '' && (
-              <p className='font-light'>{formatDate(personData.birthday)}
+              <p>{formatDate(personData.birthday)}
                 {personData.deathday && ` - ${formatDate(personData.deathday)}`}
                 {` (${getAge(personData.birthday, personData.deathday)} years old)`}</p>
             )}
             {personData.place_of_birth !== null && personData.place_of_birth !== '' && (
-              <p className='font-light'>{personData.place_of_birth}</p>
+              <p >{personData.place_of_birth}</p>
             )}
           </div>
 
-          <p className='text-xs lg:text-sm'><span className="font-thin ">Department:</span> {personData.known_for_department}</p>
+          <p className='text-xs lg:text-base'><span className=" ">Department:</span> {personData.known_for_department}</p>
 
         </div>
         
