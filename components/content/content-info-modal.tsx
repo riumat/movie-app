@@ -26,13 +26,13 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | 
       <DialogTrigger className="cursor-pointer w-full rounded-sm" >
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-[95vw] lg:max-w-[500px] min-h-[80vh] max-h-[93vh] overflow-hidden flex flex-col justify-center gap-3 lg:gap-8" >
+      <DialogContent className="max-w-[95vw] lg:max-w-[500px] min-h-[80vh] max-h-[93vh] overflow-x-hidden overflow-y-auto flex flex-col justify-center gap-3 lg:gap-8" >
         <DialogHeader className="w-0 h-0" >
           <DialogTitle className="w-0 h-0" />
           <DialogDescription className="w-0 h-0" />
         </DialogHeader>
-        <div className="flex flex-col items-center gap-5">
-          <div className="w-[60%] lg:w-[270px] h-full relative">
+        <div className="flex flex-col items-center gap-5 p-3">
+          <div className="w-[60%] lg:max-w-[270px] h-full ">
             <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${path}`} ratio={posterRatio} />
           </div>
 
@@ -68,19 +68,16 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | 
 
               </>
             )}
-
-            <Button variant="default" size="sm" className="w-32 lg:w-40 mt-5" >
-              <Link
-                href={`/${content.media_type}/${content.id}`}
-                className="flex justify-center items-center gap-2"
-              >
-                <p>Visit Page</p>
-                <ArrowRight size={24} />
-              </Link>
-            </Button>
-
+            <Link
+              href={`/${content.media_type}/${content.id}`}
+              className=""
+            >
+              <Button variant="default" size="sm" className="w-32 lg:w-40 mt-5 flex justify-center items-center gap-2" >
+                <span className="font-semibold ">Visit Page</span>
+                <ArrowRight className=" !w-5 !h-5" />
+              </Button>
+            </Link>
           </div>
-
         </div>
       </DialogContent>
     </Dialog >

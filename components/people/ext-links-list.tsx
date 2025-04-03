@@ -4,7 +4,6 @@ import Link from "next/link"
 import { AiFillTikTok } from "react-icons/ai"
 import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
-import { SiWikipedia } from "react-icons/si"
 
 type ExternalIds = {
   facebook_id?: string,
@@ -59,15 +58,6 @@ const ExternalLinksList = ({ externalIds }: { externalIds: ExternalIds }) => {
           <Button variant={"ghost"} size={"icon"} >
 
             <FaYoutube className="!w-5 !h-5" />
-          </Button>
-
-        </Link>
-      )}
-      {externalIds.wikidata_id && (
-        <Link href={`${externalUrls.wikidata}${externalIds.wikidata_id}`} target="_blank" rel="noopener noreferrer">
-          <Button variant={"ghost"} size={"icon"} >
-
-            <SiWikipedia className="!w-5 !h-5" />
           </Button>
 
         </Link>

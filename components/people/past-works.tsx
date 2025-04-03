@@ -23,9 +23,9 @@ const PastWorks = ({ personData }: { personData: PersonData }) => {
                 <div className="flex-1 flex flex-col gap-1 justify-start  ">
                   <div className="flex gap-2  ">
                     <p className="font-semibold max-w-[200px] lg:max-w-[320px] truncate"> {content.title ?? content.name}</p>
-                    <p className="font-extralight ">{content.media_type === "movie" ? "(Movie)" : "(Tv)"}</p>
+                    <p className="font-light ">{content.media_type === "movie" ? "(Movie)" : "(Tv)"}</p>
                   </div>
-                  {content.character && <p className="font-extralight">as {content.character}</p>}
+                  {content.character && <p className="font-light">as {content.character}</p>}
                 </div>
 
               </div>
