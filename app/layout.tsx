@@ -23,7 +23,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Movie App",
+  title: "Cine Hive",
   description: "",
 };
 
