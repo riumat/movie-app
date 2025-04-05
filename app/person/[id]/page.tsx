@@ -11,7 +11,7 @@ const PersonPage = async ({ params }: { params: { id: string } }) => {
     .catch(() => notFound())
   return (
     <div className="flex-1 flex flex-col lg:flex-row w-full gap-10 lg:gap-0 lg:justify-between lg:overflow-hidden pb-12 mt-16">
-      <div className='flex flex-col flex-1 gap-5 lg:gap-2 lg:justify-between items-center mx-5 '>
+      <div className='flex flex-col flex-1 gap-5 lg:gap-10  items-center mx-5 '>
         <PersonHeader personData={personData} />
         <Separator />
         <KnownForSection contents={personData.combined_credits} />

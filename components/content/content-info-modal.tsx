@@ -26,18 +26,18 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | 
       <DialogTrigger className="cursor-pointer w-full rounded-sm" >
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-[95vw] lg:max-w-[500px] min-h-[80vh] max-h-[93vh] overflow-x-hidden overflow-y-auto flex flex-col justify-center gap-3 lg:gap-8" >
-        <DialogHeader className="w-0 h-0" >
+      <DialogContent className="max-w-[95vw] md:max-w-[550px] max-h-[80vh] overflow-x-hidden overflow-y-auto flex flex-col justify-start gap-3 lg:gap-10" >
+        <DialogHeader className="w-0 h-0 hidden" >
           <DialogTitle className="w-0 h-0" />
           <DialogDescription className="w-0 h-0" />
         </DialogHeader>
-        <div className="flex flex-col items-center gap-5 p-3">
-          <div className="w-[60%] lg:max-w-[270px] h-full ">
+        <div className="flex flex-col items-center gap-5 h-full ">
+          <div className="w-[60%] sm:w-[50%] md:w-[45%] lg:w-[50%] ">
             <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${path}`} ratio={posterRatio} />
           </div>
 
-          <div className="h-full flex flex-col gap-3 items-center">
-            <h1 className="text-xl  font-bold">{content.media_type === "movie" ? content.title : content.name}</h1>
+          <div className=" flex flex-col gap-3 items-center justify-evenly w-full flex-1">
+            <h1 className="text-xl text-center font-bold">{content.media_type === "movie" ? content.title : content.name}</h1>
 
             {content.media_type === "movie" ? (
               <>

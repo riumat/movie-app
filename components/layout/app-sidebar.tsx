@@ -18,15 +18,20 @@ export const AppSidebar = () => {
   return (
     <Sidebar >
       <SidebarHeader >
-        <div className="flex items-center justify-between">
-          <div className="flex justify-center w-full cursor-default">
-            <Image
-              src="/logo-no-bg.png"
-              alt="logo"
-              className="rounded-full relative -top-5"
-              width={160}
-              height={160}
-            />
+        <div className="flex items-center justify-between mb-10">
+          <div className="flex justify-center w-full ">
+            <Link
+              href={"/"}
+              onClick={() => setOpenMobile(false)}
+              className="w-[160px] h-[100px]  ">
+              <Image
+                src="/logo-no-bg.png"
+                alt="logo"
+                className="rounded-full  relative -top-8"
+                width={160}
+                height={160}
+              />
+            </Link>
           </div>
         </div>
       </SidebarHeader >

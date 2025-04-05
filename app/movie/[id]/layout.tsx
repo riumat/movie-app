@@ -1,7 +1,7 @@
+import Loading from "@/app/loading";
 import ContentHeader from "@/components/content/content-header";
 import ContentNavbar from "@/components/content/content-navbar";
 import ContentBackground from "@/components/layout/content-background";
-import Loader from "@/components/layout/loader";
 import { mediaType } from "@/lib/constants";
 import { getHeaderContentData } from "@/lib/fetchers/index";
 import { notFound } from "next/navigation";
@@ -28,7 +28,7 @@ export default async function MovieLayout({ children, params }: { children: Reac
             id={params.id}
           />
           <div className='z-0 flex-1 overflow-hidden relative min-h-[300px] mt-10 mx-5'>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<Loading />}>
               {children}
             </Suspense>
           </div>

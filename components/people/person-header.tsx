@@ -8,8 +8,8 @@ import React from 'react';
 const PersonHeader = ({ personData }: { personData: PersonData }) => {
   return (
     <div className="relative w-full text-foreground  ">
-      <div className='flex justify-start items-start gap-3 lg:gap-10 lg:ml-28 '>
-        <div className='flex flex-col gap-3 '>
+      <div className='flex justify-start items-start gap-3 lg:gap-10 '>
+        <div className='flex flex-col gap-3 w-32 lg:w-44 '>
           {personData.profile_path !== null && personData.profile_path !== '' && (
             <Image
               src={`${imageUrl}${imgWidth.profile[632]}${personData.profile_path}`}
@@ -19,13 +19,13 @@ const PersonHeader = ({ personData }: { personData: PersonData }) => {
               className="rounded-md "
             />
           )}
-      <ExternalLinksList externalIds={personData.external_ids} />
+          <ExternalLinksList externalIds={personData.external_ids} />
 
         </div>
         <div className='flex flex-col gap-5 '>
           <div className='flex flex-col gap-1'>
             {personData.name !== null && personData.name !== '' && (
-              <h1 className="text-base lg:text-4xl font-bold">{personData.name}</h1>
+              <h1 className="text-xl lg:text-3xl font-bold">{personData.name}</h1>
             )}
           </div>
           <div className='flex flex-col gap-5 lg:gap-1 text-xs lg:text-base '>
@@ -42,7 +42,7 @@ const PersonHeader = ({ personData }: { personData: PersonData }) => {
           <p className='text-xs lg:text-base'><span className=" ">Department:</span> {personData.known_for_department}</p>
 
         </div>
-        
+
       </div>
 
     </div>

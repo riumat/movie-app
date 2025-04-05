@@ -24,9 +24,9 @@ export const FiltersSidebar = ({
 }: FiltersSidebarProps) => {
 
   return (
-    <div className="flex-1 md:w-[275px] md:flex-none item-center w-[150px] flex flex-col gap-2 lg:gap-3 ">
+    <div className="w-[160px] sm:w-[210px] md:w-[230px] lg:w-[250px] xl:w-[275px] flex-none item-center  flex flex-col gap-2 lg:gap-3  overflow-x-hidden scrollbar-thin">
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-3 lg:p-5 flex flex-col gap-3">
         <div className="flex flex-col items-center">
           <h2 className=" text-xs lg:text-sm font-normal mb-3 text-center">Sort by</h2>
           {media === "movie" ?
@@ -37,7 +37,7 @@ export const FiltersSidebar = ({
         </div>
       </div>
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5  flex flex-col gap-3">
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-3 lg:p-5  flex flex-col gap-3">
       <h2 className=" text-xs lg:text-sm font-normal text-center">Genres and networks</h2>
 
         <ComboboxFilter
@@ -55,7 +55,7 @@ export const FiltersSidebar = ({
         />
       </div>
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-3 lg:p-5 flex flex-col gap-3">
       <h2 className=" text-xs lg:text-sm font-normal text-center">Year range</h2>
 
 
@@ -66,7 +66,7 @@ export const FiltersSidebar = ({
       </div>
 
 
-      <div className=" bg-secondary/65 text-foreground rounded-lg p-2 lg:p-5 flex flex-col gap-3">
+      <div className=" bg-secondary/65 text-foreground rounded-lg p-3 lg:p-5 flex flex-col gap-3">
       <h2 className=" text-xs lg:text-sm font-normal text-center">Duration</h2>
 
         <RuntimeSlider
@@ -75,7 +75,7 @@ export const FiltersSidebar = ({
         />
       </div>
       <div className="flex-1"></div>
-      <Button variant="destructive" className="w-full text-sm " onClick={handlers.handleReset}>Reset filters</Button>
+      <Button variant="destructive" size={"default"} className="w-full text-sm " onClick={handlers.handleReset}>Reset filters</Button>
 
 
     </div>

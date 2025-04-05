@@ -14,7 +14,7 @@ const SimilarContentSection: React.FC<SimilarContentSectionProps> = ({ contents 
     <div className=" h-full ">
       {contents.length > 0 && (
         <div className='flex flex-col gap-4 items-center h-full overflow-y-auto scrollbar-thin flex-1'>
-          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 lg:gap-x-20 gap-y-10">
+          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-8 lg:gap-x-20 gap-y-10">
             {contents.map((item) => (
               <ContentInfoModal
                 key={item.id}

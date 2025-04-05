@@ -17,7 +17,7 @@ type ExternalIds = {
 
 const ExternalLinksList = ({ externalIds }: { externalIds: ExternalIds }) => {
   return (
-    <div className='flex items-center justify-center lg:justify-start w-full '>
+    <div className='flex items-center justify-center lg:justify-start w-full lg:mt-5'>
 
       {externalIds.facebook_id && (
         <Link href={`${externalUrls.facebook}${externalIds.facebook_id}`} target="_blank" rel="noopener noreferrer">

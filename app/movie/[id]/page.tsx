@@ -11,13 +11,11 @@ const MovieOverviewSection = async ({ params }: { params: { id: string } }) => {
 
   //todo responsive
   return (
-    <div className='flex flex-col lg:flex-row gap-20 md:gap-3  items-center justify-between mx-10 '>
-      <div className='w-56  rounded-lg ' >
-        <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} ratio={posterRatio} />
-      </div>
-      <div className='flex items-center flex-1 2 p-3 rounded-lg'>
+    <div className='flex flex-col lg:flex-row gap-20 md:gap-x-3 gap-y-10  items-center justify-between mx-10 flex-wrap '>
 
-        <div className='flex-1 grid grid-cols-2  mx-3 gap-10   text-sm flex-wrap'>
+      <div className='flex items-center flex-auto p-3 rounded-lg '>
+
+        <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-1 items-start '>
             <p className='font-light '>Original Title</p>
             <p className=' font-semibold'>{movieData.original_title}</p>
@@ -57,11 +55,15 @@ const MovieOverviewSection = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
+      <div className='flex flex-col md:flex-row gap-2'>
+        <div className='w-0 md:w-56 lg:w-64 rounded-lg ' >
+          <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} ratio={posterRatio} />
+        </div>
 
-      <div className='flex flex-col gap-3 bg-secondary/40 rounded-lg px-7 justify-center  '>
-        <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />
+        <div className='flex flex-col gap-3 bg-secondary/40 rounded-lg px-7 justify-center w-64 md:w-56 lg:w-64 self-stretch  '>
+          <RadialChart data={{ value: movieData.vote_average, total: movieData.vote_count }} />
+        </div>
       </div>
-
     </div>
   );
 }

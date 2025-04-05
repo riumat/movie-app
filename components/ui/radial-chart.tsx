@@ -38,14 +38,14 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
   const voteColor = getVoteColor(data.value);
 
   return (
-    <Card className="flex flex-col justify-center items-center border-none bg-transparent">
+    <Card className="flex flex-col h-full justify-evenly items-center border-none bg-transparent">
       <CardHeader className="items-center p-0 !w-0 !h-0">
         <CardDescription className="p-0 m-0" ></CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 p-0 w-full">
+      <CardContent className="flex-1 p-0 w-full flex justify-center items-center">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px] "
+          className="mx-auto aspect-square  md:max-h-[200px] w-full h-[250px] md:h-full "
         >
           <RadialBarChart
             data={chartData}
@@ -83,7 +83,7 @@ const RadialChart = ({ data }: { data: { value: number, total: number } }) => {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-5xl font-bold"
+                          className="fill-foreground text-3xl md:text-5xl font-bold"
                         >
                           {chartData[0].vote.toLocaleString()}
                         </tspan>
