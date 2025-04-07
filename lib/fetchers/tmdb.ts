@@ -4,12 +4,12 @@ import { mediaType } from "@/lib/constants";
 import { tmdbConfig } from "@/lib/fetchers/axios.config";
 import { endpoint } from "@/lib/fetchers/endpoints";
 import { ApiGenreResponse, ApiListResponse } from "@/lib/types/api.types";
+import { ContentType } from "@/lib/types/content.types";
 import { MovieData } from "@/lib/types/movie.types";
 import { FilterParams } from "@/lib/types/params.types";
 import { PersonResult } from "@/lib/types/person.types";
 import { ProviderItem } from "@/lib/types/provider.types";
 import { TvData } from "@/lib/types/tv.types";
-import { ContentType } from "@prisma/client";
 
 const MOVIE_RELEASE_DATE = 'primary_release_date';
 const TV_RELEASE_DATE = 'first_air_date';

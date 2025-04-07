@@ -1,8 +1,8 @@
 import ContentDisplay from '@/components/content/content-display'
 import FiltersSection from '@/components/content/filters-section'
 import { getFilteredContents } from '@/lib/fetchers/index'
+import { ContentType } from '@/lib/types/content.types'
 import { FilterParams } from '@/lib/types/params.types'
-import { ContentType } from '@prisma/client'
 
 type Props = {
   media: ContentType,
