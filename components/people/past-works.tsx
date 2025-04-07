@@ -6,12 +6,12 @@ import Link from "next/link";
 
 const PastWorks = ({ personData }: { personData: PersonData }) => {
   return (
-    <Tabs defaultValue="cast" className="lg:w-[550px] h-[90vh] mx-5 ">
+    <Tabs defaultValue="cast" className="lg:w-[430px] xl:w-[530px] 2xl:w-[600px] h-[90vh] mx-5 ">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="cast">Acting</TabsTrigger>
         <TabsTrigger value="crew">Production</TabsTrigger>
       </TabsList>
-      <TabsContent value="cast" className="lg:h-[90%] lg:overflow-y-auto  lg:scrollbar-thin" >
+      <TabsContent value="cast" className="lg:h-[90%] lg:overflow-y-auto overflow-x-hidden  lg:scrollbar-thin" >
         <div className="w-full flex flex-col">
           {personData.cast_credits.map((content, index) => (
             <Link
@@ -22,7 +22,7 @@ const PastWorks = ({ personData }: { personData: PersonData }) => {
                 <p >{content.release_date.slice(0, 4)}</p>
                 <div className="flex-1 flex flex-col gap-1 justify-start  ">
                   <div className="flex gap-2  ">
-                    <p className="font-semibold max-w-[200px] lg:max-w-[320px] truncate"> {content.title ?? content.name}</p>
+                    <p className="font-semibold max-w-[200px] lg:max-w-[260px] xl:max-w-[350px] 2xl:max-w-[390px] truncate"> {content.title ?? content.name}</p>
                     <p className="font-light ">{content.media_type === "movie" ? "(Movie)" : "(Tv)"}</p>
                   </div>
                   {content.character && <p className="font-light">as {content.character}</p>}

@@ -21,7 +21,7 @@ const CreditsList: React.FC<PersonListProps> = ({ personList }) => {
 
   return (
     <div className="h-full">
-      {personList.length > 0 && (
+      {personList.length > 0 ? (
         <div className='flex flex-col gap-4 items-center justify-items-center h-full overflow-y-auto scrollbar-thin flex-1'>
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-x-2 gap-y-10">
             {personList.slice(0, 50).map(person => (
@@ -37,6 +37,10 @@ const CreditsList: React.FC<PersonListProps> = ({ personList }) => {
               </Link>
             ))}
           </div>
+        </div>
+      ) : (
+        <div className='flex items-center justify-center h-full'>
+          <p className='text-lg text-gray-500'>No credits found</p>
         </div>
       )}
     </div>

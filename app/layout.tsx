@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Suspense } from "react";
 import { BeatLoader } from "react-spinners";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SidebarProvider } from "@/components/ui/sidebar";

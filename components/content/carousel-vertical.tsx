@@ -19,7 +19,7 @@ const CarouselVertical = ({ contentList }: { contentList: MovieData[] | TvData[]
         {contentList.map(content => (
           <CarouselItem
             key={content.id}
-            className={"basis-[100%] md:basis-1/2 lg:basis-1/4 xl:basis-1/5 flex items-center pl-4"}>
+            className={"basis-[100%] md:basis-1/2 xl:basis-1/3 2xl:basis-1/4 flex items-center pl-4"}>
             <ContentInfoModal
               content={content}
               trigger={<VerticalCard item={content} />}
