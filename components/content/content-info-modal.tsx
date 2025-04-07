@@ -32,7 +32,7 @@ const ContentInfoModal = ({ content, trigger }: { content: MovieData | TvData | 
           <DialogDescription className="w-0 h-0" />
         </DialogHeader>
         <div className="flex flex-col items-center gap-5 h-full ">
-          <div className="w-[60%] sm:w-[50%] md:w-[45%] lg:w-[50%] ">
+          <div className="w-[60%] sm:w-[50%] md:w-[45%] lg:w-[50%] relative">
             <ImageWithLoader className="rounded-lg" src={`${imageUrl}${imgWidth.poster[500]}${path}`} ratio={posterRatio} />
           </div>
 

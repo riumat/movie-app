@@ -56,7 +56,7 @@ const MovieOverviewSection = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       <div className='flex flex-col md:flex-row gap-2'>
-        <div className='w-0 md:w-56 lg:w-64 rounded-lg ' >
+        <div className='w-0 md:w-56 lg:w-64 rounded-lg relative' >
           <ImageWithLoader src={`${imageUrl}${imgWidth.poster[342]}${movieData.poster_path}`} ratio={posterRatio} />
         </div>
 
